@@ -11,8 +11,9 @@ public class Match {
 	private Date date;
 	private int outcome;
 
-	public Match() {
-
+	public Match(Team homeTeam, Team awayTeam) {
+		this.homeTeam = homeTeam;
+		this.awayTeam = awayTeam;
 	}
 
 	public void setHomeTeam(Team team) {

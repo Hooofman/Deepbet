@@ -9,11 +9,41 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FetchApi {
+	static JSONObject object = null;
+	JSONArray array = null;
+	
+	public FetchApi() {
+		
+		
+		
+		
+	}
+	
+	public static JSONObject getJsonTeams() {
+		try {
+			object = readJSONfromURL("http://api.football-data.org/v1/competitions/445/teams");		
+		} catch (Exception e) {
+		}
+		System.out.println(object);
+		return object;
+	}
 
+	
+	public static JSONObject getJsonMatches() {
+		try {
+			object = readJSONfromURL("http://api.football-data.org/v1/competitions/445/fixtures");		
+		} catch (Exception e) {
+		}
+		System.out.println(object);
+		return object;
+	}
+	
+	
 	public static JSONObject readJSONfromURL(String url) throws MalformedURLException, IOException, JSONException {
 		InputStream is = new URL(url).openStream();
 		try(BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")))) {
@@ -31,4 +61,8 @@ public class FetchApi {
 		    }
 		    return sb.toString();
 		  }
+	 
+	 public static void main(String[] args) {
+		new FetchApi();
+	}
 }

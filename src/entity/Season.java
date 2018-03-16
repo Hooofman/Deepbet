@@ -12,7 +12,8 @@ public class Season {
 	private ArrayList<Team> teams;
 
 	public Season() {
-
+		teams = new ArrayList<Team>();
+		matches = new ArrayList<Match>();
 	}
 
 	public int getYear() {
@@ -33,5 +34,14 @@ public class Season {
 
 	public void setNumberOfRounds(int number) {
 		this.numberOfRounds = number;
+	}
+	
+	public Team getTeam(String name) {
+		for(Team team: teams) {
+			if(team.getName().equals(name)) {
+				return team;
+			}
+		}
+		return null;
 	}
 }

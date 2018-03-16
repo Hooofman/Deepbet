@@ -34,11 +34,11 @@ public class League {
 		this.currentYear = currentYear;
 	}
 
-	public Seasons[] getSeasons() {
+	public Season[] getSeasons() {
 		return seasons;
 	}
 
-	public void setSeasons(Seasons[] seasons) {
+	public void setSeasons(Season[] seasons) {
 		this.seasons = seasons;
 	}
 }

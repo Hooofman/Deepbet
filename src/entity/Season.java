@@ -1,11 +1,15 @@
 package entity;
 
+import java.util.ArrayList;
+
+import javafx.css.Match;
+
 public class Season {
 	private int year;
-	private Match[] matches;
+	private ArrayList<Match> matches;
 	private int id;
 	private int numberOfRounds;
-	private Team[] teams;
+	private ArrayList<Team> teams;
 
 	public Season() {
 
@@ -19,35 +23,11 @@ public class Season {
 		this.year = year;
 	}
 
-	public Match[] getMatches() {
-		return matches;
+	public void addMatch(Match match) {
+		matches.add(match);
 	}
 
-	public void setMatches(Match[] matches) {
-		this.matches = matches;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getNumberOfRounds() {
-		return numberOfRounds;
-	}
-
-	public void setNumberOfRounds(int numberOfRounds) {
-		this.numberOfRounds = numberOfRounds;
-	}
-
-	public Team[] getTeams() {
-		return teams;
-	}
-
-	public void setTeams(Team[] teams) {
-		this.teams = teams;
+	public void addTeam(Team team) {
+		teams.add(team);
 	}
 }

@@ -30,4 +30,8 @@ public class Season {
 	public void addTeam(Team team) {
 		teams.add(team);
 	}
+
+	public void setNumberOfRounds(int number) {
+		this.numberOfRounds = number;
+	}
 }

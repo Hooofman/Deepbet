@@ -28,8 +28,27 @@ public class DataHandler {
 			matches = jsonMatches.getJSONArray("fixtures");
 			System.out.println(matches);
 			System.out.println(jsonMatches.getInt("count"));
-			for(int i = 0; i< 20; i++) {
-				season.addMatch(new Match(season.getTeam(matches.getJSONObject(i).getString("homeTeamName")), season.getTeam(matches.getJSONObject(i).getString("awayTeamName"))));
+			for(int i = 0; i< 200; i++) {
+				String status = matches.getJSONObject(i).getString("status");
+				if (status.equals("FINISHED")) {
+					Team homeTeam = season.getTeam(matches.getJSONObject(i).getString("homeTeamName"));
+					Team awayTeam = season.getTeam(matches.getJSONObject(i).getString("awayTeamName"));
+					Match match = new Match(homeTeam, awayTeam);
+					match.setIsFinished(status);
+					int homeGoals = matches.getJSONObject(i).getJSONObject("result").getInt("goalsHomeTeam");
+					int awayGoals = matches.getJSONObject(i).getJSONObject("result").getInt("goalsAwayTeam");
+					match.setHomeGoals(homeGoals);
+					match.setAwayGoals(awayGoals);
+					int matchDay = matches.getJSONObject(i).getInt("matchday");
+					match.setRound(matchDay);
+					season.addMatch(match);
+					homeTeam.setGoalsFor(matchDay, homeGoals);
+					homeTeam.setGoalsAgainst(matchDay, awayGoals);
+					
+					awayTeam.setGoalsFor(matchDay, awayGoals);
+					awayTeam.setGoalsAgainst(matchDay, homeGoals);
+					match.setOutcome();
+				}
 			}
 		
 		

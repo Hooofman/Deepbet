@@ -16,47 +16,47 @@ public class Team {
 	}
 	
 	public void setGoalsFor(int round, int value) {
-		goalsFor[round] = value;
+		goalsFor[round-1] = value;
 	}
 	
 	public int getGoalsFor(int round) {
-		return goalsFor[round];
+		return goalsFor[round-1];
 	}
 	
 	public void setGoalsAgainst(int round, int value) {
-		goalsAgainst[round] = value;
+		goalsAgainst[round-1] = value;
 	}
 	
 	public int getGoalsAgainst(int round) {
-		return goalsAgainst[round];
+		return goalsAgainst[round-1];
 	}
 	
 	public void setPoints(int round, int value) {
-		points[round] = value;
+		points[round-1] = value;
 	}
 	
 	public int getPoints(int round) {
-		return points[round];
+		return points[round-1];
 	}
 	
 	public void setPointsHome(int round, int value) {
-		pointsHome[round] = value;
+		pointsHome[round-1] = value;
 	}
 	
 	public int getPointsHome(int round) {
-		return pointsHome[round];
+		return pointsHome[round-1];
 	}
 	
 	public void setPointsAway(int round, int value) {
-		pointsAway[round] = value;
+		pointsAway[round-1] = value;
 	}
 	
 	public void setTablePosition(int round, int value) {
-		tablePosition[round] = value;
+		tablePosition[round-1] = value;
 	}
 	
 	public int getTablePosition(int round) {
-		return tablePosition[round];
+		return tablePosition[round-1];
 	}
 	
 	public String getName() {
@@ -70,6 +70,10 @@ public class Team {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int pointsLastNGames(int round, int number) {
+		
+		return points[round] - points[round-number];
 	}
 	
 }

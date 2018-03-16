@@ -10,10 +10,12 @@ public class Match {
 	private int round;
 	private Date date;
 	private int outcome;
+	private boolean isFinished;
 
 	public Match(Team homeTeam, Team awayTeam) {
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
+		this.isFinished = false;
 	}
 
 	public void setHomeTeam(Team team) {
@@ -70,5 +72,27 @@ public class Match {
 
 	public Date getDate() {
 		return date;
+	}
+	
+	public void setIsFinished(String status) {
+		if (status.equals("FINISHED")) {
+			isFinished = true;
+		} else {
+			isFinished = false;
+		}
+	}
+	
+	public boolean getIsFinished() {
+		return isFinished;
+	}
+	
+	public void setOutcome() {
+		if (homeGoals > awayGoals) {
+			outcome = 1; // Hemmalaget vunnit matche
+		} else if (awayGoals > homeGoals) {
+			outcome = -1; // Bortalaget vunnit matchen
+		} else {
+			outcome = 0;
+		}
 	}
 }

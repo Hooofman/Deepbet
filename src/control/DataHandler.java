@@ -4,18 +4,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+
 import entity.*;
 
 public class DataHandler {
 
 	private JSONObject jsonTeams;
 	private JSONObject jsonMatches;
+	private HttpResponse<JsonNode> jsonOdds;
 	
 	public DataHandler() {
 		Season season = new Season();
 		jsonTeams = FetchApi.getJsonTeams();
 		jsonMatches = FetchApi.getJsonMatches();
-
+		jsonOdds = FetchApi.getJsonOdds();
 		JSONArray teams = null;
 		JSONArray matches = null;
 		try {
@@ -26,8 +30,9 @@ public class DataHandler {
 			}
 			
 			matches = jsonMatches.getJSONArray("fixtures");
-			System.out.println(matches);
-			System.out.println(jsonMatches.getInt("count"));
+//			System.out.println(matches);
+//			System.out.println(jsonMatches.getInt("count"));
+			System.out.println(jsonOdds.getBody().getObject().getJSONObject("25820744967").getJSONObject("home").getString("name"));
 			for(int i = 0; i< 200; i++) {
 				String status = matches.getJSONObject(i).getString("status");
 				if (status.equals("FINISHED")) {

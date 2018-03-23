@@ -13,9 +13,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+
+
 public class FetchApi {
 	static JSONObject object = null;
 	JSONArray array = null;
+
 	
 	public FetchApi() {
 		
@@ -26,21 +32,37 @@ public class FetchApi {
 	
 	public static JSONObject getJsonTeams() {
 		try {
-			object = readJSONfromURL("http://api.football-data.org/v1/competitions/445/teams");		
+			object = readJSONfromURL("http://api.football-data.org/v1/competitions/466/teams");		
 		} catch (Exception e) {
 		}
-		System.out.println(object);
+		//System.out.println(object);
 		return object;
 	}
 
 	
 	public static JSONObject getJsonMatches() {
 		try {
-			object = readJSONfromURL("http://api.football-data.org/v1/competitions/445/fixtures");		
+			object = readJSONfromURL("http://api.football-data.org/v1/competitions/466/fixtures");		
 		} catch (Exception e) {
 		}
-		System.out.println(object);
+		//System.out.println(object);
 		return object;
+	}
+	
+	public static HttpResponse<JsonNode> getJsonOdds() {
+		// These code snippets use an open-source library. http://unirest.io/java
+		HttpResponse<JsonNode> response = null;
+		try {
+			response = Unirest.get("https://bettingodds-bettingoddsapi-v1.p.mashape.com/event/25820744967")
+					.header("X-Mashape-Key", "dWsfQ2SNqVmsheRkFQDwyFagyUj9p1eNhJmjsn1RhNyD1WgNJW")
+					.header("Accept", "application/json")
+					.asJson();
+			
+			//object = readJSONfromURL("https://bettingodds-bettingoddsapi-v1.p.mashape.com/event/25820744967");
+		} catch (Exception e) {
+		}
+		//System.out.println(response.toString());
+		return response;
 	}
 	
 	

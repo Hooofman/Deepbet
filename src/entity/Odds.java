@@ -2,27 +2,39 @@ package entity;
 import java.util.HashMap;
 
 public class Odds {
-	private HashMap<String, Double> oddsHome = new HashMap<String, Double>();
-	private HashMap<String, Double> oddsAway = new HashMap<String, Double>();
-	private HashMap<String, Double> oddsDraw = new HashMap<String, Double>();
-	private String bookie;
-	private double odds;
+	private HashMap<String, Double> oddsHome;
+	private HashMap<String, Double> oddsAway;
+	private HashMap<String, Double> oddsDraw;
+
 	
-	public Odds(String bookie, double odds) {
-		this.bookie = bookie;
-		this.odds = odds;
+	public Odds() {
+		oddsHome = new HashMap<String, Double>();
+		oddsAway = new HashMap<String, Double>();
+		oddsDraw = new HashMap<String, Double>();
 	}
 	
-	public void setOddsHome(HashMap<String, Double> oddsHome) {
+	public void putOddsHome(String bookie, double odds) {
 		oddsHome.put(bookie, odds);
 	}
-
-	public void setOddsAway(HashMap<String, Double> oddsAway) {
+	
+	public void putOddsAway(String bookie, double odds) {
 		oddsAway.put(bookie, odds);
 	}
-
-	public void setOddsDraw(HashMap<String, Double> oddsDraw) {
+	
+	public void putOddsDraw(String bookie, double odds) {
 		oddsDraw.put(bookie, odds);
+	}
+	
+	public double getOddsForBookieHome(String bookie) {
+		return oddsHome.get(bookie);
+	}
+	
+	public double getOddsForBookieAway(String bookie) {
+		return oddsAway.get(bookie);
+	}
+	
+	public double getOddsForBookieDraw(String bookie) {
+		return oddsDraw.get(bookie);
 	}
 
 	public HashMap<String, Double> getOddsHome() {

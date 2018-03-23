@@ -1,5 +1,9 @@
 package control;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,12 +18,51 @@ public class DataHandler {
 	private JSONObject jsonTeams;
 	private JSONObject jsonMatches;
 	private HttpResponse<JsonNode> jsonOdds;
+	private HttpResponse<JsonNode> jsonOddsLeague;
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
-	public DataHandler() {
+	public DataHandler() throws JSONException {
 		Season season = new Season();
 		jsonTeams = FetchApi.getJsonTeams();
 		jsonMatches = FetchApi.getJsonMatches();
-		jsonOdds = FetchApi.getJsonOdds();
+		jsonOddsLeague = FetchApi.getJsonOddsLeague();
+		
+	
+			System.out.println( jsonOddsLeague.getBody().getObject().names().get(0));
+			System.out.println(jsonOddsLeague.getBody().getObject().length());
+			System.out.println(jsonOddsLeague.getBody().getArray().get(0));
+			
+			long id = 0;
+			for (int i=0; i<jsonOddsLeague.getBody().getObject().length(); i++) {
+				id = jsonOddsLeague.getBody().getObject().names().getLong(i);
+				HttpResponse<JsonNode> jsonOdds = FetchApi.getJsonOdds(id);
+				//double odds = jsonOdds.getBody().getObject().getJSONObject("odds").getJSONObject("1").getJSONObject("1").getJSONObject("1").getDouble("2");
+//				System.out.println(jsonOdds.getBody().getObject().getJSONObject("" + id).getJSONObject("datetime").getString("value"));
+//				System.out.println(sdf.format(new Date()));
+				
+				Date matchDate = new Date();
+				Date currentDate = new Date();
+				currentDate.setDate(currentDate.getDate() +1);
+				try {
+					matchDate = sdf.parse(jsonOdds.getBody().getObject().getJSONObject("" + id).getJSONObject("datetime").getString("value"));
+					System.out.println(sdf.format(matchDate));
+					if (matchDate.before(currentDate)) {
+						
+						System.out.println(jsonOdds.getBody().getObject().getJSONObject("" + id).getJSONObject("odds"));
+					}
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+//				HttpResponse<JsonNode> jsonOdds = FetchApi.getJsonOdds(id);
+//				double odds = jsonOdds.getBody().getObject().getJSONObject("odds").getJSONObject("1").getJSONObject("1").getJSONObject("1").getDouble("2");
+//				System.out.println(odds); 
+		
+		
+		
+		
 		JSONArray teams = null;
 		JSONArray matches = null;
 		try {
@@ -32,8 +75,8 @@ public class DataHandler {
 			matches = jsonMatches.getJSONArray("fixtures");
 //			System.out.println(matches);
 //			System.out.println(jsonMatches.getInt("count"));
-			System.out.println(jsonOdds.getBody().getObject().getJSONObject("25820744967").getJSONObject("home").getString("name"));
-			for(int i = 0; i< 200; i++) {
+//			System.out.println(jsonOdds.getBody());
+			for(int i = 0; i<20; i++) {
 				String status = matches.getJSONObject(i).getString("status");
 				if (status.equals("FINISHED")) {
 					Team homeTeam = season.getTeam(matches.getJSONObject(i).getString("homeTeamName"));
@@ -68,6 +111,11 @@ public class DataHandler {
 	}
 	
 	public static void main(String[] args) {
-		new DataHandler();
+		try {
+			new DataHandler();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

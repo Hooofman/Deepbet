@@ -75,5 +75,8 @@ public class Team {
 		
 		return points[round] - points[round-number];
 	}
+	public String toString() {
+		return this.name;
+	}
 	
 }

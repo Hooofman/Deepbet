@@ -2,8 +2,6 @@ package entity;
 
 import java.util.ArrayList;
 
-
-
 public class Season {
 	private int year;
 	private ArrayList<Match> matches;
@@ -35,10 +33,14 @@ public class Season {
 	public void setNumberOfRounds(int number) {
 		this.numberOfRounds = number;
 	}
-	
+
+	public int getNumberOfRounds() {
+		return numberOfRounds;
+	}
+
 	public Team getTeam(String name) {
-		for(Team team: teams) {
-			if(team.getName().equals(name)) {
+		for (Team team : teams) {
+			if (team.getName().equals(name)) {
 				return team;
 			}
 		}

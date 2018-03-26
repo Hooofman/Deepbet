@@ -11,13 +11,20 @@ public class TeamHandler {
 	private static JSONArray teams;
 
 	public static void populateTeams(Season season) {
+		Team team;
 		try {
 			jsonTeams = FetchApi.getJsonTeams();
 			teams = jsonTeams.getJSONArray("teams");
 			for (int i = 0; i < teams.length(); i++) {
-				season.addTeam(new Team(teams.getJSONObject(i).getString("name")));
+				team = new Team(teams.getJSONObject(i).getString("name"));
+				team.setArrayGoalsAgainst(season.getNumberOfRounds());
+				team.setArrayGoalsFor(season.getNumberOfRounds());
+				team.setArrayPointAway(season.getNumberOfRounds());
+				team.setArrayPoints(season.getNumberOfRounds());
+				team.setArrayPointsHome(season.getNumberOfRounds());
+				team.setArrayTablePosition(season.getNumberOfRounds());
+				season.addTeam(team);
 			}
-
 		} catch (Exception e) {
 		}
 	}

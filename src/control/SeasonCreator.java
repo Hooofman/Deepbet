@@ -36,13 +36,11 @@ public class SeasonCreator {
 		
 		// Get the teams
 		TeamHandler.populateTeams(season);
-		System.out.println(season);
 	}
 	
 	public static void main(String[] args) {
 		try {
 			createSeason(466);
-			
 		} catch (JSONException e) {
 		}
 	}

@@ -26,6 +26,18 @@ public class FetchApi {
 	public FetchApi() {
 	}
 	
+	
+	public static JSONObject getJsonOdds(String sport) {
+		try {
+			object = readJSONfromURL("https://api.the-odds-api.com/v2/odds/?sport=" + sport + "&region=uk&apiKey=56117f942fa819cf3bb034243fbc201c");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//System.out.print(object);
+		return object;
+	}
+	
+	
 	/**
 	 * Gets all teams for a specific league
 	 * @param id what league to look for. Id = 445 is Premier league. Look at http://api.football-data.org/v1/competitions/
@@ -144,8 +156,9 @@ public class FetchApi {
 	}
 	
 	public static void main(String[] args) {
-		getJsonTeams(466);
-		getJsonSeason(466);
-		getJsonMatches(466);
+		getJsonOdds("EPL");
+//		getJsonTeams(466);
+//		getJsonSeason(466);
+//		getJsonMatches(466);
 	}
 }

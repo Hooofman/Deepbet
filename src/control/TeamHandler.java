@@ -13,7 +13,7 @@ public class TeamHandler {
 	public static void populateTeams(Season season) {
 		Team team;
 		try {
-			jsonTeams = FetchApi.getJsonTeams();
+			jsonTeams = FetchApi.getJsonTeams(season.getId());
 			teams = jsonTeams.getJSONArray("teams");
 			for (int i = 0; i < teams.length(); i++) {
 				team = new Team(teams.getJSONObject(i).getString("name"));

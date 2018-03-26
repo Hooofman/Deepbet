@@ -13,6 +13,14 @@ public class Season {
 		teams = new ArrayList<Team>();
 		matches = new ArrayList<Match>();
 	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getYear() {
 		return year;

@@ -2,6 +2,10 @@ package entity;
 
 import java.util.Date;
 
+import org.json.JSONException;
+
+import control.OddsHandler2;
+
 public class Match {
 	private Team homeTeam;
 	private Team awayTeam;
@@ -11,11 +15,21 @@ public class Match {
 	private Date date;
 	private int outcome;
 	private boolean isFinished;
+	private Odds odds;
 
 	public Match(Team homeTeam, Team awayTeam) {
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
 		this.isFinished = false;
+	}
+	
+	public void createOdds() {
+		this.odds = new Odds();
+		try {
+			odds.setOddsHome(OddsHandler2.getHomeOddsMap(homeTeam.getShortName(), awayTeam.getShortName()));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setHomeTeam(Team team) {

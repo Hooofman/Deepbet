@@ -36,11 +36,12 @@ public class SeasonCreator {
 		
 		// Get the teams
 		TeamHandler.populateTeams(season);
+		FixtureHandler.createFixtures(season);
 	}
 	
 	public static void main(String[] args) {
 		try {
-			createSeason(466);
+			createSeason(445);
 		} catch (JSONException e) {
 		}
 	}

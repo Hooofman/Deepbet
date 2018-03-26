@@ -36,6 +36,18 @@ public class Odds {
 	public double getOddsForBookieDraw(String bookie) {
 		return oddsDraw.get(bookie);
 	}
+	
+	public void setOddsHome(HashMap<String, Double> oddsHome) {
+		this.oddsHome = oddsHome;
+	}
+	
+	public void setOddsAway(HashMap<String, Double> oddsAway) {
+		this.oddsAway = oddsAway;
+	}
+	
+	public void setOddsDraw(HashMap<String, Double> oddsDraw) {
+		this.oddsDraw = oddsDraw;
+	}
 
 	public HashMap<String, Double> getOddsHome() {
 		return oddsHome;

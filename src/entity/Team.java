@@ -9,6 +9,7 @@ public class Team {
 	private int[] pointsAway;
 	private int[] tablePosition;
 	private String name;
+	private String shortName;
 	private int id;
 
 	public Team(String name) {
@@ -97,6 +98,14 @@ public class Team {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+	
+	public String getShortName() {
+		return shortName;
 	}
 
 	public int pointsLastNGames(int round, int number) {

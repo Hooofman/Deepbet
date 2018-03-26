@@ -17,6 +17,7 @@ public class TeamHandler {
 			teams = jsonTeams.getJSONArray("teams");
 			for (int i = 0; i < teams.length(); i++) {
 				team = new Team(teams.getJSONObject(i).getString("name"));
+				team.setShortName(teams.getJSONObject(i).getString("shortName"));
 				team.setArrayGoalsAgainst(season.getNumberOfRounds());
 				team.setArrayGoalsFor(season.getNumberOfRounds());
 				team.setArrayPointAway(season.getNumberOfRounds());

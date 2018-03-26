@@ -8,6 +8,8 @@ import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,13 +21,35 @@ import com.mashape.unirest.http.Unirest;
 
 
 public class FetchApi {
+	private static String token = "WrBZ2f7IrkoF5ZZXd3ILImXnyGMEhdTYfblOtuaOrwM5He6BUPsUSCzTJDjx";
 	static JSONObject object = null;
 	JSONArray array = null;
-
+	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	public FetchApi() {
 	}
 	
+	
+	public static JSONObject getJSonFixturesFromSportMonks() {
+		Date date = new Date();
+		String dateString = sdf.format(date);
+		
+		try {
+			object = readJSONfromURL("https://soccer.sportmonks.com/api/v2.0/fixtures/between/" + dateString + "/2018-05-22?api_token=" + token);
+		} catch (Exception e) {
+		}
+		System.out.println(object);
+		return object;
+	}
+	
+	public static JSONObject getJsonMatchFromSportMonks(long id) {
+		try {
+			object = readJSONfromURL("https://soccer.sportmonks.com/api/v2.0/odds/fixture/" + id + "?api_token=" + token);
+		} catch (Exception e) {
+		}
+		System.out.println(object);
+		return object;
+	}
 	
 	public static JSONObject getJsonOdds(String sport) {
 		try {
@@ -156,7 +180,8 @@ public class FetchApi {
 	}
 	
 	public static void main(String[] args) {
-		getJsonOdds("EPL");
+		getJsonMatchFromSportMonks(1871952);
+//		getJsonOdds("EPL");
 //		getJsonTeams(466);
 //		getJsonSeason(466);
 //		getJsonMatches(466);

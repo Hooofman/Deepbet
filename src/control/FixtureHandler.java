@@ -6,6 +6,7 @@ import entity.*;
 public class FixtureHandler {
 	private static JSONObject jsonMatches;
 	private static JSONArray fixtures;
+	private static JSONObject sportsMonksMatches;
 
 	public static void createFixtures(Season season) throws JSONException {
 	
@@ -15,6 +16,7 @@ public class FixtureHandler {
 			int matchDay;
 			jsonMatches = FetchApi.getJsonMatches(season.getId());
 			fixtures = jsonMatches.getJSONArray("fixtures");
+			sportsMonksMatches = FetchApi.getJSonFixturesFromSportMonks();
 
 			for(int i = 0; i<fixtures.length(); i++) {
 				String status = fixtures.getJSONObject(i).getString("status");
@@ -42,8 +44,9 @@ public class FixtureHandler {
 				} else if (status.equals("TIMED")) {
 					Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
 					Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
-					
 					matchDay = fixtures.getJSONObject(i).getInt("matchday");
+					
+					
 					
 					match = new Match(homeTeam, awayTeam);
 					

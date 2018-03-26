@@ -16,6 +16,7 @@ public class Match {
 	private int outcome;
 	private boolean isFinished;
 	private Odds odds;
+	private long sportsMonksId;
 
 	public Match(Team homeTeam, Team awayTeam) {
 		this.homeTeam = homeTeam;
@@ -30,6 +31,14 @@ public class Match {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void setSportMonksId(long id) {
+		this.sportsMonksId = id;
+	}
+	
+	public long getSportsMonksId() {
+		return sportsMonksId;
 	}
 
 	public void setHomeTeam(Team team) {

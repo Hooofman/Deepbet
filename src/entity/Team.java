@@ -2,17 +2,41 @@ package entity;
 
 public class Team {
 
-	private int[] goalsFor = new int[38];
-	private int[] goalsAgainst = new int[38];
-	private int[] points = new int[38];
-	private int[] pointsHome = new int[19];
-	private int[] pointsAway = new int[19];
-	private int[] tablePosition = new int[38];
+	private int[] goalsFor;
+	private int[] goalsAgainst;
+	private int[] points;
+	private int[] pointsHome;
+	private int[] pointsAway;
+	private int[] tablePosition;
 	private String name;
 	private int id;
 
 	public Team(String name) {
-		this.name = name; //
+		this.name = name;
+	}
+
+	public void setArrayGoalsFor(int numberOfRounds) {
+		goalsFor = new int[numberOfRounds];
+	}
+
+	public void setArrayGoalsAgainst(int numberOfRounds) {
+		goalsAgainst = new int[numberOfRounds];
+	}
+
+	public void setArrayPoints(int numberOfRounds) {
+		points = new int[numberOfRounds];
+	}
+
+	public void setArrayPointsHome(int numberOfRounds) {
+		pointsHome = new int[numberOfRounds / 2];
+	}
+
+	public void setArrayPointAway(int numberOfRounds) {
+		pointsAway = new int[numberOfRounds / 2];
+	}
+
+	public void setArrayTablePosition(int numberOfRounds) {
+		tablePosition = new int[numberOfRounds];
 	}
 
 	public void setGoalsFor(int round, int value) {

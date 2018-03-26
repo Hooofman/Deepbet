@@ -31,6 +31,9 @@ public class SeasonCreator {
 		// Deliever the data to the season-object
 		season.setYear(year);
 		season.setNumberOfRounds(numberOfRounds);
+		
+		// Get the teams
+		TeamHandler.populateTeams(season);
 	}
 	
 	public static void main(String[] args) {

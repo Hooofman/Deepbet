@@ -39,6 +39,15 @@ public class FetchApi {
 		return object;
 	}
 
+	
+	public static JSONObject getJsonSeason() {
+		try {
+			object = readJSONfromURL("http://api.football-data.org/v1/competitions/466/");		
+		} catch (Exception e) {
+		}
+		//System.out.println(object);
+		return object;
+	}
 
 	public static JSONObject getJsonMatches() {
 		try {

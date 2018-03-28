@@ -36,6 +36,8 @@ public class SeasonCreator {
 		
 		// Get the teams
 		TeamHandler.populateTeams(season);
+		
+		// Get the fixtures
 		FixtureHandler.createFixtures(season);
 	}
 	

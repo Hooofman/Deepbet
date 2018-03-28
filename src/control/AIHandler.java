@@ -16,7 +16,7 @@ public class AIHandler {
 
 	public static void main(String[] args) {
 		// create training set (logical XOR function)
-		DataSet trainingSet = new DataSet(2, 1);
+		DataSet trainingSet = new DataSet(19, 2);
 		trainingSet.addRow(new DataSetRow(new double[] { 0, 0 }, new double[] { 0 }));
 		trainingSet.addRow(new DataSetRow(new double[] { 0, 1 }, new double[] { 1 }));
 		trainingSet.addRow(new DataSetRow(new double[] { 1, 0 }, new double[] { 1 }));
@@ -33,7 +33,8 @@ public class AIHandler {
 		// load saved neural network 
 		NeuralNetwork loadedMlPerceptron = NeuralNetwork.createFromFile("myMlPerceptron.nnet");
 		// test loaded neural network 
-		System.out.println("Testing loaded neural network"); testNeuralNetwork(loadedMlPerceptron, trainingSet);
+		System.out.println("Testing loaded neural network"); 
+		testNeuralNetwork(loadedMlPerceptron, trainingSet);
 	}
 
 	public static void testNeuralNetwork(NeuralNetwork nnet, DataSet testSet) {

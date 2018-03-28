@@ -25,8 +25,8 @@ public class AIHandler {
 		}
 	}
 
-	public static void trainNetwork(Season inputSeason) {
-		Season season = inputSeason;
+	public static void trainNetwork(Season season) {
+		
 		int currentRound = season.getCurrentRound();
 		
 		DataSet trainingSet = new DataSet(11, 1);

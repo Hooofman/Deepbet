@@ -43,16 +43,15 @@ public class Team {
 	
 	private void populateArrayLists() {
 		System.out.println(getName());
-		for(int i = 0; i > 38; i++) {
-			goalsFor.add(null);
-			goalsAgainst.add(null);
-			points.add(null);
-			pointsHome.add(null);
-			pointsAway.add(null);
-			tablePosition.add(null);
-			outcome.add(null);
-			location.add(999);
-			System.out.println(this.location.size());
+		for(int i = 0; i <= 38; i++) {
+			this.goalsFor.add(null);
+			this.goalsAgainst.add(null);
+			this.points.add(null);
+			this.pointsHome.add(null);
+			this.pointsAway.add(null);
+			this.tablePosition.add(null);
+			this.outcome.add(null);
+			this.location.add(null);
 		}
 	}
 	

@@ -27,8 +27,7 @@ public class FixtureHandler {
 				homeGoals = fixtures.getJSONObject(i).getJSONObject("result").getInt("goalsHomeTeam");
 				awayGoals = fixtures.getJSONObject(i).getJSONObject("result").getInt("goalsAwayTeam");
 				matchDay = fixtures.getJSONObject(i).getInt("matchday");
-				System.out.println(matchDay);
-
+				
 				match = new Match(homeTeam, awayTeam, matchDay);
 
 				match.setIsFinished(status);

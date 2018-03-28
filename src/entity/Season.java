@@ -65,7 +65,9 @@ public class Season {
 
 	public Team getTeam(String name) {
 		for (Team team : teams) {
+			System.out.println(name +" - " + team.getName() + " - " + team.getName().equals(name));
 			if (team.getName().equals(name)) {
+				System.out.println(team);
 				return team;
 			}
 		}

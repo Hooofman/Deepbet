@@ -21,25 +21,43 @@ public class Team {
 //	private static int[] tablePosition;
 //	private static int[] outcome; 
 //	private static int[] location; 
-	private static String name;
-	private static String shortName;
+	private String name;
+	private String shortName;
 	private static int id;
 	private int homeRoundIndex;
 	private int awayRoundIndex;
 
 	public Team(String name) {
 		this.name = name;
-		this.goalsFor = new ArrayList<Integer>();
-		this.goalsAgainst = new ArrayList<Integer>();
-		this.points = new ArrayList<Integer>();
-		this.pointsHome = new ArrayList<Integer>();
-		this.pointsAway = new ArrayList<Integer>();
-		this.tablePosition = new ArrayList<Integer>();
-		this.outcome = new ArrayList<Integer>();
-		this.location = new ArrayList<Integer>();
+		this.goalsFor = new ArrayList<Integer>(38);
+		this.goalsAgainst = new ArrayList<Integer>(38);
+		this.points = new ArrayList<Integer>(38);
+		this.pointsHome = new ArrayList<Integer>(38);
+		this.pointsAway = new ArrayList<Integer>(38);
+		this.tablePosition = new ArrayList<Integer>(38);
+		this.outcome = new ArrayList<Integer>(38);
+		this.location = new ArrayList<Integer>(38);
+		
+		populateArrayLists();
+	}
+	
+	private void populateArrayLists() {
+		System.out.println(getName());
+		for(int i = 0; i > 38; i++) {
+			goalsFor.add(null);
+			goalsAgainst.add(null);
+			points.add(null);
+			pointsHome.add(null);
+			pointsAway.add(null);
+			tablePosition.add(null);
+			outcome.add(null);
+			location.add(999);
+			System.out.println(this.location.size());
+		}
 	}
 	
 	public void setLocation(int round, int location) {
+		
 		this.location.set(round, location);
 	}
 	

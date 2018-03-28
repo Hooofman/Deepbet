@@ -1,113 +1,104 @@
 package entity;
 
+import java.util.ArrayList;
+
 public class Team {
 
-	private static int[] goalsFor;
-	private static int[] goalsAgainst;
-	private static int[] points;
-	private static int[] pointsHome;
-	private static int[] pointsAway;
-	private static int[] tablePosition;
-	private static int[] outcome; // Defines whether the team won or loss the game. 1 is for win, 0, for draw, -1 for loss
-	private static int[] location; // Defines whether the team played at home or away in the game. 1 for home and 0 for away.
+	
+	private ArrayList<Integer> goalsFor;
+	private ArrayList<Integer> goalsAgainst;
+	private ArrayList<Integer> points;
+	private ArrayList<Integer> pointsHome;
+	private ArrayList<Integer> pointsAway;
+	private ArrayList<Integer> tablePosition;
+	private ArrayList<Integer> outcome; // Defines whether the team won or loss the game. 1 is for win, 0, for draw, -1 for loss
+	private ArrayList<Integer> location; // Defines whether the team played at home or away in the game. 1 for home and 0 for away.
+//	private static int[] goalsFor;
+//	private static int[] goalsAgainst;
+//	private static int[] points;
+//	private static int[] pointsHome;
+//	private static int[] pointsAway;
+//	private static int[] tablePosition;
+//	private static int[] outcome; 
+//	private static int[] location; 
 	private static String name;
 	private static String shortName;
 	private static int id;
+	private int homeRoundIndex;
+	private int awayRoundIndex;
 
 	public Team(String name) {
 		this.name = name;
+		goalsFor = new ArrayList<Integer>();
+		goalsAgainst = new ArrayList<Integer>();
+		points = new ArrayList<Integer>();
+		pointsHome = new ArrayList<Integer>();
+		pointsAway = new ArrayList<Integer>();
+		tablePosition = new ArrayList<Integer>();
+		outcome = new ArrayList<Integer>();
+		location = new ArrayList<Integer>();
+		homeRoundIndex = 0;
+		awayRoundIndex = 0;
 	}
 	
 	public void setLocation(int round, int location) {
-		this.location[round] = location;
+		this.location.set(round, location);
 	}
 	
 	public int getLocationForASpecificRound(int round) {
-		return location[round];
+		return location.get(round);
 	}
 	
 	public void setOutcome(int round, int outcome) {
-		this.outcome[round]  = outcome;
+		this.outcome.set(round, outcome);
 	}
 	
 	public int getOutcomeForASpecificRound(int round) {
-		return outcome[round];
-	}
-	
-	public void setArrayLocation(int numberOfRounds) {
-		location = new int[numberOfRounds];
-	}
-	
-	public void setArrayOutcome(int numberOfRounds) {
-		outcome = new int[numberOfRounds];
-	}
-
-	public void setArrayGoalsFor(int numberOfRounds) {
-		goalsFor = new int[numberOfRounds];
-	}
-
-	public void setArrayGoalsAgainst(int numberOfRounds) {
-		goalsAgainst = new int[numberOfRounds];
-	}
-
-	public void setArrayPoints(int numberOfRounds) {
-		points = new int[numberOfRounds];
-	}
-
-	public void setArrayPointsHome(int numberOfRounds) {
-		pointsHome = new int[numberOfRounds / 2];
-	}
-
-	public void setArrayPointAway(int numberOfRounds) {
-		pointsAway = new int[numberOfRounds / 2];
-	}
-
-	public void setArrayTablePosition(int numberOfRounds) {
-		tablePosition = new int[numberOfRounds];
+		return outcome.get(round);
 	}
 
 	public void setGoalsFor(int round, int value) {
-		goalsFor[round - 1] = value;
+		this.goalsFor.set(round, value);
 	}
 
-	public static int getGoalsFor(int round) {
-		return goalsFor[round - 1];
+	public int getGoalsFor(int round) {
+		return goalsFor.get(round);
 	}
 
 	public void setGoalsAgainst(int round, int value) {
-		goalsAgainst[round - 1] = value;
+		this.goalsAgainst.set(round, value);
 	}
 
-	public static int getGoalsAgainst(int round) {
-		return goalsAgainst[round - 1];
+	public int getGoalsAgainst(int round) {
+		return goalsAgainst.get(round);
 	}
 
 	public void setPoints(int round, int value) {
-		points[round - 1] = value;
+		this.points.set(round, value);
 	}
 
-	public static int getPoints(int round) {
-		return points[round - 1];
+	public int getPoints(int round) {
+		return points.get(round);
 	}
 
-	public void setPointsHome(int round, int value) {
-		pointsHome[round - 1] = value;
+	public void setPointsHome(int value) {
+		this.pointsHome.add(value);
 	}
 
 	public int getPointsHome(int round) {
-		return pointsHome[round - 1];
+		return pointsHome.get(round);
 	}
 
 	public void setPointsAway(int round, int value) {
-		pointsAway[round - 1] = value;
+		this.pointsAway.set(round, value);
 	}
 
 	public void setTablePosition(int round, int value) {
-		tablePosition[round - 1] = value;
+		this.tablePosition.set(round, value);
 	}
 
 	public int getTablePosition(int round) {
-		return tablePosition[round - 1];
+		return tablePosition.get(round);
 	}
 
 	public String getName() {
@@ -135,39 +126,57 @@ public class Team {
 	}
 
 	public int pointsLastNGames(int round, int number) {
-
-		return points[round] - points[round - number];
+		int sum = 0;
+		
+		for (int i=round; i>round-number; i--) {
+			sum += points.get(i);
+		}
+		
+		return sum / number;
 	}
 	
-	public static int getSumOfGoals(int currentRound) {
+	public int getSumOfGoals(int currentRound) {
 		int sum = 0;
 		for (int i=0; i<currentRound; i++) {
-			sum += goalsFor[i];
+			sum += goalsFor.get(i);
 		}
 		return sum;
 	}
 	
-	public static int getSumOfGoalsAgainst(int currentRound) {
+	public int getSumOfGoalsAgainst(int currentRound) {
 		int sum = 0;
 		for (int i=0; i<currentRound; i++) {
-			sum -= goalsFor[i];
+			sum -= goalsAgainst.get(i);
+		}
+		
+		return sum;
+	}
+	
+	public int getTotalPoints(int currentRound) {
+		int sum = 0;
+		for (int i=0; i<currentRound; i++) {
+			sum += points.get(i);
 		}
 		return sum;
 	}
 	
-	public static int getTotalPoints(int currentRound) {
+	public int getTotalPointsHome(int currentRound) {
 		int sum = 0;
+		
 		for (int i=0; i<currentRound; i++) {
-			sum += points[i];
+			if (location.get(i) == 1) {
+				sum += points.get(i);
+			}
 		}
 		return sum;
 	}
 	
-	public static int getTotalPointsHome(int currentRound) {
+	public int getTotalPointsAway(int currentRound) {
 		int sum = 0;
-		for (int i=0; i<currentRound; i++) {
-			if (pointsHome[i] != null) {
-				sum += pointsHome[i];
+		
+		for (int i = 0; i<currentRound; i++) {
+			if (location.get(i) == 0) {
+				sum += points.get(i);
 			}
 		}
 		return sum;

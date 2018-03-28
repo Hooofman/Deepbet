@@ -8,12 +8,26 @@ public class Team {
 	private int[] pointsHome;
 	private int[] pointsAway;
 	private int[] tablePosition;
+	private int[] outcome; // Defines whether the team won or loss the game. 1 is for win, 0, for draw, -1 for loss
+	private int[] location; // Defines whether the team played at home or away in the game. 1 for home and 0 for away.
 	private String name;
 	private String shortName;
 	private int id;
 
 	public Team(String name) {
 		this.name = name;
+	}
+	
+	public void setOutcome(int round, int outcome) {
+		this.outcome[round]  = outcome;
+	}
+	
+	public int getOutcomeForASpecificRound(int round) {
+		return outcome[round];
+	}
+	
+	public void setArrayOutcome(int numberOfRounds) {
+		outcome = new int[numberOfRounds];
 	}
 
 	public void setArrayGoalsFor(int numberOfRounds) {

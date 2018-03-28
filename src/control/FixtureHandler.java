@@ -9,54 +9,56 @@ public class FixtureHandler {
 	private static JSONObject sportsMonksMatches;
 
 	public static void createFixtures(Season season) throws JSONException {
-	
-			Match match;
-			int homeGoals;
-			int awayGoals;
-			int matchDay;
-			jsonMatches = FetchApi.getJsonMatches(season.getId());
-			fixtures = jsonMatches.getJSONArray("fixtures");
-			sportsMonksMatches = FetchApi.getJSonFixturesFromSportMonks();
 
-			for(int i = 0; i<fixtures.length(); i++) {
-				String status = fixtures.getJSONObject(i).getString("status");
-				if (status.equals("FINISHED")) {
+		Match match;
+		int homeGoals;
+		int awayGoals;
+		int matchDay;
+		jsonMatches = FetchApi.getJsonMatches(season.getId());
+		fixtures = jsonMatches.getJSONArray("fixtures");
+		sportsMonksMatches = FetchApi.getJSonFixturesFromSportMonks();
 
-					Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
-					Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
-					homeGoals = fixtures.getJSONObject(i).getJSONObject("result").getInt("goalsHomeTeam");
-					awayGoals = fixtures.getJSONObject(i).getJSONObject("result").getInt("goalsAwayTeam");
-					matchDay = fixtures.getJSONObject(i).getInt("matchday");
+		for (int i = 0; i < fixtures.length(); i++) {
+			String status = fixtures.getJSONObject(i).getString("status");
+			if (status.equals("FINISHED")) {
 
-					match = new Match(homeTeam, awayTeam);
+				Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
+				Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
+				homeGoals = fixtures.getJSONObject(i).getJSONObject("result").getInt("goalsHomeTeam");
+				awayGoals = fixtures.getJSONObject(i).getJSONObject("result").getInt("goalsAwayTeam");
+				matchDay = fixtures.getJSONObject(i).getInt("matchday");
 
-					match.setIsFinished(status);
-					match.setHomeGoals(homeGoals);
-					match.setAwayGoals(awayGoals);
-					match.setRound(matchDay);
-					homeTeam.setGoalsFor(matchDay, homeGoals);
-					homeTeam.setGoalsAgainst(matchDay, awayGoals);
-					awayTeam.setGoalsFor(matchDay, awayGoals);
-					awayTeam.setGoalsAgainst(matchDay, homeGoals);
-					match.setOutcome();
+				match = new Match(homeTeam, awayTeam, matchDay);
 
-					season.addMatch(match);
-//				} else if (status.equals("TIMED")) {
-//					Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
-//					Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
-//					matchDay = fixtures.getJSONObject(i).getInt("matchday");
-//					
-//					
-//					
-//					match = new Match(homeTeam, awayTeam);
-//					
-//					match.setRound(matchDay);
-//					match.setIsFinished(status);
-//					match.createOdds();
-//					
-//					season.addMatch(match);
-				}
+				match.setIsFinished(status);
+				match.setHomeGoals(homeGoals);
+				match.setAwayGoals(awayGoals);
+				// match.setRound(matchDay); // Sätts i konstruktorn i Match istället.
+				homeTeam.setGoalsFor(matchDay, homeGoals);
+				homeTeam.setGoalsAgainst(matchDay, awayGoals);
+				awayTeam.setGoalsFor(matchDay, awayGoals);
+				awayTeam.setGoalsAgainst(matchDay, homeGoals);
+				match.setOutcome();
+
+				season.addMatch(match);
+				// } else if (status.equals("TIMED")) {
+				// Team homeTeam =
+				// season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
+				// Team awayTeam =
+				// season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
+				// matchDay = fixtures.getJSONObject(i).getInt("matchday");
+				//
+				//
+				//
+				// match = new Match(homeTeam, awayTeam);
+				//
+				// match.setRound(matchDay);
+				// match.setIsFinished(status);
+				// match.createOdds();
+				//
+				// season.addMatch(match);
 			}
-		
+		}
+
 	}
 }

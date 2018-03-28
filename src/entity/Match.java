@@ -18,12 +18,15 @@ public class Match {
 	private Odds odds;
 	private long sportsMonksId;
 
-	public Match(Team homeTeam, Team awayTeam) {
+	public Match(Team homeTeam, Team awayTeam, int round) {
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
+		this.round = round;
+		homeTeam.setLocation(round, 1);
+		awayTeam.setLocation(round, 0);
 		this.isFinished = false;
 	}
-	
+
 	public void createOdds() {
 		this.odds = new Odds();
 		try {
@@ -32,11 +35,11 @@ public class Match {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void setSportMonksId(long id) {
 		this.sportsMonksId = id;
 	}
-	
+
 	public long getSportsMonksId() {
 		return sportsMonksId;
 	}
@@ -96,7 +99,7 @@ public class Match {
 	public Date getDate() {
 		return date;
 	}
-	
+
 	public void setIsFinished(String status) {
 		if (status.equals("FINISHED")) {
 			isFinished = true;
@@ -104,18 +107,24 @@ public class Match {
 			isFinished = false;
 		}
 	}
-	
+
 	public boolean getIsFinished() {
 		return isFinished;
 	}
-	
+
 	public void setOutcome() {
 		if (homeGoals > awayGoals) {
 			outcome = 1; // Hemmalaget vunnit matche
+			homeTeam.setOutcome(round, 1);
+			awayTeam.setOutcome(round, -1);
 		} else if (awayGoals > homeGoals) {
 			outcome = -1; // Bortalaget vunnit matchen
+			awayTeam.setOutcome(round, 1);
+			homeTeam.setOutcome(round, -1);
 		} else {
 			outcome = 0;
+			homeTeam.setOutcome(round, 0);
+			awayTeam.setOutcome(round, 0);
 		}
 	}
 }

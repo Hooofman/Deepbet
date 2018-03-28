@@ -29,14 +29,14 @@ public class Team {
 
 	public Team(String name) {
 		this.name = name;
-		goalsFor = new ArrayList<Integer>();
-		goalsAgainst = new ArrayList<Integer>();
-		points = new ArrayList<Integer>();
-		pointsHome = new ArrayList<Integer>();
-		pointsAway = new ArrayList<Integer>();
-		tablePosition = new ArrayList<Integer>();
-		outcome = new ArrayList<Integer>();
-		location = new ArrayList<Integer>();
+		this.goalsFor = new ArrayList<Integer>();
+		this.goalsAgainst = new ArrayList<Integer>();
+		this.points = new ArrayList<Integer>();
+		this.pointsHome = new ArrayList<Integer>();
+		this.pointsAway = new ArrayList<Integer>();
+		this.tablePosition = new ArrayList<Integer>();
+		this.outcome = new ArrayList<Integer>();
+		this.location = new ArrayList<Integer>();
 	}
 	
 	public void setLocation(int round, int location) {

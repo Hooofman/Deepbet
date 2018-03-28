@@ -18,7 +18,7 @@ public class TeamHandler {
 			for (int i = 0; i < teams.length(); i++) {
 				team = new Team(teams.getJSONObject(i).getString("name"));
 				team.setShortName(teams.getJSONObject(i).getString("shortName"));
-				season.addTeam(team);
+				season.addTeam(team);	
 			}
 		} catch (Exception e) {
 		}

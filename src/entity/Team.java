@@ -18,12 +18,24 @@ public class Team {
 		this.name = name;
 	}
 	
+	public void setLocation(int round, int location) {
+		this.location[round] = location;
+	}
+	
+	public int getLocationForASpecificRound(int round) {
+		return location[round];
+	}
+	
 	public void setOutcome(int round, int outcome) {
 		this.outcome[round]  = outcome;
 	}
 	
 	public int getOutcomeForASpecificRound(int round) {
 		return outcome[round];
+	}
+	
+	public void setArrayLocation(int numberOfRounds) {
+		location = new int[numberOfRounds];
 	}
 	
 	public void setArrayOutcome(int numberOfRounds) {

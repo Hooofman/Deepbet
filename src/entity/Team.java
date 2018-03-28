@@ -2,17 +2,17 @@ package entity;
 
 public class Team {
 
-	private int[] goalsFor;
-	private int[] goalsAgainst;
-	private int[] points;
-	private int[] pointsHome;
-	private int[] pointsAway;
-	private int[] tablePosition;
-	private int[] outcome; // Defines whether the team won or loss the game. 1 is for win, 0, for draw, -1 for loss
-	private int[] location; // Defines whether the team played at home or away in the game. 1 for home and 0 for away.
-	private String name;
-	private String shortName;
-	private int id;
+	private static int[] goalsFor;
+	private static int[] goalsAgainst;
+	private static int[] points;
+	private static int[] pointsHome;
+	private static int[] pointsAway;
+	private static int[] tablePosition;
+	private static int[] outcome; // Defines whether the team won or loss the game. 1 is for win, 0, for draw, -1 for loss
+	private static int[] location; // Defines whether the team played at home or away in the game. 1 for home and 0 for away.
+	private static String name;
+	private static String shortName;
+	private static int id;
 
 	public Team(String name) {
 		this.name = name;
@@ -70,7 +70,7 @@ public class Team {
 		goalsFor[round - 1] = value;
 	}
 
-	public int getGoalsFor(int round) {
+	public static int getGoalsFor(int round) {
 		return goalsFor[round - 1];
 	}
 
@@ -78,7 +78,7 @@ public class Team {
 		goalsAgainst[round - 1] = value;
 	}
 
-	public int getGoalsAgainst(int round) {
+	public static int getGoalsAgainst(int round) {
 		return goalsAgainst[round - 1];
 	}
 
@@ -86,7 +86,7 @@ public class Team {
 		points[round - 1] = value;
 	}
 
-	public int getPoints(int round) {
+	public static int getPoints(int round) {
 		return points[round - 1];
 	}
 
@@ -137,6 +137,48 @@ public class Team {
 	public int pointsLastNGames(int round, int number) {
 
 		return points[round] - points[round - number];
+	}
+	
+	public static int getSumOfGoals(int currentRound) {
+		int sum = 0;
+		for (int i=0; i<currentRound; i++) {
+			sum += goalsFor[i];
+		}
+		return sum;
+	}
+	
+	public static int getSumOfGoalsAgainst(int currentRound) {
+		int sum = 0;
+		for (int i=0; i<currentRound; i++) {
+			sum -= goalsFor[i];
+		}
+		return sum;
+	}
+	
+	public static int getTotalPoints(int currentRound) {
+		int sum = 0;
+		for (int i=0; i<currentRound; i++) {
+			sum += points[i];
+		}
+		return sum;
+	}
+	
+	public static int getTotalPointsHome(int currentRound) {
+		int sum = 0;
+		for (int i=0; i<currentRound; i++) {
+			if (pointsHome[i] != null) {
+				sum += pointsHome[i];
+			}
+		}
+		return sum;
+	}
+	
+	public static int[] createInputArray(int currentRound) {
+		int[] inputArray = new int[11];
+		inputArray[0] = getSumOfGoals(currentRound);		
+		inputArray[1] = getSumOfGoalsAgainst(currentRound);
+		inputArray[2] = getTotalPoints(currentRound);
+		inputArray[3] = getTotalPointsHome(currentRound);
 	}
 
 	public String toString() {

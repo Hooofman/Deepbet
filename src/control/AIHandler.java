@@ -6,18 +6,32 @@ import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 import org.neuroph.util.TransferFunctionType;
+import entity.*;
 
 public class AIHandler {
 
+	private static Season season;
 	/**
 	 * * This sample shows how to create, train, save and load simple Multi Layer
 	 * Perceptron
 	 */
+	
+
 
 	public static void main(String[] args) {
 		// create training set (logical XOR function)
-		DataSet trainingSet = new DataSet(19, 2);
-		trainingSet.addRow(new DataSetRow(new double[] { 0, 0 }, new double[] { 0 }));
+		DataSet trainingSet = new DataSet(11, 1);
+		
+		for (int i=0; i<season.teams; i++) {
+			for (int j=0; j<season.currentRound; j++) {
+				
+				
+				trainingSet.addRow(new DataSetRow(createInputArrayForTeam(team), createInputOutcome(team));
+			}
+		}
+				
+				
+		
 		trainingSet.addRow(new DataSetRow(new double[] { 0, 1 }, new double[] { 1 }));
 		trainingSet.addRow(new DataSetRow(new double[] { 1, 0 }, new double[] { 1 }));
 		trainingSet.addRow(new DataSetRow(new double[] { 1, 1 }, new double[] { 0 }));

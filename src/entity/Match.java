@@ -22,8 +22,8 @@ public class Match {
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
 		this.round = round;
-		homeTeam.setLocation(round, 1);
-		awayTeam.setLocation(round, 0);
+		this.homeTeam.setLocation(round, 1);
+		this.awayTeam.setLocation(round, 0);
 		this.isFinished = false;
 	}
 

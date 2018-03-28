@@ -37,8 +37,6 @@ public class Team {
 		tablePosition = new ArrayList<Integer>();
 		outcome = new ArrayList<Integer>();
 		location = new ArrayList<Integer>();
-		homeRoundIndex = 0;
-		awayRoundIndex = 0;
 	}
 	
 	public void setLocation(int round, int location) {
@@ -135,6 +133,26 @@ public class Team {
 		return sum / number;
 	}
 	
+	public int goalsForLastNGames(int round, int number) {
+		int sum = 0;
+		
+		for (int i=round; i>round-number; i--) {
+			sum += goalsFor.get(i);
+		}
+		
+		return sum / number;
+	}
+	
+	public int goalsAgainstLastNGames(int round, int number) {
+		int sum = 0;
+		
+		for (int i=round; i>round-number; i--) {
+			sum -= goalsAgainst.get(i);
+		}
+		
+		return sum / number;
+	}
+	
 	public int getSumOfGoals(int currentRound) {
 		int sum = 0;
 		for (int i=0; i<currentRound; i++) {
@@ -182,12 +200,20 @@ public class Team {
 		return sum;
 	}
 	
-	public static int[] createInputArray(int currentRound) {
-		int[] inputArray = new int[11];
+	public double[] createInputArray(int currentRound) {
+		double[] inputArray = new double[11];
 		inputArray[0] = getSumOfGoals(currentRound);		
 		inputArray[1] = getSumOfGoalsAgainst(currentRound);
 		inputArray[2] = getTotalPoints(currentRound);
 		inputArray[3] = getTotalPointsHome(currentRound);
+		inputArray[4] = getTotalPointsAway(currentRound);
+		inputArray[5] = points.get(currentRound);
+		inputArray[6] = pointsLastNGames(currentRound, 5);
+		inputArray[7] = tablePosition.get(currentRound);
+		inputArray[8] = goalsForLastNGames(currentRound, 5);
+		inputArray[9] = goalsAgainstLastNGames(currentRound, 5);
+		inputArray[10] = location.get(currentRound);
+		return inputArray;
 	}
 
 	public String toString() {

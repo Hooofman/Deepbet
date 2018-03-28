@@ -8,6 +8,7 @@ public class Season {
 	private int id;
 	private int numberOfRounds;
 	private ArrayList<Team> teams;
+	private int currentRound;
 
 	public Season() {
 		teams = new ArrayList<Team>();
@@ -44,6 +45,22 @@ public class Season {
 
 	public int getNumberOfRounds() {
 		return numberOfRounds;
+	}
+	
+	public void setCurrentRound(int currentRound) {
+		this.currentRound = currentRound;
+	}
+	
+	public int getCurrentRound() {
+		return currentRound;
+	}
+	
+	public ArrayList<Team> getAllTeams() {
+		return teams;
+	}
+	
+	public Team getTeamByNumber(int i) {
+		return teams.get(i);
 	}
 
 	public Team getTeam(String name) {

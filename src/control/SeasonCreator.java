@@ -26,6 +26,7 @@ public class SeasonCreator {
 		int numberOfTeams = jsonSeason.getInt("numberOfTeams");
 		int numberOfGames = jsonSeason.getInt("numberOfGames");
 		int LeagueId = jsonSeason.getInt("id");
+		int currentRound = jsonSeason.getInt("currentMatchday");
 		String leagueName = jsonSeason.getString("caption");
 		String leagueAbbrevation = jsonSeason.getString("league");
 		
@@ -33,6 +34,7 @@ public class SeasonCreator {
 		season.setId(LeagueId);
 		season.setYear(year);
 		season.setNumberOfRounds(numberOfRounds);
+		season.setCurrentRound(currentRound);
 		
 		// Get the teams
 		TeamHandler.populateTeams(season);

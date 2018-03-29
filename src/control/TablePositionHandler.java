@@ -15,12 +15,12 @@ public class TablePositionHandler {
 		int round = season.getCurrentRound();
 
 		for (int i = round; i > 0; i--) {
-			jsonTablePosition = FetchApi.getJsonTablePosition(season.getId(), round);
+			jsonTablePosition = FetchApi.getJsonTablePosition(season.getId(), i);
 			try {
 				JSONArray arrayTable = jsonTablePosition.getJSONArray("standing");
 				for (int j = 0; j < season.getAllTeams().size(); j++) {
 					String name = arrayTable.getJSONObject(j).getString("teamName");
-					season.getTeam(name).setTablePosition(i, j);
+					season.getTeam(name).setTablePosition(i, j+1);
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();

@@ -44,7 +44,7 @@ public class SeasonCreator {
 		// Get the fixtures
 		FixtureHandler.createFixtures(season);
 		TablePositionHandler.populateTablePosition(season);
-		// AIHandler.trainNetwork(season);
+		AIHandler.trainNetwork(season);
 	}
 
 	public static void main(String[] args) {

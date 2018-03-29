@@ -6,27 +6,27 @@ import control.LocationAndPoint;
 
 public class Team {
 
-	
+
 	private ArrayList<Integer> goalsFor;
 	private ArrayList<Integer> goalsAgainst;
 	//private ArrayList<Integer> points;
 	//private ArrayList<Integer> pointsHome;
 	//private ArrayList<Integer> pointsAway;
 	private ArrayList<Integer> tablePosition;
-	private ArrayList<Integer> outcome; // Defines whether the team won or loss the game. 1 is for win, 0, for draw, -1 for loss
+	private ArrayList<Double> outcome; // Defines whether the team won or loss the game. 1 is for win, 0, for draw, -1 for loss
 	//private ArrayList<Integer> location; // Defines whether the team played at home or away in the game. 1 for home and 0 for away.
-	
+
 	private ArrayList<LocationAndPoint> locationAndPoints;
-	
-	
-//	private static int[] goalsFor;
-//	private static int[] goalsAgainst;
-//	private static int[] points;
-//	private static int[] pointsHome;
-//	private static int[] pointsAway;
-//	private static int[] tablePosition;
-//	private static int[] outcome; 
-//	private static int[] location; 
+
+
+	//	private static int[] goalsFor;
+	//	private static int[] goalsAgainst;
+	//	private static int[] points;
+	//	private static int[] pointsHome;
+	//	private static int[] pointsAway;
+	//	private static int[] tablePosition;
+	//	private static int[] outcome; 
+	//	private static int[] location; 
 	private String name;
 	private String shortName;
 	private static int id;
@@ -37,44 +37,44 @@ public class Team {
 		this.name = name;
 		this.goalsFor = new ArrayList<Integer>(38);
 		this.goalsAgainst = new ArrayList<Integer>(38);
-//		this.points = new ArrayList<Integer>(38);
-//		this.pointsHome = new ArrayList<Integer>(38);
-//		this.pointsAway = new ArrayList<Integer>(38);
+		//		this.points = new ArrayList<Integer>(38);
+		//		this.pointsHome = new ArrayList<Integer>(38);
+		//		this.pointsAway = new ArrayList<Integer>(38);
 		this.tablePosition = new ArrayList<Integer>(38);
-		this.outcome = new ArrayList<Integer>(38);
+		this.outcome = new ArrayList<Double>(38);
 		//this.location = new ArrayList<Integer>(38);
 		this.locationAndPoints = new ArrayList<LocationAndPoint>(38);
-		
+
 		populateArrayLists();
 	}
-	
+
 	private void populateArrayLists() {
 		System.out.println(getName());
 		for(int i = 0; i <= 38; i++) {
 			this.goalsFor.add(null);
 			this.goalsAgainst.add(null);
-//			this.points.add(null);
-//			this.pointsHome.add(null);
-//			this.pointsAway.add(null);
+			//			this.points.add(null);
+			//			this.pointsHome.add(null);
+			//			this.pointsAway.add(null);
 			this.tablePosition.add(null);
 			this.outcome.add(null);
 			this.locationAndPoints.add(null);
 		}
 	}
-	
+
 	public void setLocation(int round, int location) {
 		this.locationAndPoints.set(round, new LocationAndPoint(location));
 	}
-	
+
 	public int getLocationForASpecificRound(int round) {
 		return locationAndPoints.get(round).getLocation();
 	}
-	
-	public void setOutcome(int round, int outcome) {
+
+	public void setOutcome(int round, double outcome) {
 		this.outcome.set(round, outcome);
 	}
-	
-	public int getOutcomeForASpecificRound(int round) {
+
+	public double getOutcomeForASpecificRound(int round) {
 		return outcome.get(round);
 	}
 
@@ -102,23 +102,23 @@ public class Team {
 		return locationAndPoints.get(round);
 	}
 
-//	public void setPointsHome(int value) {
-//		this.locationAndPoints.add(value);
-//	}
-//
-//	public int getPointsHome(int round) {
-//		return locationAndPoints.get(round);
-//	}
-//
-//	public void setPointsAway(int round, int value) {
-//		this.locationAndPoints.set(round, value);
-//	}
+	//	public void setPointsHome(int value) {
+	//		this.locationAndPoints.add(value);
+	//	}
+	//
+	//	public int getPointsHome(int round) {
+	//		return locationAndPoints.get(round);
+	//	}
+	//
+	//	public void setPointsAway(int round, int value) {
+	//		this.locationAndPoints.set(round, value);
+	//	}
 
 	public void setTablePosition(int round, int value) {
 		this.tablePosition.set(round, value);
 	}
 
-	public int getTablePosition(int round) {
+	public double getTablePosition(int round) {
 		return tablePosition.get(round);
 	}
 
@@ -137,45 +137,51 @@ public class Team {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public void setShortName(String shortName) {
 		this.shortName = shortName;
 	}
-	
+
 	public String getShortName() {
 		return shortName;
 	}
 
 	public double pointsLastNGames(int round, int number) {
 		double sum = 0;
-		
+
 		for (int i=round; i>round-number; i--) {
-			sum += locationAndPoints.get(i).getPoints();
+			if (i>0) {
+				sum += locationAndPoints.get(i).getPoints();
+			}
 		}
-		
+
 		return sum / number;
 	}
-	
+
 	public double goalsForLastNGames(int round, int number) {
 		double sum = 0;
-		
+
 		for (int i=round; i>round-number; i--) {
-			sum += goalsFor.get(i);
+			if (i>0) {
+				sum += goalsFor.get(i);
+			}
 		}
-		
+
 		return sum / number;
 	}
-	
+
 	public double goalsAgainstLastNGames(int round, int number) {
 		double sum = 0;
-		
+
 		for (int i=round; i>round-number; i--) {
-			sum -= goalsAgainst.get(i);
+			if (i>0) {
+				sum -= goalsAgainst.get(i);
+			}
 		}
-		
+
 		return sum / number;
 	}
-	
+
 	public double getSumOfGoals(int currentRound) {
 		double sum = 0;
 		for (int i=1; i<currentRound; i++) {
@@ -183,16 +189,16 @@ public class Team {
 		}
 		return sum;
 	}
-	
+
 	public double getSumOfGoalsAgainst(int currentRound) {
 		double sum = 0;
 		for (int i=1; i<currentRound; i++) {
 			sum -= goalsAgainst.get(i);
 		}
-		
+
 		return sum;
 	}
-	
+
 	public double getTotalPoints(int currentRound) {
 		double sum = 0;
 		for (int i=1; i<currentRound; i++) {
@@ -200,10 +206,10 @@ public class Team {
 		}
 		return sum;
 	}
-	
+
 	public double getTotalPointsHome(int currentRound) {
 		double sum = 0;
-		
+
 		for (int i=1; i<currentRound; i++) {
 			if (locationAndPoints.get(i).getLocation() == 1) {
 				sum += locationAndPoints.get(i).getPoints();
@@ -211,10 +217,10 @@ public class Team {
 		}
 		return sum;
 	}
-	
+
 	public double getTotalPointsAway(int currentRound) {
 		double sum = 0;
-		
+
 		for (int i = 1; i<currentRound; i++) {
 			if (locationAndPoints.get(i).getLocation() == 0) {
 				sum += locationAndPoints.get(i).getPoints();
@@ -222,7 +228,7 @@ public class Team {
 		}
 		return sum;
 	}
-	
+
 	public double[] createInputArray(int currentRound) {
 		double[] inputArray = new double[11];
 		inputArray[0] = getSumOfGoals(currentRound);		
@@ -232,7 +238,7 @@ public class Team {
 		inputArray[4] = getTotalPointsAway(currentRound);
 		inputArray[5] = locationAndPoints.get(currentRound).getPoints();	//Osäker på vad detta är
 		inputArray[6] = pointsLastNGames(currentRound, 5);
-		inputArray[7] = 1;
+		inputArray[7] = getTablePosition(currentRound);
 		inputArray[8] = goalsForLastNGames(currentRound, 5);
 		inputArray[9] = goalsAgainstLastNGames(currentRound, 5);
 		inputArray[10] = locationAndPoints.get(currentRound).getLocation(); //Osäker på vad detta är

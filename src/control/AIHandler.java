@@ -33,7 +33,9 @@ public class AIHandler {
 
 		for (int i=0; i<season.getAllTeams().size(); i++) {
 			Team team = season.getTeamByNumber(i);
+			System.out.println(team.getName() + " : ");
 			for (int j=1; j<30; j++) {
+				currentRound = j;
 				double[] arr = team.createInputArray(currentRound);
 				System.out.println();
 				for (int k=0; k<arr.length; k++) {
@@ -44,7 +46,7 @@ public class AIHandler {
 				trainingSet.addRow(new DataSetRow(arr, new double[] {outcome}));
 			}
 		}
-		trainingSet.save("test2.txt");
+		trainingSet.saveAsTxt("testmedtabellposition.txt", ",");
 //		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.TANH, 11, 10, 1);
 //		System.out.println("Nätverk skapat");
 //		MLP.learn(trainingSet);

@@ -56,6 +56,9 @@ public class SeasonCreator {
 		TestAI.printGameOutcome(29, season.getTeam("Tottenham Hotspur FC"), season.getTeam("Huddersfield Town"));
 		TestAI.printGameOutcome(29, season.getTeam("Watford FC"), season.getTeam("West Bromwich Albion FC"));
 		TestAI.printGameOutcome(29, season.getTeam("Burnley FC"), season.getTeam("Everton FC"));
+		
+		TestAI.printGameOutcome(30, season.getTeam("Manchester United FC"), season.getTeam("Liverpool FC"));
+		
 	}
 
 	public static void main(String[] args) {

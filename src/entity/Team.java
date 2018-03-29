@@ -50,7 +50,14 @@ public class Team {
 
 	private void populateArrayLists() {
 		System.out.println(getName());
-		for(int i = 0; i <= 38; i++) {
+		this.goalsFor.add(0);
+		this.goalsAgainst.add(0);
+		this.tablePosition.add(0);
+		this.outcome.add(0.0);
+		this.locationAndPoints.add(new LocationAndPoint(0, 0));
+		
+		
+		for(int i = 1; i <= 38; i++) {
 			this.goalsFor.add(null);
 			this.goalsAgainst.add(null);
 			//			this.points.add(null);
@@ -149,7 +156,7 @@ public class Team {
 	public double pointsLastNGames(int round, int number) {
 		double sum = 0;
 
-		for (int i=round; i>round-number; i--) {
+		for (int i=round-1; i>round-number; i--) {
 			if (i>0) {
 				sum += locationAndPoints.get(i).getPoints();
 			}
@@ -161,7 +168,7 @@ public class Team {
 	public double goalsForLastNGames(int round, int number) {
 		double sum = 0;
 
-		for (int i=round; i>round-number; i--) {
+		for (int i=round-1; i>round-number; i--) {
 			if (i>0) {
 				sum += goalsFor.get(i);
 			}
@@ -173,7 +180,7 @@ public class Team {
 	public double goalsAgainstLastNGames(int round, int number) {
 		double sum = 0;
 
-		for (int i=round; i>round-number; i--) {
+		for (int i=round-1; i>round-number; i--) {
 			if (i>0) {
 				sum -= goalsAgainst.get(i);
 			}
@@ -230,11 +237,11 @@ public class Team {
 	}
 	
 	public double getLocationAndPointsPoints(int currentRound) {
-		return locationAndPoints.get(currentRound).getPoints();
+		return locationAndPoints.get(currentRound-1).getPoints();
 	}
 	
 	public double getLocationAndPointsLocation(int currentRound) {
-		return locationAndPoints.get(currentRound).getLocation();
+		return locationAndPoints.get(currentRound-1).getLocation();
 	}
 
 	public double[] createInputArray(int currentRound) {

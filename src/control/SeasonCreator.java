@@ -7,19 +7,21 @@ import entity.Season;
 
 public class SeasonCreator {
 	private static JSONObject jsonSeason;
-	
+
 	/**
 	 * Creates a new season
+	 * 
 	 * @throws JSONException
-	 * @param id to use for what league to create season for
+	 * @param id
+	 *            to use for what league to create season for
 	 */
-	
+
 	public static void createSeason(int id) throws JSONException {
 		Season season = new Season();
 		// Get the season from API
-		
+
 		jsonSeason = FetchApi.getJsonSeason(id);
-		
+
 		// Get all the data for the season
 		int year = jsonSeason.getInt("year");
 		int numberOfRounds = jsonSeason.getInt("numberOfMatchdays");
@@ -29,22 +31,22 @@ public class SeasonCreator {
 		int currentRound = jsonSeason.getInt("currentMatchday");
 		String leagueName = jsonSeason.getString("caption");
 		String leagueAbbrevation = jsonSeason.getString("league");
-		
+
 		// Deliever the data to the season-object
 		season.setId(LeagueId);
 		season.setYear(year);
 		season.setNumberOfRounds(numberOfRounds);
 		season.setCurrentRound(currentRound);
-		
+
 		// Get the teams
 		TeamHandler.populateTeams(season);
-		
+
 		// Get the fixtures
 		FixtureHandler.createFixtures(season);
-		
-		AIHandler.trainNetwork(season);
+		TablePositionHandler.populateTablePosition(season);
+		// AIHandler.trainNetwork(season);
 	}
-	
+
 	public static void main(String[] args) {
 		try {
 			createSeason(445);

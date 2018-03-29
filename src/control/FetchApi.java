@@ -19,6 +19,8 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 
+import be.abeel.io.Base64.OutputStream;
+
 
 public class FetchApi {
 	private static String token = "WrBZ2f7IrkoF5ZZXd3ILImXnyGMEhdTYfblOtuaOrwM5He6BUPsUSCzTJDjx";
@@ -144,6 +146,21 @@ public class FetchApi {
 		}
 		return response;
 	}
+	
+	
+	public static JSONObject readJSONfromURL(String url) {
+		// These code snippets use an open-source library. http://unirest.io/java
+		HttpResponse<JsonNode> response = null;
+		try {
+			// These code snippets use an open-source library. http://unirest.io/java
+			response = Unirest.get(url)
+			.header("X-Auth-Token", "d8294109f1a44ee6ab3f9c170932f193")
+			.header("Accept", "application/json")
+			.asJson();
+		} catch (Exception e) {
+		}
+		return response.getBody().getObject();
+	}
 
 	/**
 	 * Reads JSON from an URL
@@ -154,14 +171,14 @@ public class FetchApi {
 	 * @throws JSONException
 	 */
 
-	public static JSONObject readJSONfromURL(String url) throws MalformedURLException, IOException, JSONException {
-		InputStream is = new URL(url).openStream();
-		try(BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")))) {
-			String jsonText = readAll(rd);
-			JSONObject json = new JSONObject(jsonText);
-			return json;
-		}
-	}
+//	public static JSONObject readJSONfromURL(String url) throws MalformedURLException, IOException, JSONException {
+//		InputStream is = new URL(url).openStream();
+//		try(BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")))) {
+//			String jsonText = readAll(rd);
+//			JSONObject json = new JSONObject(jsonText);
+//			return json;
+//		}
+//	}
 	
 	/**
 	 * Method to put together the string that goes into the JsonObject

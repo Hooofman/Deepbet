@@ -27,20 +27,31 @@ public class AIHandler {
 
 	public static void trainNetwork(Season season) {
 		
-		int currentRound = season.getCurrentRound();
+		int currentRound = 30;
 		
 		DataSet trainingSet = new DataSet(11, 1);
 
 		for (int i=0; i<season.getAllTeams().size(); i++) {
 			Team team = season.getTeamByNumber(i);
-			for (int j=0; j<currentRound; j++) {
+			for (int j=1; j<30; j++) {
+				double[] arr = team.createInputArray(currentRound);
+				System.out.println();
+				for (int k=0; k<arr.length; k++) {
+					System.out.print(arr[k] + " , ");
+				}
+				System.out.println();
 				double outcome = team.getOutcomeForASpecificRound(currentRound);
-				trainingSet.addRow(new DataSetRow(team.createInputArray(currentRound), new double[] {outcome}));
+				trainingSet.addRow(new DataSetRow(arr, new double[] {outcome}));
 			}
-		}	
-		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.TANH, 11, 10, 1);
-		MLP.learn(trainingSet);
-		testNeuralNetwork(MLP, trainingSet);
-		MLP.save("test.nnet");
+		}
+		trainingSet.save("test2.txt");
+//		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.TANH, 11, 10, 1);
+//		System.out.println("Nätverk skapat");
+//		MLP.learn(trainingSet);
+//		System.out.println("Inlärning klar");
+//		testNeuralNetwork(MLP, trainingSet);
+//		System.out.println("Testning klar");
+//		MLP.save("test.nnet");
+//		System.out.println("Nätverk sparat");
 	}
 }

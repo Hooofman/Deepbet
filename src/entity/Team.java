@@ -146,8 +146,8 @@ public class Team {
 		return shortName;
 	}
 
-	public int pointsLastNGames(int round, int number) {
-		int sum = 0;
+	public double pointsLastNGames(int round, int number) {
+		double sum = 0;
 		
 		for (int i=round; i>round-number; i--) {
 			sum += locationAndPoints.get(i).getPoints();
@@ -156,8 +156,8 @@ public class Team {
 		return sum / number;
 	}
 	
-	public int goalsForLastNGames(int round, int number) {
-		int sum = 0;
+	public double goalsForLastNGames(int round, int number) {
+		double sum = 0;
 		
 		for (int i=round; i>round-number; i--) {
 			sum += goalsFor.get(i);
@@ -166,8 +166,8 @@ public class Team {
 		return sum / number;
 	}
 	
-	public int goalsAgainstLastNGames(int round, int number) {
-		int sum = 0;
+	public double goalsAgainstLastNGames(int round, int number) {
+		double sum = 0;
 		
 		for (int i=round; i>round-number; i--) {
 			sum -= goalsAgainst.get(i);
@@ -176,35 +176,35 @@ public class Team {
 		return sum / number;
 	}
 	
-	public int getSumOfGoals(int currentRound) {
-		int sum = 0;
-		for (int i=0; i<currentRound; i++) {
+	public double getSumOfGoals(int currentRound) {
+		double sum = 0;
+		for (int i=1; i<currentRound; i++) {
 			sum += goalsFor.get(i);
 		}
 		return sum;
 	}
 	
-	public int getSumOfGoalsAgainst(int currentRound) {
-		int sum = 0;
-		for (int i=0; i<currentRound; i++) {
+	public double getSumOfGoalsAgainst(int currentRound) {
+		double sum = 0;
+		for (int i=1; i<currentRound; i++) {
 			sum -= goalsAgainst.get(i);
 		}
 		
 		return sum;
 	}
 	
-	public int getTotalPoints(int currentRound) {
-		int sum = 0;
-		for (int i=0; i<currentRound; i++) {
+	public double getTotalPoints(int currentRound) {
+		double sum = 0;
+		for (int i=1; i<currentRound; i++) {
 			sum += locationAndPoints.get(i).getPoints();
 		}
 		return sum;
 	}
 	
-	public int getTotalPointsHome(int currentRound) {
-		int sum = 0;
+	public double getTotalPointsHome(int currentRound) {
+		double sum = 0;
 		
-		for (int i=0; i<currentRound; i++) {
+		for (int i=1; i<currentRound; i++) {
 			if (locationAndPoints.get(i).getLocation() == 1) {
 				sum += locationAndPoints.get(i).getPoints();
 			}
@@ -212,10 +212,10 @@ public class Team {
 		return sum;
 	}
 	
-	public int getTotalPointsAway(int currentRound) {
-		int sum = 0;
+	public double getTotalPointsAway(int currentRound) {
+		double sum = 0;
 		
-		for (int i = 0; i<currentRound; i++) {
+		for (int i = 1; i<currentRound; i++) {
 			if (locationAndPoints.get(i).getLocation() == 0) {
 				sum += locationAndPoints.get(i).getPoints();
 			}
@@ -232,7 +232,7 @@ public class Team {
 		inputArray[4] = getTotalPointsAway(currentRound);
 		inputArray[5] = locationAndPoints.get(currentRound).getPoints();	//Osäker på vad detta är
 		inputArray[6] = pointsLastNGames(currentRound, 5);
-		inputArray[7] = tablePosition.get(currentRound);
+		inputArray[7] = 1;
 		inputArray[8] = goalsForLastNGames(currentRound, 5);
 		inputArray[9] = goalsAgainstLastNGames(currentRound, 5);
 		inputArray[10] = locationAndPoints.get(currentRound).getLocation(); //Osäker på vad detta är

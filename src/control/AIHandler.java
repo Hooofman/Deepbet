@@ -27,14 +27,14 @@ public class AIHandler {
 
 	public static void trainNetwork(Season season) {
 		
-		int currentRound = 30;
+		int currentRound = 28;
 		
 		DataSet trainingSet = new DataSet(11, 1);
 
 		for (int i=0; i<season.getAllTeams().size(); i++) {
 			Team team = season.getTeamByNumber(i);
 			System.out.println(team.getName() + " : ");
-			for (int j=1; j<30; j++) {
+			for (int j=1; j<28; j++) {
 				currentRound = j;
 				double[] arr = team.createInputArray(currentRound);
 				System.out.println();
@@ -47,13 +47,13 @@ public class AIHandler {
 			}
 		}
 		trainingSet.saveAsTxt("testmedtabellposition.txt", ",");
-//		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.TANH, 11, 10, 1);
-//		System.out.println("Nätverk skapat");
-//		MLP.learn(trainingSet);
-//		System.out.println("Inlärning klar");
-//		testNeuralNetwork(MLP, trainingSet);
-//		System.out.println("Testning klar");
-//		MLP.save("test.nnet");
-//		System.out.println("Nätverk sparat");
+		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 11, 10, 1);
+		System.out.println("Nätverk skapat");
+		MLP.learn(trainingSet);
+		System.out.println("Inlärning klar");
+		testNeuralNetwork(MLP, trainingSet);
+		System.out.println("Testning klar");
+		MLP.save("test.nnet");
+		System.out.println("Nätverk sparat");
 	}
 }

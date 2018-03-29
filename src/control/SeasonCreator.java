@@ -45,6 +45,17 @@ public class SeasonCreator {
 		FixtureHandler.createFixtures(season);
 		TablePositionHandler.populateTablePosition(season);
 		AIHandler.trainNetwork(season);
+		
+		TestAI.printGameOutcome(29, season.getTeam("Crystal Palace FC"), season.getTeam("Manchester United FC"));
+		TestAI.printGameOutcome(29, season.getTeam("Manchester City FC"), season.getTeam("Chelsea FC"));
+		TestAI.printGameOutcome(29, season.getTeam("Brighton & Hove Albion"), season.getTeam("Arsenal FC"));
+		TestAI.printGameOutcome(29, season.getTeam("Liverpool FC"), season.getTeam("Newcastle United FC"));
+		TestAI.printGameOutcome(29, season.getTeam("Leicester City FC"), season.getTeam("AFC Bournemouth"));
+		TestAI.printGameOutcome(29, season.getTeam("Southampton FC"), season.getTeam("Stoke City FC"));
+		TestAI.printGameOutcome(29, season.getTeam("Swansea City FC"), season.getTeam("West Ham United FC"));
+		TestAI.printGameOutcome(29, season.getTeam("Tottenham Hotspur FC"), season.getTeam("Huddersfield Town"));
+		TestAI.printGameOutcome(29, season.getTeam("Watford FC"), season.getTeam("West Bromwich Albion FC"));
+		TestAI.printGameOutcome(29, season.getTeam("Burnley FC"), season.getTeam("Everton FC"));
 	}
 
 	public static void main(String[] args) {

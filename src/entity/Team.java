@@ -228,6 +228,14 @@ public class Team {
 		}
 		return sum;
 	}
+	
+	public double getLocationAndPointsPoints(int currentRound) {
+		return locationAndPoints.get(currentRound).getPoints();
+	}
+	
+	public double getLocationAndPointsLocation(int currentRound) {
+		return locationAndPoints.get(currentRound).getLocation();
+	}
 
 	public double[] createInputArray(int currentRound) {
 		double[] inputArray = new double[11];
@@ -236,12 +244,12 @@ public class Team {
 		inputArray[2] = getTotalPoints(currentRound);
 		inputArray[3] = getTotalPointsHome(currentRound);
 		inputArray[4] = getTotalPointsAway(currentRound);
-		inputArray[5] = locationAndPoints.get(currentRound).getPoints();	//Osäker på vad detta är
+		inputArray[5] = getLocationAndPointsPoints(currentRound);	//Osäker på vad detta är
 		inputArray[6] = pointsLastNGames(currentRound, 5);
 		inputArray[7] = getTablePosition(currentRound);
 		inputArray[8] = goalsForLastNGames(currentRound, 5);
 		inputArray[9] = goalsAgainstLastNGames(currentRound, 5);
-		inputArray[10] = locationAndPoints.get(currentRound).getLocation(); //Osäker på vad detta är
+		inputArray[10] = getLocationAndPointsLocation(currentRound); //Osäker på vad detta är
 		return inputArray;
 	}
 

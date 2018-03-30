@@ -49,20 +49,20 @@ public class AIHandler {
 			}
 		}
 		trainingSet.saveAsTxt("testmedtabellposition.txt", ",");
-		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 11, 10, 3, 1);
-		System.out.println("Nätverk skapat");
-		
-		
-		SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule(); 
-		learningRule.setMaxIterations(1000); // make sure we can end. 
-		MLP.setLearningRule((BackPropagation) learningRule);
-		MLP.learn(trainingSet);
-		
-		
-		System.out.println("Inlärning klar");
-		testNeuralNetwork(MLP, trainingSet);
-		System.out.println("Testning klar");
-		MLP.save("test.nnet");
-		System.out.println("Nätverk sparat");
+//		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 11, 10, 3, 1);
+//		System.out.println("Nätverk skapat");
+//		
+//		
+//		SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule(); 
+//		learningRule.setMaxIterations(10000); // make sure we can end. 
+//		MLP.setLearningRule((BackPropagation) learningRule);
+//		MLP.learn(trainingSet);
+//		
+//		
+//		System.out.println("Inlärning klar");
+//		testNeuralNetwork(MLP, trainingSet);
+//		System.out.println("Testning klar");
+//		MLP.save("test.nnet");
+//		System.out.println("Nätverk sparat");
 	}
 }

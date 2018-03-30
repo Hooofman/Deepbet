@@ -46,10 +46,10 @@ public class FixtureHandler {
 				match.setIsFinished(status);
 				match.setHomeGoals(homeGoals);
 				match.setAwayGoals(awayGoals);
-				homeTeam.setGoalsFor(matchDay, homeGoals);
-				homeTeam.setGoalsAgainst(matchDay, awayGoals);
-				awayTeam.setGoalsFor(matchDay, awayGoals);
-				awayTeam.setGoalsAgainst(matchDay, homeGoals);
+				homeTeam.setGoalsFor(homeGoals);
+				homeTeam.setGoalsAgainst(awayGoals);
+				awayTeam.setGoalsFor(awayGoals);
+				awayTeam.setGoalsAgainst(homeGoals);
 				match.setOutcome();
 
 				// Add the match to the season it belongs to

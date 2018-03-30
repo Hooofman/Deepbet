@@ -22,8 +22,8 @@ public class Match {
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
 		this.round = round;
-		this.homeTeam.setLocation(round, 1);
-		this.awayTeam.setLocation(round, 0);
+//		this.homeTeam.setLocation(1);
+//		this.awayTeam.setLocation(0);
 		this.isFinished = false;
 	}
 
@@ -103,6 +103,8 @@ public class Match {
 	public void setIsFinished(String status) {
 		if (status.equals("FINISHED")) {
 			isFinished = true;
+			homeTeam.addPlayedMatch();
+			awayTeam.addPlayedMatch();
 		} else {
 			isFinished = false;
 		}
@@ -115,22 +117,22 @@ public class Match {
 	public void setOutcome() {
 		if (homeGoals > awayGoals) {
 			outcome = 1; // Hemmalaget vunnit matche
-			homeTeam.setOutcome(round, 1);
-			awayTeam.setOutcome(round, 0);
-			homeTeam.setPoints(round, 3);
-			awayTeam.setPoints(round, 0);
+			homeTeam.setOutcome(1);
+			awayTeam.setOutcome(0);
+			homeTeam.setPointsAndLocation(3, 1);
+			awayTeam.setPointsAndLocation(0, 0);
 		} else if (awayGoals > homeGoals) {
 			outcome = -1; // Bortalaget vunnit matchen
-			awayTeam.setOutcome(round, 1);
-			homeTeam.setOutcome(round, 0);
-			homeTeam.setPoints(round, 0);
-			awayTeam.setPoints(round, 3);
+			awayTeam.setOutcome(1);
+			homeTeam.setOutcome(0);
+			homeTeam.setPointsAndLocation(0, 1);
+			awayTeam.setPointsAndLocation(3, 0);
 		} else {
 			outcome = 0;
-			homeTeam.setOutcome(round, 0.5);
-			awayTeam.setOutcome(round, 0.5);
-			homeTeam.setPoints(round, 1);
-			awayTeam.setPoints(round, 1);
+			homeTeam.setOutcome(0.5);
+			awayTeam.setOutcome(0.5);
+			homeTeam.setPointsAndLocation(1, 1);
+			awayTeam.setPointsAndLocation(1, 0);
 		}
 	}
 }

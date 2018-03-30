@@ -37,7 +37,6 @@ public class SeasonCreator {
 		season.setYear(year);
 		season.setNumberOfRounds(numberOfRounds);
 		season.setCurrentRound(currentRound);
-
 		// Get the teams
 		TeamHandler.populateTeams(season);
 
@@ -57,7 +56,7 @@ public class SeasonCreator {
 		TestAI.printGameOutcome(29, season.getTeam("Watford FC"), season.getTeam("West Bromwich Albion FC"));
 		TestAI.printGameOutcome(29, season.getTeam("Burnley FC"), season.getTeam("Everton FC"));
 		
-		TestAI.printGameOutcome(30, season.getTeam("Manchester United FC"), season.getTeam("Liverpool FC"));
+//		TestAI.printGameOutcome(30, season.getTeam("Manchester United FC"), season.getTeam("Liverpool FC"));
 		
 	}
 

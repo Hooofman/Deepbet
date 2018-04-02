@@ -9,16 +9,18 @@ public class Season {
 	private int numberOfRounds;
 	private ArrayList<Team> teams;
 	private int currentRound;
+	private LeagueTable leagueTable;
 
 	public Season() {
 		teams = new ArrayList<Team>();
 		matches = new ArrayList<Match>();
+		leagueTable = new LeagueTable();
 	}
-	
+
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -33,6 +35,8 @@ public class Season {
 
 	public void addMatch(Match match) {
 		matches.add(match);
+		leagueTable.updateTable(teams);
+
 	}
 
 	public void addTeam(Team team) {
@@ -46,19 +50,19 @@ public class Season {
 	public int getNumberOfRounds() {
 		return numberOfRounds;
 	}
-	
+
 	public void setCurrentRound(int currentRound) {
 		this.currentRound = currentRound;
 	}
-	
+
 	public int getCurrentRound() {
 		return currentRound;
 	}
-	
+
 	public ArrayList<Team> getAllTeams() {
 		return teams;
 	}
-	
+
 	public Team getTeamByNumber(int i) {
 		return teams.get(i);
 	}

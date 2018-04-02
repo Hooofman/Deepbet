@@ -63,4 +63,8 @@ public class League {
 		}
 		return temp;
 	}
+	
+	public ArrayList<Team> getAllTeamObjects(){
+		return teams;
+	}
 }

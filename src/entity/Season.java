@@ -7,14 +7,12 @@ public class Season {
 	private ArrayList<Match> matches;
 	private int id;
 	private int numberOfRounds;
-	private ArrayList<Team> teams;
 	private int currentRound;
 	private LeagueTable leagueTable;
 	private League league;
 
 	public Season(League league) {
 		this.league = league;
-		teams = new ArrayList<Team>();
 		matches = new ArrayList<Match>();
 		leagueTable = new LeagueTable();
 
@@ -38,12 +36,8 @@ public class Season {
 
 	public void addMatch(Match match) {
 		matches.add(match);
-		leagueTable.updateTable(teams);
+		leagueTable.updateTable(league.getAllTeamObjects());
 
-	}
-
-	public void addTeam(Team team) {
-		teams.add(team);
 	}
 
 	public void setNumberOfRounds(int number) {
@@ -63,15 +57,15 @@ public class Season {
 	}
 
 	public ArrayList<Team> getAllTeams() {
-		return teams;
+		return league.getAllTeamObjects();
 	}
 
 	public Team getTeamByNumber(int i) {
-		return teams.get(i);
+		return league.getAllTeamObjects().get(i);
 	}
 
 	public Team getTeam(String name) {
-		for (Team team : teams) {
+		for (Team team : league.getAllTeamObjects()) {
 			if (team.getName().equals(name)) {
 				return team;
 			}

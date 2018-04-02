@@ -14,7 +14,7 @@ public class LeagueTable {
 	public void updateTable(ArrayList<Team> teams) {
 		this.teams = teams;
 		Collections.sort(teams);
-		for (int i = 0; i < teams.size(); i++) {
+		for (int i = teams.size()-1; i >= 0; i--) {
 			teams.get(i).setTablePosition(i + 1);
 
 		}

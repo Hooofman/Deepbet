@@ -39,9 +39,7 @@ public class League {
 	}
 	
 	public void addTeam(Team team) {
-		if(!teams.contains(team)) {
 			teams.add(team);
-		}
 	}
 	
 	public void removeTeam(Team team) {

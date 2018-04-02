@@ -42,6 +42,9 @@ public class LeagueCreator extends Thread {
 			new AIHandler().trainNetwork(season, trainingSet);
 			System.out.println("Säsong inlagd i dataset");
 			
+			
+			Thread.sleep(10000);
+			
 			league.resetTeamsForNewSeason();
 			System.out.println("Lag nollställda inför ny säsong");
 			Thread.sleep(65000);

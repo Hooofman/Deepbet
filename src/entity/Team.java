@@ -136,7 +136,7 @@ public class Team implements Comparable<Team>{
 
 		for (int i=round; i>=round-number; i--) {
 			if (i>=0) {
-				sum += locationAndPoints.get(i).getPoints();
+				sum += this.locationAndPoints.get(i).getPoints();
 				avgNbr++;
 			}
 		}
@@ -154,7 +154,7 @@ public class Team implements Comparable<Team>{
 
 		for (int i=round; i>=round-number; i--) {
 			if (i>=0) {
-				sum += goalsFor.get(i);
+				sum += this.goalsFor.get(i);
 				avgNbr++;
 			}
 		}
@@ -171,7 +171,7 @@ public class Team implements Comparable<Team>{
 
 		for (int i=round; i>=round-number; i--) {
 			if (i>=0) {
-				sum -= goalsAgainst.get(i);
+				sum -= this.goalsAgainst.get(i);
 				avgNbr++;
 			}
 		}
@@ -185,8 +185,8 @@ public class Team implements Comparable<Team>{
 	public double getSumOfGoals(int round) {
 		double sum = 0;
 		for (int i=0; i<=round; i++) {
-			if (i < goalsForThisSeason.size()) {
-				sum += goalsForThisSeason.get(i);
+			if (i < this.goalsForThisSeason.size()) {
+				sum += this.goalsForThisSeason.get(i);
 			}
 		}
 		return sum;
@@ -195,8 +195,8 @@ public class Team implements Comparable<Team>{
 	public double getSumOfGoalsAgainst(int round) {
 		double sum = 0;
 		for (int i=0; i<=round; i++) {
-			if (i < goalsAgainstThisSeason.size()) {
-				sum -= goalsAgainstThisSeason.get(i);
+			if (i < this.goalsAgainstThisSeason.size()) {
+				sum -= this.goalsAgainstThisSeason.get(i);
 			}
 		}
 
@@ -289,7 +289,7 @@ public class Team implements Comparable<Team>{
 	}
 
 	public void resetForNewSeason() {
-		this.goalsForThisSeason.clear();
+		this.goalsForThisSeason.clear();;
 		this.goalsAgainstThisSeason.clear();
 		this.totalPointsThisSeason.clear();
 		this.totalPointsHomeThisSeason.clear();

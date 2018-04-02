@@ -10,11 +10,14 @@ public class Season {
 	private ArrayList<Team> teams;
 	private int currentRound;
 	private LeagueTable leagueTable;
+	private League league;
 
-	public Season() {
+	public Season(League league) {
+		this.league = league;
 		teams = new ArrayList<Team>();
 		matches = new ArrayList<Match>();
 		leagueTable = new LeagueTable();
+
 	}
 
 	public int getId() {

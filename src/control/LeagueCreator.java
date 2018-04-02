@@ -15,7 +15,7 @@ public class LeagueCreator extends Thread {
 			for (int i= 0; i<seasonsId.length; i++) {
 				
 				JSONObject jsonSeason = FetchApi.getJsonSeason(seasonsId[i]);
-				Season season = new Season();
+				Season season = new Season(league);
 				
 				int year = jsonSeason.getInt("year");
 				int numberOfRounds = jsonSeason.getInt("numberOfMatchdays");
@@ -28,6 +28,8 @@ public class LeagueCreator extends Thread {
 				season.setYear(year);
 				season.setNumberOfRounds(numberOfRounds);
 				season.setCurrentRound(currentRound);
+				
+				league.addSeason(season);
 				
 				TeamHandler.populateTeams(season, league);
 				

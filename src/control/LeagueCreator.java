@@ -5,13 +5,11 @@ import org.json.JSONObject;
 import entity.League;
 import entity.Season;
 
-public class LeagueCreator implements Runnable {
-
+public class LeagueCreator extends Thread {
 	
-	public void run() {
+	public void start(String leagueName) {
 		while(!Thread.interrupted()) {
-			
-			League PL = new League("PL");
+			League league = new League(leagueName);
 			int[] seasonsId = PL.getApiId();
 			for (int i= 0; i<seasonsId.length; i++) {
 				
@@ -30,9 +28,16 @@ public class LeagueCreator implements Runnable {
 				season.setNumberOfRounds(numberOfRounds);
 				season.setCurrentRound(currentRound);
 				
-				TeamHandler.populateTeams(season, PL);
+				TeamHandler.populateTeams(season, league);
+				
+				FixtureHandler.createFixtures(season);
+				Thread.sleep(65000);
 			}
+			break;
 		}
 	}
 	
+	public static void main(String[] args) {
+		new LeagueCreator().start();
+	}
 }

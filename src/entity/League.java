@@ -1,13 +1,17 @@
 package entity;
 
+import java.util.ArrayList;
+
 public class League {
 	private String name;
 	private int id;
 	private int currentYear;
-	private Season[] seasons;
+	private ArrayList<Season> seasons;
+	private ArrayList<Team> teams;
 
-	public League() {
-
+	public League(String name) {
+		this.name = name;
+		seasons = new ArrayList<Season>();
 	}
 
 	public String getName() {
@@ -33,12 +37,32 @@ public class League {
 	public void setCurrentYear(int currentYear) {
 		this.currentYear = currentYear;
 	}
-
-	public Season[] getSeasons() {
-		return seasons;
+	
+	public void addTeam(Team team) {
+		if(!teams.contains(team)) {
+			teams.add(team);
+		}
+	}
+	
+	public void removeTeam(Team team) {
+		if(teams.contains(team)) {
+			teams.remove(team);
+		}
+	}
+	
+	public void addSeason(Season season) {
+		seasons.add(season);
+	}
+	
+	public void removeLast3Teams() {
+		
 	}
 
-	public void setSeasons(Season[] seasons) {
-		this.seasons = seasons;
+	public ArrayList<String> getAllTeams(){
+		ArrayList<String> temp = new ArrayList<String>();
+		for(Team team: teams) {
+			temp.add(team.getName());
+		}
+		return temp;
 	}
 }

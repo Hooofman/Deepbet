@@ -29,7 +29,7 @@ public class FixtureHandler {
 		for (int i = 0; i < fixtures.length(); i++) {
 			
 			// Check if the match is finished
-			String status = fixtures.getJSONObject(i).getString("status");
+			String status = fixtures.getJSONObject(i).optString("status");
 			if (status.equals("FINISHED")) {
 
 				// Get data for the match
@@ -43,7 +43,7 @@ public class FixtureHandler {
 				Match match = new Match(homeTeam, awayTeam, matchDay);
 
 				// Set variables needed
-				match.setIsFinished(status);
+//				match.setIsFinished(status);
 				match.setHomeGoals(homeGoals);
 				match.setAwayGoals(awayGoals);
 				homeTeam.setGoalsFor(homeGoals);

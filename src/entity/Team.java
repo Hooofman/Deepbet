@@ -115,7 +115,7 @@ public class Team implements Comparable<Team>{
 		double sum = 0;
 		int avgNbr = 0;
 
-		for (int i=round-1; i>=round-number; i--) {
+		for (int i=round; i>=round-number; i--) {
 			if (i>=0) {
 				sum += locationAndPoints.get(i).getPoints();
 				avgNbr++;
@@ -133,7 +133,7 @@ public class Team implements Comparable<Team>{
 		double sum = 0;
 		int avgNbr = 0;
 
-		for (int i=round-1; i>=round-number; i--) {
+		for (int i=round; i>=round-number; i--) {
 			if (i>=0) {
 				sum += goalsFor.get(i);
 				avgNbr++;
@@ -150,7 +150,7 @@ public class Team implements Comparable<Team>{
 		double sum = 0;
 		int avgNbr = 0;
 
-		for (int i=round-1; i>=round-number; i--) {
+		for (int i=round; i>=round-number; i--) {
 			if (i>=0) {
 				sum -= goalsAgainst.get(i);
 				avgNbr++;

@@ -42,7 +42,7 @@ public class SeasonCreator {
 
 		// Get the fixtures
 		FixtureHandler.createFixtures(season);
-		TablePositionHandler.populateTablePosition(season);
+//		TablePositionHandler.populateTablePosition(season);
 		AIHandler.trainNetwork(season);
 		
 		TestAI.printGameOutcome(29, season.getTeam("Crystal Palace FC"), season.getTeam("Manchester United FC"));

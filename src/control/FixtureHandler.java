@@ -30,7 +30,7 @@ public class FixtureHandler {
 			
 			// Check if the match is finished
 			String status = fixtures.getJSONObject(i).optString("status");
-			if (status.equals("FINISHED")) {
+			if (!status.equals("TIMED") || !status.equals("SCHEDULED") || !status.equals("POSTPONED")) {
 
 				// Get data for the match
 				Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
@@ -43,7 +43,7 @@ public class FixtureHandler {
 				Match match = new Match(homeTeam, awayTeam, matchDay);
 
 				// Set variables needed
-//				match.setIsFinished(status);
+				match.setIsFinished(status);
 				match.setHomeGoals(homeGoals);
 				match.setAwayGoals(awayGoals);
 				homeTeam.setGoalsFor(homeGoals);

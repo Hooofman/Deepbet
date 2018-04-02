@@ -101,7 +101,7 @@ public class Match {
 	}
 
 	public void setIsFinished(String status) {
-		if (status.equals("FINISHED")) {
+		if (!status.equals("TIMED") || !status.equals("SCHEDULED") || !status.equals("POSTPONED")) {
 			isFinished = true;
 			homeTeam.addPlayedMatch();
 			awayTeam.addPlayedMatch();

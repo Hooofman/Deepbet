@@ -1,5 +1,6 @@
 package control;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import org.neuroph.core.NeuralNetwork;
 import org.neuroph.nnet.MultiLayerPerceptron;
@@ -12,6 +13,7 @@ import entity.*;
 
 public class AIHandler {
 
+	private DataSet trainingSet;
 	/**
 	 * * This sample shows how to create, train, save and load simple Multi Layer
 	 * Perceptron
@@ -26,17 +28,25 @@ public class AIHandler {
 			System.out.println(" Output: " + Arrays.toString(networkOutput));
 		}
 	}
+	
+	public void trainNetworkForLeague(League league) {
+		// Create dataset
+		trainingSet = new DataSet(11, 1);
+		ArrayList<Season> seasons = league.getSeasons();
+		for (int i=0; i<seasons.size(); i++) {
+			trainNetwork(seasons.get(i));
+		}
+		trainingSet.saveAsTxt("testmedtabellposition.txt", ",");
+		System.out.println("Dataset sparat");
+	}
 
 	/**
 	 * Trains the network
 	 * @param season
 	 */
-	public static void trainNetwork(Season season) {
+	public void trainNetwork(Season season, DataSet dataset) {
 		int currentRound = 28;
-
-		// Create dataset
-		DataSet trainingSet = new DataSet(11, 1);
-
+		
 		// loop through the teams of the season
 		for (int i=0; i<season.getAllTeams().size(); i++) {
 			Team team = season.getTeamByNumber(i);
@@ -58,24 +68,23 @@ public class AIHandler {
 				// Get the outcome for the round, the desired output
 				double outcome = team.getOutcomeForASpecificRound(j+1);
 				
-				trainingSet.addRow(new DataSetRow(arr, new double[] {outcome}));
+				dataset.addRow(new DataSetRow(arr, new double[] {outcome}));
 			}
 		}
-		trainingSet.saveAsTxt("testmedtabellposition.txt", ",");
-		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 11, 10, 1);
-		System.out.println("Nätverk skapat");
-		
-		
-		SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule(); 
-		learningRule.setMaxIterations(10000); // make sure we can end. 
-		MLP.setLearningRule((BackPropagation) learningRule);
-		MLP.learn(trainingSet);
-		
-		
-		System.out.println("Inlärning klar");
-		testNeuralNetwork(MLP, trainingSet);
-		System.out.println("Testning klar");
-		MLP.save("test.nnet");
-		System.out.println("Nätverk sparat");
+//		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 11, 10, 1);
+//		System.out.println("Nätverk skapat");
+//		
+//		
+//		SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule(); 
+//		learningRule.setMaxIterations(10000); // make sure we can end. 
+//		MLP.setLearningRule((BackPropagation) learningRule);
+//		MLP.learn(trainingSet);
+//		
+//		
+//		System.out.println("Inlärning klar");
+//		testNeuralNetwork(MLP, trainingSet);
+//		System.out.println("Testning klar");
+//		MLP.save("test.nnet");
+//		System.out.println("Nätverk sparat");
 	}
 }

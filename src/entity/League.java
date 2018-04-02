@@ -12,6 +12,11 @@ public class League {
 	public League(String name) {
 		this.name = name;
 		seasons = new ArrayList<Season>();
+		teams = new ArrayList<Team>();
+	}
+	
+	public ArrayList<Season> getSeasons() {
+		return seasons;
 	}
 
 	public String getName() {
@@ -50,6 +55,12 @@ public class League {
 	
 	public void addSeason(Season season) {
 		seasons.add(season);
+	}
+	
+	public void resetTeamsForNewSeason() {
+		for(Team team : teams) {
+			team.resetForNewSeason();
+		}
 	}
 	
 	public void removeLast3Teams() {

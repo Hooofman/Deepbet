@@ -289,7 +289,8 @@ public class Team implements Comparable<Team>{
 	}
 
 	public void resetForNewSeason() {
-		this.goalsForThisSeason.clear();;
+		this.matchesPlayed = 0;
+		this.goalsForThisSeason.clear();
 		this.goalsAgainstThisSeason.clear();
 		this.totalPointsThisSeason.clear();
 		this.totalPointsHomeThisSeason.clear();

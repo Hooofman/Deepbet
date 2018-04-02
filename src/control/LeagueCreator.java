@@ -38,6 +38,6 @@ public class LeagueCreator extends Thread {
 	}
 	
 	public static void main(String[] args) {
-		new LeagueCreator().start();
+		new LeagueCreator().start("PL");
 	}
 }

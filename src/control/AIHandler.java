@@ -67,7 +67,7 @@ public class AIHandler {
 		
 		
 		SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule(); 
-		learningRule.setMaxIterations(10000); // make sure we can end. 
+		learningRule.setMaxIterations(1000); // make sure we can end. 
 		MLP.setLearningRule((BackPropagation) learningRule);
 		MLP.learn(trainingSet);
 		

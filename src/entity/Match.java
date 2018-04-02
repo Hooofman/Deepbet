@@ -119,20 +119,20 @@ public class Match {
 			outcome = 1; // Hemmalaget vunnit matche
 			homeTeam.setOutcome(1);
 			awayTeam.setOutcome(0);
-			homeTeam.setPointsAndLocation(3, 1);
+			homeTeam.setPointsAndLocation(1, 3);
 			awayTeam.setPointsAndLocation(0, 0);
 		} else if (awayGoals > homeGoals) {
 			outcome = -1; // Bortalaget vunnit matchen
 			awayTeam.setOutcome(1);
 			homeTeam.setOutcome(0);
-			homeTeam.setPointsAndLocation(0, 1);
-			awayTeam.setPointsAndLocation(3, 0);
+			homeTeam.setPointsAndLocation(1, 0);
+			awayTeam.setPointsAndLocation(0, 3);
 		} else {
 			outcome = 0;
 			homeTeam.setOutcome(0.5);
 			awayTeam.setOutcome(0.5);
 			homeTeam.setPointsAndLocation(1, 1);
-			awayTeam.setPointsAndLocation(1, 0);
+			awayTeam.setPointsAndLocation(0, 1);
 		}
 	}
 }

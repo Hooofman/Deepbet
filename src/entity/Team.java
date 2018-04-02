@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import control.LocationAndPoint;
 
 public class Team {
-	
+
 	private int matchesPlayed;
 
 	private ArrayList<Integer> goalsFor;
@@ -26,11 +26,11 @@ public class Team {
 		this.locationAndPoints = new ArrayList<LocationAndPoint>();
 		this.matchesPlayed = 0;
 	}
-	
+
 	public void addPlayedMatch() {
 		this.matchesPlayed++;
 	}
-	
+
 	public int getMatchesPlayed() {
 		return matchesPlayed;
 	}
@@ -66,9 +66,9 @@ public class Team {
 	public int getGoalsAgainst(int index) {
 		return goalsAgainst.get(index);
 	}
-	
-	public void setPointsAndLocation(int points, int location) {
-		this.locationAndPoints.add(new LocationAndPoint(points, location));
+
+	public void setPointsAndLocation(int location, int points) {
+		this.locationAndPoints.add(new LocationAndPoint(location, points));
 	}
 
 	public void setPoints(int index, int value) {
@@ -113,43 +113,59 @@ public class Team {
 
 	public double pointsLastNGames(int round, int number) {
 		double sum = 0;
+		int avgNbr = 0;
 
-		for (int i=round-1; i>round-number; i--) {
-			if (i>0) {
+		for (int i=round-1; i>=round-number; i--) {
+			if (i>=0) {
 				sum += locationAndPoints.get(i).getPoints();
+				avgNbr++;
 			}
 		}
 
-		return sum / number;
+		if (avgNbr != 0) {
+			return sum / avgNbr;
+		}
+
+		return 0;
 	}
 
 	public double goalsForLastNGames(int round, int number) {
 		double sum = 0;
+		int avgNbr = 0;
 
-		for (int i=round-1; i>round-number; i--) {
-			if (i>0) {
+		for (int i=round-1; i>=round-number; i--) {
+			if (i>=0) {
 				sum += goalsFor.get(i);
+				avgNbr++;
 			}
 		}
+		if (avgNbr != 0) {
+			return sum / avgNbr;
+		}
 
-		return sum / number;
+		return 0;
 	}
 
 	public double goalsAgainstLastNGames(int round, int number) {
 		double sum = 0;
+		int avgNbr = 0;
 
-		for (int i=round-1; i>round-number; i--) {
-			if (i>0) {
+		for (int i=round-1; i>=round-number; i--) {
+			if (i>=0) {
 				sum -= goalsAgainst.get(i);
+				avgNbr++;
 			}
 		}
+		if (avgNbr != 0) {
+			return sum / avgNbr;
+		}
 
-		return sum / number;
+		return 0;
 	}
 
 	public double getSumOfGoals(int round) {
 		double sum = 0;
-		for (int i=1; i<round; i++) {
+		for (int i=0; i<=round; i++) {
 			sum += goalsFor.get(i);
 		}
 		return sum;
@@ -157,7 +173,7 @@ public class Team {
 
 	public double getSumOfGoalsAgainst(int round) {
 		double sum = 0;
-		for (int i=1; i<round; i++) {
+		for (int i=0; i<=round; i++) {
 			sum -= goalsAgainst.get(i);
 		}
 
@@ -166,7 +182,7 @@ public class Team {
 
 	public double getTotalPoints(int round) {
 		double sum = 0;
-		for (int i=1; i<round; i++) {
+		for (int i=0; i<=round; i++) {
 			sum += locationAndPoints.get(i).getPoints();
 		}
 		return sum;
@@ -175,7 +191,7 @@ public class Team {
 	public double getTotalPointsHome(int round) {
 		double sum = 0;
 
-		for (int i=1; i<round; i++) {
+		for (int i=0; i<=round; i++) {
 			if (locationAndPoints.get(i).getLocation() == 1) {
 				sum += locationAndPoints.get(i).getPoints();
 			}
@@ -186,18 +202,18 @@ public class Team {
 	public double getTotalPointsAway(int round) {
 		double sum = 0;
 
-		for (int i = 1; i<round; i++) {
+		for (int i = 0; i<=round; i++) {
 			if (locationAndPoints.get(i).getLocation() == 0) {
 				sum += locationAndPoints.get(i).getPoints();
 			}
 		}
 		return sum;
 	}
-	
+
 	public double getLocationAndPointsPoints(int round) {
 		return locationAndPoints.get(round).getPoints();
 	}
-	
+
 	public double getLocationAndPointsLocation(int round) {
 		return locationAndPoints.get(round).getLocation();
 	}

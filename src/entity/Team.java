@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import control.LocationAndPoint;
 
-public class Team {
+public class Team implements Comparable<Team>{
 
 	private int matchesPlayed;
 
@@ -238,4 +238,28 @@ public class Team {
 		return this.name;
 	}
 
+	@Override
+	public int compareTo(Team otherTeam) {
+		double thisPoints = this.getTotalPoints(this.getMatchesPlayed()-1);
+		double otherPoints = otherTeam.getTotalPoints(otherTeam.getMatchesPlayed()-1);
+		double thisGoalDiff = this.getSumOfGoals(this.getMatchesPlayed()-1) - this.getSumOfGoalsAgainst(this.getMatchesPlayed()-1);
+		double otherGoalDiff = otherTeam.getSumOfGoals(otherTeam.getMatchesPlayed()-1) - otherTeam.getSumOfGoalsAgainst(otherTeam.getMatchesPlayed()-1);
+		double thisGoals = this.getSumOfGoals(this.getMatchesPlayed()-1);
+		double otherGoals = otherTeam.getSumOfGoals(otherTeam.getMatchesPlayed()-1);
+		
+		if( thisPoints > otherPoints ) {
+			return 1;
+		}else if( thisPoints < otherPoints) {
+			return -1;
+		}else if(thisGoalDiff > otherGoalDiff) {
+			return 1;
+		}else if(thisGoalDiff < otherGoalDiff) {
+			return -1;
+		}else if(thisGoals > otherGoals) {
+			return 1;
+		}else if(thisGoals < otherGoals) {
+			return -1;
+		}
+		return 0;
+	}
 }

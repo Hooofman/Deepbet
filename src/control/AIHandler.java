@@ -9,6 +9,9 @@ import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 import org.neuroph.core.learning.SupervisedLearning;
 import org.neuroph.util.TransferFunctionType;
+import org.neuroph.util.data.norm.MaxMinNormalizer;
+import org.neuroph.util.data.norm.Normalizer;
+
 import entity.*;
 
 public class AIHandler {
@@ -29,16 +32,7 @@ public class AIHandler {
 		}
 	}
 
-	public void trainNetworkForLeague(League league) {
-		// Create dataset
-		trainingSet = new DataSet(11, 1);
-		ArrayList<Season> seasons = league.getSeasons();
-		for (int i=0; i<seasons.size(); i++) {
-			trainNetwork(seasons.get(i));
-		}
-		trainingSet.saveAsTxt("testmedtabellposition.txt", ",");
-		System.out.println("Dataset sparat");
-	}
+	
 
 	/**
 	 * Trains the network
@@ -52,12 +46,12 @@ public class AIHandler {
 			Team team = season.getTeamByNumber(i);
 			System.out.println(team.getName() + " : ");
 			int matchdays = team.getMatchesPlayed();
-			
+
 			// TODO: Remove Later! For testing!!!
 			if (season.getYear() == 2017) {
 				matchdays -= 2;
 			}
-			
+
 			// loop through all the rounds
 			for (int j=0; j<matchdays; j++) {
 				if (team.getOutcomeForASpecificRound(j+1) != null) {
@@ -80,13 +74,23 @@ public class AIHandler {
 		}
 	}
 
+	public static void addMatchToDataSet(Match match, DataSet dataset) {
+		double[] inArr = match.getMatchArray(5);
+		double[] outArr = match.get1X2Outcome();
+		System.out.println(inArr.length);
+		System.out.println(outArr.length);
+		dataset.addRow(new DataSetRow(inArr, outArr));
+	}
+
 	public void trainNetwork(DataSet data) {
-		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 11, 10, 1);
+		Normalizer norm = new MaxMinNormalizer();
+		norm.normalize(data);
+		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 22, 15, 3);
 		System.out.println("Nätverk skapat");
 
 
 		SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule(); 
-		learningRule.setMaxIterations(10000); // make sure we can end. 
+		learningRule.setMaxIterations(5000); // make sure we can end. 
 		MLP.setLearningRule((BackPropagation) learningRule);
 		MLP.learn(data);
 

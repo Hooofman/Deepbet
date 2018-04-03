@@ -74,4 +74,8 @@ public class Season {
 		}
 		return null;
 	}
+	
+	public ArrayList<Match> getAllMatches(){
+		return matches;
+	}
 }

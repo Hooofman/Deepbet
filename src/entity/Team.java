@@ -252,9 +252,12 @@ public class Team implements Comparable<Team>{
 	}
 
 	public double[] createInputArray(int currentRound, int number) {
+		if(currentRound == -1) {
+			currentRound = matchesPlayed-1;
+		}
 		double[] inputArray = new double[11];
 		inputArray[0] = getSumOfGoals(currentRound);	
-		inputArray[1] = getSumOfGoalsAgainst(currentRound);
+		inputArray[1] = Math.abs(getSumOfGoalsAgainst(currentRound));
 		inputArray[2] = getTotalPoints(currentRound);
 		inputArray[3] = getTotalPointsHome(currentRound);
 		inputArray[4] = getTotalPointsAway(currentRound);
@@ -262,7 +265,7 @@ public class Team implements Comparable<Team>{
 		inputArray[6] = pointsLastNGames(currentRound, number);
 		inputArray[7] = getTablePosition(currentRound);
 		inputArray[8] = goalsForLastNGames(currentRound, number);
-		inputArray[9] = goalsAgainstLastNGames(currentRound, number);
+		inputArray[9] = Math.abs(goalsAgainstLastNGames(currentRound, number));
 		inputArray[10] = getLocationAndPointsLocation(currentRound); //Osäker på vad detta är
 		return inputArray;
 	}

@@ -3,6 +3,8 @@ package control;
 import java.io.FileNotFoundException;
 
 import org.json.*;
+import org.neuroph.core.data.DataSet;
+
 import entity.*;
 
 public class FixtureHandler {
@@ -17,7 +19,7 @@ public class FixtureHandler {
 	 * @throws JSONException
 	 */
 	
-	public static void createFixtures(Season season) throws JSONException {
+	public static void createFixtures(Season season, DataSet dataSet) throws JSONException {
 		
 		/**
 		 * Get all fixtures from JSON
@@ -64,10 +66,9 @@ public class FixtureHandler {
 				// Add the match to the season it belongs to
 				season.addMatch(match);
 				
-				if (i % 10 == 0) {
-					season.updateTable();
-				}
+				season.updateTable();
 				
+				AIHandler.addMatchToDataSet(match, dataSet);
 				// } else if (status.equals("TIMED")) {
 				// Team homeTeam =
 				// season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));

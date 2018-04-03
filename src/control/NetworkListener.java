@@ -7,6 +7,6 @@ public class NetworkListener implements NeuralNetworkEventListener {
 
 	@Override
 	public void handleNeuralNetworkEvent(NeuralNetworkEvent arg0) {
-		System.out.println(arg0);
+		NeuralNetworkEvent test = (NeuralNetworkEvent)arg0;
 	}
 }

@@ -54,5 +54,6 @@
 	<classpathentry kind="lib" path="Ext_jar/neuroph-2.94/libs/slf4j-api-1.7.5.jar"/>
 	<classpathentry kind="lib" path="Ext_jar/neuroph-2.94/libs/slf4j-nop-1.7.6.jar"/>
 	<classpathentry kind="lib" path="Ext_jar/neuroph-2.94/libs/weka.jar"/>
+	<classpathentry kind="lib" path="Ext_jar/gson-2.6.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

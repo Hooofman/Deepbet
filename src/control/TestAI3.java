@@ -23,9 +23,11 @@ public class TestAI3 {
 		int totalMatches = 0;
 
 		ArrayList<Integer> correctPredictions = new ArrayList<Integer>(30);
+		ArrayList<MLPTrainer> trainers = new ArrayList<MLPTrainer>(100);
 
-		int test = 0;
-		int antal = 1;
+
+		int itteration = 0;
+		int numberOfCombinations = 0;
 
 		for (int i = matchesToGetDataFor; i > 20 ; i--) {
 			int predictionCount = 0;
@@ -41,23 +43,24 @@ public class TestAI3 {
 			DataSet trainingSet = DataSet.load("test");
 			Normalizer norm = new MaxMinNormalizer();
 			norm.normalize(trainingSet);
-			MLPTrainer trainer = new MLPTrainer(i, trainingSet);
+			trainers.add(new MLPTrainer(i, trainingSet));
 
 			// set hidden layer range
-			trainer.setFirstHiddenLayerMin(3);
-			trainer.setFirstHiddenLayerMax(2);
+			trainers.get(itteration).setFirstHiddenLayerMin(2);
+			trainers.get(itteration).setFirstHiddenLayerMax(3);
 
-			trainer.setSecondHiddenLayerMin(1);
-			trainer.setSecondHiddenLayerMax(1);
+			trainers.get(itteration).setSecondHiddenLayerMin(1);
+			trainers.get(itteration).setSecondHiddenLayerMax(1);
 			// set learning rate range
-			trainer.setMinLearningRate(0.1);
-			trainer.setMaxLearningRate(0.1);
+			trainers.get(itteration).setMinLearningRate(0.1);
+			trainers.get(itteration).setMaxLearningRate(0.1);
 			// set momentm range
-			trainer.setMinMomentum(0.7);
-			trainer.setMaxMomentum(0.7);
+			trainers.get(itteration).setMinMomentum(0.7);
+			trainers.get(itteration).setMaxMomentum(0.7);
 
 			// run trainer
-			trainer.run(); 
+			trainers.get(itteration).run(); 
+
 			//new AIHandler().trainNetwork(trainingSet);
 
 
@@ -72,11 +75,11 @@ public class TestAI3 {
 					matchesToTest.add(match);
 				}
 			}
-
-			for(int j = 0; j < antal; j++) {
+			numberOfCombinations = trainers.get(itteration).getNumberOfCombinations();
+			for(int j = 0; j < itteration; j++) {
 				for (Match match : matchesToTest) {
 					try {
-						Thread.sleep(10000);
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -85,8 +88,8 @@ public class TestAI3 {
 					totalMatches++;
 				}
 				correctPredictions.add(predictionCount);
-				antal = trainer.getNumberOfCombinations();
-				test++;
+
+
 				System.out.println("Jag har testat " + totalMatches + " matcher. Här är mina rätt för varje omgång: ");
 				for (int k = correctPredictions.size()-1; k>=0; k--) {
 					System.out.println("Omgång " + k + " : " + correctPredictions.get(k) + " rätt.");
@@ -94,7 +97,9 @@ public class TestAI3 {
 
 				totalMatches = 0;
 				correctPredictions.clear();
+				
 			}
+			itteration++;
 		}
 	}
 }

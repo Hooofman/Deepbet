@@ -78,8 +78,8 @@ public class AIHandler {
 	public static void addMatchToDataSet(Match match, DataSet dataset) {
 		double[] inArr = match.getMatchArray(5);
 		double[] outArr = match.get1X2Outcome();
-		System.out.println(inArr.length);
-		System.out.println(outArr.length);
+		//System.out.println(inArr.length);
+		//System.out.println(outArr.length);
 		dataset.addRow(new DataSetRow(inArr, outArr));
 	}
 

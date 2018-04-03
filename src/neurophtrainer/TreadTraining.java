@@ -18,7 +18,7 @@ public class TreadTraining extends Thread{
 	public void run() {
 		nnet.learn(data.getTrainingSet());
          System.out.println("Completed training with settings:" + data.toString());
-         nnet.save("test_"+round+"_"+info);
+         nnet.save("test_"+round+"_"+info+".nnet");
          
 	}
 

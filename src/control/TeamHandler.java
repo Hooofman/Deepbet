@@ -16,10 +16,10 @@ public class TeamHandler {
 		try {
 			jsonTeams = FetchApi.getJsonTeams(season.getId());
 			teams = jsonTeams.getJSONArray("teams");
-			System.out.println(teams.length());
+			//System.out.println(teams.length());
 			for (int i = 0; i < teams.length(); i++) {
 				String teamName = teams.getJSONObject(i).getString("name");
-				System.out.println(teamName);
+				//System.out.println(teamName);
 				if (!league.getAllTeams().contains(teamName)) {
 					team = new Team(teamName);
 //					team.setShortName(teams.getJSONObject(i).getString("shortName"));

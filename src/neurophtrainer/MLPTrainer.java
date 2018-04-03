@@ -49,11 +49,11 @@ public class MLPTrainer extends Thread{
 
 		for (int j = 0; j < trainingSettings.size(); j++) {
 			Vector hiddenLayersNeuronCount = new Vector();
-			logWritter.print( trainingSettings.get(j).getTrainingSet().getInputSize());
+			
 			hiddenLayersNeuronCount.add(22); // inputs
 			hiddenLayersNeuronCount.addAll(trainingSettings.get(j).getHiddenLayers()); // hidden
 			hiddenLayersNeuronCount.add(3); // outputs
-			logWritter.flush();
+			
 
 			MultiLayerPerceptron nnet = new MultiLayerPerceptron(hiddenLayersNeuronCount);
 			MomentumBackpropagation learningRule = ((MomentumBackpropagation) nnet.getLearningRule());

@@ -27,6 +27,10 @@ public class MLPTrainer {
     Vector<Vector> allLayerVariations = new Vector<Vector>();
 
     PrintWriter logWritter;
+	private int firstMin;
+	private int secondMax;
+	private int secondMin;
+	private int firstMax;
 
     public MLPTrainer(DataSet trainingSet) {
         this.trainingSet = trainingSet;
@@ -62,7 +66,7 @@ public class MLPTrainer {
             System.out.println(j + ". Training network with following settings: " + trainingSettings.get(j).toString());
             logWritter.print(trainingSettings.get(j).toString());      
             //nnet.learn(trainingSettings.get(j).getTrainingSet());
-            new TreadTraining(nnet, trainingSettings.get(j)).start();
+            new TreadTraining(nnet, trainingSettings.get(j), j+"").start();
            
         }
         logWritter.flush();
@@ -82,9 +86,22 @@ public class MLPTrainer {
         }
 
         // try all hidden layer combinations
-        for (int hiddenLayersCount = minHiddenLayers; hiddenLayersCount <= maxHiddenLayers; hiddenLayersCount++) {
-            generateAllVariations(hiddenNeurons, hiddenLayersCount, new Vector());
-        }
+//        for (int hiddenLayersCount = minHiddenLayers; hiddenLayersCount <= maxHiddenLayers; hiddenLayersCount++) {
+//            generateAllVariations(hiddenNeurons, hiddenLayersCount, new Vector());
+//        }
+        
+       for(int first = this.firstMin; first <=this.firstMax; first++) {
+    	   for(int second = this.secondMin; second <= this.secondMax; second++ ) {
+    		   Vector vector = new Vector();
+    		   vector.add(first);
+    		   if(second != 0) {
+    			   vector.add(second);
+    		   }
+    		   allLayerVariations.add((Vector)vector.clone());
+    	   }
+       }
+       
+       System.out.println(allLayerVariations);
 
         // try all learningRate and momentum combinations
         for (double learningRate = minLearningRate; learningRate <= maxLearningRate; learningRate += learningRateStep) {
@@ -94,6 +111,10 @@ public class MLPTrainer {
                 }
             }
         }
+    }
+    
+    private void generateTest() {
+    	
     }
 
     private void generateAllVariations(int[] elements, int depth, Vector variation) {
@@ -208,4 +229,23 @@ public class MLPTrainer {
     private void writeLog(String logEntry) {
 
     }
+
+	public void setFirstHiddenLayerMin(int i) {
+		this.firstMin = i;	
+	}
+
+	public void setFirstHiddenLayerMax(int i) {
+		this.firstMax = i;
+		
+	}
+
+	public void setSecondHiddenLayerMin(int i) {
+		this.secondMin = i;
+		
+	}
+
+	public void setSecondHiddenLayerMax(int i) {
+		this.secondMax = i;
+		
+	}
 }

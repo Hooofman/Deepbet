@@ -45,11 +45,11 @@ public class Main {
         MLPTrainer trainer = new MLPTrainer(trainingSet);
         
         // set hidden layer range
-        trainer.setMinHiddenLayers(1);
-        trainer.setMaxHiddenLayers(1);
-        // set hidden neurons per layer range
-        trainer.setMinHiddenNeurons(7);
-        trainer.setMaxHiddenNeurons(15);
+        trainer.setFirstHiddenLayerMin(14);
+        trainer.setFirstHiddenLayerMax(15);
+        
+        trainer.setSecondHiddenLayerMin(0);
+        trainer.setSecondHiddenLayerMax(2);
         // set learning rate range
         trainer.setMinLearningRate(0.1);
         trainer.setMaxLearningRate(0.1);

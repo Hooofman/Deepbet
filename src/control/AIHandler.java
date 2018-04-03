@@ -1,5 +1,6 @@
 package control;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.neuroph.core.NeuralNetwork;
@@ -9,6 +10,9 @@ import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 import org.neuroph.core.learning.SupervisedLearning;
 import org.neuroph.util.TransferFunctionType;
+import org.neuroph.util.data.norm.DecimalScaleNormalizer;
+import org.neuroph.util.data.norm.MaxMinNormalizer;
+
 import entity.*;
 
 public class AIHandler {
@@ -81,12 +85,16 @@ public class AIHandler {
 	}
 
 	public void trainNetwork(DataSet data) {
-		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.TANH, 11, 7, 1);
+		MaxMinNormalizer norm = new MaxMinNormalizer();
+
+		norm.normalize(data);
+		
+		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 11, 7, 1);
 		System.out.println("Nätverk skapat");
 
 		MLP.randomizeWeights();
 		SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule(); 
-		learningRule.setMaxIterations(10000); // make sure we can end. 
+		learningRule.setMaxIterations(2000); // make sure we can end. 
 		MLP.setLearningRule((BackPropagation) learningRule);
 		MLP.learn(data);
 		

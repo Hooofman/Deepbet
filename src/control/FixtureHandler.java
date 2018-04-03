@@ -10,17 +10,17 @@ import entity.*;
 public class FixtureHandler {
 	private static JSONObject jsonMatches;
 	private static JSONArray fixtures;
-//	private static JSONObject sportsMonksMatches;
+	//	private static JSONObject sportsMonksMatches;
 
-	
+
 	/**
 	 * Fetch fixtures and create match-objects for an entire season
 	 * @param season the season to look for
 	 * @throws JSONException
 	 */
-	
+
 	public static void createFixtures(Season season, DataSet dataSet, int matchesToGetDataFor) throws JSONException {
-		
+
 		/**
 		 * Get all fixtures from JSON
 		 */
@@ -29,19 +29,15 @@ public class FixtureHandler {
 		}else {
 			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getYear(), "matches");
 		}
-		
-		
+
+
 
 		fixtures = jsonMatches.getJSONArray("fixtures");
-		
-//		sportsMonksMatches = FetchApi.getJSonFixturesFromSportMonks();
-		int matchesToLoop = fixtures.length();
-		if (season.getYear() == 2017) {
-			matchesToLoop = matchesToGetDataFor;
-		}
 
-		for (int i = 0; i < matchesToLoop; i++) {
-			
+		//		sportsMonksMatches = FetchApi.getJSonFixturesFromSportMonks();
+
+		for (int i = 0; i < fixtures.length(); i++) {
+
 			// Check if the match is finished
 			String status = fixtures.getJSONObject(i).optString("status");
 			if (!status.equals("TIMED") || !status.equals("SCHEDULED") || !status.equals("POSTPONED")) {
@@ -52,7 +48,7 @@ public class FixtureHandler {
 				int homeGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsHomeTeam");
 				int awayGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsAwayTeam");
 				int matchDay = fixtures.getJSONObject(i).getInt("matchday");
-				
+
 				// Create the match-object
 				Match match = new Match(homeTeam, awayTeam, matchDay);
 
@@ -68,10 +64,11 @@ public class FixtureHandler {
 
 				// Add the match to the season it belongs to
 				season.addMatch(match);
-				
+
 				season.updateTable();
-				
-				AIHandler.addMatchToDataSet(match, dataSet);
+				if (!(season.getYear() == 2017 && matchDay >= matchesToGetDataFor)) {
+					AIHandler.addMatchToDataSet(match, dataSet);
+				}
 				// } else if (status.equals("TIMED")) {
 				// Team homeTeam =
 				// season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));

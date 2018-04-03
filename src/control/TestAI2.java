@@ -20,8 +20,8 @@ public class TestAI2 {
 		//		int[] plApiId = {113, 114, 4, 301, 341, 354, 398, 426, 445};
 		int[] plApiId = {398, 426, 445};
 		LeagueCreator ligaSkapare = null;
-		int matchesToGetDataFor = 28;
-		int matchToTestOn = 27;
+		int matchesToGetDataFor = 25;
+		int matchToTestOn = 26;
 
 		try {
 			ligaSkapare = new LeagueCreator();

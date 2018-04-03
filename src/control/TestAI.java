@@ -33,8 +33,10 @@ public class TestAI {
 		test.calculate();
 
 		double[] output = test.getOutput();
-		
+		System.out.println("---");
 		System.out.println(match.getHomeTeam() +" vs " + match.getAwayTeam() +": " + output[0] + "\t"+ output[1] + "\t" + output[2]);
+		System.out.println(match.getHomeGoals() + " - " + match.getAwayGoals());
+		System.out.println("---");
 		return output;
 	}
 	public static void printGameOutcome(int round, Team homeTeam, Team awayTeam) {

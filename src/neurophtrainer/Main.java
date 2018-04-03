@@ -42,7 +42,7 @@ public class Main {
 		DataSet trainingSet = DataSet.load("test");
 		
 
-        MLPTrainer trainer = new MLPTrainer(trainingSet);
+        MLPTrainer trainer = new MLPTrainer(123, trainingSet);
         
         // set hidden layer range
         trainer.setFirstHiddenLayerMin(14);

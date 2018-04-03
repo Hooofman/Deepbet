@@ -20,40 +20,48 @@ public class TestAI2 {
 		//		int[] plApiId = {113, 114, 4, 301, 341, 354, 398, 426, 445};
 		int[] plApiId = {398, 426, 445};
 		LeagueCreator ligaSkapare = null;
-		int matchesToGetDataFor = 25;
-		int matchToTestOn = 26;
+		int matchesToGetDataFor = 29;
+		int matchToTestOn = 30;
+		int totalMatches = 0;
+		
+		ArrayList<Integer> correctPredictions = new ArrayList<Integer>(30);
+		
+		for (int i = matchesToGetDataFor; i > 20 ; i--) {
+			int predictionCount = 0;
 
-		try {
-			ligaSkapare = new LeagueCreator();
-			ligaSkapare.start("PL", plApiId, matchesToGetDataFor);
-		} catch (JSONException | InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		League league = ligaSkapare.getLeague();
-		
-		DataSet trainingSet = DataSet.load("test");
-		new AIHandler().trainNetwork(trainingSet);
-		
-		ArrayList<Season> seasons = league.getSeasons();
-		ArrayList<Match> matchesToTest = new ArrayList<Match>();
-		Season seasonToTest = seasons.get(seasons.size()-1);
-		ArrayList<Match> matchesFromSeason = seasonToTest.getAllMatches();
-		
-//		for (int i=0; i<seasonToTest.getAllMatches().size(); i++) {
-//			if (seasonToTest.getAllMatches().get(i).getRound() == matchToTestOn) {
-//				matchesToTest.add(seasonToTest.getAllMatches().get(i));
-//			}
-//		}
-		
-		for (Match match : matchesFromSeason) {
-			if (match.getRound() == matchToTestOn) {
-				matchesToTest.add(match);
+			try {
+				ligaSkapare = new LeagueCreator();
+				ligaSkapare.start("PL", plApiId, i);
+			} catch (JSONException | InterruptedException e) {
+				e.printStackTrace();
 			}
+			League league = ligaSkapare.getLeague();
+			
+			DataSet trainingSet = DataSet.load("test");
+			new AIHandler().trainNetwork(trainingSet);
+			
+			ArrayList<Season> seasons = league.getSeasons();
+			ArrayList<Match> matchesToTest = new ArrayList<Match>();
+			Season seasonToTest = seasons.get(seasons.size()-1);
+			ArrayList<Match> matchesFromSeason = seasonToTest.getAllMatches();
+
+			
+			for (Match match : matchesFromSeason) {
+				if (match.getRound() == i+1) {
+					matchesToTest.add(match);
+				}
+			}
+			
+			for (Match match : matchesToTest) {
+				predictionCount += TestAI.getOutputForMatch(match);
+				totalMatches++;
+			}
+			correctPredictions.add(predictionCount);
 		}
 		
-		for (Match match : matchesToTest) {
-			TestAI.getOutputForMatch(match);
+		System.out.println("Jag har testat " + totalMatches + " matcher. Här är mina rätt för varje omgång: ");
+		for (int i = correctPredictions.size()-1; i>=0; i--) {
+			System.out.println("Omgång " + i + " : " + correctPredictions.get(i) + " rätt.");
 		}
 	}
 

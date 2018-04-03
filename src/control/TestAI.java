@@ -1,5 +1,7 @@
 package control;
 
+import java.util.Arrays;
+
 import org.neuroph.core.NeuralNetwork;
 
 import entity.Match;
@@ -27,7 +29,7 @@ public class TestAI {
 		return output;
 	}
 
-	public static double[] getOutputForMatch(Match match){
+	public static int getOutputForMatch(Match match){
 		NeuralNetwork test = NeuralNetwork.load("test.nnet");
 		test.setInput(match.getMatchArray(5));
 		test.calculate();
@@ -37,8 +39,26 @@ public class TestAI {
 		System.out.println(match.getHomeTeam() +" vs " + match.getAwayTeam() +": " + output[0] + "\t"+ output[1] + "\t" + output[2]);
 		System.out.println(match.getHomeGoals() + " - " + match.getAwayGoals());
 		System.out.println("---");
-		return output;
+		return getPrediction(output, match.get1X2Outcome());
 	}
+	
+	public static int getPrediction(double[] output, double[] outcome) {
+		double highestPrediciton = Math.max(output[0], Math.min(output[1], output[2]));
+		double[] prediction = {0.0, 0.0, 0.0};
+		if (highestPrediciton == output[0]) {
+			prediction[0] = 1.0;
+		} else if (highestPrediciton == output[1]) {
+			prediction[1] = 1.0;
+		} else if (highestPrediciton == output[2]) {
+			prediction[2] = 1.0;
+		}
+		
+		if (Arrays.equals(prediction, outcome)) {
+			return 1;
+		}
+		return 0;
+	}
+	
 	public static void printGameOutcome(int round, Team homeTeam, Team awayTeam) {
 		double[] homeTeamOutput = getOutputForTeam(round, homeTeam);
 		double[] awayTeamOutput = getOutputForTeam(round, awayTeam);

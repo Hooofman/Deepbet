@@ -36,8 +36,10 @@ public class Season {
 
 	public void addMatch(Match match) {
 		matches.add(match);
+	}
+	
+	public void updateTable() {
 		leagueTable.updateTable(league.getAllTeamObjects());
-
 	}
 
 	public void setNumberOfRounds(int number) {

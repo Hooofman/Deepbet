@@ -1,6 +1,8 @@
 package entity;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 public class League {
 	private String name;
@@ -11,8 +13,8 @@ public class League {
 
 	public League(String name) {
 		this.name = name;
-		seasons = new ArrayList<Season>();
-		teams = new ArrayList<Team>();
+		this.seasons = new ArrayList<Season>();
+		this.teams = new ArrayList<Team>();
 	}
 	
 	public ArrayList<Season> getSeasons() {
@@ -44,12 +46,12 @@ public class League {
 	}
 	
 	public void addTeam(Team team) {
-			teams.add(team);
+			this.teams.add(team);
 	}
 	
 	public void removeTeam(Team team) {
 		if(teams.contains(team)) {
-			teams.remove(team);
+			this.teams.remove(team);
 		}
 	}
 	
@@ -64,7 +66,14 @@ public class League {
 	}
 	
 	public void removeLast3Teams() {
-		
+		ArrayList<Team> list = new ArrayList<Team>();
+		for (Team team : teams) {
+			if (team.getLastTablePosition() > 17) {
+				list.add(team);
+				System.out.println(team.getName() + " kommer raderas");
+			}
+		}
+		this.teams.removeAll(list);
 	}
 
 	public ArrayList<String> getAllTeams(){
@@ -76,6 +85,15 @@ public class League {
 	}
 	
 	public ArrayList<Team> getAllTeamObjects(){
-		return teams;
+		return this.teams;
+	}
+	
+	public Team getTeam(String name) {
+		for (Team team : teams) {
+			if (team.getName().equals(name)) {
+				return team;
+			}
+		}
+		return null;
 	}
 }

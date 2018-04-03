@@ -13,10 +13,10 @@ public class LeagueTable {
 
 	public void updateTable(ArrayList<Team> teams) {
 		this.teams = teams;
+		
 		Collections.sort(teams);
-		for (int i = 0; i <= teams.size()-1; i++) {
+		for (int i = 0; i < teams.size(); i++) {
 			teams.get(i).setTablePosition(i + 1);
-
 		}
 		System.out.println(teams);
 	}

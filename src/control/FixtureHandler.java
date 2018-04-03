@@ -35,8 +35,8 @@ public class FixtureHandler {
 				// Get data for the match
 				Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
 				Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
-				int homeGoals = fixtures.getJSONObject(i).getJSONObject("result").getInt("goalsHomeTeam");
-				int awayGoals = fixtures.getJSONObject(i).getJSONObject("result").getInt("goalsAwayTeam");
+				int homeGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsHomeTeam");
+				int awayGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsAwayTeam");
 				int matchDay = fixtures.getJSONObject(i).getInt("matchday");
 				
 				// Create the match-object
@@ -54,6 +54,10 @@ public class FixtureHandler {
 
 				// Add the match to the season it belongs to
 				season.addMatch(match);
+				
+				if (i % 10 == 0) {
+					season.updateTable();
+				}
 				
 				// } else if (status.equals("TIMED")) {
 				// Team homeTeam =

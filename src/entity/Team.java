@@ -1,6 +1,7 @@
 package entity;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import control.LocationAndPoint;
 
@@ -10,7 +11,7 @@ public class Team implements Comparable<Team>{
 
 	private ArrayList<Integer> goalsFor;
 	private ArrayList<Integer> goalsAgainst;
-	private ArrayList<Integer> tablePosition;
+	private LinkedList<Integer> tablePosition;
 	private ArrayList<Double> outcome; // Defines whether the team won or lost the game. 1 for win, 0.5 for draw, 0 for loss
 	private ArrayList<LocationAndPoint> locationAndPoints;
 	private ArrayList<Integer> goalsForThisSeason;
@@ -27,7 +28,7 @@ public class Team implements Comparable<Team>{
 		this.name = name;
 		this.goalsFor = new ArrayList<Integer>();
 		this.goalsAgainst = new ArrayList<Integer>();
-		this.tablePosition = new ArrayList<Integer>();
+		this.tablePosition = new LinkedList<Integer>();
 		this.outcome = new ArrayList<Double>();
 		this.locationAndPoints = new ArrayList<LocationAndPoint>();
 		this.matchesPlayed = 0;
@@ -58,8 +59,11 @@ public class Team implements Comparable<Team>{
 		this.outcome.add(outcome);
 	}
 
-	public double getOutcomeForASpecificRound(int index) {
-		return outcome.get(index);
+	public Double getOutcomeForASpecificRound(int index) {
+		if (index < outcome.size()) {
+			return outcome.get(index);
+		}
+		return null;
 	}
 
 	public void setGoalsFor(int value) {
@@ -104,6 +108,10 @@ public class Team implements Comparable<Team>{
 
 	public double getTablePosition(int index) {
 		return tablePosition.get(index);
+	}
+
+	public double getLastTablePosition() {
+		return tablePosition.getLast();
 	}
 
 	public String getName() {
@@ -290,6 +298,7 @@ public class Team implements Comparable<Team>{
 
 	public void resetForNewSeason() {
 		this.matchesPlayed = 0;
+		this.tablePosition.clear();
 		this.goalsForThisSeason.clear();
 		this.goalsAgainstThisSeason.clear();
 		this.totalPointsThisSeason.clear();

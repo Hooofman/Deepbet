@@ -43,7 +43,7 @@ public class TestAI {
 	}
 	
 	public static int getPrediction(double[] output, double[] outcome) {
-		double highestPrediciton = Math.max(output[0], Math.min(output[1], output[2]));
+		double highestPrediciton = Math.max(output[0], Math.max(output[1], output[2]));
 		double[] prediction = {0.0, 0.0, 0.0};
 		if (highestPrediciton == output[0]) {
 			prediction[0] = 1.0;

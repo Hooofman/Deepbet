@@ -86,15 +86,15 @@ public class AIHandler {
 	public void trainNetwork(DataSet data) {
 		Normalizer norm = new MaxMinNormalizer();
 		norm.normalize(data);
-		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 22, 10, 3);
+		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 22, 15, 7, 5, 3);
 		System.out.println("Nätverk skapat");
 
-		MLP.randomizeWeights();
-		MomentumBackpropagation learningRule = new MomentumBackpropagation();
-		//SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule(); 
-		learningRule.setMaxIterations(2000); // make sure we can end. 
+//		MLP.randomizeWeights();
+//		MomentumBackpropagation learningRule = new MomentumBackpropagation();
+		SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule(); 
+		learningRule.setMaxIterations(10000); // make sure we can end. 
 		learningRule.setLearningRate(0.2);
-		learningRule.setMomentum(0.7);
+//		learningRule.setMomentum(0.7);
 		MLP.setLearningRule((BackPropagation) learningRule);
 		MLP.learn(data);
 

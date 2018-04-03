@@ -81,15 +81,15 @@ public class AIHandler {
 	}
 
 	public void trainNetwork(DataSet data) {
-		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 11, 10, 1);
+		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.TANH, 11, 7, 1);
 		System.out.println("Nätverk skapat");
 
-
+		MLP.randomizeWeights();
 		SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule(); 
 		learningRule.setMaxIterations(10000); // make sure we can end. 
 		MLP.setLearningRule((BackPropagation) learningRule);
 		MLP.learn(data);
-
+		
 
 		System.out.println("Inlärning klar");
 		testNeuralNetwork(MLP, data);

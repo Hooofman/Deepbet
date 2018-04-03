@@ -19,7 +19,7 @@ public class FixtureHandler {
 	 * @throws JSONException
 	 */
 	
-	public static void createFixtures(Season season, DataSet dataSet) throws JSONException {
+	public static void createFixtures(Season season, DataSet dataSet, int matchesToGetDataFor) throws JSONException {
 		
 		/**
 		 * Get all fixtures from JSON
@@ -35,9 +35,12 @@ public class FixtureHandler {
 		fixtures = jsonMatches.getJSONArray("fixtures");
 		
 //		sportsMonksMatches = FetchApi.getJSonFixturesFromSportMonks();
+		int matchesToLoop = fixtures.length();
+		if (season.getYear() == 2017) {
+			matchesToLoop = matchesToGetDataFor;
+		}
 
-
-		for (int i = 0; i < fixtures.length(); i++) {
+		for (int i = 0; i < matchesToLoop; i++) {
 			
 			// Check if the match is finished
 			String status = fixtures.getJSONObject(i).optString("status");

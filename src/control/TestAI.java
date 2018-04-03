@@ -42,6 +42,19 @@ public class TestAI {
 		return getPrediction(output, match.get1X2Outcome());
 	}
 	
+	public static int getOutputForMatch(Match match, int round, int combinations){
+		NeuralNetwork test = NeuralNetwork.load("test_"+round+"_"+combinations+".nnet");
+		test.setInput(match.getMatchArray(5));
+		test.calculate();
+
+		double[] output = test.getOutput();
+		System.out.println("---");
+		System.out.println(match.getHomeTeam() +" vs " + match.getAwayTeam() +": " + output[0] + "\t"+ output[1] + "\t" + output[2]);
+		System.out.println(match.getHomeGoals() + " - " + match.getAwayGoals());
+		System.out.println("---");
+		return getPrediction(output, match.get1X2Outcome());
+	}
+	
 	public static int getPrediction(double[] output, double[] outcome) {
 		double highestPrediciton = Math.max(output[0], Math.min(output[1], output[2]));
 		double[] prediction = {0.0, 0.0, 0.0};
@@ -75,5 +88,7 @@ public class TestAI {
 		}
 		System.out.println("----------------------");
 	}
+	
+
 
 }

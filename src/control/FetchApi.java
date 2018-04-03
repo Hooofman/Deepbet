@@ -29,6 +29,12 @@ public class FetchApi {
 
 	public FetchApi() {
 	}
+	
+	public static JSONObject getJsonMatchesFromHome(int year, String id) {
+		object = readJSONfromURL("http://deepbet.ddns.net/API/"+year+"_"+id+".json");
+		
+		return object;
+	}
 
 	public static JSONObject getJSonFixturesFromSportMonks() {
 		Date date = new Date();

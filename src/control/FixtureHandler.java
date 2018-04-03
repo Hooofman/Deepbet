@@ -1,5 +1,7 @@
 package control;
 
+import java.io.FileNotFoundException;
+
 import org.json.*;
 import entity.*;
 
@@ -20,7 +22,14 @@ public class FixtureHandler {
 		/**
 		 * Get all fixtures from JSON
 		 */
-		jsonMatches = FetchApi.getJsonMatches(season.getId());
+		if(season.getYear()== 2017) {
+			jsonMatches = FetchApi.getJsonMatches(season.getId());
+		}else {
+			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getYear(), "matches");
+		}
+		
+		
+
 		fixtures = jsonMatches.getJSONArray("fixtures");
 		
 //		sportsMonksMatches = FetchApi.getJSonFixturesFromSportMonks();

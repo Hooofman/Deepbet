@@ -18,7 +18,7 @@ public class LeagueTable {
 		for (int i = 0; i < teams.size(); i++) {
 			teams.get(i).setTablePosition(i + 1);
 		}
-		System.out.println(teams);
+		//System.out.println(teams);
 	}
 
 	public ArrayList<Team> getLeagueTable() {

@@ -25,7 +25,7 @@ public class TablePositionHandler {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			System.out.println("Runda: " + i);
+			//System.out.println("Runda: " + i);
 		}
 	}
 }

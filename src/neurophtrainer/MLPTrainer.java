@@ -49,11 +49,11 @@ public class MLPTrainer extends Thread{
 
 		for (int j = 0; j < trainingSettings.size(); j++) {
 			Vector hiddenLayersNeuronCount = new Vector();
-			logWritter.print( trainingSettings.get(j).getTrainingSet().getInputSize());
+			
 			hiddenLayersNeuronCount.add(22); // inputs
 			hiddenLayersNeuronCount.addAll(trainingSettings.get(j).getHiddenLayers()); // hidden
 			hiddenLayersNeuronCount.add(3); // outputs
-			logWritter.flush();
+			
 
 			MultiLayerPerceptron nnet = new MultiLayerPerceptron(hiddenLayersNeuronCount);
 			MomentumBackpropagation learningRule = ((MomentumBackpropagation) nnet.getLearningRule());
@@ -67,7 +67,7 @@ public class MLPTrainer extends Thread{
 
 			System.out.println(j + ". Training network with following settings: " + trainingSettings.get(j).toString());
 			logWritter.print(trainingSettings.get(j).toString());      
-			nnet.learn(trainingSettings.get(j).getTrainingSet());
+			//nnet.learn(trainingSettings.get(j).getTrainingSet());
 			new TreadTraining(nnet, trainingSettings.get(j),round+"", j+"").start();
 			//nnet.save("test_"+round+""+"_"+j+".nnet");
 		}
@@ -105,16 +105,17 @@ public class MLPTrainer extends Thread{
 		}
 
 		System.out.println(allLayerVariations);
-
+		int multiplyier = 0;
 		// try all learningRate and momentum combinations
 		for (double learningRate = minLearningRate; learningRate <= maxLearningRate; learningRate += learningRateStep) {
 			for (double momentum = minMomentum; momentum <= maxMomentum; momentum += momentumStep) {
 				for (Vector hiddenLayersSettings : allLayerVariations ) {
-					numberOfCombinations++;
+					multiplyier++;
 					trainingSettings.add(new MLPTrainingSettings(learningRate, momentum, 0.1, hiddenLayersSettings, trainingSet));
 				}
 			}
 		}
+		numberOfCombinations = trainingSettings.size();
 	}
 
 

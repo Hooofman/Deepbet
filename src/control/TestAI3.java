@@ -46,10 +46,10 @@ public class TestAI3 {
 			trainers.add(new MLPTrainer(i, trainingSet));
 
 			// set hidden layer range
-			trainers.get(itteration).setFirstHiddenLayerMin(2);
-			trainers.get(itteration).setFirstHiddenLayerMax(3);
+			trainers.get(itteration).setFirstHiddenLayerMin(39);
+			trainers.get(itteration).setFirstHiddenLayerMax(41);
 
-			trainers.get(itteration).setSecondHiddenLayerMin(1);
+			trainers.get(itteration).setSecondHiddenLayerMin(0);
 			trainers.get(itteration).setSecondHiddenLayerMax(1);
 			// set learning rate range
 			trainers.get(itteration).setMinLearningRate(0.1);
@@ -62,7 +62,12 @@ public class TestAI3 {
 			trainers.get(itteration).run(); 
 
 			//new AIHandler().trainNetwork(trainingSet);
-
+			try {
+				Thread.sleep(30000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			ArrayList<Season> seasons = league.getSeasons();
 			ArrayList<Match> matchesToTest = new ArrayList<Match>();
@@ -76,10 +81,11 @@ public class TestAI3 {
 				}
 			}
 			numberOfCombinations = trainers.get(itteration).getNumberOfCombinations();
-			for(int j = 0; j < itteration; j++) {
+			System.out.println("nbrOfComb: "+numberOfCombinations);
+			for(int j = 0; j < numberOfCombinations; j++) {
 				for (Match match : matchesToTest) {
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(100);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -100,6 +106,7 @@ public class TestAI3 {
 				
 			}
 			itteration++;
+			
 		}
 	}
 }

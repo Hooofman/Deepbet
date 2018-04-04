@@ -16,20 +16,25 @@ public class TestAI3 {
 	public static void main(String[] args) {
 
 		//		int[] plApiId = {113, 114, 4, 301, 341, 354, 398, 426, 445};
-		int[] plApiId = {398, 426, 445};
+		int[] plApiId = {354,398, 426, 445};
 		LeagueCreator ligaSkapare = null;
-		int matchesToGetDataFor = 29;
-		int matchToTestOn = 30;
+		int matchesToGetDataFor = 28;
+		int matchToTestOn = 29;
 		int totalMatches = 0;
 
-		ArrayList<Integer> correctPredictions = new ArrayList<Integer>(30);
+		ArrayList<ArrayList<Integer>> correctPredictions = new ArrayList<ArrayList<Integer>>();
 		ArrayList<MLPTrainer> trainers = new ArrayList<MLPTrainer>(100);
+		
+		ArrayList<Integer> inner = null;
 
+		
 
 		int itteration = 0;
 		int numberOfCombinations = 0;
 
 		for (int i = matchesToGetDataFor; i > 20 ; i--) {
+			inner = new ArrayList<Integer>();  
+			
 			int predictionCount = 0;
 
 			try {
@@ -93,20 +98,25 @@ public class TestAI3 {
 					predictionCount += TestAI.getOutputForMatch(match, i, j);
 					totalMatches++;
 				}
-				correctPredictions.add(predictionCount);
+				inner.add(predictionCount);
 
 
-				System.out.println("Jag har testat " + totalMatches + " matcher. Här är mina rätt för varje omgång: ");
-				for (int k = correctPredictions.size()-1; k>=0; k--) {
-					System.out.println("Omgång " + k + " : " + correctPredictions.get(k) + " rätt.");
-				}
+				
 
 				totalMatches = 0;
-				correctPredictions.clear();
-				
+				inner.clear();
+				correctPredictions.add(inner);
 			}
 			itteration++;
 			
 		}
+		
+		
+		for(int i = 0; i < correctPredictions.size(); i++) {
+			for (int k = correctPredictions.get(i).size()-1; k>=0; k--) {
+				System.out.println("Omgång " + k + " : " + correctPredictions.get(i).get(k) + " rätt.");
+			}
+		}
+
 	}
 }

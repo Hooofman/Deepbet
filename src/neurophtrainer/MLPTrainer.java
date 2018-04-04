@@ -61,7 +61,7 @@ public class MLPTrainer extends Thread{
 			learningRule.setMaxError(trainingSettings.get(j).getMaxError());
 			learningRule.setMomentum(trainingSettings.get(j).getMomentum());
 			learningRule.setMinErrorChange(0.001);
-			learningRule.setMinErrorChangeIterationsLimit(100);
+			learningRule.setMinErrorChangeIterationsLimit(1000);
 			learningRule.setMaxIterations(100);
 
 

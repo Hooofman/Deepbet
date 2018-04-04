@@ -29,8 +29,8 @@ public class TestAI {
 		return output;
 	}
 
-	public static int getOutputForMatch(Match match){
-		NeuralNetwork test = NeuralNetwork.load("test.nnet");
+	public static int getOutputForMatch(Match match, String nn){
+		NeuralNetwork test = NeuralNetwork.load(nn);
 		test.setInput(match.getMatchArray(5));
 		test.calculate();
 

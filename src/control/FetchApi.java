@@ -83,8 +83,8 @@ public class FetchApi {
 		try {
 			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id + "/teams");
 		} catch (Exception e) {
+			System.out.println("Kunde inte hämta lag med id " + id);
 		}
-		System.out.println(object);
 		return object;
 	}
 
@@ -102,8 +102,8 @@ public class FetchApi {
 		try {
 			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id);
 		} catch (Exception e) {
+			System.out.println("Kunde inte hämta säsong med id " + id);
 		}
-		System.out.println(object);
 		return object;
 	}
 
@@ -119,8 +119,8 @@ public class FetchApi {
 		try {
 			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id + "/fixtures");
 		} catch (Exception e) {
+			System.out.println("Kunde inte hämta matcher för liga med id " + id);
 		}
-		System.out.println(object);
 		return object;
 	}
 
@@ -171,8 +171,6 @@ public class FetchApi {
 		} catch (Exception e) {
 			System.out.println("Error when fetching table position from API");
 		}
-		return object;
-
 	}
 
 	public static JSONObject readJSONfromURL(String url) {
@@ -183,6 +181,7 @@ public class FetchApi {
 			response = Unirest.get(url).header("X-Auth-Token", "d8294109f1a44ee6ab3f9c170932f193")
 					.header("Accept", "application/json").asJson();
 		} catch (Exception e) {
+			System.out.println("Kunde inte läsa JSON från URL");
 		}
 		return response.getBody().getObject();
 	}
@@ -225,13 +224,5 @@ public class FetchApi {
 			sb.append((char) cp);
 		}
 		return sb.toString();
-	}
-
-	public static void main(String[] args) {
-		getJsonMatchFromSportMonks(1871952);
-		// getJsonOdds("EPL");
-		// getJsonTeams(466);
-		// getJsonSeason(466);
-		// getJsonMatches(466);
 	}
 }

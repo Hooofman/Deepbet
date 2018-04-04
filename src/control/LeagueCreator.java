@@ -59,7 +59,6 @@ public class LeagueCreator extends Thread {
 			FixtureHandler.createFixtures(season, trainingSet, matchesToGetDataFor);
 			System.out.println("Säsong skapad " + season.getYear());
 			//new AIHandler().createDataSetForSeason(season, trainingSet);
-			System.out.println("Säsong inlagd i dataset");
 
 			season.updateTable();
 			
@@ -70,8 +69,10 @@ public class LeagueCreator extends Thread {
 				league.resetTeamsForNewSeason();
 				System.out.println("Lag nollställda inför ny säsong");
 			}
+//			if (i == seasonsId.length-1) {
+//				Thread.sleep(15000);
+//			}
 			
-			Thread.sleep(1000);
 		}
 		trainingSet.save("test");
 		System.out.println("Dataset sparat");
@@ -102,19 +103,5 @@ public class LeagueCreator extends Thread {
 	
 	public League getLeague() {
 		return league;
-	}
-
-	public static void main(String[] args) {
-
-//		int[] plApiId = {113, 114, 4, 301, 341, 354, 398, 426, 445};
-		int[] plApiId = {398, 426, 445};
-
-		try {
-			new LeagueCreator().start("PL", plApiId);
-
-
-		} catch (JSONException | InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 }

@@ -12,14 +12,13 @@ public class TeamHandler {
 	private static JSONArray teams;
 
 	public static void populateTeams(Season season, League league) {
+		System.out.println("Skapar lag i ligan: " + league.getName() + ". Säsong: " + season.getYear());
 		Team team;
 		try {
 			jsonTeams = FetchApi.getJsonTeams(season.getId());
 			teams = jsonTeams.getJSONArray("teams");
-			System.out.println(teams.length());
 			for (int i = 0; i < teams.length(); i++) {
 				String teamName = teams.getJSONObject(i).getString("name");
-				System.out.println(teamName);
 				if (!league.getAllTeams().contains(teamName)) {
 					team = new Team(teamName);
 //					team.setShortName(teams.getJSONObject(i).getString("shortName"));
@@ -27,6 +26,9 @@ public class TeamHandler {
 				}
 			}
 		} catch (Exception e) {
+			System.out.println("Kunde inte skapa lag för liga: " + league.getName() + ". Säsong: " + season.getYear());
 		}
+		
+		System.out.println("Skapande av lag färdigt.");
 	}
 }

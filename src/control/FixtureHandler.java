@@ -66,25 +66,29 @@ public class FixtureHandler {
 				season.addMatch(match);
 
 				season.updateTable();
+
 				if (!(season.getYear() == 2017 && matchDay >= matchesToGetDataFor)) {
 					AIHandler.addMatchToDataSet(match, dataSet);
 				}
-				// } else if (status.equals("TIMED")) {
-				// Team homeTeam =
-				// season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
-				// Team awayTeam =
-				// season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
-				// matchDay = fixtures.getJSONObject(i).getInt("matchday");
-				//
-				// match = new Match(homeTeam, awayTeam);
-				//
-				// match.setRound(matchDay);
-				// match.setIsFinished(status);
-				// match.createOdds();
-				//
-				// season.addMatch(match);
-			}
-		}
 
+
+			}
+			// } else if (status.equals("TIMED")) {
+			// Team homeTeam =
+			// season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
+			// Team awayTeam =
+			// season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
+			// matchDay = fixtures.getJSONObject(i).getInt("matchday");
+			//
+			// match = new Match(homeTeam, awayTeam);
+			//
+			// match.setRound(matchDay);
+			// match.setIsFinished(status);
+			// match.createOdds();
+			//
+			// season.addMatch(match);
+		}
 	}
+
 }
+

@@ -12,6 +12,7 @@ import org.neuroph.core.learning.SupervisedLearning;
 import org.neuroph.util.TransferFunctionType;
 import org.neuroph.util.data.norm.MaxMinNormalizer;
 import org.neuroph.util.data.norm.Normalizer;
+import org.neuroph.util.data.norm.RangeNormalizer;
 
 import entity.*;
 
@@ -78,31 +79,33 @@ public class AIHandler {
 	public static void addMatchToDataSet(Match match, DataSet dataset) {
 		double[] inArr = match.getMatchArray(5);
 		double[] outArr = match.get1X2Outcome();
-		System.out.println(inArr.length);
-		System.out.println(outArr.length);
 		dataset.addRow(new DataSetRow(inArr, outArr));
+		System.out.println(match.getHomeTeam().getName() + " - " + match.getAwayTeam().getName() + " lagd i dataset");
 	}
 
 	public void trainNetwork(DataSet data) {
-		Normalizer norm = new MaxMinNormalizer();
-		norm.normalize(data);
-		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 22, 15, 7, 5, 3);
+//		Normalizer norm = new RangeNormalizer(0.0, 1.0);
+		MaxMinNormalizer norm2 = new MaxMinNormalizer();
+//		norm.normalize(data);
+		norm2.normalize(data);
+		MultiLayerPerceptron MLP = (MultiLayerPerceptron) NeuralNetwork.load("bias8.nnet");
+//		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 22, 40, 3);
 		System.out.println("Nätverk skapat");
 
 //		MLP.randomizeWeights();
-//		MomentumBackpropagation learningRule = new MomentumBackpropagation();
-		SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule(); 
+		MomentumBackpropagation learningRule = new MomentumBackpropagation();
+
 		learningRule.setMaxIterations(10000); // make sure we can end. 
-		learningRule.setLearningRate(0.2);
-//		learningRule.setMomentum(0.7);
-		MLP.setLearningRule((BackPropagation) learningRule);
+		learningRule.setLearningRate(0.3);
+		learningRule.setMomentum(0.7);
+		MLP.setLearningRule(learningRule);
 		MLP.learn(data);
-
-
 		System.out.println("Inlärning klar");
+
+
 		testNeuralNetwork(MLP, data);
 		System.out.println("Testning klar");
-		MLP.save("test.nnet");
+		MLP.save("test3Sig.nnet");
 		System.out.println("Nätverk sparat");
 	}
 }

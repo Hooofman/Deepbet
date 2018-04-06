@@ -22,6 +22,7 @@ public class MLPTrainer extends Thread{
 	int minHiddenNeurons, maxHiddenNeurons;
 	int minHiddenLayers = 1, maxHiddenLayers = 1;
 	double maxError, maxIterations, minErrorChange, minErrorChangeIterations;
+	RunOnThreadN pool = new RunOnThreadN(4);
 
 	DataSet trainingSet;
 	Vector<Vector> allLayerVariations = new Vector<Vector>();
@@ -32,13 +33,16 @@ public class MLPTrainer extends Thread{
 	private int secondMin;
 	private int firstMax;
 	private int round;
+	private int iterations;
 	private int numberOfCombinations = 0;
 	public MLPTrainer(int round, DataSet trainingSet) {
 		this.trainingSet = trainingSet;
 		this.round = round;
+		pool.start();
 	}
 
 	public void run() {
+
 		this.generateTrainingSettings();
 
 		try {
@@ -49,11 +53,11 @@ public class MLPTrainer extends Thread{
 
 		for (int j = 0; j < trainingSettings.size(); j++) {
 			Vector hiddenLayersNeuronCount = new Vector();
-			
+
 			hiddenLayersNeuronCount.add(22); // inputs
 			hiddenLayersNeuronCount.addAll(trainingSettings.get(j).getHiddenLayers()); // hidden
 			hiddenLayersNeuronCount.add(3); // outputs
-			
+
 
 			MultiLayerPerceptron nnet = new MultiLayerPerceptron(hiddenLayersNeuronCount);
 			MomentumBackpropagation learningRule = ((MomentumBackpropagation) nnet.getLearningRule());
@@ -61,21 +65,24 @@ public class MLPTrainer extends Thread{
 			learningRule.setMaxError(trainingSettings.get(j).getMaxError());
 			learningRule.setMomentum(trainingSettings.get(j).getMomentum());
 			learningRule.setMinErrorChange(0.001);
-			learningRule.setMinErrorChangeIterationsLimit(1000);
+			learningRule.setMinErrorChangeIterationsLimit(this.iterations);
 			learningRule.setMaxIterations(100);
 
 
 			System.out.println(j + ". Training network with following settings: " + trainingSettings.get(j).toString());
 			logWritter.print(trainingSettings.get(j).toString());      
 			//nnet.learn(trainingSettings.get(j).getTrainingSet());
-			new TreadTraining(nnet, trainingSettings.get(j),round+"", j+"").start();
+			pool.execute(new TreadTraining(nnet, trainingSettings.get(j),round+"", j+""));
 			//nnet.save("test_"+round+""+"_"+j+".nnet");
 		}
 		logWritter.flush();
 		logWritter.close();
-
+		
 	}
 
+	public void setMaxIterations(int iterations) {
+		this.iterations = iterations;
+	}
 
 	private void generateTrainingSettings() {
 		trainingSettings = new Vector<MLPTrainingSettings>();

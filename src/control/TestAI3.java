@@ -51,17 +51,17 @@ public class TestAI3 {
 			trainers.add(new MLPTrainer(i, trainingSet));
 
 			// set hidden layer range
-			trainers.get(itteration).setFirstHiddenLayerMin(39);
-			trainers.get(itteration).setFirstHiddenLayerMax(41);
+			trainers.get(itteration).setFirstHiddenLayerMin(12);
+			trainers.get(itteration).setFirstHiddenLayerMax(40);
 
 			trainers.get(itteration).setSecondHiddenLayerMin(0);
 			trainers.get(itteration).setSecondHiddenLayerMax(1);
 			// set learning rate range
-			trainers.get(itteration).setMinLearningRate(0.1);
-			trainers.get(itteration).setMaxLearningRate(0.1);
+			trainers.get(itteration).setMinLearningRate(0.2);
+			trainers.get(itteration).setMaxLearningRate(0.4);
 			// set momentm range
-			trainers.get(itteration).setMinMomentum(0.7);
-			trainers.get(itteration).setMaxMomentum(0.7);
+			trainers.get(itteration).setMinMomentum(0.5);
+			trainers.get(itteration).setMaxMomentum(0.8);
 
 			// run trainer
 			trainers.get(itteration).run(); 

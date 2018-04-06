@@ -23,6 +23,9 @@ public class Match {
 	private char recommendation;
 	private int strengthRec;
 
+	private String status;
+	private double calcOutput[];
+
 	public Match(Team homeTeam, Team awayTeam, int round) {
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
@@ -33,6 +36,7 @@ public class Match {
 		this.homeOutcome = 0;
 		this.awayOutcome = 0;
 		this.drawOutcome = 0;
+		this.calcOutput = new double[2];
 	}
 
 	public void createOdds() {
@@ -42,6 +46,22 @@ public class Match {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setCalcOutput(double[] output) {
+		this.calcOutput = output;
+	}
+
+	public double[] getCalcOutput() {
+		return calcOutput;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getStatus() {
+		return status;
 	}
 
 	public void setSportMonksId(long id) {

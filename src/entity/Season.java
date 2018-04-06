@@ -78,4 +78,14 @@ public class Season {
 	public ArrayList<Match> getAllMatches(){
 		return matches;
 	}
+	
+	public ArrayList<Match> getMatchesByStatus(String status) {
+		ArrayList<Match> matchesToReturn = new ArrayList<Match>();
+		for (Match match : matches) {
+			if (match.getStatus().equals(status)) {
+				matchesToReturn.add(match);
+			}
+		}
+		return matchesToReturn;
+	}
 }

@@ -30,7 +30,8 @@ public class LeagueCreator extends Thread {
 	private League league;
 	private DataSet trainingSet;
 
-	public void start(String leagueName, int[] apiId, int matchesToGetDataFor) throws JSONException, InterruptedException {
+	public void start(String leagueName, int[] apiId) throws JSONException, InterruptedException {
+		
 		trainingSet = new DataSet(22, 3);
 		league = new League(leagueName);
 		int[] seasonsId = apiId;
@@ -56,10 +57,8 @@ public class LeagueCreator extends Thread {
 
 			TeamHandler.populateTeams(season, league);
 
-			FixtureHandler.createFixtures(season, trainingSet, matchesToGetDataFor);
+			FixtureHandler.createFixtures(season, trainingSet);
 			System.out.println("Säsong skapad " + season.getYear());
-			//new AIHandler().createDataSetForSeason(season, trainingSet);
-			System.out.println("Säsong inlagd i dataset");
 
 			season.updateTable();
 			
@@ -75,46 +74,10 @@ public class LeagueCreator extends Thread {
 		}
 		trainingSet.save("test");
 		System.out.println("Dataset sparat");
-
-//		new AIHandler().trainNetwork(trainingSet);
-//		System.out.println("1\tX\t2");
-//		TestAI.getOutputForMatch(new Match(league.getTeam("Crystal Palace FC"), league.getTeam("Manchester United FC"), 27));
-//		TestAI.getOutputForMatch(new Match(league.getTeam("Manchester City FC"), league.getTeam("Chelsea FC"), 27));
-//		TestAI.getOutputForMatch(new Match(league.getTeam("Brighton & Hove Albion"), league.getTeam("Arsenal FC"), 27));
-//		TestAI.getOutputForMatch(new Match(league.getTeam("Liverpool FC"), league.getTeam("Newcastle United FC"), 27));
-//		TestAI.getOutputForMatch(new Match(league.getTeam("Leicester City FC"), league.getTeam("AFC Bournemouth"), 27));
-//		TestAI.getOutputForMatch(new Match(league.getTeam("Southampton FC"), league.getTeam("Stoke City FC"), 27));
-//		TestAI.getOutputForMatch(new Match(league.getTeam("Swansea City FC"), league.getTeam("West Ham United FC"), 27));
-//		TestAI.getOutputForMatch(new Match(league.getTeam("Tottenham Hotspur FC"), league.getTeam("Huddersfield Town"), 27));
-//		TestAI.getOutputForMatch(new Match(league.getTeam("Watford FC"), league.getTeam("West Bromwich Albion FC"), 27));
-//		TestAI.getOutputForMatch(new Match(league.getTeam("Burnley FC"), league.getTeam("Everton FC"), 27));
 		
-//		TestAI.printGameOutcome(27, league.getTeam("Manchester City FC"), league.getTeam("Chelsea FC"));
-//		TestAI.printGameOutcome(27, league.getTeam("Brighton & Hove Albion"), league.getTeam("Arsenal FC"));
-//		TestAI.printGameOutcome(27, league.getTeam("Liverpool FC"), league.getTeam("Newcastle United FC"));
-//		TestAI.printGameOutcome(27, league.getTeam("Leicester City FC"), league.getTeam("AFC Bournemouth"));
-//		TestAI.printGameOutcome(27, league.getTeam("Southampton FC"), league.getTeam("Stoke City FC"));
-//		TestAI.printGameOutcome(27, league.getTeam("Swansea City FC"), league.getTeam("West Ham United FC"));
-//		TestAI.printGameOutcome(27, league.getTeam("Tottenham Hotspur FC"), league.getTeam("Huddersfield Town"));
-//		TestAI.printGameOutcome(27, league.getTeam("Watford FC"), league.getTeam("West Bromwich Albion FC"));
-//		TestAI.printGameOutcome(27, league.getTeam("Burnley FC"), league.getTeam("Everton FC"));
 	}
 	
 	public League getLeague() {
 		return league;
-	}
-
-	public static void main(String[] args) {
-
-//		int[] plApiId = {113, 114, 4, 301, 341, 354, 398, 426, 445};
-		int[] plApiId = {398, 426, 445};
-
-		try {
-			new LeagueCreator().start("PL", plApiId);
-
-
-		} catch (JSONException | InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 }

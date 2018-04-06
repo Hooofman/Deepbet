@@ -10,12 +10,18 @@ import entity.Match;
 import entity.Season;
 
 public class TestAIUpcoming {
+	
+	
 	public static void main(String[] args) {
 
-		int[] plApiId = {113, 114, 4, 301, 341, 354, 398, 426, 445};
-		//		int[] plApiId = {398, 426, 445};
+//		int[] plApiId = {113, 114, 4, 301, 341, 354, 398, 426, 445};
+				int[] plApiId = {398, 426, 445};
 		LeagueCreator ligaSkapare = null;
-
+	
+		// Create db-connection
+		ConnectDatabase connection = new ConnectDatabase();
+		connection.connect();
+		
 		try {
 			ligaSkapare = new LeagueCreator();
 			ligaSkapare.start("PL", plApiId);
@@ -40,6 +46,10 @@ public class TestAIUpcoming {
 
 		for (Match match : matchesToTest) {
 			ProduceOutput.getOutputForMatch(match);
+			connection.insertIntoTable("upcominggames");
+			connection.createStatementForUpcomming(match, seasonToTest.getYear(), league.getName());
 		}
+		
+		connection.disconnect();
 	}
 }

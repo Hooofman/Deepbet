@@ -12,7 +12,7 @@ public class Match {
 	private int homeGoals;
 	private int awayGoals;
 	private int round;
-	private Date date;
+	private String date;
 	private int outcome;
 	private int homeOutcome;
 	private int drawOutcome;
@@ -22,7 +22,8 @@ public class Match {
 	private long sportsMonksId;
 	private char recommendation;
 	private int strengthRec;
-
+	private String time;
+	
 	private String status;
 	private double calcOutput[];
 
@@ -48,6 +49,15 @@ public class Match {
 		}
 	}
 
+	
+	public void setTime(String time) {
+		this.time = time;
+	}
+	
+	public String getTime() {
+		return time;
+	}
+	
 	public void setCalcOutput(double[] output) {
 		this.calcOutput = output;
 	}
@@ -120,11 +130,11 @@ public class Match {
 		return outcome;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 

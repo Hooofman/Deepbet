@@ -11,7 +11,7 @@ import entity.Match;
 
 public class ConnectDatabase {
 	private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DATABASE_URL = "jdbc:mysql://192.168.1.2:3306/deepbet";
+	private static final String DATABASE_URL = "jdbc:mysql://deepbet.ddns.net:3306/deepbet";
 	private static final String USERNAME = "deepbet";
 	private static final String PASSWORD = "Deepbet123";
 	private static final String MAX_POOL = "250"; // vad är detta?
@@ -82,19 +82,19 @@ public class ConnectDatabase {
 	public void createStatementForUpcomming(Match match, int season, String leagueName) {
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
-		Date date = (Date) match.getDate(); // Kolla format och om rätt Date (SQL nu)!
-		Time time = new Time(date.getTime());
+		Date date = Date.valueOf(match.getDate()); // Kolla format och om rätt Date (SQL nu)!
+		Time time = Time.valueOf(match.getTime());
 		String league = leagueName;
-		double[] calculations = match.get1X2Outcome();
+		double[] calculations = match.getCalcOutput();
 		double calcHome = calculations[0];
 		double calcDraw = calculations[1];
 		double calcAway = calculations[2];
 		char recommendation = match.getRecommendation();
 		int strengthRec = match.getStrengthRec();
 
-		String statement = "INSERT INTO " + table + "VALUES (" + homeTeam + ", " + awayTeam + ", " + date + ", " + time
-				+ ", " + season + ", " + league + ", " + calcHome + ", " + calcAway + ", " + calcDraw + ", "
-				+ recommendation + ", " + strengthRec + ")";
+		String statement = "INSERT INTO " + table + " VALUES ('" + homeTeam + "', '" + awayTeam + "', '" + date + "', '" + time
+				+ "', '" + season + "', '" + league + "', '" + calcHome + "', '" + calcAway + "', '" + calcDraw + "', '"
+				+ recommendation + "', '" + strengthRec + "')";
 		excecuteStatement(statement);
 	}
 

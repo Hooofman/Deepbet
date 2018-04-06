@@ -1,6 +1,9 @@
 package control;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.json.*;
 import org.neuroph.core.data.DataSet;
@@ -10,6 +13,7 @@ import entity.*;
 public class FixtureHandler {
 	private static JSONObject jsonMatches;
 	private static JSONArray fixtures;
+	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	//	private static JSONObject sportsMonksMatches;
 
 
@@ -39,10 +43,13 @@ public class FixtureHandler {
 			Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
 			Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
 			int matchDay = fixtures.getJSONObject(i).getInt("matchday");
-
+			String dateString = fixtures.getJSONObject(i).getString("date");
+			
 			// Create the match-object
 			Match match = new Match(homeTeam, awayTeam, matchDay);
-
+			
+			match.setDate(dateString.substring(0, 10));
+			match.setTime(dateString.substring(11,19));
 			match.setStatus(status);
 			match.setIsFinished(status);
 

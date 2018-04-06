@@ -20,13 +20,15 @@ public class Match {
 	private boolean isFinished;
 	private Odds odds;
 	private long sportsMonksId;
+	private char recommendation;
+	private int strengthRec;
 
 	public Match(Team homeTeam, Team awayTeam, int round) {
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
 		this.round = round;
-		//		this.homeTeam.setLocation(1);
-		//		this.awayTeam.setLocation(0);
+		// this.homeTeam.setLocation(1);
+		// this.awayTeam.setLocation(0);
 		this.isFinished = false;
 		this.homeOutcome = 0;
 		this.awayOutcome = 0;
@@ -147,17 +149,33 @@ public class Match {
 
 	public double[] getMatchArray(int number) {
 		double res[] = new double[22];
-		double homeTeam[] = this.homeTeam.createInputArray(this.homeTeam.getMatchesPlayed()-1, number);
-		double awayTeam[] = this.awayTeam.createInputArray(this.awayTeam.getMatchesPlayed()-1, number);
-			for(int i = 0; i < 11; i++) {
-				res[i] = homeTeam[i];
-				res[i+11] = awayTeam[i];
-			}
+		double homeTeam[] = this.homeTeam.createInputArray(this.homeTeam.getMatchesPlayed() - 1, number);
+		double awayTeam[] = this.awayTeam.createInputArray(this.awayTeam.getMatchesPlayed() - 1, number);
+		for (int i = 0; i < 11; i++) {
+			res[i] = homeTeam[i];
+			res[i + 11] = awayTeam[i];
+		}
 		return res;
 	}
-	
+
 	public double[] get1X2Outcome() {
-		double[] outcome = {this.homeOutcome, this.drawOutcome, this.awayOutcome};
+		double[] outcome = { this.homeOutcome, this.drawOutcome, this.awayOutcome };
 		return outcome;
+	}
+
+	public void setRecommendation(char rec) {
+		this.recommendation = rec;
+	}
+
+	public char getRecommendation() {
+		return recommendation;
+	}
+
+	public void setStrengthRec(int strengthRec) {
+		this.strengthRec = strengthRec;
+	}
+
+	public int getStrengthRec() {
+		return strengthRec;
 	}
 }

@@ -11,15 +11,11 @@ import entity.Season;
 
 public class TestAI2 {
 
-
-
-
-
 	public static void main(String[] args) {
 
 		int[] plApiId = {113, 114, 4, 301, 341, 354, 398, 426, 445};
 //		int[] plApiId = {398, 426, 445};
-		LeagueCreator ligaSkapare = null;
+		LeagueCreatorTest ligaSkapare = null;
 		int matchesToGetDataFor = 38;
 		double totalMatches = 0;
 		double correctCount = 0;
@@ -30,7 +26,7 @@ public class TestAI2 {
 			int predictionCount = 0;
 			
 			try {
-				ligaSkapare = new LeagueCreator();
+				ligaSkapare = new LeagueCreatorTest();
 				ligaSkapare.start("PL", plApiId, i);
 			} catch (JSONException | InterruptedException e) {
 				e.printStackTrace();

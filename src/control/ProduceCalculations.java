@@ -19,13 +19,11 @@ public class ProduceCalculations {
 		DataSet trainingSet;
 		AIHandler aiHandler;
 		ArrayList<Match> matchesToCalc;
-		ArrayList<Season> seasonsFromLeague;
 		
 		public Producer() {
 			creator = new LeagueCreator();
 			aiHandler = new AIHandler();
 			matchesToCalc = new ArrayList<Match>();
-			seasonsFromLeague = new ArrayList<Season>();
 		}
 		
 		public void run() {

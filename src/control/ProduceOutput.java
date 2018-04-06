@@ -21,6 +21,5 @@ public class ProduceOutput {
 		WriteToFile.appendTxt("---");
 		WriteToFile.appendTxt(match.getHomeTeam() +" vs " + match.getAwayTeam() +": " + output[0] + "\t"+ output[1] + "\t" + output[2]);
 		WriteToFile.appendTxt("---");
-		
 	}
 }

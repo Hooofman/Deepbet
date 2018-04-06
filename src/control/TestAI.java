@@ -39,6 +39,12 @@ public class TestAI {
 		System.out.println(match.getHomeTeam() +" vs " + match.getAwayTeam() +": " + output[0] + "\t"+ output[1] + "\t" + output[2]);
 		System.out.println(match.getHomeGoals() + " - " + match.getAwayGoals());
 		System.out.println("---");
+		
+		WriteToFile.appendTxt("---");
+		WriteToFile.appendTxt(match.getHomeTeam() +" vs " + match.getAwayTeam() +": " + output[0] + "\t"+ output[1] + "\t" + output[2]);
+		WriteToFile.appendTxt(match.getHomeGoals() + " - " + match.getAwayGoals());
+		WriteToFile.appendTxt("---");
+		
 		return getPrediction(output, match.get1X2Outcome());
 	}
 	

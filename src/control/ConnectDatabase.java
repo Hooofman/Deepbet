@@ -18,14 +18,9 @@ public class ConnectDatabase {
 	private Connection connection;
 	private Properties properties;
 	private String table;
-	private Match match;
 
 	public ConnectDatabase() {
 
-	}
-
-	public void addMatchToSave(Match match) {
-		this.match = match;
 	}
 
 	private Properties getProperties() {
@@ -65,7 +60,7 @@ public class ConnectDatabase {
 		this.table = table;
 	}
 
-	public void createStatementForPlayedMatches(int season, String leagueName) {
+	public void createStatementForPlayedMatches(Match match, int season, String leagueName) {
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
 		int homeGoals = match.getHomeGoals();
@@ -84,7 +79,7 @@ public class ConnectDatabase {
 		excecuteStatement(statement);
 	}
 
-	public void createStatementForUpcomming(int season, String leagueName) {
+	public void createStatementForUpcomming(Match match, int season, String leagueName) {
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
 		Date date = (Date) match.getDate(); // Kolla format och om rätt Date (SQL nu)!

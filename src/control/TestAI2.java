@@ -16,13 +16,13 @@ public class TestAI2 {
 		int[] plApiId = {113, 114, 4, 301, 341, 354, 398, 426, 445};
 //		int[] plApiId = {398, 426, 445};
 		LeagueCreatorTest ligaSkapare = null;
-		int matchesToGetDataFor = 38;
+		int matchesToGetDataFor = 30;
 		double totalMatches = 0;
 		double correctCount = 0;
 		
 		ArrayList<Integer> correctPredictions = new ArrayList<Integer>(matchesToGetDataFor);
 		
-		for (int i = matchesToGetDataFor; i > 0 ; i--) {
+		for (int i = matchesToGetDataFor; i > 28 ; i--) {
 			int predictionCount = 0;
 			
 			try {
@@ -43,7 +43,7 @@ public class TestAI2 {
 			ArrayList<Match> matchesFromSeason = seasonToTest.getAllMatches();
 
 			for (Match match : matchesFromSeason) {
-				if (match.getStatus().equals("TIMED")) {
+				if (match.getRound() == i+1) {
 					matchesToTest.add(match);
 				}
 			}

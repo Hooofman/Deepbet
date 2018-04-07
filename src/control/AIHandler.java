@@ -91,13 +91,13 @@ public class AIHandler {
 		
 		System.out.println("Nätverk skapat");
 
-		MLP.randomizeWeights();
+//		MLP.randomizeWeights();
 		MomentumBackpropagation learningRule = new MomentumBackpropagation();
 //		SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule(); 
-		learningRule.setMaxIterations(5000); // make sure we can end. 
+		learningRule.setMaxIterations(100); // make sure we can end. 
 		learningRule.setLearningRate(0.2);
 		learningRule.setMomentum(0.7);
-		MLP.setLearningRule(learningRule);
+		MLP.setLearningRule((BackPropagation) learningRule);
 		MLP.learn(data);
 
 

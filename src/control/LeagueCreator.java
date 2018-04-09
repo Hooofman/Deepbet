@@ -37,6 +37,14 @@ public class LeagueCreator extends Thread {
 		int[] seasonsId = apiId;
 		for (int i= 0; i<seasonsId.length; i++) {
 
+			if (i != 0) {
+				league.removeLast3Teams();
+				System.out.println("Sista 3 lag borttagna");
+
+				league.resetTeamsForNewSeason();
+				System.out.println("Lag nollställda inför ny säsong");
+			}
+			
 			JSONObject jsonSeason = FetchApi.getJsonSeason(seasonsId[i]);
 
 			Season season = new Season(league);
@@ -62,13 +70,13 @@ public class LeagueCreator extends Thread {
 
 			season.updateTable();
 			
-			if (i != seasonsId.length-1) {
-				league.removeLast3Teams();
-				System.out.println("Sista 3 lag borttagna");
-
-				league.resetTeamsForNewSeason();
-				System.out.println("Lag nollställda inför ny säsong");
-			}
+//			if (i != seasonsId.length-1) {
+//				league.removeLast3Teams();
+//				System.out.println("Sista 3 lag borttagna");
+//
+//				league.resetTeamsForNewSeason();
+//				System.out.println("Lag nollställda inför ny säsong");
+//			}
 			
 			Thread.sleep(1000);
 		}

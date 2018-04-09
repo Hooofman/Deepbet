@@ -97,7 +97,7 @@ public class AIHandler {
 		learningRule.setMaxIterations(100); // make sure we can end. 
 		learningRule.setLearningRate(0.2);
 		learningRule.setMomentum(0.7);
-		MLP.setLearningRule((BackPropagation) learningRule);
+		MLP.setLearningRule((BackPropagation)learningRule);
 		MLP.learn(data);
 
 

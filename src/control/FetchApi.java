@@ -21,6 +21,12 @@ import com.mashape.unirest.http.Unirest;
 
 import be.abeel.io.Base64.OutputStream;
 
+/**
+ * Class to fetch data from an API.
+ * 
+ * @author
+ *
+ */
 public class FetchApi {
 	private static String token = "WrBZ2f7IrkoF5ZZXd3ILImXnyGMEhdTYfblOtuaOrwM5He6BUPsUSCzTJDjx";
 	static JSONObject object = null;
@@ -29,44 +35,20 @@ public class FetchApi {
 
 	public FetchApi() {
 	}
-	
+
+	/**
+	 * Fetches matches stored in the server.
+	 * 
+	 * @param year
+	 *            The year the matches to be fetched was played.
+	 * @param id
+	 *            defines what file on server the data to be fetched is located.
+	 * @return JSONObject A JSONObject containing all the matches from a specific
+	 *         year stored in our server.
+	 */
 	public static JSONObject getJsonMatchesFromHome(int year, String id) {
-		object = readJSONfromURL("http://deepbet.ddns.net/API/"+year+"_"+id+".json");
-		
-		return object;
-	}
+		object = readJSONfromURL("http://deepbet.ddns.net/API/" + year + "_" + id + ".json");
 
-	public static JSONObject getJSonFixturesFromSportMonks() {
-		Date date = new Date();
-		String dateString = sdf.format(date);
-
-		try {
-			object = readJSONfromURL("https://soccer.sportmonks.com/api/v2.0/fixtures/between/" + dateString
-					+ "/2018-05-22?api_token=" + token);
-		} catch (Exception e) {
-		}
-		System.out.println(object);
-		return object;
-	}
-
-	public static JSONObject getJsonMatchFromSportMonks(long id) {
-		try {
-			object = readJSONfromURL(
-					"https://soccer.sportmonks.com/api/v2.0/odds/fixture/" + id + "?api_token=" + token);
-		} catch (Exception e) {
-		}
-		System.out.println(object);
-		return object;
-	}
-
-	public static JSONObject getJsonOdds(String sport) {
-		try {
-			object = readJSONfromURL("https://api.the-odds-api.com/v2/odds/?sport=" + sport
-					+ "&region=uk&apiKey=56117f942fa819cf3bb034243fbc201c");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// System.out.print(object);
 		return object;
 	}
 
@@ -164,6 +146,15 @@ public class FetchApi {
 		return response;
 	}
 
+	/**
+	 * Fetches the table positions for a specific matchday.
+	 * 
+	 * @param id
+	 *            the identifier for which league and season to be fetched.
+	 * @param matchDay
+	 *            the round for the table positions that is to be fetched.
+	 * @return JSONObject containing the table positions for the specified matchday.
+	 */
 	public static JSONObject getJsonTablePosition(int id, int matchDay) {
 		try {
 			object = readJSONfromURL(
@@ -172,9 +163,15 @@ public class FetchApi {
 			System.out.println("Error when fetching table position from API");
 		}
 		return object;
-
 	}
 
+	/**
+	 * Creates a connection to the the API and fetches the data.
+	 * 
+	 * @param url
+	 *            the address to the API.
+	 * @return JSONObject containing all the data in that API.
+	 */
 	public static JSONObject readJSONfromURL(String url) {
 		// These code snippets use an open-source library. http://unirest.io/java
 		HttpResponse<JsonNode> response = null;
@@ -186,28 +183,6 @@ public class FetchApi {
 		}
 		return response.getBody().getObject();
 	}
-
-	/**
-	 * Reads JSON from an URL
-	 * 
-	 * @param url
-	 *            what URL to use
-	 * @return JSONObject
-	 * @throws MalformedURLException
-	 * @throws IOException
-	 * @throws JSONException
-	 */
-
-	// public static JSONObject readJSONfromURL(String url) throws
-	// MalformedURLException, IOException, JSONException {
-	// InputStream is = new URL(url).openStream();
-	// try(BufferedReader rd = new BufferedReader(new InputStreamReader(is,
-	// Charset.forName("UTF-8")))) {
-	// String jsonText = readAll(rd);
-	// JSONObject json = new JSONObject(jsonText);
-	// return json;
-	// }
-	// }
 
 	/**
 	 * Method to put together the string that goes into the JsonObject
@@ -225,13 +200,5 @@ public class FetchApi {
 			sb.append((char) cp);
 		}
 		return sb.toString();
-	}
-
-	public static void main(String[] args) {
-		getJsonMatchFromSportMonks(1871952);
-		// getJsonOdds("EPL");
-		// getJsonTeams(466);
-		// getJsonSeason(466);
-		// getJsonMatches(466);
 	}
 }

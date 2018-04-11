@@ -2,6 +2,11 @@ package entity;
 
 import java.util.ArrayList;
 
+/**
+ * Class for creating Season objects
+ * @author 
+ *
+ */
 public class Season {
 	private int year;
 	private ArrayList<Match> matches;
@@ -11,11 +16,14 @@ public class Season {
 	private LeagueTable leagueTable;
 	private League league;
 
+	/**
+	 * Constructs a Season object, puts Match objects in an array and creates a league table
+	 * @param league a League object
+	 */
 	public Season(League league) {
 		this.league = league;
 		matches = new ArrayList<Match>();
 		leagueTable = new LeagueTable();
-
 	}
 
 	public int getId() {
@@ -34,10 +42,17 @@ public class Season {
 		this.year = year;
 	}
 
+	/**
+	 * Adds a match to the season
+	 * @param match a Match object
+	 */
 	public void addMatch(Match match) {
 		matches.add(match);
 	}
 	
+	/**
+	 * Updates the league table after a match is finished 
+	 */
 	public void updateTable() {
 		leagueTable.updateTable(league.getAllTeamObjects());
 	}
@@ -58,14 +73,28 @@ public class Season {
 		return currentRound;
 	}
 
+	/**
+	 * Returns an array with all teams in a season
+	 * @return array of Team objects
+	 */
 	public ArrayList<Team> getAllTeams() {
 		return league.getAllTeamObjects();
 	}
 
+	/**
+	 * Gets a Team object based on the number it has in the list
+	 * @param i number in list
+	 * @return Team object
+	 */
 	public Team getTeamByNumber(int i) {
 		return league.getAllTeamObjects().get(i);
 	}
 
+	/**
+	 * Gets a Team object based on the team name
+	 * @param name team name
+	 * @return Team object if it exists. Otherwise null
+	 */
 	public Team getTeam(String name) {
 		for (Team team : league.getAllTeamObjects()) {
 			if (team.getName().equals(name)) {
@@ -75,10 +104,19 @@ public class Season {
 		return null;
 	}
 	
+	/**
+	 * Returns an array containing all matches in a the season
+	 * @return array with Match objects
+	 */
 	public ArrayList<Match> getAllMatches(){
 		return matches;
 	}
 	
+	/**
+	 * Returns an array with all matches that has a specific status
+	 * @param status 
+	 * @return array with Match objects
+	 */
 	public ArrayList<Match> getMatchesByStatus(String status) {
 		ArrayList<Match> matchesToReturn = new ArrayList<Match>();
 		for (Match match : matches) {

@@ -76,11 +76,6 @@ public class FixtureHandler {
 				
 				// Add the match to the dataset used for training the AI
 				AIHandler.addMatchToDataSet(match, dataSet);
-
-				// For testing. Check if the match is played during the round we want to test
-//				if (!(season.getYear() == 2017 && matchDay >= matchesToGetDataFor)) {
-//					AIHandler.addMatchToDataSet(match, dataSet);
-//				}
 			}
 			
 			// If the match isnt played, just add it to the season

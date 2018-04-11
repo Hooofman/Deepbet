@@ -7,6 +7,11 @@ import org.neuroph.core.data.DataSet;
 
 import entity.*;
 
+/**
+ * Unfinished class.. lots of work to do. Not used at the moment
+ * @author Oscar
+ *
+ */
 public class ProduceCalculations {
 	Producer producer;
 

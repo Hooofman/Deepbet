@@ -6,14 +6,26 @@ import org.neuroph.core.NeuralNetwork;
 
 import entity.Match;
 
+/**
+ * Class that produces the output for a match. Uses a match-object and tests it parameters against the trained the network
+ * @author Oscar
+ *
+ */
+
 public class ProduceOutput {
+	
+	/**
+	 * Tests a match against the network to get an output of how the match will end
+	 * @param match the match to test
+	 */
 
 	public static void getOutputForMatch(Match match){
-		NeuralNetwork test = NeuralNetwork.load("test.nnet");
-		test.setInput(match.getMatchArray(5));
-		test.calculate();
-
-		double[] output = test.getOutput();
+		NeuralNetwork test = NeuralNetwork.load("test.nnet"); // Load the trained network
+		test.setInput(match.getMatchArray(5)); // Get the array from the match
+		test.calculate(); // Test the match against the network
+		
+		// Get the output and save it
+		double[] output = test.getOutput(); 
 		match.setCalcOutput(output);
 		
 		System.out.println("---");

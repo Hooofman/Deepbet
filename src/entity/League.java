@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 /**
  * Class for creating a League object. 
- * @author oskarem
+ * @author 
  *
  */
 public class League {

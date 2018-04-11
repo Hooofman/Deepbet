@@ -1,11 +1,7 @@
 package entity;
 
 import java.util.Date;
-
 import org.json.JSONException;
-
-import control.OddsHandler2;
-
 /**
  * Class for creating a Match object
  * @author 

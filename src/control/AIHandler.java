@@ -15,14 +15,21 @@ import org.neuroph.util.data.norm.Normalizer;
 
 import entity.*;
 
+/**
+ * Class to train and load a neural network.
+ *
+ */
 public class AIHandler {
-
 	private DataSet trainingSet;
-	/**
-	 * * This sample shows how to create, train, save and load simple Multi Layer
-	 * Perceptron
-	 */
 
+	/**
+	 * Tests a neural network with a dataset and prints out the input and output.
+	 * 
+	 * @param nnet
+	 *            The neural network
+	 * @param testSet
+	 *            the dataset to be tested.
+	 */
 	public static void testNeuralNetwork(NeuralNetwork nnet, DataSet testSet) {
 		for (DataSetRow dataRow : testSet.getRows()) {
 			nnet.setInput(dataRow.getInput());
@@ -33,73 +40,46 @@ public class AIHandler {
 		}
 	}
 
-
-
 	/**
-	 * Trains the network
-	 * @param season
+	 * Adds a match to a dataset.
+	 * 
+	 * @param match
+	 *            the match that is to be added to the dataset.
+	 * @param dataset
+	 *            to which the match is to added to.
 	 */
-	public void createDataSetForSeason(Season season, DataSet dataset) {
-		int currentRound = 28;
-
-		// loop through the teams of the season
-		for (int i=0; i<season.getAllTeams().size(); i++) {
-			Team team = season.getTeamByNumber(i);
-			System.out.println(team.getName() + " : ");
-			int matchdays = team.getMatchesPlayed();
-
-			// TODO: Remove Later! For testing!!!
-			if (season.getYear() == 2017) {
-				matchdays -= 2;
-			}
-
-			// loop through all the rounds
-			for (int j=0; j<matchdays; j++) {
-				if (team.getOutcomeForASpecificRound(j+1) != null) {
-					// Create the array to put in each row of the dataset
-					double[] arr = team.createInputArray(j, 5);
-
-					// Just for testing-purpose, print the array in console
-					System.out.println();
-					for (int k=0; k<arr.length; k++) {
-						System.out.print(arr[k] + " , ");
-					}
-					System.out.println();
-
-					// Get the outcome for the round, the desired output
-					double outcome = team.getOutcomeForASpecificRound(j+1);
-
-					dataset.addRow(new DataSetRow(arr, new double[] {outcome}));
-				}
-			}
-		}
-	}
-
 	public static void addMatchToDataSet(Match match, DataSet dataset) {
 		double[] inArr = match.getMatchArray(5);
 		double[] outArr = match.get1X2Outcome();
-		//System.out.println(inArr.length);
-		//System.out.println(outArr.length);
+		// System.out.println(inArr.length);
+		// System.out.println(outArr.length);
 		dataset.addRow(new DataSetRow(inArr, outArr));
 	}
 
+	/**
+	 * Creates or loads an existing neural network and sets the rules for it. Then
+	 * it's trained on the dataset.
+	 * 
+	 * @param data
+	 *            the dataset the network is to train on.
+	 */
 	public void trainNetwork(DataSet data) {
 		Normalizer norm = new MaxMinNormalizer();
 		norm.normalize(data);
-//		MultiLayerPerceptron MLP = new  MultiLayerPerceptron(TransferFunctionType.SIGMOID, 22, 15, 7, 5, 3);
+		// MultiLayerPerceptron MLP = new
+		// MultiLayerPerceptron(TransferFunctionType.SIGMOID, 22, 15, 7, 5, 3);
 		MultiLayerPerceptron MLP = (MultiLayerPerceptron) MultiLayerPerceptron.load("biasNy.nnet");
-		
+
 		System.out.println("Nätverk skapat");
 
-//		MLP.randomizeWeights();
+		// MLP.randomizeWeights();
 		MomentumBackpropagation learningRule = new MomentumBackpropagation();
-//		SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule(); 
-		learningRule.setMaxIterations(2000); // make sure we can end. 
+		// SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule();
+		learningRule.setMaxIterations(2000); // make sure we can end.
 		learningRule.setLearningRate(0.2);
 		learningRule.setMomentum(0.7);
-		MLP.setLearningRule((BackPropagation)learningRule);
+		MLP.setLearningRule((BackPropagation) learningRule);
 		MLP.learn(data);
-
 
 		System.out.println("Inlärning klar");
 		testNeuralNetwork(MLP, data);

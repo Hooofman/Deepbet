@@ -7,10 +7,19 @@ import org.json.JSONObject;
 import entity.Season;
 import entity.Team;
 
+/**
+ * Get the tableposition from JSON and set the current table position for each team
+ *
+ */
+
 public class TablePositionHandler {
 	private static JSONObject jsonTablePosition;
 	private static int tablePosition;
 
+	/**
+	 * Gets the table position for each matchday in a season and save it in each team
+	 * @param season what season to get table positions for
+	 */
 	public static void populateTablePosition(Season season) {
 		int round = season.getCurrentRound();
 
@@ -25,7 +34,6 @@ public class TablePositionHandler {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			//System.out.println("Runda: " + i);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package control;
+package test;
 
 import java.util.ArrayList;
 
@@ -8,6 +8,9 @@ import org.neuroph.core.data.DataSet;
 import entity.League;
 import entity.Match;
 import entity.Season;
+import control.*;
+import boundary.*;
+
 
 /**
  * A class used to test the neural network. It creates a league and season with

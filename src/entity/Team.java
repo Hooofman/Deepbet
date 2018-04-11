@@ -3,8 +3,6 @@ package entity;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import control.LocationAndPoint;
-
 public class Team implements Comparable<Team>{
 
 	private int matchesPlayed;

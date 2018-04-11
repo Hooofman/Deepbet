@@ -1,9 +1,11 @@
-package control;
+package test;
 
 import org.json.*;
 import org.neuroph.core.data.DataSet;
 
+import boundary.FetchApi;
 import entity.*;
+import control.*;
 
 public class FixtureHandlerTest {
 	private static JSONObject jsonMatches;

@@ -1,4 +1,4 @@
-package control;
+package test;
 
 import java.util.ArrayList;
 
@@ -11,13 +11,15 @@ import entity.League;
 import entity.Match;
 import entity.Season;
 import neurophtrainer.MLPTrainer;
+import control.*;
+import boundary.*;
 
 public class TestAI3 {
 	public static void main(String[] args) {
 
 		//		int[] plApiId = {113, 114, 4, 301, 341, 354, 398, 426, 445};
 		int[] plApiId = {354,398, 426, 445};
-		LeagueCreator ligaSkapare = null;
+		LeagueCreatorTest ligaSkapare = null;
 		int matchesToGetDataFor = 28;
 		int matchToTestOn = 29;
 		int totalMatches = 0;
@@ -38,7 +40,7 @@ public class TestAI3 {
 			int predictionCount = 0;
 
 			try {
-				ligaSkapare = new LeagueCreator();
+				ligaSkapare = new LeagueCreatorTest();
 				ligaSkapare.start("PL", plApiId, i);
 			} catch (JSONException | InterruptedException e) {
 				e.printStackTrace();

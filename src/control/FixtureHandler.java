@@ -8,6 +8,7 @@ import java.util.Date;
 import org.json.*;
 import org.neuroph.core.data.DataSet;
 
+import boundary.FetchApi;
 import entity.*;
 
 public class FixtureHandler {

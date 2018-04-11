@@ -3,6 +3,7 @@ package control;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import boundary.FetchApi;
 import entity.League;
 import entity.Season;
 import entity.Team;

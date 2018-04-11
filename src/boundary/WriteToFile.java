@@ -1,4 +1,4 @@
-package control;
+package boundary;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

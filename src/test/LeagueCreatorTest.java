@@ -1,11 +1,13 @@
-package control;
+package test;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.neuroph.core.data.DataSet;
 
+import boundary.FetchApi;
 import entity.League;
 import entity.Season;
+import control.*;
 
 /**
  * This class creates a league-object but is only used for testing and with other test-classes

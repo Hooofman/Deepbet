@@ -1,4 +1,4 @@
-package control;
+package boundary;
 
 /**
  * author Sven Lindqvist

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.neuroph.core.NeuralNetwork;
 
+import boundary.WriteToFile;
 import entity.Match;
 
 /**

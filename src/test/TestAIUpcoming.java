@@ -1,13 +1,15 @@
-package control;
+package test;
 
 import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.neuroph.core.data.DataSet;
 
+import boundary.ConnectDatabase;
 import entity.League;
 import entity.Match;
 import entity.Season;
+import control.*;
 
 /**
  * Main-class of the application in its current state.

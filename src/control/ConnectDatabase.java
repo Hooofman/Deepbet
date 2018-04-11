@@ -1,5 +1,9 @@
 package control;
 
+/**
+ * author Sven Lindqvist
+ * Class for connection with database.
+ */
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -14,7 +18,7 @@ public class ConnectDatabase {
 	private static final String DATABASE_URL = "jdbc:mysql://deepbet.ddns.net:3306/deepbet";
 	private static final String USERNAME = "deepbet";
 	private static final String PASSWORD = "Deepbet123";
-	private static final String MAX_POOL = "250"; // vad är detta?
+	private static final String MAX_POOL = "250";
 	private Connection connection;
 	private Properties properties;
 	private String table;
@@ -23,6 +27,11 @@ public class ConnectDatabase {
 
 	}
 
+	/**
+	 * Creates properties using the username, password and max pool.
+	 * 
+	 * @return Properties used to access the database.
+	 */
 	private Properties getProperties() {
 		if (properties == null) {
 			properties = new Properties();
@@ -33,6 +42,11 @@ public class ConnectDatabase {
 		return properties;
 	}
 
+	/**
+	 * Establishes a connection with the database.
+	 * 
+	 * @return Connection The connection object.
+	 */
 	public Connection connect() {
 		if (connection == null) {
 			try {
@@ -45,6 +59,9 @@ public class ConnectDatabase {
 		return connection;
 	}
 
+	/**
+	 * Disconnects from the database.
+	 */
 	public void disconnect() {
 		if (connection != null) {
 			try {
@@ -56,29 +73,57 @@ public class ConnectDatabase {
 		}
 	}
 
+	/**
+	 * Sets the table for storage in the database.
+	 * 
+	 * @param table
+	 *            in database to which the data is to be stored in.
+	 */
 	public void insertIntoTable(String table) {
 		this.table = table;
 	}
 
+	/**
+	 * Creates a statement containing all the data for a played match that is to be
+	 * stored in the database. Calls the executeStatement method.
+	 * 
+	 * @param match
+	 *            The match that is to be stored in the database.
+	 * @param season
+	 *            The number of the season
+	 * @param leagueName
+	 *            The name of the league.
+	 */
 	public void createStatementForPlayedMatches(Match match, int season, String leagueName) {
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
 		int homeGoals = match.getHomeGoals();
 		int awayGoals = match.getAwayGoals();
 		int outcome = match.getOutcome();
-		Date date = (Date) match.getDate(); // Kolla format och om rätt Date (SQL nu)!
-		Time time = new Time(date.getTime());
+		Date date = Date.valueOf(match.getDate()); // Kolla format och om rätt Date (SQL nu)!
+		Time time = Time.valueOf(match.getTime());
 		String league = leagueName;
 		char recommendation = match.getRecommendation();
 		int strengthRec = match.getStrengthRec();
 
-		String statement = "INSERT INTO " + table + " VALUES (" + homeTeam + ", " + awayTeam + ", " + homeGoals + ", "
-				+ awayGoals + ", " + date + ", " + time + ", " + season + ", " + league + ", " + outcome + ", "
-				+ recommendation + ", " + strengthRec + ")";
+		String statement = "INSERT INTO " + table + " VALUES ('" + homeTeam + "', '" + awayTeam + "', '" + homeGoals
+				+ "', '" + awayGoals + "', '" + date + "', '" + time + "', '" + season + "', '" + league + "', '"
+				+ outcome + "', '" + recommendation + "', '" + strengthRec + "')";
 
 		excecuteStatement(statement);
 	}
 
+	/**
+	 * Creates a statement containing all the data for an upcoming match that is to
+	 * be stored in the database. Calls the executeStatement method.
+	 * 
+	 * @param match
+	 *            The match that is to be stored in the database.
+	 * @param season
+	 *            The number of the season
+	 * @param leagueName
+	 *            The name of the league.
+	 */
 	public void createStatementForUpcomming(Match match, int season, String leagueName) {
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
@@ -92,12 +137,18 @@ public class ConnectDatabase {
 		char recommendation = match.getRecommendation();
 		int strengthRec = match.getStrengthRec();
 
-		String statement = "INSERT INTO " + table + " VALUES ('" + homeTeam + "', '" + awayTeam + "', '" + date + "', '" + time
-				+ "', '" + season + "', '" + league + "', '" + calcHome + "', '" + calcAway + "', '" + calcDraw + "', '"
-				+ recommendation + "', '" + strengthRec + "')";
+		String statement = "INSERT INTO " + table + " VALUES ('" + homeTeam + "', '" + awayTeam + "', '" + date + "', '"
+				+ time + "', '" + season + "', '" + league + "', '" + calcHome + "', '" + calcAway + "', '" + calcDraw
+				+ "', '" + recommendation + "', '" + strengthRec + "')";
 		excecuteStatement(statement);
 	}
 
+	/**
+	 * Sends the data to the database.
+	 * 
+	 * @param sqlStatement
+	 *            The data to be stored in the database.
+	 */
 	public void excecuteStatement(String sqlStatement) {
 		java.sql.PreparedStatement statement = null;
 		try {

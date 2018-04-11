@@ -7,11 +7,21 @@ import org.neuroph.core.NeuralNetwork;
 import entity.Match;
 import entity.Team;
 
+
+/**
+ * Class used for testing the AI
+ *
+ */
 public class TestAI {
 
+	/**
+	 * Tests a team against the network to produce an output that represents the teams current strength
+	 * @param round what round to test for
+	 * @param team what team to test for
+	 * @return the current strength of the team
+	 */
 	public static double[] getOutputForTeam(int round, Team team) {
-
-		NeuralNetwork test = NeuralNetwork.load("test.nnet");
+		NeuralNetwork test = NeuralNetwork.load("test.nnet"); // Load the trained network
 		test.setInput(team.getSumOfGoals(round), 
 				team.getSumOfGoalsAgainst(round),
 				team.getTotalPoints(round),
@@ -23,18 +33,22 @@ public class TestAI {
 				team.goalsForLastNGames(round, 5),
 				team.goalsAgainstLastNGames(round, 5),
 				team.getLocationAndPointsLocation(round));
-		test.calculate();
+		test.calculate(); // Calculate the teams strength
 		double[] output = test.getOutput();
-
 		return output;
 	}
 
+	/**
+	 * Tests a match-object against the network to create an output
+	 * @param match what match to test
+	 * @return an int that either is 0 or 1, depending on if the AI did pick the correct outcome
+	 */
 	public static int getOutputForMatch(Match match){
-		NeuralNetwork test = NeuralNetwork.load("test.nnet");
-		test.setInput(match.getMatchArray(5));
-		test.calculate();
-
-		double[] output = test.getOutput();
+		NeuralNetwork test = NeuralNetwork.load("test.nnet"); // Load the trained network
+		test.setInput(match.getMatchArray(5)); // Get the input-array from the match
+		test.calculate(); // Calculate the match
+		double[] output = test.getOutput(); // Get the AIs predicition
+		
 		System.out.println("---");
 		System.out.println(match.getHomeTeam() +" vs " + match.getAwayTeam() +": " + output[0] + "\t"+ output[1] + "\t" + output[2]);
 		System.out.println(match.getHomeGoals() + " - " + match.getAwayGoals());
@@ -46,22 +60,31 @@ public class TestAI {
 		WriteToFile.appendTxt(match.getHomeGoals() + " - " + match.getAwayGoals());
 		WriteToFile.appendTxt("---");
 		
-		return getPrediction(output, match.get1X2Outcome());
+		return getPrediction(output, match.get1X2Outcome()); // Returns 1 for correct pick, 0 for incorrect pick
 	}
 	
-	public static int getOutputForMatch(Match match, int round, int combinations){
+	/**
+	 * Method used for training and testing the network with a lot of different combinations of AI-settings
+	 * @param match the match to test
+	 * @param round the round to test for
+	 * @param combinations used to find the correct network
+	 * @return returns 1 for correct pick, 0 for incorrect pick
+	 */
+		public static int getOutputForMatch(Match match, int round, int combinations){
 		NeuralNetwork test = NeuralNetwork.load("test_"+round+"_"+combinations+".nnet");
 		test.setInput(match.getMatchArray(5));
 		test.calculate();
 
 		double[] output = test.getOutput();
-//		System.out.println("---");
-//		System.out.println(match.getHomeTeam() +" vs " + match.getAwayTeam() +": " + output[0] + "\t"+ output[1] + "\t" + output[2]);
-//		System.out.println(match.getHomeGoals() + " - " + match.getAwayGoals());
-//		System.out.println("---");
 		return getPrediction(output, match.get1X2Outcome());
 	}
 	
+	/**
+	 * Used to calculate if the AI picked the correct outcome for a match
+	 * @param output the prediction made by the AI
+	 * @param outcome the actual outcome of the match
+	 * @return 1 for correct pick, 0 for incorrect pick
+	 */
 	public static int getPrediction(double[] output, double[] outcome) {
 		double highestPrediciton = Math.max(output[0], Math.max(output[1], output[2]));
 		double[] prediction = {0.0, 0.0, 0.0};
@@ -78,24 +101,4 @@ public class TestAI {
 		}
 		return 0;
 	}
-	
-	public static void printGameOutcome(int round, Team homeTeam, Team awayTeam) {
-		double[] homeTeamOutput = getOutputForTeam(round, homeTeam);
-		double[] awayTeamOutput = getOutputForTeam(round, awayTeam);
-
-		System.out.println("----------------------");
-		System.out.println(homeTeam.getName());
-		for (int i=0; i<homeTeamOutput.length; i++) {
-			System.out.println(homeTeamOutput[i]);
-		}
-		System.out.println("vs");
-		System.out.println(awayTeam.getName());
-		for (int i=0; i<awayTeamOutput.length; i++) {
-			System.out.println(awayTeamOutput[i]);
-		}
-		System.out.println("----------------------");
-	}
-	
-
-
 }

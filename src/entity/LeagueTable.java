@@ -5,7 +5,7 @@ import java.util.Collections;
 
 /**
  * Class for creating the league table 
- * @author oskarem
+ * @author 
  *
  */
 public class LeagueTable {

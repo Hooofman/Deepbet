@@ -1,4 +1,4 @@
-package control;
+package test;
 
 import java.util.Arrays;
 
@@ -6,7 +6,8 @@ import org.neuroph.core.NeuralNetwork;
 
 import entity.Match;
 import entity.Team;
-
+import control.*;
+import boundary.*;
 
 /**
  * Class used for testing the AI

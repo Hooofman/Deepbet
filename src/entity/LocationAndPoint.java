@@ -1,4 +1,4 @@
-package control;
+package entity;
 
 /**
  * Class for Location and points for a single match

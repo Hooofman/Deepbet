@@ -36,12 +36,12 @@ public class LeagueCreator extends Thread {
 		for (int i= 0; i<seasonsId.length; i++) {
 			
 			// Removes the last three teams for each season and resets the variables for the teams that will play in the next season of the league
-			if (i != 0) {
+			
 				league.removeLast3Teams();
 				System.out.println("Sista 3 lag borttagna");
 				league.resetTeamsForNewSeason();
 				System.out.println("Lag nollställda inför ny säsong");
-			}
+			
 			
 			JSONObject jsonSeason = FetchApi.getJsonSeason(seasonsId[i]);
 			Season season = new Season(league);

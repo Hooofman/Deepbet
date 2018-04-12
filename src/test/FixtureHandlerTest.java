@@ -42,38 +42,44 @@ public class FixtureHandlerTest {
 
 			// Check if the match is finished
 			String status = fixtures.getJSONObject(i).optString("status");
-			if (!status.equals("TIMED") || !status.equals("SCHEDULED") || !status.equals("POSTPONED")) {
 
-				// Get data for the match
-				Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
-				Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
-				int homeGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsHomeTeam");
-				int awayGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsAwayTeam");
-				int matchDay = fixtures.getJSONObject(i).getInt("matchday");
+			// Get the teamnames from API and compare with the seasons team-objects to get the right team
+			Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
+			Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
+			int matchDay = fixtures.getJSONObject(i).getInt("matchday");
+			String dateString = fixtures.getJSONObject(i).getString("date");
 
-				// Create the match-object
-				Match match = new Match(homeTeam, awayTeam, matchDay);
+			// Create the match-object
+			Match match = new Match(homeTeam, awayTeam, matchDay);
 
-				// Set variables needed
-				match.setIsFinished(status);
-				match.setHomeGoals(homeGoals);
-				match.setAwayGoals(awayGoals);
-				homeTeam.setGoalsFor(homeGoals);
-				homeTeam.setGoalsAgainst(awayGoals);
-				awayTeam.setGoalsFor(awayGoals);
-				awayTeam.setGoalsAgainst(homeGoals);
-				match.setOutcome();
+			match.setDate(dateString.substring(0, 10));
+			match.setTime(dateString.substring(11,19));
+			match.setStatus(status);
+			match.setIsFinished(status);
+			if ((season.getYear() != 2017) && (matchDay < matchesToGetDataFor)) {
+				// What to do if the match is already played
+				if (!status.equals("TIMED") || !status.equals("SCHEDULED") || !status.equals("POSTPONED")) {
 
-				// Add the match to the season it belongs to
-				season.addMatch(match);
+					// Get data for the match
+					int homeGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsHomeTeam");
+					int awayGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsAwayTeam");
 
-				season.updateTable();
+					// Set variables needed
+					match.setHomeGoals(homeGoals);
+					match.setAwayGoals(awayGoals);
+					homeTeam.setGoalsFor(homeGoals);
+					homeTeam.setGoalsAgainst(awayGoals);
+					awayTeam.setGoalsFor(awayGoals);
+					awayTeam.setGoalsAgainst(homeGoals);
+					match.setOutcome();
 
-				if (!(season.getYear() == 2017 && matchDay >= matchesToGetDataFor)) {
-					AIHandler.addMatchToDataSet(match, dataSet);
+					// Add the match to the season it belongs to
+					season.addMatch(match);
+					season.updateTable();
 				}
+			} else {
+				season.addMatch(match);
 			}
 		}
-
 	}
 }

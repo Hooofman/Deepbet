@@ -3,16 +3,15 @@ package entity;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-<<<<<<< HEAD
-import control.LocationAndPoint;
+
+import entity.LocationAndPoint;
 
 /**
  * Class for creating Team objects
  * @author
  *
  */
-=======
->>>>>>> 504c1c6bc88e863274fe9d0e272a5c748b32626c
+
 public class Team implements Comparable<Team>{
 
 	private int matchesPlayed;

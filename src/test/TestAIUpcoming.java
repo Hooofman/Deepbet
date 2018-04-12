@@ -9,6 +9,7 @@ import boundary.ConnectDatabase;
 import entity.League;
 import entity.Match;
 import entity.Season;
+import entity.LocationAndPoint;
 import control.*;
 
 /**

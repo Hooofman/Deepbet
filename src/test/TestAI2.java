@@ -24,17 +24,17 @@ public class TestAI2 {
 
 	public static void main(String[] args) {
 
-		int[] plApiId = { 113, 114, 4, 301, 341, 354, 398, 426, 445 }; // ID for specific seasons in premier league in
+//		int[] plApiId = { 113, 114, 4, 301, 341, 354, 398, 426, 445 }; // ID for specific seasons in premier league in
 																		// the API.
-		// int[] plApiId = {398, 426, 445};
+		int[] plApiId = {398, 426, 445};
 		LeagueCreatorTest ligaSkapare = null;
-		int matchesToGetDataFor = 30;
+		int matchesToGetDataFor = 2;
 		double totalMatches = 0;
 		double correctCount = 0;
 
 		ArrayList<Integer> correctPredictions = new ArrayList<Integer>(matchesToGetDataFor);
 
-		for (int i = matchesToGetDataFor; i > 28; i--) {
+		for (int i = 0; i < matchesToGetDataFor; i++) {
 			int predictionCount = 0;
 
 			try {

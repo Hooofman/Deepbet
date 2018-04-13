@@ -7,6 +7,8 @@ package boundary;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Properties;
@@ -142,6 +144,22 @@ public class ConnectDatabase {
 				+ "', '" + recommendation + "', '" + strengthRec + "')";
 		excecuteStatement(statement);
 	}
+	
+	public void readStatementCalculatedMatches(Match match) {
+		String homeTeam = match.getHomeTeam().getName();
+		String awayTeam = match.getAwayTeam().getName();
+		Date date = Date.valueOf(match.getDate());
+		
+		
+		PreparedStatement statement;
+		try {
+			statement = connection.prepareStatement("INSERT INTO previousgames select * from upcominggames where HomeTeam = '" + homeTeam + "' AND AwayTeam = '" + awayTeam + "' AND DatePlayed = '" + date + "'");
+			statement.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Sends the data to the database.
@@ -150,7 +168,7 @@ public class ConnectDatabase {
 	 *            The data to be stored in the database.
 	 */
 	public void excecuteStatement(String sqlStatement) {
-		java.sql.PreparedStatement statement = null;
+		PreparedStatement statement = null;
 		try {
 			statement = connection.prepareStatement(sqlStatement);
 			statement.execute();

@@ -55,6 +55,7 @@ public class TestAIUpcoming {
 
 		// Get the upcoming matches and add them to the list of matches that will be tested
 		for (Match match : matchesFromSeason) {
+			connection.readStatementCalculatedMatches(match);
 			if (match.getStatus().equals("TIMED")) {
 				matchesToTest.add(match);
 			}

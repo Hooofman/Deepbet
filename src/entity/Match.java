@@ -22,6 +22,7 @@ public class Match {
 	private char recommendation;
 	private int strengthRec;
 	private String time;
+	private char outcomeChar;
 	
 	private String status;
 	private double calcOutput[];
@@ -121,6 +122,10 @@ public class Match {
 		return date;
 	}
 	
+	public char getOutcomeChar() {
+		return outcomeChar;
+	}
+	
 	/**
 	 * Set the status of a match to finished after it is played  
 	 * @param status status of Match
@@ -155,6 +160,7 @@ public class Match {
 			awayTeam.setOutcome(0);
 			homeTeam.setPointsAndLocation(1, 3); // 1 for playing home, 3 points for a win 
 			awayTeam.setPointsAndLocation(0, 0); // 0 for playing away, 0 points for a loss
+			outcomeChar = '1';
 		} else if (awayGoals > homeGoals) {
 			outcome = -1; // The away team has won the match
 			awayOutcome = 1;
@@ -162,6 +168,7 @@ public class Match {
 			homeTeam.setOutcome(0);
 			homeTeam.setPointsAndLocation(1, 0); // 1 for playing home, 0 points for a loss
 			awayTeam.setPointsAndLocation(0, 3); // 0 for playing away, 3 points for a win
+			outcomeChar = '2';
 		} else {
 			outcome = 0; // The match is a draw
 			drawOutcome = 1;
@@ -169,6 +176,7 @@ public class Match {
 			awayTeam.setOutcome(0.5);
 			homeTeam.setPointsAndLocation(1, 1); // 1 for playing home, 1 point for a draw
 			awayTeam.setPointsAndLocation(0, 1); // 0 for playing away, 1 point for a draw
+			outcomeChar = 'X';
 		}
 	}
 	

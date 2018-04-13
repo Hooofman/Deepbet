@@ -29,6 +29,16 @@ public class ProduceOutput {
 		double[] output = test.getOutput(); 
 		match.setCalcOutput(output);
 		
+		// Get the pick in char-form and save it to the match-object
+		double pick = Math.max(output[0], Math.max(output[1], output[2]));
+		if (pick == output[0]) {
+			match.setRecommendation('1');
+		} else if (pick == output[1]) {
+			match.setRecommendation('X');
+		} else if (pick == output[2]) {
+			match.setRecommendation('2');
+		}
+		
 		System.out.println("---");
 		System.out.println(match.getHomeTeam() +" vs " + match.getAwayTeam() +": " + output[0] + "\t"+ output[1] + "\t" + output[2]);
 		System.out.println(Arrays.toString(match.getMatchArray()));

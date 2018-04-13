@@ -55,7 +55,7 @@ public class TestAIUpcoming {
 
 		// Get the upcoming matches and add them to the list of matches that will be tested
 		for (Match match : matchesFromSeason) {
-			connection.readStatementCalculatedMatches(match);
+			connection.updateCalculatedMatches(match);
 			if (match.getStatus().equals("TIMED")) {
 				matchesToTest.add(match);
 			}
@@ -64,8 +64,8 @@ public class TestAIUpcoming {
 		// Produce the calculation for each match and save it to the database
 		for (Match match : matchesToTest) {
 			ProduceOutput.getOutputForMatch(match);
-//			connection.insertIntoTable("upcominggames");
-//			connection.createStatementForUpcomming(match, seasonToTest.getYear(), league.getName());
+			connection.insertIntoTable("games");
+			connection.createNewMatch(match, seasonToTest.getYear(), league.getName());
 		}
 		
 		// Close the db-conection

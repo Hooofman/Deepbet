@@ -145,22 +145,56 @@ public class ConnectDatabase {
 		excecuteStatement(statement);
 	}
 	
-	public void readStatementCalculatedMatches(Match match) {
+	public void createNewMatch(Match match, int season, String leagueName) {
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
 		Date date = Date.valueOf(match.getDate());
+		Time time = Time.valueOf(match.getTime());
+		double[] calculations = match.getCalcOutput();
+		double calcHome = calculations[0];
+		double calcDraw = calculations[1];
+		double calcAway = calculations[2];
 		
-		
+		String sql = "INSERT INTO games (HomeTeam, AwayTeam, DatePlayed, TimePlayed, Season, League, CalcHome, CalcAway, CalcDraw, Recommendation, Status)"
+				+ " VALUES ('" + homeTeam + "', '" 
+				+ awayTeam + "', '" 
+				+ date + "', '" 
+				+ time + "', '" 
+				+ season + "', '" 
+				+ leagueName + "', '" 
+				+ calcHome + "', '" 
+				+ calcAway + "', '"
+				+ calcDraw + "', '"
+				+ match.getRecommendation() + "', '"
+				+ match.getStatus() + "')";
 		PreparedStatement statement;
 		try {
-			statement = connection.prepareStatement("INSERT INTO previousgames select * from upcominggames where HomeTeam = '" + homeTeam + "' AND AwayTeam = '" + awayTeam + "' AND DatePlayed = '" + date + "'");
+			statement = connection.prepareStatement(sql);
 			statement.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+		
+	public void updateCalculatedMatches(Match match) {
+		String homeTeam = match.getHomeTeam().getName();
+		String awayTeam = match.getAwayTeam().getName();
+		Date date = Date.valueOf(match.getDate());
+		String sql = "UPDATE games "
+				+ "set GoalsHomeTeam = '" + match.getHomeGoals() + "'"
+						+ ", GoalsAwayTeam = '" + match.getAwayGoals() + "'"
+								+ ", Outcome = '" + match.getOutcomeChar() + "'"
+										+ ", Status = '" + match.getStatus() + "'"
+												+ "where HomeTeam = '" + homeTeam + "' AND AwayTeam = '" + awayTeam + "' AND DatePlayed = '" + date + "'";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 	/**
 	 * Sends the data to the database.
 	 * 

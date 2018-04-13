@@ -22,7 +22,7 @@ public class ProduceOutput {
 
 	public static void getOutputForMatch(Match match){
 		NeuralNetwork test = NeuralNetwork.load("test.nnet"); // Load the trained network
-		test.setInput(match.getMatchArray(5)); // Get the array from the match
+		test.setInput(match.getMatchArray()); // Get the array from the match
 		test.calculate(); // Test the match against the network
 		
 		// Get the output and save it
@@ -31,7 +31,7 @@ public class ProduceOutput {
 		
 		System.out.println("---");
 		System.out.println(match.getHomeTeam() +" vs " + match.getAwayTeam() +": " + output[0] + "\t"+ output[1] + "\t" + output[2]);
-		System.out.println(Arrays.toString(match.getMatchArray(5)));
+		System.out.println(Arrays.toString(match.getMatchArray()));
 		System.out.println("---");
 
 		WriteToFile.appendTxt("---");

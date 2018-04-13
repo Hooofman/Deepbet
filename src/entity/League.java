@@ -96,7 +96,7 @@ public class League {
 		ArrayList<Team> list = new ArrayList<Team>();
 		for (Team team : teams) {
 			// Puts the 3 last placed teams in a list 
-			if (team.getLastTablePosition() > 17) {
+			if (team.getLastFromList(team.getTablePositions()) > 17) {
 				list.add(team);
 				System.out.println(team.getName() + " kommer raderas");
 			}

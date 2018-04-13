@@ -7,7 +7,7 @@ import org.json.JSONException;
  * @author 
  *
  */
-public class Match {
+public class MatchOld {
 	private Team homeTeam;
 	private Team awayTeam;
 	private int homeGoals;
@@ -19,14 +19,13 @@ public class Match {
 	private int drawOutcome;
 	private int awayOutcome;
 	private boolean isFinished;
+	private Odds odds;
 	private char recommendation;
 	private int strengthRec;
 	private String time;
 	
 	private String status;
 	private double calcOutput[];
-	private double inputArray[];
-	private double outputArray[];
 	
 	/**
 	 * Constructs a Match object
@@ -34,7 +33,7 @@ public class Match {
 	 * @param awayTeam away team
 	 * @param round round in which the match is played 
 	 */
-	public Match(Team homeTeam, Team awayTeam, int round) {
+	public MatchOld(Team homeTeam, Team awayTeam, int round) {
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
 		this.round = round;
@@ -44,6 +43,19 @@ public class Match {
 		this.drawOutcome = 0;	// 1 for a win, -1 for a loss and 0 for a draw
 		this.calcOutput = new double[2]; // Saves the output for the match in an array
 	}
+
+	/**
+	 * Creates an Odds object for the match with the latest odds
+	 */
+	public void createOdds() {
+		this.odds = new Odds();
+		try {
+			odds.setOddsHome(OddsHandler2.getHomeOddsMap(homeTeam.getShortName(), awayTeam.getShortName()));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	public void setTime(String time) {
 		this.time = time;
@@ -59,6 +71,10 @@ public class Match {
 
 	public double[] getCalcOutput() {
 		return calcOutput;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getStatus() {
@@ -126,7 +142,6 @@ public class Match {
 	 * @param status status of Match
 	 */
 	public void setIsFinished(String status) {
-		this.status = status;
 		if (!status.equals("TIMED") || !status.equals("SCHEDULED") || !status.equals("POSTPONED")) {
 			isFinished = true;
 			homeTeam.addPlayedMatch();
@@ -172,39 +187,30 @@ public class Match {
 		}
 	}
 	
-	public void produceInputArray(int number) {
-		double[] array= new double[22];
-		
-		double homeTeam[] = this.homeTeam.createInputArray(number);
-		double awayTeam[] = this.awayTeam.createInputArray(number);
-		for (int i = 0; i < 11; i++) {
-			array[i] = homeTeam[i];
-			array[i + 11] = awayTeam[i];
-		}
-		
-		inputArray = array;
-	}
-	
 	/**
 	 * Returns an array containing all parameters in a Match object which is 
 	 * used by the neural network
 	 * @param number specifying how many matches back it should check
 	 * @return array of parameters in a Match object 
 	 */
-	public double[] getMatchArray() {
-		return inputArray;
+	public double[] getMatchArray(int number) {
+		double res[] = new double[22];
+		double homeTeam[] = this.homeTeam.createInputArray(this.homeTeam.getMatchesPlayed()-2, number);
+		double awayTeam[] = this.awayTeam.createInputArray(this.awayTeam.getMatchesPlayed()-2, number);
+		for (int i = 0; i < 11; i++) {
+			res[i] = homeTeam[i];
+			res[i + 11] = awayTeam[i];
+		}
+		return res;
 	}
 
-	
-	public void produceOutputArray() {
-		this.outputArray = new double[] { this.homeOutcome, this.drawOutcome, this.awayOutcome };
-	}
 	/**
 	 * Returns an array with the outcome of a match
 	 * @return 
 	 */
 	public double[] get1X2Outcome() {
-		return outputArray;
+		double[] outcome = { this.homeOutcome, this.drawOutcome, this.awayOutcome };
+		return outcome;
 	}
 	
 	/**

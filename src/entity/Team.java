@@ -16,20 +16,19 @@ public class Team implements Comparable<Team>{
 
 	private int matchesPlayed;
 
-	private ArrayList<Integer> goalsFor;
-	private ArrayList<Integer> goalsAgainst;
-	private LinkedList<Integer> tablePosition;
-	private ArrayList<Double> outcome; // Defines whether the team won or lost the game. 1 for win, 0.5 for draw, 0 for loss
-	private ArrayList<LocationAndPoint> locationAndPoints;
-	private ArrayList<Integer> goalsForThisSeason;
-	private ArrayList<Integer> goalsAgainstThisSeason;
-	private ArrayList<Integer> totalPointsThisSeason;
-	private ArrayList<Integer> totalPointsHomeThisSeason;
-	private ArrayList<Integer> totalPointsAwayThisSeason;
-
+	private LinkedList<Double> goalsFor;
+	private LinkedList<Double> goalsAgainst;
+	private LinkedList<Double> tablePosition;
+	private LinkedList<Double> outcome; // Defines whether the team won or lost the game. 1 for win, 0.5 for draw, 0 for loss
+	private LinkedList<Double> location;
+	private LinkedList<Double> goalsForThisSeason;
+	private LinkedList<Double> goalsAgainstThisSeason;
+	private LinkedList<Double> totalPointsThisSeason;
+	private LinkedList<Double> totalPointsHomeThisSeason;
+	private LinkedList<Double> totalPointsAwayThisSeason;
+	private LinkedList<Double> totalPoints;
+	
 	private String name;
-	private String shortName;
-	private static int id;
 
 	/** 
 	 * Constructs a Team object and arrays holding information about the team
@@ -37,17 +36,18 @@ public class Team implements Comparable<Team>{
 	 */
 	public Team(String name) {
 		this.name = name;
-		this.goalsFor = new ArrayList<Integer>();
-		this.goalsAgainst = new ArrayList<Integer>();
-		this.tablePosition = new LinkedList<Integer>();
-		this.outcome = new ArrayList<Double>(); // Defines whether the team won or lost the game. 1 for win, 0.5 for draw, 0 for loss
-		this.locationAndPoints = new ArrayList<LocationAndPoint>();
+		this.goalsFor = new LinkedList<Double>();
+		this.goalsAgainst = new LinkedList<Double>();
+		this.tablePosition = new LinkedList<Double>();
+		this.outcome = new LinkedList<Double>(); // Defines whether the team won or lost the game. 1 for win, 0.5 for draw, 0 for loss
+		this.location = new LinkedList<Double>();
 		this.matchesPlayed = 0;
-		this.goalsForThisSeason = new ArrayList<Integer>();
-		this.goalsAgainstThisSeason = new ArrayList<Integer>();
-		this.totalPointsThisSeason = new ArrayList<Integer>();
-		this.totalPointsHomeThisSeason = new ArrayList<Integer>();
-		this.totalPointsAwayThisSeason = new ArrayList<Integer>();
+		this.goalsForThisSeason = new LinkedList<Double>();
+		this.goalsAgainstThisSeason = new LinkedList<Double>();
+		this.totalPointsThisSeason = new LinkedList<Double>();
+		this.totalPointsHomeThisSeason = new LinkedList<Double>();
+		this.totalPointsAwayThisSeason = new LinkedList<Double>();
+		this.totalPoints = new LinkedList<Double>();
 	}
 
 	/**
@@ -61,19 +61,10 @@ public class Team implements Comparable<Team>{
 		return matchesPlayed;
 	}
 
-	public void setLocation(int location) {
-		this.locationAndPoints.add(new LocationAndPoint(location));
+	public LinkedList<Double> getTablePositions() {
+		return tablePosition;
 	}
-
-	/**
-	 * Gets the location the team played at for a specific round
-	 * @param index round
-	 * @return 1 if home, 0 if away
-	 */
-	public int getLocationForASpecificRound(int index) {
-		return locationAndPoints.get(index).getLocation();
-	}
-
+	
 	public void setOutcome(double outcome) {
 		this.outcome.add(outcome);
 	}
@@ -94,12 +85,12 @@ public class Team implements Comparable<Team>{
 	 * Sets how many goals the teams scored in a match and adds it to goalsForThisSeason
 	 * @param value goals scored
 	 */
-	public void setGoalsFor(int value) {
+	public void setGoalsFor(double value) {
 		this.goalsFor.add(value);
 		this.goalsForThisSeason.add(value);
 	}
 
-	public int getGoalsFor(int index) {
+	public double getGoalsFor(int index) {
 		return goalsFor.get(index);
 	}
 
@@ -107,12 +98,12 @@ public class Team implements Comparable<Team>{
 	 * Sets how many goals the teams conceded in a match and adds it to goalsAgainstThisSeason
 	 * @param value goals conceded
 	 */
-	public void setGoalsAgainst(int value) {
+	public void setGoalsAgainst(double value) {
 		this.goalsAgainst.add(value);
 		this.goalsAgainstThisSeason.add(value);
 	}
 
-	public int getGoalsAgainst(int index) {
+	public double getGoalsAgainst(int index) {
 		return goalsAgainst.get(index);
 	}
 
@@ -121,34 +112,23 @@ public class Team implements Comparable<Team>{
 	 * @param location 1 if home, 0 if away
 	 * @param points points taken by the team in that match
 	 */
-	public void setPointsAndLocation(int location, int points) {
+	public void setPointsAndLocation(double location, double points) {
 		if (location == 1) {
 			this.totalPointsHomeThisSeason.add(points);
 		} else if (location == 0) {
 			this.totalPointsAwayThisSeason.add(points);
 		}
-		this.locationAndPoints.add(new LocationAndPoint(location, points));
+		this.location.add(location);
 		this.totalPointsThisSeason.add(points);
+		this.totalPoints.add(points);
 	}
 
-	public void setPoints(int index, int value) {
-		this.locationAndPoints.add(this.locationAndPoints.get(index).setPoints(value));
-	}
-
-	public LocationAndPoint getPoints(int index) {
-		return locationAndPoints.get(index);
-	}
-
-	public void setTablePosition(int value) {
+	public void setTablePosition(double value) {
 		this.tablePosition.add(value);
 	}
 
 	public double getTablePosition(int index) {
 		return tablePosition.get(index);
-	}
-
-	public double getLastTablePosition() {
-		return tablePosition.getLast();
 	}
 
 	public String getName() {
@@ -159,176 +139,32 @@ public class Team implements Comparable<Team>{
 		this.name = name;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setShortName(String shortName) {
-		this.shortName = shortName;
-	}
-
-	public String getShortName() {
-		return shortName;
-	}
-
-	/**
-	 * Calculates the average number points taken by the team in last N games
-	 * @param round current round
-	 * @param number how many games it should check
-	 * @return average number of points in last N games
-	 */
-	public double pointsLastNGames(int round, int number) {
+	
+	public double getSumOfList(LinkedList<Double> list) {
 		double sum = 0;
-		int avgNbr = 0;
-
-		for (int i=round; i>=round-number; i--) {
-			if (i>=0) {
-				sum += this.locationAndPoints.get(i).getPoints();
-				avgNbr++;
-			}
+		for (Double round : list) {
+			sum += round;
 		}
-
-		if (avgNbr != 0) {
-			return sum / avgNbr;
+		return sum;
+	}
+	
+	
+	public double getAverageForNGames(LinkedList<Double> list, int number) {
+		double sum = 0;	
+		int loopNumber = Math.max(list.size()-number,0);
+		double avgNumber = 0;
+		for (int i = loopNumber; i<list.size(); i++) {
+			sum += list.get(i);
+			avgNumber++;
 		}
-
+		return sum / (Math.max(avgNumber,1));
+	}
+	
+	public double getLastFromList(LinkedList<Double> list) {
+		if (!list.isEmpty()) {
+			return list.getLast();
+		}
 		return 0;
-	}
-
-	/**
-	 * Calculates the average number of goals scored by the team in last N games
-	 * @param round current round
-	 * @param number how many games it should check
-	 * @return average goals scored in last N games
-	 */
-	public double goalsForLastNGames(int round, int number) {
-		double sum = 0;
-		int avgNbr = 0;
-
-		for (int i=round; i>=round-number; i--) {
-			if (i>=0) {
-				sum += this.goalsFor.get(i);
-				avgNbr++;
-			}
-		}
-		if (avgNbr != 0) {
-			return sum / avgNbr;
-		}
-
-		return 0;
-	}
-
-	/**
-	 * Calculates the average number of goals conceded by the team in last N games
-	 * @param round current round
-	 * @param number how many games it should check
-	 * @return average goals conceded in last N games
-	 */
-	public double goalsAgainstLastNGames(int round, int number) {
-		double sum = 0;
-		int avgNbr = 0;
-
-		for (int i=round; i>=round-number; i--) {
-			if (i>=0) {
-				sum -= this.goalsAgainst.get(i);
-				avgNbr++;
-			}
-		}
-		if (avgNbr != 0) {
-			return sum / avgNbr;
-		}
-
-		return 0;
-	}
-
-	/**
-	 * Returns total goals scored in the season by a specific round
-	 * @param round 
-	 * @return sum of total goals scored
-	 */
-	public double getSumOfGoals(int round) {
-		double sum = 0;
-		for (int i=0; i<=round; i++) {
-			if (i < this.goalsForThisSeason.size()) {
-				sum += this.goalsForThisSeason.get(i);
-			}
-		}
-		return sum;
-	}
-
-	/**
-	 * Returns total goals conceded in the season by a specific round
-	 * @param round 
-	 * @return sum of total goals conceded
-	 */
-	public double getSumOfGoalsAgainst(int round) {
-		double sum = 0;
-		for (int i=0; i<=round; i++) {
-			if (i < this.goalsAgainstThisSeason.size()) {
-				sum -= this.goalsAgainstThisSeason.get(i);
-			}
-		}
-
-		return sum;
-	}
-
-	/**
-	 * Returns amount of points in the season by a specific round
-	 * @param round 
-	 * @return sum of total points
-	 */
-	public double getTotalPoints(int round) {
-		double sum = 0;
-		for (int i=0; i<=round; i++) {
-			if (i < this.totalPointsThisSeason.size()) {
-				sum += this.totalPointsThisSeason.get(i);
-			}
-		}
-		return sum;
-	}
-
-	/**
-	 * Returns amount of points taken at home by a specific round
-	 * @param round 
-	 * @return sum of total points taken at home
-	 */
-	public double getTotalPointsHome(int round) {
-		double sum = 0;
-
-		for (int i=0; i<=round; i++) {
-			if (i < this.totalPointsHomeThisSeason.size()) {
-				sum += this.totalPointsHomeThisSeason.get(i);
-			}
-		}
-		return sum;
-	}
-
-	/**
-	 * Returns amount of points taken away by a specific round
-	 * @param round 
-	 * @return sum of total points taken away
-	 */
-	public double getTotalPointsAway(int round) {
-		double sum = 0;
-
-		for (int i = 0; i<=round; i++) {
-			if (i < this.totalPointsAwayThisSeason.size()) {
-				sum += this.totalPointsAwayThisSeason.get(i);
-			}
-		}
-		return sum;
-	}
-
-	public double getLocationAndPointsPoints(int round) {
-		return locationAndPoints.get(round).getPoints();
-	}
-
-	public double getLocationAndPointsLocation(int round) {
-		return locationAndPoints.get(round).getLocation();
 	}
 
 	/**
@@ -338,22 +174,19 @@ public class Team implements Comparable<Team>{
 	 * @param number number of games it checks when calculating average
 	 * @return array with all parameters for the team
 	 */
-	public double[] createInputArray(int currentRound, int number) {
-		if(currentRound == -1) {
-			currentRound = matchesPlayed-1;
-		}
+	public double[] createInputArray(int number) {
 		double[] inputArray = new double[11];
-		inputArray[0] = getSumOfGoals(currentRound);	
-		inputArray[1] = Math.abs(getSumOfGoalsAgainst(currentRound));
-		inputArray[2] = getTotalPoints(currentRound);
-		inputArray[3] = getTotalPointsHome(currentRound);
-		inputArray[4] = getTotalPointsAway(currentRound);
-		inputArray[5] = getLocationAndPointsPoints(currentRound);
-		inputArray[6] = pointsLastNGames(currentRound, number);
-		inputArray[7] = getTablePosition(currentRound);
-		inputArray[8] = goalsForLastNGames(currentRound, number);
-		inputArray[9] = Math.abs(goalsAgainstLastNGames(currentRound, number));
-		inputArray[10] = getLocationAndPointsLocation(currentRound); 
+		inputArray[0] = getSumOfList(goalsForThisSeason);
+		inputArray[1] = Math.abs(getSumOfList(goalsAgainstThisSeason));
+		inputArray[2] = getSumOfList(totalPointsThisSeason);
+		inputArray[3] = getSumOfList(totalPointsHomeThisSeason);
+		inputArray[4] = getSumOfList(totalPointsAwayThisSeason);
+		inputArray[5] = getLastFromList(totalPointsThisSeason);
+		inputArray[6] = getAverageForNGames(totalPoints, number);
+		inputArray[7] = getLastFromList(tablePosition);
+		inputArray[8] =	getAverageForNGames(goalsFor, number);
+		inputArray[9] = Math.abs(getAverageForNGames(goalsAgainst, number));
+		inputArray[10] = getLastFromList(location);
 		return inputArray;
 	}
 
@@ -365,12 +198,12 @@ public class Team implements Comparable<Team>{
 	 * Defines how the teams are sorted in the league table by comparing with another team 
 	 */
 	public int compareTo(Team otherTeam) {
-		double thisPoints = this.getTotalPoints(this.getMatchesPlayed()-1);
-		double otherPoints = otherTeam.getTotalPoints(otherTeam.getMatchesPlayed()-1);
-		double thisGoalDiff = this.getSumOfGoals(this.getMatchesPlayed()-1) - this.getSumOfGoalsAgainst(this.getMatchesPlayed()-1);
-		double otherGoalDiff = otherTeam.getSumOfGoals(otherTeam.getMatchesPlayed()-1) - otherTeam.getSumOfGoalsAgainst(otherTeam.getMatchesPlayed()-1);
-		double thisGoals = this.getSumOfGoals(this.getMatchesPlayed()-1);
-		double otherGoals = otherTeam.getSumOfGoals(otherTeam.getMatchesPlayed()-1);
+		double thisPoints = this.getSumOfList(totalPointsThisSeason);
+		double otherPoints = otherTeam.getSumOfList(otherTeam.totalPointsThisSeason);
+		double thisGoalDiff = this.getSumOfList(goalsForThisSeason) - this.getSumOfList(goalsAgainstThisSeason);
+		double otherGoalDiff = otherTeam.getSumOfList(otherTeam.goalsForThisSeason) - otherTeam.getSumOfList(goalsAgainstThisSeason);
+		double thisGoals = this.getSumOfList(goalsForThisSeason);
+		double otherGoals = otherTeam.getSumOfList(goalsForThisSeason);
 
 		if( thisPoints > otherPoints ) {
 			return -1;
@@ -387,7 +220,7 @@ public class Team implements Comparable<Team>{
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * Resets the statistics when a new season starts
 	 */

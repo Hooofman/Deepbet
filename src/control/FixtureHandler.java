@@ -3,6 +3,7 @@ package control;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 import org.json.*;
@@ -45,17 +46,17 @@ public class FixtureHandler {
 			Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
 			int matchDay = fixtures.getJSONObject(i).getInt("matchday");
 			String dateString = fixtures.getJSONObject(i).getString("date");
-			
+
 			// Create the match-object
 			Match match = new Match(homeTeam, awayTeam, matchDay);
-			
+
 			match.setDate(dateString.substring(0, 10));
 			match.setTime(dateString.substring(11,19));
-			match.setStatus(status);
 			match.setIsFinished(status);
-
+			match.produceInputArray(5);
+			
 			// What to do if the match is already played
-			if (!status.equals("TIMED") || !status.equals("SCHEDULED") || !status.equals("POSTPONED")) {
+			if (!status.equals("TIMED") && !status.equals("SCHEDULED") && !status.equals("POSTPONED")) {
 
 				// Get data for the match
 				int homeGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsHomeTeam");
@@ -69,15 +70,16 @@ public class FixtureHandler {
 				awayTeam.setGoalsFor(awayGoals);
 				awayTeam.setGoalsAgainst(homeGoals);
 				match.setOutcome();
-				
+				match.produceOutputArray();
 				// Add match to the season and update the table for the season
 				season.addMatch(match);
 				season.updateTable();
-				
+
 				// Add the match to the dataset used for training the AI
 				AIHandler.addMatchToDataSet(match, dataSet);
+				System.out.println(Arrays.toString(match.get1X2Outcome()));
 			}
-			
+
 			// If the match isnt played, just add it to the season
 			else {
 				season.addMatch(match);

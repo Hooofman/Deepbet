@@ -671,3 +671,741 @@ Manchester United FC vs Arsenal FC: 0.612440413034822	0.9475777693358741	3.00257
 ---
 Tottenham Hotspur FC vs Watford FC: 0.6124404130348194	0.9475777693358741	3.002572237013455E-11
 ---
+---
+Southampton FC vs Chelsea FC: 0.023197985739480426	0.9841858300083074	0.5242841745260701
+---
+---
+Burnley FC vs Leicester City FC: 0.045432507000998316	0.28263867684375765	0.7242707513728204
+---
+---
+Swansea City FC vs Everton FC: 0.04543250700099875	0.2826386768437574	0.7242707513728205
+---
+---
+Huddersfield Town vs Watford FC: 0.022824206477940742	0.2928243052572194	0.7355735108686454
+---
+---
+Crystal Palace FC vs Brighton & Hove Albion: 0.027757620890583756	0.27783052904331274	0.7343150501583328
+---
+---
+Liverpool FC vs AFC Bournemouth: 0.8334029049689056	0.2377406622913157	0.24839477847114533
+---
+---
+Tottenham Hotspur FC vs Manchester City FC: 0.03289029468456832	0.2764112855264164	0.735505840393584
+---
+---
+Newcastle United FC vs Arsenal FC: 0.04543250700099875	0.2826386768437574	0.7242707513728205
+---
+---
+Manchester United FC vs West Bromwich Albion FC: 0.8338104343598062	0.006084886254109065	4.780052753003802E-19
+---
+---
+West Ham United FC vs Stoke City FC: 0.217441654838647	0.2810751065830706	0.704274097485332
+---
+---
+Watford FC vs Crystal Palace FC: 0.045239666085065806	0.2770982682591691	0.733450751286205
+---
+---
+Stoke City FC vs Burnley FC: 0.022815921966305826	0.9971024283299299	0.7337633943159645
+---
+---
+Arsenal FC vs West Ham United FC: 0.7758041934661108	0.1543314896285271	5.409716529729292E-10
+---
+---
+Manchester City FC vs Swansea City FC: 0.8338104343598062	0.0060848862081009	4.780052702932586E-19
+---
+---
+West Bromwich Albion FC vs Liverpool FC: 0.022924011553219718	0.27642331472880866	0.7356779006374773
+---
+---
+Everton FC vs Newcastle United FC: 0.022824806228487968	0.9933189335297796	0.7274562473929581
+---
+---
+Liverpool FC vs Stoke City FC: 0.8334303572494285	0.02117086412127287	2.7406574157468315E-15
+---
+---
+Burnley FC vs Brighton & Hove Albion: 0.8334029048304378	0.23774132784484273	0.24840199910834335
+---
+---
+Crystal Palace FC vs Leicester City FC: 0.04543250699448382	0.28263867684410865	0.7242707513745227
+---
+---
+Huddersfield Town vs Everton FC: 0.045432506732653026	0.2826386768582243	0.7242707514429338
+---
+---
+Newcastle United FC vs West Bromwich Albion FC: 0.2102310180488526	0.2764734804959144	0.731566463719285
+---
+---
+Southampton FC vs AFC Bournemouth: 0.04543250700097829	0.28263867684375854	0.7242707513728258
+---
+---
+Swansea City FC vs Chelsea FC: 0.023499723632625615	0.9934985193933595	0.2682017387639325
+---
+---
+West Ham United FC vs Manchester City FC: 0.022924011553219718	0.27642331472880866	0.7356779006374773
+---
+---
+Manchester United FC vs Arsenal FC: 0.5869447744198575	0.2752550724371193	0.7005911248412351
+---
+---
+Tottenham Hotspur FC vs Watford FC: 0.8334029048440645	0.23774132736882805	0.24840199400687923
+---
+---
+Southampton FC vs Chelsea FC: 0.9974339982094149	0.00732246210832965	1.744732300481568E-12
+---
+---
+Burnley FC vs Leicester City FC: 0.002361176725720817	0.011923620553416336	0.985760337469422
+---
+---
+Swansea City FC vs Everton FC: 0.9965619105784151	0.008267461254046342	2.1597787115901417E-12
+---
+---
+Southampton FC vs Chelsea FC: 0.9970953327601865	0.00586818394717947	1.8521162637466333E-12
+---
+---
+Burnley FC vs Leicester City FC: 0.0019190725190732917	0.00892326918491012	0.9877795707983955
+---
+---
+Swansea City FC vs Everton FC: 0.9970259473150692	0.0061781309713911286	2.0173145760574937E-12
+---
+---
+Southampton FC vs Chelsea FC: 0.9953215154441507	0.0038942138413362985	0.004823122046869439
+---
+---
+Burnley FC vs Leicester City FC: 0.0038888683618803696	0.004980452681043675	0.9936487950262066
+---
+---
+Swansea City FC vs Everton FC: 0.6582597860215023	0.020615622820767263	0.004832907102018317
+---
+---
+Southampton FC vs Chelsea FC: 0.9983494088356188	0.00830750181541406	4.012787358472968E-13
+---
+---
+Burnley FC vs Leicester City FC: 0.0037615034702912858	0.007922448616343922	0.9854212782086612
+---
+---
+Swansea City FC vs Everton FC: 0.9982849584395905	0.008827206118125108	4.492467106704182E-13
+---
+---
+Southampton FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Everton FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Watford FC: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Liverpool FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Watford FC vs Crystal Palace FC: NaN	NaN	NaN
+---
+---
+Stoke City FC vs Burnley FC: NaN	NaN	NaN
+---
+---
+Arsenal FC vs West Ham United FC: NaN	NaN	NaN
+---
+---
+Manchester City FC vs Swansea City FC: NaN	NaN	NaN
+---
+---
+West Bromwich Albion FC vs Liverpool FC: NaN	NaN	NaN
+---
+---
+Everton FC vs Newcastle United FC: NaN	NaN	NaN
+---
+---
+Liverpool FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Everton FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Watford FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Everton FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Watford FC: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Liverpool FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Watford FC vs Crystal Palace FC: NaN	NaN	NaN
+---
+---
+Stoke City FC vs Burnley FC: NaN	NaN	NaN
+---
+---
+Arsenal FC vs West Ham United FC: NaN	NaN	NaN
+---
+---
+Manchester City FC vs Swansea City FC: NaN	NaN	NaN
+---
+---
+West Bromwich Albion FC vs Liverpool FC: NaN	NaN	NaN
+---
+---
+Everton FC vs Newcastle United FC: NaN	NaN	NaN
+---
+---
+Liverpool FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Everton FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Watford FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Everton FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Watford FC: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Liverpool FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Watford FC vs Crystal Palace FC: NaN	NaN	NaN
+---
+---
+Stoke City FC vs Burnley FC: NaN	NaN	NaN
+---
+---
+Arsenal FC vs West Ham United FC: NaN	NaN	NaN
+---
+---
+Manchester City FC vs Swansea City FC: NaN	NaN	NaN
+---
+---
+West Bromwich Albion FC vs Liverpool FC: NaN	NaN	NaN
+---
+---
+Everton FC vs Newcastle United FC: NaN	NaN	NaN
+---
+---
+Liverpool FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Everton FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Watford FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Everton FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Watford FC: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Liverpool FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Watford FC vs Crystal Palace FC: NaN	NaN	NaN
+---
+---
+Stoke City FC vs Burnley FC: NaN	NaN	NaN
+---
+---
+Arsenal FC vs West Ham United FC: NaN	NaN	NaN
+---
+---
+Manchester City FC vs Swansea City FC: NaN	NaN	NaN
+---
+---
+West Bromwich Albion FC vs Liverpool FC: NaN	NaN	NaN
+---
+---
+Everton FC vs Newcastle United FC: NaN	NaN	NaN
+---
+---
+Liverpool FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Everton FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Watford FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Everton FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Watford FC: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Liverpool FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Watford FC vs Crystal Palace FC: NaN	NaN	NaN
+---
+---
+Stoke City FC vs Burnley FC: NaN	NaN	NaN
+---
+---
+Arsenal FC vs West Ham United FC: NaN	NaN	NaN
+---
+---
+Manchester City FC vs Swansea City FC: NaN	NaN	NaN
+---
+---
+West Bromwich Albion FC vs Liverpool FC: NaN	NaN	NaN
+---
+---
+Everton FC vs Newcastle United FC: NaN	NaN	NaN
+---
+---
+Liverpool FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Everton FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Watford FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Everton FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Watford FC: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Liverpool FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Watford FC vs Crystal Palace FC: NaN	NaN	NaN
+---
+---
+Stoke City FC vs Burnley FC: NaN	NaN	NaN
+---
+---
+Arsenal FC vs West Ham United FC: NaN	NaN	NaN
+---
+---
+Manchester City FC vs Swansea City FC: NaN	NaN	NaN
+---
+---
+West Bromwich Albion FC vs Liverpool FC: NaN	NaN	NaN
+---
+---
+Everton FC vs Newcastle United FC: NaN	NaN	NaN
+---
+---
+Liverpool FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Everton FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Watford FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Everton FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Watford FC: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Liverpool FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Watford FC vs Crystal Palace FC: NaN	NaN	NaN
+---
+---
+Stoke City FC vs Burnley FC: NaN	NaN	NaN
+---
+---
+Arsenal FC vs West Ham United FC: NaN	NaN	NaN
+---
+---
+Manchester City FC vs Swansea City FC: NaN	NaN	NaN
+---
+---
+West Bromwich Albion FC vs Liverpool FC: NaN	NaN	NaN
+---
+---
+Everton FC vs Newcastle United FC: NaN	NaN	NaN
+---
+---
+Liverpool FC vs Stoke City FC: NaN	NaN	NaN
+---
+---
+Burnley FC vs Brighton & Hove Albion: NaN	NaN	NaN
+---
+---
+Crystal Palace FC vs Leicester City FC: NaN	NaN	NaN
+---
+---
+Huddersfield Town vs Everton FC: NaN	NaN	NaN
+---
+---
+Newcastle United FC vs West Bromwich Albion FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs AFC Bournemouth: NaN	NaN	NaN
+---
+---
+Swansea City FC vs Chelsea FC: NaN	NaN	NaN
+---
+---
+West Ham United FC vs Manchester City FC: NaN	NaN	NaN
+---
+---
+Manchester United FC vs Arsenal FC: NaN	NaN	NaN
+---
+---
+Tottenham Hotspur FC vs Watford FC: NaN	NaN	NaN
+---
+---
+Southampton FC vs Chelsea FC: 0.2226040607467094	0.18821908621424294	0.5442225644608769
+---
+---
+Burnley FC vs Leicester City FC: 0.2716359948511505	0.28710480583115994	0.41307657530033165
+---
+---
+Swansea City FC vs Everton FC: 0.2716359948511505	0.28710480583115994	0.41307657530033165
+---
+---
+Huddersfield Town vs Watford FC: 0.2716359948511505	0.28710480583115994	0.41307657530033165
+---
+---
+Crystal Palace FC vs Brighton & Hove Albion: 0.2716359948511505	0.28710480583115994	0.41307657530033165
+---
+---
+Liverpool FC vs AFC Bournemouth: 0.700627105504548	0.1529099255410285	0.11170145896640463
+---
+---
+Tottenham Hotspur FC vs Manchester City FC: 0.2716359948511505	0.28710480583115994	0.41307657530033165
+---
+---
+Newcastle United FC vs Arsenal FC: 0.2716359948511505	0.28710480583115994	0.41307657530033165
+---
+---
+Manchester United FC vs West Bromwich Albion FC: 0.700627105504548	0.1529099255410285	0.11170145896640463
+---
+---
+West Ham United FC vs Stoke City FC: 0.4919987791200471	0.3371065225291693	0.1663552863410484
+---
+---
+Watford FC vs Crystal Palace FC: 0.4919987791200471	0.3371065225291693	0.1663552863410484
+---
+---
+Stoke City FC vs Burnley FC: 0.2716359948511505	0.28710480583115994	0.41307657530033165
+---
+---
+Arsenal FC vs West Ham United FC: 0.700627105504548	0.1529099255410285	0.11170145896640463
+---
+---
+Manchester City FC vs Swansea City FC: 0.700627105504548	0.1529099255410285	0.11170145896640463
+---
+---
+West Bromwich Albion FC vs Liverpool FC: 0.22260406074216443	0.18821908621428676	0.5442225644608776
+---
+---
+Everton FC vs Newcastle United FC: 0.4919987791200471	0.3371065225291693	0.1663552863410484
+---
+---
+Liverpool FC vs Stoke City FC: 0.700627105504548	0.1529099255410285	0.11170145896640463
+---
+---
+Burnley FC vs Brighton & Hove Albion: 0.6562253278934871	0.1817706401352921	0.11170155439461059
+---
+---
+Crystal Palace FC vs Leicester City FC: 0.2716359948511505	0.28710480583115994	0.41307657530033165
+---
+---
+Huddersfield Town vs Everton FC: 0.2716359948511505	0.28710480583115994	0.41307657530033165
+---
+---
+Newcastle United FC vs West Bromwich Albion FC: 0.7006264733781804	0.15291001029764728	0.11170145942238899
+---
+---
+Southampton FC vs AFC Bournemouth: 0.2716359948511505	0.28710480583115994	0.41307657530033165
+---
+---
+Swansea City FC vs Chelsea FC: 0.2716359948511505	0.28710480583115994	0.41307657530033165
+---
+---
+West Ham United FC vs Manchester City FC: 0.22260406074216443	0.18821908621428676	0.5442225644608776
+---
+---
+Manchester United FC vs Arsenal FC: 0.7006204476913656	0.15290996024028916	0.11170145896640467
+---
+---
+Tottenham Hotspur FC vs Watford FC: 0.700627105504548	0.1529099255410285	0.11170145896640463
+---

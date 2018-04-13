@@ -49,7 +49,7 @@ public class AIHandler {
 	 *            to which the match is to added to.
 	 */
 	public static void addMatchToDataSet(Match match, DataSet dataset) {
-		double[] inArr = match.getMatchArray(5);
+		double[] inArr = match.getMatchArray();
 		double[] outArr = match.get1X2Outcome();
 		// System.out.println(inArr.length);
 		// System.out.println(outArr.length);
@@ -72,13 +72,13 @@ public class AIHandler {
 
 		System.out.println("Nätverk skapat");
 
-		MLP.randomizeWeights();
+		//MLP.randomizeWeights();
 		MomentumBackpropagation learningRule = new MomentumBackpropagation();
 		// SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule();
 		learningRule.setMaxIterations(2000); // make sure we can end.
 		learningRule.setLearningRate(0.2);
 		learningRule.setMomentum(0.7);
-		MLP.setLearningRule(learningRule);
+		MLP.setLearningRule((BackPropagation)learningRule);
 		MLP.learn(data);
 
 		System.out.println("Inlärning klar");

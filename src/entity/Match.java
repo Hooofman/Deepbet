@@ -179,8 +179,8 @@ public class Match {
 
 	public double[] getMatchArray(int number) {
 		double res[] = new double[22];
-		double homeTeam[] = this.homeTeam.createInputArray(this.homeTeam.getMatchesPlayed() - 1, number);
-		double awayTeam[] = this.awayTeam.createInputArray(this.awayTeam.getMatchesPlayed() - 1, number);
+		double homeTeam[] = this.homeTeam.createInputArray(this.homeTeam.getMatchesPlayed()-1, number);
+		double awayTeam[] = this.awayTeam.createInputArray(this.awayTeam.getMatchesPlayed()-1, number);
 		for (int i = 0; i < 11; i++) {
 			res[i] = homeTeam[i];
 			res[i + 11] = awayTeam[i];

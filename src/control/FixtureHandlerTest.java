@@ -1,7 +1,5 @@
 package control;
 
-import java.io.FileNotFoundException;
-
 import org.json.*;
 import org.neuroph.core.data.DataSet;
 
@@ -10,25 +8,26 @@ import entity.*;
 public class FixtureHandlerTest {
 	private static JSONObject jsonMatches;
 	private static JSONArray fixtures;
-//	private static JSONObject sportsMonksMatches;
+	// private static JSONObject sportsMonksMatches;
 
-	
 	/**
 	 * Fetch fixtures and create match-objects for an entire season
-	 * @param season the season to look for
+	 * 
+	 * @param season
+	 *            the season to look for
 	 * @throws JSONException
 	 */
-	
+
 	public static void createFixtures(Season season, DataSet dataSet, int matchesToGetDataFor) throws JSONException {
-		
+
 		/**
 		 * Get all fixtures from JSON
 		 */
-		if(season.getYear()== 2017) {
+		if (season.getYear() == 2017) {
 			jsonMatches = FetchApi.getJsonMatches(season.getId());
-		}else {
+		} else {
 			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getYear(), "matches");
-		}	
+		}
 
 		fixtures = jsonMatches.getJSONArray("fixtures");
 
@@ -37,8 +36,8 @@ public class FixtureHandlerTest {
 			matchesToLoop = matchesToGetDataFor;
 		}
 
-		for (int i = 0; i < matchesToLoop; i++) {
-			
+		for (int i = 0; i < fixtures.length(); i++) {
+
 			// Check if the match is finished
 			String status = fixtures.getJSONObject(i).optString("status");
 			if (!status.equals("TIMED") || !status.equals("SCHEDULED") || !status.equals("POSTPONED")) {
@@ -49,7 +48,7 @@ public class FixtureHandlerTest {
 				int homeGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsHomeTeam");
 				int awayGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsAwayTeam");
 				int matchDay = fixtures.getJSONObject(i).getInt("matchday");
-				
+
 				// Create the match-object
 				Match match = new Match(homeTeam, awayTeam, matchDay);
 
@@ -65,10 +64,12 @@ public class FixtureHandlerTest {
 
 				// Add the match to the season it belongs to
 				season.addMatch(match);
-				
+
 				season.updateTable();
-				
-				AIHandler.addMatchToDataSet(match, dataSet);
+
+				if (!(season.getYear() == 2017 && matchDay >= matchesToGetDataFor)) {
+					AIHandler.addMatchToDataSet(match, dataSet);
+				}
 			}
 		}
 

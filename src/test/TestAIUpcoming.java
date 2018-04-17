@@ -18,6 +18,7 @@ import control.*;
  *
  */
 public class TestAIUpcoming {
+	private static Norm norm = new Norm();
 	
 	public static void main(String[] args) {
 
@@ -46,7 +47,7 @@ public class TestAIUpcoming {
 		DataSet trainingSet = DataSet.load("test");
 		
 		// Train the AI with the trainingset
-		new AIHandler().trainNetwork(trainingSet);
+		new AIHandler().trainNetwork(trainingSet, norm);
 
 		ArrayList<Season> seasons = league.getSeasons(); // Get the seasons from league
 		ArrayList<Match> matchesToTest = new ArrayList<Match>(); // Create a list that will contain the upcoming matches
@@ -55,7 +56,7 @@ public class TestAIUpcoming {
 
 		// Get the upcoming matches and add them to the list of matches that will be tested
 		for (Match match : matchesFromSeason) {
-			connection.updateCalculatedMatches(match);
+//			connection.updateCalculatedMatches(match);
 			if (match.getStatus().equals("TIMED")) {
 				matchesToTest.add(match);
 			}
@@ -63,9 +64,9 @@ public class TestAIUpcoming {
 
 		// Produce the calculation for each match and save it to the database
 		for (Match match : matchesToTest) {
-			ProduceOutput.getOutputForMatch(match);
-			connection.insertIntoTable("games");
-			connection.createNewMatch(match, seasonToTest.getYear(), league.getName());
+			ProduceOutput.getOutputForMatch(match, norm);
+//			connection.insertIntoTable("games");
+//			connection.createNewMatch(match, seasonToTest.getYear(), league.getName());
 		}
 		
 		// Close the db-conection

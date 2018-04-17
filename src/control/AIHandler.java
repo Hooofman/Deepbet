@@ -63,20 +63,21 @@ public class AIHandler {
 	 * @param data
 	 *            the dataset the network is to train on.
 	 */
-	public void trainNetwork(DataSet data) {
-		Normalizer norm = new MaxMinNormalizer();
+	public void trainNetwork(DataSet data, Norm norm) {
+//		Normalizer norm = new MaxMinNormalizer();
 		norm.normalize(data);
+		
 		// MultiLayerPerceptron MLP = new
 		// MultiLayerPerceptron(TransferFunctionType.SIGMOID, 22, 15, 7, 5, 3);
-		MultiLayerPerceptron MLP = (MultiLayerPerceptron) MultiLayerPerceptron.load("biasNy.nnet");
-
+//		MultiLayerPerceptron MLP = (MultiLayerPerceptron) MultiLayerPerceptron.createFromFile("biasNy.nnet");
+		MultiLayerPerceptron MLP = (MultiLayerPerceptron) MultiLayerPerceptron.createFromFile("bias3.nnet");
 		System.out.println("Nätverk skapat");
 
-		MLP.randomizeWeights();
+//		MLP.randomizeWeights();
 		MomentumBackpropagation learningRule = new MomentumBackpropagation();
 		// SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule();
-		learningRule.setMaxIterations(10); // make sure we can end.
-		learningRule.setLearningRate(0.3);
+		learningRule.setMaxIterations(50); // make sure we can end.
+		learningRule.setLearningRate(0.2);
 		learningRule.setMomentum(0.7);
 		MLP.setLearningRule(learningRule);
 		MLP.learn(data);

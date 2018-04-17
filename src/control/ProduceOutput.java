@@ -3,6 +3,8 @@ package control;
 import java.util.Arrays;
 
 import org.neuroph.core.NeuralNetwork;
+import org.neuroph.util.data.norm.DecimalScaleNormalizer;
+import org.neuroph.util.data.norm.Normalizer;
 
 import boundary.WriteToFile;
 import entity.Match;
@@ -20,8 +22,10 @@ public class ProduceOutput {
 	 * @param match the match to test
 	 */
 
-	public static void getOutputForMatch(Match match){
-		NeuralNetwork test = NeuralNetwork.load("test.nnet"); // Load the trained network
+	public static void getOutputForMatch(Match match, Norm norm){
+		
+		NeuralNetwork test = NeuralNetwork.createFromFile("test.nnet"); // Load the trained network
+		double[] inputArray = norm.normalizeInput(match.getMatchArray());
 		test.setInput(match.getMatchArray()); // Get the array from the match
 		test.calculate(); // Test the match against the network
 		
@@ -42,6 +46,7 @@ public class ProduceOutput {
 		System.out.println("---");
 		System.out.println(match.getHomeTeam() +" vs " + match.getAwayTeam() +": " + output[0] + "\t"+ output[1] + "\t" + output[2]);
 		System.out.println(Arrays.toString(match.getMatchArray()));
+		System.out.println(Arrays.toString(inputArray));
 		System.out.println("---");
 
 		WriteToFile.appendTxt("---");

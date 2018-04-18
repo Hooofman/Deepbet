@@ -3,27 +3,23 @@ package control;
 import java.util.Arrays;
 
 import org.neuroph.core.NeuralNetwork;
-import org.neuroph.util.data.norm.DecimalScaleNormalizer;
-import org.neuroph.util.data.norm.Normalizer;
 
 import boundary.WriteToFile;
 import entity.Match;
 
 /**
  * Class that produces the output for a match. Uses a match-object and tests it parameters against the trained the network
- * @author Oscar
+ * @author Oscar Malmqvist 
  *
  */
-
 public class ProduceOutput {
 	
 	/**
 	 * Tests a match against the network to get an output of how the match will end
 	 * @param match the match to test
+	 * @param norm the normalized values 
 	 */
-
 	public static void getOutputForMatch(Match match, Norm norm){
-		
 		NeuralNetwork test = NeuralNetwork.createFromFile("test.nnet"); // Load the trained network
 		double[] inputArray = norm.normalizeInput(match.getMatchArray());
 		test.setInput(inputArray); // Get the array from the match

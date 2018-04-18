@@ -144,7 +144,7 @@ public class ConnectDatabase {
 				+ "', '" + recommendation + "', '" + strengthRec + "')";
 		excecuteStatement(statement);
 	}
-	
+
 	public void createNewMatch(Match match, int season, String leagueName) {
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
@@ -154,19 +154,13 @@ public class ConnectDatabase {
 		double calcHome = calculations[0];
 		double calcDraw = calculations[1];
 		double calcAway = calculations[2];
-		
+
 		String sql = "INSERT INTO games (HomeTeam, AwayTeam, DatePlayed, TimePlayed, Season, League, CalcHome, CalcAway, CalcDraw, Recommendation, Status)"
-				+ " VALUES ('" + homeTeam + "', '" 
-				+ awayTeam + "', '" 
-				+ date + "', '" 
-				+ time + "', '" 
-				+ season + "', '" 
-				+ leagueName + "', '" 
-				+ calcHome + "', '" 
-				+ calcAway + "', '"
-				+ calcDraw + "', '"
-				+ match.getRecommendation() + "', '"
-				+ match.getStatus() + "')";
+				+ " VALUES ('" + homeTeam + "', '" + awayTeam + "', '" + date + "', '" + time + "', '" + season + "', '"
+				+ leagueName + "', '" + calcHome + "', '" + calcAway + "', '" + calcDraw + "', '"
+				+ match.getRecommendation() + "', '" + match.getStatus()
+				+ "') ON DUPLICATE KEY UPDATE Recommendation = " + match.getRecommendation() + " , CalcHome = "
+				+ calcHome + " , CalcAway = " + calcAway + " , CalcDraw = " + calcDraw;
 		PreparedStatement statement;
 		try {
 			statement = connection.prepareStatement(sql);
@@ -174,19 +168,17 @@ public class ConnectDatabase {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 	}
-		
+
 	public void updateCalculatedMatches(Match match) {
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
 		Date date = Date.valueOf(match.getDate());
-		String sql = "UPDATE games "
-				+ "set GoalsHomeTeam = '" + match.getHomeGoals() + "'"
-						+ ", GoalsAwayTeam = '" + match.getAwayGoals() + "'"
-								+ ", Outcome = '" + match.getOutcomeChar() + "'"
-										+ ", Status = '" + match.getStatus() + "'"
-												+ "where HomeTeam = '" + homeTeam + "' AND AwayTeam = '" + awayTeam + "' AND DatePlayed = '" + date + "'";
+		String sql = "UPDATE games " + "set GoalsHomeTeam = '" + match.getHomeGoals() + "'" + ", GoalsAwayTeam = '"
+				+ match.getAwayGoals() + "'" + ", Outcome = '" + match.getOutcomeChar() + "'" + ", Status = '"
+				+ match.getStatus() + "'" + "where HomeTeam = '" + homeTeam + "' AND AwayTeam = '" + awayTeam
+				+ "' AND DatePlayed = '" + date + "'";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.executeUpdate();
@@ -195,6 +187,7 @@ public class ConnectDatabase {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Sends the data to the database.
 	 * 

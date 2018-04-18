@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Class for creating Season objects
- * @author 
+ * @author Sven Lindqvist 
  *
  */
 public class Season {
@@ -17,7 +17,7 @@ public class Season {
 	private League league;
 
 	/**
-	 * Constructs a Season object, puts Match objects in an array and creates a league table
+	 * Constructs a Season object, puts Match objects into an ArrayList and creates a league table
 	 * @param league a League object
 	 */
 	public Season(League league) {
@@ -74,8 +74,8 @@ public class Season {
 	}
 
 	/**
-	 * Returns an array with all teams in a season
-	 * @return array of Team objects
+	 * Returns an ArrayList with all teams in a season
+	 * @return ArrayList of Team objects
 	 */
 	public ArrayList<Team> getAllTeams() {
 		return league.getAllTeamObjects();
@@ -105,17 +105,17 @@ public class Season {
 	}
 	
 	/**
-	 * Returns an array containing all matches in a the season
-	 * @return array with Match objects
+	 * Returns an ArrayList containing all matches in a the season
+	 * @return ArrayList with Match objects
 	 */
 	public ArrayList<Match> getAllMatches(){
 		return matches;
 	}
 	
 	/**
-	 * Returns an array with all matches that has a specific status
-	 * @param status 
-	 * @return array with Match objects
+	 * Returns an ArrayList with all matches that has a specific status
+	 * @param status the status of the match
+	 * @return ArrayList with Match objects
 	 */
 	public ArrayList<Match> getMatchesByStatus(String status) {
 		ArrayList<Match> matchesToReturn = new ArrayList<Match>();

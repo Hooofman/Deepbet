@@ -1,19 +1,13 @@
 package entity;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-
-
-import entity.LocationAndPoint;
 
 /**
  * Class for creating Team objects
- * @author
+ * @author Oscar Malmqvist
  *
  */
-
 public class Team implements Comparable<Team>{
-
 	private int matchesPlayed;
 
 	private LinkedList<Double> goalsFor;
@@ -138,8 +132,12 @@ public class Team implements Comparable<Team>{
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	
+	/**
+	 * Calculates the total sum of all values in a specific list 
+	 * @param list a LinkedList with doubles 
+	 * @return sum of all values in the list
+	 */
 	public double getSumOfList(LinkedList<Double> list) {
 		double sum = 0;
 		for (Double round : list) {
@@ -148,7 +146,12 @@ public class Team implements Comparable<Team>{
 		return sum;
 	}
 	
-	
+	/**
+	 * Calculates the average in a list from the last N games
+	 * @param list a LinkedList with doubles 
+	 * @param number the number of games it will count
+	 * @return average of last N values in the list
+	 */
 	public double getAverageForNGames(LinkedList<Double> list, int number) {
 		double sum = 0;	
 		int loopNumber = Math.max(list.size()-number,0);
@@ -160,6 +163,11 @@ public class Team implements Comparable<Team>{
 		return sum / (Math.max(avgNumber,1));
 	}
 	
+	/**
+	 * Returns the last value in a list
+	 * @param list a LinkedList with doubles
+	 * @return the last of the list
+	 */
 	public double getLastFromList(LinkedList<Double> list) {
 		if (!list.isEmpty()) {
 			return list.getLast();

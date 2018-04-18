@@ -10,6 +10,7 @@ import entity.Team;
 
 /**
  * Creates team-objects
+ * @author Sven Lindqvist
  *
  */
 public class TeamHandler {

@@ -26,7 +26,7 @@ public class ProduceOutput {
 		
 		NeuralNetwork test = NeuralNetwork.createFromFile("test.nnet"); // Load the trained network
 		double[] inputArray = norm.normalizeInput(match.getMatchArray());
-		test.setInput(match.getMatchArray()); // Get the array from the match
+		test.setInput(inputArray); // Get the array from the match
 		test.calculate(); // Test the match against the network
 		
 		// Get the output and save it

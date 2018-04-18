@@ -5,7 +5,7 @@ import java.util.Collections;
 
 /**
  * Class for creating the league table 
- * @author 
+ * @author Sven Lindqvist
  *
  */
 public class LeagueTable {
@@ -24,7 +24,7 @@ public class LeagueTable {
 	 */
 	public void updateTable(ArrayList<Team> teams) {
 		this.teams = teams;
-		// Sorts the teams based on number of points
+		
 		Collections.sort(teams);
 		
 		for (int i = 0; i < teams.size(); i++) {

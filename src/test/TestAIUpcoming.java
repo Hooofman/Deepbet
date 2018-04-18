@@ -53,7 +53,7 @@ public class TestAIUpcoming {
 		ArrayList<Match> matchesToTest = new ArrayList<Match>(); // Create a list that will contain the upcoming matches
 		Season seasonToTest = seasons.get(seasons.size() - 1); // The current season of the league
 		ArrayList<Match> matchesFromSeason = seasonToTest.getAllMatches(); // List of all the matches in the season
-
+		//
 		// Get the upcoming matches and add them to the list of matches that will be
 		// tested
 		for (Match match : matchesFromSeason) {

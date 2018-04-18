@@ -145,6 +145,13 @@ public class ConnectDatabase {
 		excecuteStatement(statement);
 	}
 
+	/**
+	 * 
+	 * @param match
+	 * @param season
+	 * @param leagueName
+	 */
+
 	public void createNewMatch(Match match, int season, String leagueName) {
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();

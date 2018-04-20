@@ -1,37 +1,42 @@
 package control;
 
-import java.io.FileNotFoundException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.neuroph.core.data.DataSet;
 
 import boundary.FetchApi;
-import entity.*;
+import entity.Match;
+import entity.Season;
+import entity.Team;
 
+
+/**
+ * Creates match-objects for an entire season and adds matches to dataset used by the ANN
+ * @author Oscar Malmqvist
+ *
+ */
 public class FixtureHandler {
 	private static JSONObject jsonMatches;
 	private static JSONArray fixtures;
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-	//	private static JSONObject sportsMonksMatches;
-
 
 	/**
 	 * Fetch fixtures and create match-objects for an entire season
 	 * @param season the season to look for
-	 * @throws JSONException
+	 * @throws JSONException if JSONObject och JSONArray cant be read or fetched
 	 */
 
 	public static void createFixtures(Season season, DataSet dataSet) throws JSONException {
 		/**
 		 * Get all fixtures from JSON
 		 */
-		if(season.getYear()== 2017) {
+		if (season.getYear() == 2017) { // TODO: Remove this part later. Get everything from external API when we are done, not from home.
 			jsonMatches = FetchApi.getJsonMatches(season.getId());
-		}else {
+		} else {
 			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getYear(), "matches");
 		}
 		fixtures = jsonMatches.getJSONArray("fixtures");

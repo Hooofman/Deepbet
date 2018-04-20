@@ -34,8 +34,8 @@ public class TestAIUpcoming {
 
 		// Create the leagueCreator and start it
 		try {
-			ligaSkapare = new LeagueCreator();
-			ligaSkapare.start("PL", plApiId);
+			ligaSkapare = new LeagueCreator("PL", plApiId);
+			ligaSkapare.start();
 		} catch (JSONException | InterruptedException e) {
 			e.printStackTrace();
 		}

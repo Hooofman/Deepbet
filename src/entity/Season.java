@@ -20,10 +20,14 @@ public class Season {
 	 * Constructs a Season object, puts Match objects into an ArrayList and creates a league table
 	 * @param league a League object
 	 */
-	public Season(League league) {
+	public Season(League league, int year, int id, int numberOfRounds, int currentRound) {
 		this.league = league;
-		matches = new ArrayList<Match>();
-		leagueTable = new LeagueTable();
+		this.matches = new ArrayList<Match>();
+		this.leagueTable = new LeagueTable();
+		this.year = year;
+		this.id = id;
+		this.numberOfRounds = numberOfRounds;
+		this.currentRound = currentRound;
 	}
 
 	public int getId() {

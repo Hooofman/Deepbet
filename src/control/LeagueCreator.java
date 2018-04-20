@@ -23,6 +23,8 @@ public class LeagueCreator extends Thread {
 	public LeagueCreator(String leagueName, int[] apiId) {
 		this.leagueName = leagueName;
 		this.apiId = apiId;
+		this.trainingSet = new DataSet(22, 3); // Creates a dataset used for training the network
+		this.league = new League(leagueName);
 	}
 	/**
 	 * Starts the thread that creates a league and fills it with data
@@ -30,12 +32,8 @@ public class LeagueCreator extends Thread {
 	 * @param apiId id of the league used for connection with the API
 	 */
 	public void run() {
-		trainingSet = new DataSet(22, 3); // Creates a dataset used for training the network
-		league = new League(leagueName);
-		int[] seasonsId = apiId;
-		
 		// Create new season
-		for (int i= 0; i<seasonsId.length; i++) {
+		for (int i= 0; i<apiId.length; i++) {
 		
 			// Removes the last three teams for each season and resets the variables for the teams that will play in the next season of the league
 			if (i != 0) {
@@ -45,7 +43,7 @@ public class LeagueCreator extends Thread {
 				System.out.println("Lag nollställda inför ny säsong");
 			}
 			
-			JSONObject jsonSeason = FetchApi.getJsonSeason(seasonsId[i]);
+			JSONObject jsonSeason = FetchApi.getJsonSeason(apiId[i]);
 			
 			try {
 				int year = jsonSeason.getInt("year");

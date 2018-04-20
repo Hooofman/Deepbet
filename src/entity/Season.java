@@ -19,6 +19,10 @@ public class Season {
 	/**
 	 * Constructs a Season object, puts Match objects into an ArrayList and creates a league table
 	 * @param league a League object
+	 * @param year the year the season started
+	 * @param id the id used by the API
+	 * @param numberOfRounds how many rounds of fixtures there is in this season
+	 * @param currentRound what round is currently being played
 	 */
 	public Season(League league, int year, int id, int numberOfRounds, int currentRound) {
 		this.league = league;
@@ -53,7 +57,7 @@ public class Season {
 	public void addMatch(Match match) {
 		matches.add(match);
 	}
-	
+
 	/**
 	 * Updates the league table after a match is finished 
 	 */
@@ -107,7 +111,7 @@ public class Season {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Returns an ArrayList containing all matches in a the season
 	 * @return ArrayList with Match objects
@@ -115,7 +119,7 @@ public class Season {
 	public ArrayList<Match> getAllMatches(){
 		return matches;
 	}
-	
+
 	/**
 	 * Returns an ArrayList with all matches that has a specific status
 	 * @param status the status of the match

@@ -21,7 +21,6 @@ public class TestAIUpcoming {
 	private static Norm norm = new Norm();
 
 	public static void main(String[] args) {
-
 		// Ids used by the API to get the seasons
 		int[] plApiId = { 113, 114, 4, 301, 341, 354, 398, 426, 445 };
 		// int[] plApiId = {398, 426, 445};
@@ -33,12 +32,8 @@ public class TestAIUpcoming {
 		connection.connect();
 
 		// Create the leagueCreator and start it
-		try {
-			ligaSkapare = new LeagueCreator("PL", plApiId);
-			ligaSkapare.start();
-		} catch (JSONException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		ligaSkapare = new LeagueCreator("PL", plApiId);
+		ligaSkapare.start();
 
 		// Get the created league
 		League league = ligaSkapare.getLeague();

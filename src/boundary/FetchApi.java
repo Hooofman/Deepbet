@@ -1,37 +1,25 @@
 package boundary;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 
-import be.abeel.io.Base64.OutputStream;
-
 /**
  * Class to fetch data from an API.
  * 
- * @author
+ * @author Oscar Malmqvist, Johannes Roos, Sven Lindqvist.
  *
  */
 public class FetchApi {
 	private static String token = "WrBZ2f7IrkoF5ZZXd3ILImXnyGMEhdTYfblOtuaOrwM5He6BUPsUSCzTJDjx";
-	static JSONObject object = null;
-	JSONArray array = null;
-	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	private static JSONObject object = null;
+	private JSONArray array = null;
+	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	public FetchApi() {
 	}
@@ -79,7 +67,6 @@ public class FetchApi {
 	 *            http://api.football-data.org/v1/competitions/
 	 * @return JsonObject with season-information
 	 */
-
 	public static JSONObject getJsonSeason(int id) {
 		try {
 			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id);
@@ -104,46 +91,6 @@ public class FetchApi {
 		}
 		System.out.println(object);
 		return object;
-	}
-
-	/**
-	 * Gets all matches from Odds-api
-	 * 
-	 * @return all matches from Odds-api
-	 */
-
-	public static HttpResponse<JsonNode> getJsonOddsLeague() {
-		// These code snippets use an open-source library. http://unirest.io/java
-		HttpResponse<JsonNode> response = null;
-		try {
-			// These code snippets use an open-source library. http://unirest.io/java
-			response = Unirest.get("https://bettingodds-bettingoddsapi-v1.p.mashape.com/events/league/22635")
-					.header("X-Mashape-Key", "dWsfQ2SNqVmsheRkFQDwyFagyUj9p1eNhJmjsn1RhNyD1WgNJW")
-					.header("Accept", "application/json").asJson();
-		} catch (Exception e) {
-		}
-		return response;
-	}
-
-	/**
-	 * Gets the odds for a specific event
-	 * 
-	 * @param id
-	 *            what event to look at
-	 * @return the odds for the event
-	 */
-
-	public static HttpResponse<JsonNode> getJsonOdds(long id) {
-		// These code snippets use an open-source library. http://unirest.io/java
-		HttpResponse<JsonNode> response = null;
-		try {
-			// These code snippets use an open-source library. http://unirest.io/java
-			response = Unirest.get("https://bettingodds-bettingoddsapi-v1.p.mashape.com/event/" + id)
-					.header("X-Mashape-Key", "CphqzYqDghmshKO8Whkk9rNOFNaAp1w4uKTjsn8aqUbPrTAmVz")
-					.header("Accept", "application/json").asJson();
-		} catch (Exception e) {
-		}
-		return response;
 	}
 
 	/**
@@ -182,23 +129,5 @@ public class FetchApi {
 		} catch (Exception e) {
 		}
 		return response.getBody().getObject();
-	}
-
-	/**
-	 * Method to put together the string that goes into the JsonObject
-	 * 
-	 * @param rd
-	 *            the reader to use
-	 * @return String with the data
-	 * @throws IOException
-	 */
-
-	private static String readAll(Reader rd) throws IOException {
-		StringBuilder sb = new StringBuilder();
-		int cp;
-		while ((cp = rd.read()) != -1) {
-			sb.append((char) cp);
-		}
-		return sb.toString();
 	}
 }

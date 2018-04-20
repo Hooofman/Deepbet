@@ -1,20 +1,18 @@
 package boundary;
 
-/**
- * author Sven Lindqvist
- * Class for connection with database.
- */
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Properties;
 
 import entity.Match;
 
+/**
+ * author Sven Lindqvist Class for connection with database.
+ */
 public class ConnectDatabase {
 	private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
 	private static final String DATABASE_URL = "jdbc:mysql://deepbet.ddns.net:3306/deepbet";
@@ -72,6 +70,8 @@ public class ConnectDatabase {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		} else {
+			System.out.println("Error, there is no connection to the database to disconnect from");
 		}
 	}
 
@@ -102,7 +102,7 @@ public class ConnectDatabase {
 		int homeGoals = match.getHomeGoals();
 		int awayGoals = match.getAwayGoals();
 		int outcome = match.getOutcome();
-		Date date = Date.valueOf(match.getDate()); // Kolla format och om rätt Date (SQL nu)!
+		Date date = Date.valueOf(match.getDate());
 		Time time = Time.valueOf(match.getTime());
 		String league = leagueName;
 		char recommendation = match.getRecommendation();
@@ -129,7 +129,7 @@ public class ConnectDatabase {
 	public void createStatementForUpcomming(Match match, int season, String leagueName) {
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
-		Date date = Date.valueOf(match.getDate()); // Kolla format och om rätt Date (SQL nu)!
+		Date date = Date.valueOf(match.getDate());
 		Time time = Time.valueOf(match.getTime());
 		String league = leagueName;
 		double[] calculations = match.getCalcOutput();
@@ -146,10 +146,15 @@ public class ConnectDatabase {
 	}
 
 	/**
+	 * Creates a statement containing all the data for an match that is to be stored
+	 * in the database.
 	 * 
 	 * @param match
+	 *            The match to be stored.
 	 * @param season
+	 *            The number of the season.
 	 * @param leagueName
+	 *            The name of the league.
 	 */
 
 	public void createNewMatch(Match match, int season, String leagueName) {
@@ -173,15 +178,22 @@ public class ConnectDatabase {
 			statement = connection.prepareStatement(sql);
 			statement.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Updates a match in the database that wasn't finished to finished and sets the
+	 * results in the match.
+	 * 
+	 * @param match
+	 *            The match to be updated.
+	 */
 	public void updateCalculatedMatches(Match match) {
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
 		Date date = Date.valueOf(match.getDate());
+
 		String sql = "UPDATE games " + "set GoalsHomeTeam = '" + match.getHomeGoals() + "'" + ", GoalsAwayTeam = '"
 				+ match.getAwayGoals() + "'" + ", Outcome = '" + match.getOutcomeChar() + "'" + ", Status = '"
 				+ match.getStatus() + "'" + "where HomeTeam = '" + homeTeam + "' AND AwayTeam = '" + awayTeam
@@ -190,7 +202,6 @@ public class ConnectDatabase {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

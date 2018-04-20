@@ -1,22 +1,17 @@
 package control;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import org.neuroph.core.NeuralNetwork;
 import org.neuroph.nnet.MultiLayerPerceptron;
-import org.neuroph.nnet.learning.BackPropagation;
 import org.neuroph.nnet.learning.MomentumBackpropagation;
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
-import org.neuroph.core.learning.SupervisedLearning;
-import org.neuroph.util.TransferFunctionType;
-import org.neuroph.util.data.norm.MaxMinNormalizer;
-import org.neuroph.util.data.norm.Normalizer;
-
-import entity.*;
+import entity.Match;
 
 /**
  * Class to train and load a neural network.
+ * 
+ * @author
  *
  */
 public class AIHandler {
@@ -51,8 +46,6 @@ public class AIHandler {
 	public static void addMatchToDataSet(Match match, DataSet dataset) {
 		double[] inArr = match.getMatchArray();
 		double[] outArr = match.get1X2Outcome();
-		// System.out.println(inArr.length);
-		// System.out.println(outArr.length);
 		dataset.addRow(new DataSetRow(inArr, outArr));
 	}
 
@@ -64,16 +57,17 @@ public class AIHandler {
 	 *            the dataset the network is to train on.
 	 */
 	public void trainNetwork(DataSet data, Norm norm) {
-//		Normalizer norm = new MaxMinNormalizer();
+		// Normalizer norm = new MaxMinNormalizer();
 		norm.normalize(data);
-		
+
 		// MultiLayerPerceptron MLP = new
 		// MultiLayerPerceptron(TransferFunctionType.SIGMOID, 22, 15, 7, 5, 3);
-//		MultiLayerPerceptron MLP = (MultiLayerPerceptron) MultiLayerPerceptron.createFromFile("biasNy.nnet");
+		// MultiLayerPerceptron MLP = (MultiLayerPerceptron)
+		// MultiLayerPerceptron.createFromFile("biasNy.nnet");
 		MultiLayerPerceptron MLP = (MultiLayerPerceptron) MultiLayerPerceptron.createFromFile("bias3.nnet");
 		System.out.println("Nätverk skapat");
 
-//		MLP.randomizeWeights();
+		// MLP.randomizeWeights();
 		MomentumBackpropagation learningRule = new MomentumBackpropagation();
 		// SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule();
 		learningRule.setMaxIterations(50); // make sure we can end.

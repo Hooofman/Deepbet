@@ -2,6 +2,8 @@ package entity;
 
 import java.util.ArrayList;
 
+import gui.PrintListener;
+
 /**
  * Class for creating a League object.
  * 
@@ -15,6 +17,7 @@ public class League {
 	private int currentYear;
 	private ArrayList<Season> seasons;
 	private ArrayList<Team> teams;
+	private PrintListener listener;
 
 	/**
 	 * Constructs a League object and creates arraylists for seasons and teams.
@@ -22,10 +25,11 @@ public class League {
 	 * @param name
 	 *            Name of league
 	 */
-	public League(String name) {
+	public League(String name, PrintListener listener) {
 		this.name = name;
 		this.seasons = new ArrayList<Season>();
 		this.teams = new ArrayList<Team>();
+		this.listener = listener;
 	}
 
 	/**
@@ -105,7 +109,8 @@ public class League {
 			// Puts the 3 last placed teams in a list
 			if (team.getLastFromList(team.getTablePositions()) > 17) {
 				list.add(team);
-				System.out.println(team.getName() + " kommer raderas");
+				listener.updateText(team.getName() + " will be removed");
+				// System.out.println(team.getName() + " kommer raderas");
 			}
 		}
 		// Removes the list with the relegated teams

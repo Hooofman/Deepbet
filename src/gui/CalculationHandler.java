@@ -21,14 +21,30 @@ public class CalculationHandler extends Thread implements PrintListener {
 	private double learningRate;
 	private double momentum;
 	private String searchPath;
+	private String datasetName;
+	private String finalNNName;
+	private String leagueName;
+	private int[] leagueAPIId;
 
 	
-	public CalculationHandler(Controller controller, int iterations, double learningRate, double momentum, String searchPath) {
+	public CalculationHandler(Controller controller, int iterations, double learningRate, double momentum, String searchPath, String datasetName, String finalNNName, String leagueName, String[] leagueAPIid) {
 		this.controller = controller;
 		this.iterations = iterations;
 		this.learningRate = learningRate;
 		this.momentum = momentum;
 		this.searchPath = searchPath;
+		this.datasetName = datasetName;
+		this.finalNNName = finalNNName;
+		this.leagueName = leagueName;
+		this.leagueAPIId = convertStringToIntArray(leagueAPIid);
+	}
+	
+	public int[] convertStringToIntArray(String[] strArray) {
+		int[] array = new int[strArray.length];
+		for (int i = 0; i<array.length; i++) {
+			array[i] = Integer.parseInt(strArray[i]);
+		}
+		return array;
 	}
 	
 	public void run() {
@@ -37,7 +53,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 
 	public void calculate() {
 		// Ids used by the API to get the seasons
-		int[] plApiId = { 113, 114, 4, 301, 341, 354, 398, 426, 445 };
+		// int[] plApiId = { 113, 114, 4, 301, 341, 354, 398, 426, 445 };
 		// int[] plApiId = {398, 426, 445};
 		// int[] plApiId = {445};
 		LeagueCreator ligaSkapare = null;
@@ -48,7 +64,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 
 		// Create the leagueCreator and start it
 
-		ligaSkapare = new LeagueCreator("PL", plApiId, this);
+		ligaSkapare = new LeagueCreator(leagueName, leagueAPIId, this);
 
 		ligaSkapare.createLeague();
 
@@ -58,10 +74,10 @@ public class CalculationHandler extends Thread implements PrintListener {
 		League league = ligaSkapare.getLeague();
 
 		// Load the trainingset
-		DataSet trainingSet = DataSet.load("test");
+		DataSet trainingSet = DataSet.load(datasetName);
 
 		// Train the AI with the trainingset
-		new AIHand(this).trainNetwork(trainingSet, norm, iterations, learningRate, momentum, searchPath);
+		new AIHand(this).trainNetwork(trainingSet, norm, iterations, learningRate, momentum, searchPath, finalNNName);
 		ArrayList<Season> seasons = league.getSeasons(); // Get the seasons from league
 		ArrayList<Match> matchesToTest = new ArrayList<Match>(); // Create a list that will contain the upcoming matches
 		Season seasonToTest = seasons.get(seasons.size() - 1); // The current season of the league
@@ -82,7 +98,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 			}
 		}
 
-		ProduceOutput produceOutput = new ProduceOutput(this);
+		ProduceOutput produceOutput = new ProduceOutput(this, finalNNName);
 		// Produce the calculation for each match and save it to the database
 
 		////////////////////// Finns inga matcher att testa!

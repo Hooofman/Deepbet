@@ -59,7 +59,7 @@ public class AIHand {
 	 *            the dataset the network is to train on.
 	 */
 	public void trainNetwork(DataSet data, Norm norm, int iterations, double learningRate, double momentum,
-			String searchPath) {
+			String searchPath, String finalNNName) {
 		// Normalizer norm = new MaxMinNormalizer();
 		norm.normalize(data);
 
@@ -85,7 +85,7 @@ public class AIHand {
 		testNeuralNetwork(MLP, data);
 		listener.updateText("Testing complete");
 		// System.out.println("Testning klar");
-		MLP.save("test.nnet");
+		MLP.save(finalNNName);
 		listener.updateText("Network saved");
 		// System.out.println("Nätverk sparat");
 	}

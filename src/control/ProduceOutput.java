@@ -17,9 +17,11 @@ import gui.PrintListener;
  */
 public class ProduceOutput {
 	private PrintListener listener;
+	private String nnPath;
 
-	public ProduceOutput(PrintListener listener) {
+	public ProduceOutput(PrintListener listener, String nnPath) {
 		this.listener = listener;
+		this.nnPath = nnPath;
 	}
 
 	/**
@@ -31,7 +33,7 @@ public class ProduceOutput {
 	 *            the normalized values
 	 */
 	public void getOutputForMatch(Match match, Norm norm) {
-		NeuralNetwork test = NeuralNetwork.createFromFile("test.nnet"); // Load the trained network
+		NeuralNetwork test = NeuralNetwork.createFromFile(nnPath); // Load the trained network
 		double[] inputArray = norm.normalizeInput(match.getMatchArray());
 		test.setInput(inputArray); // Get the array from the match
 		test.calculate(); // Test the match against the network

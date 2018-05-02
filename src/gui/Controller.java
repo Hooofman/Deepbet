@@ -54,7 +54,7 @@ public class Controller {
 		int iterations = Integer.parseInt(it);
 		double learningRate = Double.parseDouble(learnRate);
 		double momentum = Double.parseDouble(momentu);
-		calcHandler = new CalculationHandler(this, iterations, learningRate, momentum, NNPath, datasetName, finalNNName, leagueName, leageuAPIId.split(","));
+		calcHandler = new CalculationHandler(this, iterations, learningRate, momentum, NNPath, datasetName, finalNNName, leagueName, leageuAPIId.split(", "));
 		calcHandler.start();
 	}
 

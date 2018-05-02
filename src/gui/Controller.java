@@ -28,6 +28,11 @@ public class Controller {
 		String[] inputGUI = str.split(",", 0);
 		gui.setANNSettings(inputGUI);
 	}
+	
+	public void setLeagueSettings(String str) {
+		String[] inputGUI = str.split(",", 0);
+		gui.setLeagueSettings(inputGUI);
+	}
 
 	public void setNeuralNetworkPath(String pathName) {
 		gui.setNeuralNetworkPathName(pathName);

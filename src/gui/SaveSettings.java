@@ -77,6 +77,10 @@ public class SaveSettings extends JPanel {
 				WriteToFile.write(dataToSave, lblPathName.getText());
 				controller.addToConsoleText("Neural network settings is saved to " + lblPathName.getText());
 				frame.dispose();
+			}else if (e.getSource() == btnAdd && indicator.equals("SaveLeague")) {
+				WriteToFile.write(dataToSave, lblPathName.getText());
+				controller.addToConsoleText("League settings is saved to " + lblPathName.getText());
+				frame.dispose();
 			} else if (e.getSource() == btnChoosePath) {
 
 				JFileChooser fileChooser = new JFileChooser();

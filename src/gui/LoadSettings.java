@@ -79,6 +79,13 @@ public class LoadSettings extends JPanel {
 				controller.addToConsoleText("Neural network settings is loaded from " + lblPathName.getText());
 				frame.dispose();
 
+			}else if (e.getSource() == btnAdd && indicator.equals("LoadLeague")) {
+				System.out.println(lblPathName.getText() + "Ska laddas");
+				String str = ReadFromFile.readFromFile(lblPathName.getText());
+				controller.setLeagueSettings(str);
+				controller.addToConsoleText("League settings is loaded from " + lblPathName.getText());
+				frame.dispose();
+
 			} else if (e.getSource() == btnChoosePath) {
 				JFileChooser fileChooser = new JFileChooser();
 				if (indicator.equals("Network")) {

@@ -74,6 +74,8 @@ public class GUI extends JFrame implements ActionListener {
 	private JLabel lblLeagueAPIid;
 	private JTextField txtLeagueName;
 	private JTextField txtLeagueAPIid;
+	private JButton btnSaveLeaguesettings;
+	private JButton btnLoadLeagueSettings;
 	
 	private JButton btnCalc;
 
@@ -125,6 +127,8 @@ public class GUI extends JFrame implements ActionListener {
 		lblLeagueAPIid = new JLabel("Season-IDs from API");
 		txtLeagueName = new JTextField();
 		txtLeagueAPIid = new JTextField();
+		btnSaveLeaguesettings = new JButton("Save League settings"); 
+		btnLoadLeagueSettings = new JButton("Load League settings"); 
 		
 		btnCalc = new JButton("Start calculation");
 
@@ -162,6 +166,8 @@ public class GUI extends JFrame implements ActionListener {
 		btnSaveANNsettings.addActionListener(this);
 		btnLoadNetwork.addActionListener(this);
 		btnCalc.addActionListener(this);
+		btnLoadLeagueSettings.addActionListener(this);
+		btnSaveLeaguesettings.addActionListener(this);
 	}
 
 	public void createPnlUpper() {
@@ -211,7 +217,7 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void createPnlDB() {
-		pnlDB.setLayout(new GridLayout(4, 2));
+		pnlDB.setLayout(new GridLayout(5, 2));
 		pnlDB.setBorder(new TitledBorder("Database"));
 
 		pnlDB.add(lblPassword);
@@ -225,10 +231,12 @@ public class GUI extends JFrame implements ActionListener {
 
 		pnlDB.add(lblTable);
 		pnlDB.add(table);
+		pnlDB.add(btnLoadDBSettings);
+		pnlDB.add(btnSaveDBSettings);
 	}
 
 	public void createAnnPanel() {
-		pnlANN.setLayout(new GridLayout(6, 2));
+		pnlANN.setLayout(new GridLayout(7, 2));
 		pnlANN.setBorder(new TitledBorder("Neural network"));
 		
 		pnlANN.add(lblIterations);
@@ -248,10 +256,12 @@ public class GUI extends JFrame implements ActionListener {
 		
 		pnlANN.add(lblFinalNNName);
 		pnlANN.add(txtFinalNNName);
+		pnlANN.add(btnSaveANNsettings);
+		pnlANN.add(btnLoadANNSettings);
 	}
 	
 	public void createLeaguePanel() {
-		pnlLeague.setLayout(new GridLayout(2,2));
+		pnlLeague.setLayout(new GridLayout(3,2));
 		pnlLeague.setBorder(new TitledBorder("League settings"));
 		
 		pnlLeague.add(lblLeagueName);
@@ -259,14 +269,14 @@ public class GUI extends JFrame implements ActionListener {
 		
 		pnlLeague.add(lblLeagueAPIid);
 		pnlLeague.add(txtLeagueAPIid);
-	}
+		pnlLeague.add(btnLoadLeagueSettings);
+		pnlLeague.add(btnSaveLeaguesettings);
+			}
 	
 	public void createButtonPanel() {
 		pnlButtons.setLayout(new GridLayout(4, 2));
-		pnlButtons.add(btnLoadDBSettings);
-		pnlButtons.add(btnSaveDBSettings);
-		pnlButtons.add(btnSaveANNsettings);
-		pnlButtons.add(btnLoadANNSettings);
+
+
 	}
 
 	public String getStringToSaveDB() {
@@ -276,6 +286,11 @@ public class GUI extends JFrame implements ActionListener {
 
 	public String getStringToSaveANN() {
 		String str = iterations.getText() + "," + learningRate.getText() + "," + momentum.getText();
+		return str;
+	}
+	
+	public String getStringToSaveLeague() {
+		String str = txtLeagueName.getText() + "," + txtLeagueAPIid.getText();
 		return str;
 	}
 
@@ -290,6 +305,12 @@ public class GUI extends JFrame implements ActionListener {
 		iterations.setText(array[0]);
 		learningRate.setText(array[1]);
 		momentum.setText(array[2]);
+	}
+	
+	public void setLeagueSettings(String[] array) {
+		txtLeagueName.setText(array[0]);
+		txtLeagueAPIid.setText(array[1]);
+		
 	}
 
 	public void setNeuralNetworkPathName(String pathName) {
@@ -317,7 +338,13 @@ public class GUI extends JFrame implements ActionListener {
 			controller.loadSettings("ANN");
 		} else if (e.getSource() == btnLoadNetwork) {
 			controller.loadSettings("Network");
-		} else if (e.getSource() == btnCalc) {
+		} else if (e.getSource() == btnLoadLeagueSettings) {
+			controller.loadSettings("LoadLeague");
+		}else if (e.getSource() == btnSaveLeaguesettings) {
+			controller.saveSettings("SaveLeague", getStringToSaveLeague());
+		}
+		
+		else if (e.getSource() == btnCalc) {
 			controller.calculate(iterations.getText(), learningRate.getText(), momentum.getText(),
 					txtNeuralNetWorkPath.getText(), txtDatasetName.getText(), txtFinalNNName.getText(), txtLeagueName.getText(), txtLeagueAPIid.getText());
 		}

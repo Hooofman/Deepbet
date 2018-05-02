@@ -12,10 +12,12 @@ import boundary.FetchApi;
 import entity.Match;
 import entity.Season;
 import entity.Team;
-
+import gui.AIHand;
 
 /**
- * Creates match-objects for an entire season and adds matches to dataset used by the ANN
+ * Creates match-objects for an entire season and adds matches to dataset used
+ * by the ANN
+ * 
  * @author Oscar Malmqvist
  *
  */
@@ -26,15 +28,19 @@ public class FixtureHandler {
 
 	/**
 	 * Fetch fixtures and create match-objects for an entire season
-	 * @param season the season to look for
-	 * @throws JSONException if JSONObject och JSONArray cant be read or fetched
+	 * 
+	 * @param season
+	 *            the season to look for
+	 * @throws JSONException
+	 *             if JSONObject och JSONArray cant be read or fetched
 	 */
 
 	public static void createFixtures(Season season, DataSet dataSet) throws JSONException {
 		/**
 		 * Get all fixtures from JSON
 		 */
-		if (season.getYear() == 2017) { // TODO: Remove this part later. Get everything from external API when we are done, not from home.
+		if (season.getYear() == 2017) { // TODO: Remove this part later. Get everything from external API when we are
+										// done, not from home.
 			jsonMatches = FetchApi.getJsonMatches(season.getId());
 		} else {
 			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getYear(), "matches");
@@ -46,7 +52,8 @@ public class FixtureHandler {
 			// Check if the match is finished
 			String status = fixtures.getJSONObject(i).optString("status");
 
-			// Get the teamnames from API and compare with the seasons team-objects to get the right team
+			// Get the teamnames from API and compare with the seasons team-objects to get
+			// the right team
 			Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
 			Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
 			int matchDay = fixtures.getJSONObject(i).getInt("matchday");
@@ -56,10 +63,10 @@ public class FixtureHandler {
 			Match match = new Match(homeTeam, awayTeam, matchDay);
 
 			match.setDate(dateString.substring(0, 10));
-			match.setTime(dateString.substring(11,19));
+			match.setTime(dateString.substring(11, 19));
 			match.setIsFinished(status);
 			match.produceInputArray(5);
-			
+
 			// What to do if the match is already played
 			if (!status.equals("TIMED") && !status.equals("SCHEDULED") && !status.equals("POSTPONED")) {
 

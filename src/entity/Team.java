@@ -97,6 +97,14 @@ public class Team implements Comparable<Team>{
 		this.goalsAgainstThisSeason.add(value);
 	}
 
+	public LinkedList<Double> getGoalsFor() {
+		return goalsFor;
+	}
+
+	public LinkedList<Double> getGoalsAgainst() {
+		return goalsAgainst;
+	}
+
 	public double getGoalsAgainst(int index) {
 		return goalsAgainst.get(index);
 	}

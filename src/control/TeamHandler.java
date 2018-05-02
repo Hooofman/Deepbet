@@ -1,5 +1,7 @@
 package control;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,21 +26,37 @@ public class TeamHandler {
 	 */
 	public static void populateTeams(Season season, League league) {
 		Team team;
+		ArrayList<Team> teamsArray = league.getAllTeamObjects();
+		double goalsFor = 0;
+		double goalsAgainst = 0;
+		
+		for(int i = 0; i < teamsArray.size(); i++) {
+			goalsFor += teamsArray.get(i).getAverageForNGames(teamsArray.get(i).getGoalsFor(), 5);
+			goalsAgainst += teamsArray.get(i).getAverageForNGames(teamsArray.get(i).getGoalsAgainst(), 5);
+		}
+		goalsFor /=17;
+		goalsAgainst /= 17;
+		
 		try {
 			// Get the teams playing in a season from JSON
 			jsonTeams = FetchApi.getJsonTeams(season.getId()); 
 			teams = jsonTeams.getJSONArray("teams"); 
 
+			
+			
 			for (int i = 0; i < teams.length(); i++) {
 				String teamName = teams.getJSONObject(i).getString("name");
 				
 				// If the teams doesnt already exist in the league, create it.
 				if (!league.getAllTeams().contains(teamName)) {
 					team = new Team(teamName);
+					team.setGoalsFor(goalsFor);
+					team.setGoalsAgainst(goalsAgainst);
 					league.addTeam(team);	
 				}
 			}
-		} catch (Exception e) {
+			
+			} catch (Exception e) {
 		}
 	}
 }

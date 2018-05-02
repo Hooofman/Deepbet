@@ -29,7 +29,6 @@ public class CalculationHandler extends Thread implements PrintListener {
 		this.learningRate = learningRate;
 		this.momentum = momentum;
 		this.searchPath = searchPath;
-		
 	}
 	
 	public void run() {
@@ -78,7 +77,6 @@ public class CalculationHandler extends Thread implements PrintListener {
 		for (Match match : matchesFromSeason) {
 			if (match.getStatus().equals("TIMED")) {
 				matchesToTest.add(match);
-
 			} else if (match.getStatus().equals("FINISHED")) {
 				connection.updateCalculatedMatches(match);
 			}

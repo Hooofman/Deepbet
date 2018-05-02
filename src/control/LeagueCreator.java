@@ -75,12 +75,10 @@ public class LeagueCreator {
 				FixtureHandler.createFixtures(season, trainingSet);
 
 				listener.updateText("Season " + season.getYear() + " created");
-				// System.out.println("Säsong skapad " + season.getYear());
 
 				// Update the league-table
 				season.updateTable();
-				// listener.updateText("Thread sleep 2 sek");
-				// Thread.sleep(2000);
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -88,7 +86,6 @@ public class LeagueCreator {
 		trainingSet.save("test"); // Save the trainingset
 		trainingSet.saveAsTxt("testSet.txt", ",");
 		listener.updateText("Dataset saved");
-		// System.out.println("Dataset sparat");
 	}
 
 	public League getLeague() {

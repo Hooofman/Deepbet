@@ -9,7 +9,6 @@ public class Controller {
 	public Controller(GUI gui) {
 		this.gui = gui;
 		gui.setController(this);
-		
 	}
 
 	public void saveSettings(String indicator, String data) {

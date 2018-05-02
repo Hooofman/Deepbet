@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -40,7 +41,6 @@ public class GUI extends JFrame implements ActionListener {
 	private JTextField userName;
 	private JTextField dbAddress;
 	private JTextField table;
-	private JLabel lblDB;
 	private JLabel lblPassword;
 	private JLabel lblUserName;
 	private JLabel lblDBAddress;
@@ -50,11 +50,13 @@ public class GUI extends JFrame implements ActionListener {
 
 	// ANN settings
 	private JPanel pnlANN;
-	private JLabel lblANN;
 
 	private JLabel lblIterations;
 	private JLabel lblLearningRate;
 	private JLabel lblMomentum;
+	private JLabel lblNeuralNetworkPath;
+	private JLabel lblDatasetName;
+	private JLabel lblFinalNNName;
 	private JButton btnLoadNetwork;
 	private JButton btnSaveANNsettings;
 	private JButton btnLoadANNSettings;
@@ -63,7 +65,16 @@ public class GUI extends JFrame implements ActionListener {
 	private JTextField learningRate;
 	private JTextField momentum;
 	private JTextField txtNeuralNetWorkPath;
-
+	private JTextField txtDatasetName;
+	private JTextField txtFinalNNName;
+	
+	// League panel
+	private JPanel pnlLeague;
+	private JLabel lblLeagueName;
+	private JLabel lblLeagueAPIid;
+	private JTextField txtLeagueName;
+	private JTextField txtLeagueAPIid;
+	
 	private JButton btnCalc;
 
 	private JPanel pnlBottom;
@@ -73,29 +84,32 @@ public class GUI extends JFrame implements ActionListener {
 	private StyledDocument doc;
 
 	public GUI() {
-
 		pnlANN = new JPanel();
 		pnlMain = new JPanel();
 		pnlTextArea = new JPanel();
 		pnlWest = new JPanel();
 		pnlDB = new JPanel();
+		pnlLeague = new JPanel();
 		password = new JTextField("Deepbet123");
 		userName = new JTextField("deepbet");
 		dbAddress = new JTextField("jdbc:mysql://deepbet.ddns.net:3306/deepbet");
 		table = new JTextField("games");
-		lblDB = new JLabel("Database settings");
+	
 		lblPassword = new JLabel("Password");
 		lblUserName = new JLabel("User name");
 		lblDBAddress = new JLabel("Database address");
 		lblTable = new JLabel("Table to save in");
 		btnSaveDBSettings = new JButton("Save database settings");
 		btnLoadDBSettings = new JButton("Load database settings");
-		lblANN = new JLabel("Network settings");
+		
 		consolText = new JTextPane();
 
 		lblIterations = new JLabel("Number of iterations");
 		lblLearningRate = new JLabel("Learing rate");
 		lblMomentum = new JLabel("Momentum");
+		lblNeuralNetworkPath = new JLabel("NN-template");
+		lblFinalNNName = new JLabel("Trained NN name");
+		lblDatasetName = new JLabel("Dataset name");
 		btnLoadNetwork = new JButton("Load network template");
 		btnSaveANNsettings = new JButton("Save network settings");
 		btnLoadANNSettings = new JButton("Load network settings");
@@ -103,9 +117,15 @@ public class GUI extends JFrame implements ActionListener {
 		iterations = new JTextField("20");
 		learningRate = new JTextField("0.7");
 		momentum = new JTextField("0.2");
-		txtNeuralNetWorkPath = new JTextField(
-				"");
+		txtNeuralNetWorkPath = new JTextField("");
+		txtDatasetName = new JTextField("");
+		txtFinalNNName = new JTextField("");
 
+		lblLeagueName = new JLabel("League name");
+		lblLeagueAPIid = new JLabel("Season-IDs from API");
+		txtLeagueName = new JTextField();
+		txtLeagueAPIid = new JTextField();
+		
 		btnCalc = new JButton("Start calculation");
 
 		pnlBottom = new JPanel(); // Holds calc Button
@@ -116,17 +136,17 @@ public class GUI extends JFrame implements ActionListener {
 
 		createAnnPanel();
 		createPnlDB();
+		createLeaguePanel();
 		createBottomPanel();
 		createConsolePanel();
 		createPnlUpper();
 		createMainPnl();
 		addActionListeners();
 		this.add(pnlMain);
-		//this.setPreferredSize(new Dimension(1500, 1000));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
-
+		setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 	}
 
 	public void setController(Controller controller) {
@@ -143,13 +163,11 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void createPnlUpper() {
-		//pnlUpper.setPreferredSize(new Dimension(1200, 100));
 		pnlUpper.add(new JLabel("DeepBet"));
 		pnlUpper.setBackground(Color.RED);
 	}
 
 	public void createBottomPanel() {
-		//pnlBottom.setPreferredSize(new Dimension(400, 100));
 		pnlBottom.add(btnCalc);
 		pnlBottom.setBackground(Color.PINK);
 	}
@@ -157,9 +175,6 @@ public class GUI extends JFrame implements ActionListener {
 	public void createConsolePanel() {
 		pnlTextArea.setPreferredSize(new Dimension(800, 400));
 		pnlTextArea.setLayout(new BorderLayout());
-		// pnlTextArea.setBackground(Color.LIGHT_GRAY);
-
-		consolText.setPreferredSize(new Dimension(800, 400));
 
 		scrollBar = new JScrollPane(consolText);
 		scrollBar.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -183,22 +198,10 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void createPnlDB() {
-
-		pnlDB.setLayout(new GridLayout(5, 2));
+		pnlDB.setLayout(new GridLayout(4, 2));
 		pnlDB.setBackground(Color.GRAY);
-		//pnlDB.setPreferredSize(new Dimension(100, 0));
 		pnlDB.setBorder(new TitledBorder("Database"));
-		// lblPassword.setPreferredSize(new Dimension(100, 20));
-		// password.setPreferredSize(new Dimension(100, 20));
-		// lblUserName.setPreferredSize(new Dimension(100, 20));
-		// userName.setPreferredSize(new Dimension(100, 20));
-		// lblDBAddress.setPreferredSize(new Dimension(100, 20));
-		// dbAddress.setPreferredSize(new Dimension(100, 20));
-		// lblTable.setPreferredSize(new Dimension(100, 20));
-		// table.setPreferredSize(new Dimension(100, 20));
 
-		pnlDB.add(lblDB);
-		pnlDB.add(new JLabel());
 		pnlDB.add(lblPassword);
 		pnlDB.add(password);
 
@@ -210,12 +213,10 @@ public class GUI extends JFrame implements ActionListener {
 
 		pnlDB.add(lblTable);
 		pnlDB.add(table);
+		
+		pnlWest.setLayout(new BoxLayout(pnlWest, BoxLayout.PAGE_AXIS));
 
-		pnlWest.setLayout(new GridLayout(4, 1));
-
-		pnlButtons.setLayout(new GridLayout(5, 1));
-		pnlButtons.add(btnLoadNetwork);
-		pnlButtons.add(txtNeuralNetWorkPath);
+		pnlButtons.setLayout(new GridLayout(5, 2));
 
 		pnlButtons.add(btnLoadDBSettings);
 		pnlButtons.add(btnSaveDBSettings);
@@ -224,24 +225,15 @@ public class GUI extends JFrame implements ActionListener {
 
 		pnlWest.add(pnlDB);
 		pnlWest.add(pnlANN);
+		pnlWest.add(pnlLeague);
 		pnlWest.add(pnlButtons);
 	}
 
 	public void createAnnPanel() {
-		pnlANN.setLayout(new GridLayout(4, 2));
+		pnlANN.setLayout(new GridLayout(6, 2));
 		pnlANN.setBackground(Color.GRAY);
-		//pnlANN.setPreferredSize(new Dimension(300, 50));
 		pnlANN.setBorder(new TitledBorder("Neural network"));
-
-//		lblIterations.setPreferredSize(new Dimension(100, 20));
-//		iterations.setPreferredSize(new Dimension(100, 20));
-//		lblLearningRate.setPreferredSize(new Dimension(100, 20));
-//		learningRate.setPreferredSize(new Dimension(100, 20));
-//		lblMomentum.setPreferredSize(new Dimension(100, 20));
-//		momentum.setPreferredSize(new Dimension(100, 20));
-
-		pnlANN.add(lblANN);
-		pnlANN.add(new JLabel()); // FULLÖSNING
+		
 		pnlANN.add(lblIterations);
 		pnlANN.add(iterations);
 
@@ -250,6 +242,27 @@ public class GUI extends JFrame implements ActionListener {
 
 		pnlANN.add(lblMomentum);
 		pnlANN.add(momentum);
+		
+		pnlANN.add(lblDatasetName);
+		pnlANN.add(txtDatasetName);
+		
+		pnlANN.add(lblNeuralNetworkPath);
+		pnlANN.add(btnLoadNetwork);
+		
+		pnlANN.add(lblFinalNNName);
+		pnlANN.add(txtFinalNNName);
+	}
+	
+	public void createLeaguePanel() {
+		pnlLeague.setLayout(new GridLayout(2,2));
+		pnlLeague.setBackground(Color.GRAY);
+		pnlLeague.setBorder(new TitledBorder("League settings"));
+		
+		pnlLeague.add(lblLeagueName);
+		pnlLeague.add(txtLeagueName);
+		
+		pnlLeague.add(lblLeagueAPIid);
+		pnlLeague.add(txtLeagueAPIid);
 	}
 
 	public String getStringToSaveDB() {

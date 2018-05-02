@@ -139,8 +139,10 @@ public class GUI extends JFrame implements ActionListener {
 		createLeaguePanel();
 		createBottomPanel();
 		createConsolePanel();
+		createButtonPanel();
 		createPnlUpper();
 		createMainPnl();
+		createWestPanel();
 		addActionListeners();
 		this.add(pnlMain);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -164,18 +166,29 @@ public class GUI extends JFrame implements ActionListener {
 
 	public void createPnlUpper() {
 		pnlUpper.add(new JLabel("DeepBet"));
-		pnlUpper.setBackground(Color.RED);
+		pnlUpper.setBackground(Color.GRAY);
 	}
 
 	public void createBottomPanel() {
+		pnlBottom.setLayout(new GridLayout(1,1));
 		pnlBottom.add(btnCalc);
-		pnlBottom.setBackground(Color.PINK);
+		pnlBottom.setBackground(Color.BLACK);
 	}
 
+	public void createWestPanel() {
+		pnlWest.setLayout(new BoxLayout(pnlWest, BoxLayout.PAGE_AXIS));
+		pnlWest.setBorder(new EmptyBorder(5,5,5,5));
+		pnlWest.add(pnlDB);
+		pnlWest.add(pnlANN);
+		pnlWest.add(pnlLeague);
+		pnlWest.add(pnlButtons);
+	}
+	
 	public void createConsolePanel() {
 		pnlTextArea.setPreferredSize(new Dimension(800, 400));
 		pnlTextArea.setLayout(new BorderLayout());
-
+		pnlTextArea.setBorder(new EmptyBorder(5,5,5,5));
+		consolText.setEditable(false);
 		scrollBar = new JScrollPane(consolText);
 		scrollBar.setBorder(BorderFactory.createLineBorder(Color.black));
 		scrollBar.setAutoscrolls(true);
@@ -199,7 +212,6 @@ public class GUI extends JFrame implements ActionListener {
 
 	public void createPnlDB() {
 		pnlDB.setLayout(new GridLayout(4, 2));
-		pnlDB.setBackground(Color.GRAY);
 		pnlDB.setBorder(new TitledBorder("Database"));
 
 		pnlDB.add(lblPassword);
@@ -213,25 +225,10 @@ public class GUI extends JFrame implements ActionListener {
 
 		pnlDB.add(lblTable);
 		pnlDB.add(table);
-		
-		pnlWest.setLayout(new BoxLayout(pnlWest, BoxLayout.PAGE_AXIS));
-
-		pnlButtons.setLayout(new GridLayout(4, 2));
-
-		pnlButtons.add(btnLoadDBSettings);
-		pnlButtons.add(btnSaveDBSettings);
-		pnlButtons.add(btnSaveANNsettings);
-		pnlButtons.add(btnLoadANNSettings);
-
-		pnlWest.add(pnlDB);
-		pnlWest.add(pnlANN);
-		pnlWest.add(pnlLeague);
-		pnlWest.add(pnlButtons);
 	}
 
 	public void createAnnPanel() {
 		pnlANN.setLayout(new GridLayout(6, 2));
-		pnlANN.setBackground(Color.GRAY);
 		pnlANN.setBorder(new TitledBorder("Neural network"));
 		
 		pnlANN.add(lblIterations);
@@ -255,7 +252,6 @@ public class GUI extends JFrame implements ActionListener {
 	
 	public void createLeaguePanel() {
 		pnlLeague.setLayout(new GridLayout(2,2));
-		pnlLeague.setBackground(Color.GRAY);
 		pnlLeague.setBorder(new TitledBorder("League settings"));
 		
 		pnlLeague.add(lblLeagueName);
@@ -263,6 +259,14 @@ public class GUI extends JFrame implements ActionListener {
 		
 		pnlLeague.add(lblLeagueAPIid);
 		pnlLeague.add(txtLeagueAPIid);
+	}
+	
+	public void createButtonPanel() {
+		pnlButtons.setLayout(new GridLayout(4, 2));
+		pnlButtons.add(btnLoadDBSettings);
+		pnlButtons.add(btnSaveDBSettings);
+		pnlButtons.add(btnSaveANNsettings);
+		pnlButtons.add(btnLoadANNSettings);
 	}
 
 	public String getStringToSaveDB() {
@@ -307,7 +311,6 @@ public class GUI extends JFrame implements ActionListener {
 
 		} else if (e.getSource() == btnLoadDBSettings) { // Load Database settings
 			controller.loadSettings("Database");
-
 		} else if (e.getSource() == btnSaveANNsettings) {
 			controller.saveSettings("SaveANN", getStringToSaveANN());
 		} else if (e.getSource() == btnLoadANNSettings) {
@@ -316,7 +319,7 @@ public class GUI extends JFrame implements ActionListener {
 			controller.loadSettings("Network");
 		} else if (e.getSource() == btnCalc) {
 			controller.calculate(iterations.getText(), learningRate.getText(), momentum.getText(),
-					txtNeuralNetWorkPath.getText());
+					txtNeuralNetWorkPath.getText(), txtDatasetName.getText(), txtFinalNNName.getText(), txtLeagueName.getText(), txtLeagueAPIid.getText());
 		}
 	}
 }

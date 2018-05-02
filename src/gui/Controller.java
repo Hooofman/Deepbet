@@ -9,7 +9,7 @@ public class Controller {
 	public Controller(GUI gui) {
 		this.gui = gui;
 		gui.setController(this);
-		calcHandler = new CalculationHandler(this);
+		
 	}
 
 	public void saveSettings(String indicator, String data) {
@@ -55,7 +55,8 @@ public class Controller {
 		int iterations = Integer.parseInt(it);
 		double learningRate = Double.parseDouble(learnRate);
 		double momentum = Double.parseDouble(momentu);
-		calcHandler.calculate(iterations, learningRate, momentum, NNPath);
+		calcHandler = new CalculationHandler(this, iterations, learningRate, momentum, NNPath);
+		calcHandler.start();
 	}
 
 	public static void main(String[] args) {

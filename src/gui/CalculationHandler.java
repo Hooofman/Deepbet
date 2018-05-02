@@ -13,16 +13,30 @@ import entity.League;
 import entity.Match;
 import entity.Season;
 
-public class CalculationHandler implements PrintListener {
+public class CalculationHandler extends Thread implements PrintListener {
 	private static Norm norm = new Norm();
 	private Controller controller;
 	private String text;
+	private int iterations;
+	private double learningRate;
+	private double momentum;
+	private String searchPath;
 
-	public CalculationHandler(Controller controller) {
+	
+	public CalculationHandler(Controller controller, int iterations, double learningRate, double momentum, String searchPath) {
 		this.controller = controller;
+		this.iterations = iterations;
+		this.learningRate = learningRate;
+		this.momentum = momentum;
+		this.searchPath = searchPath;
+		
+	}
+	
+	public void run() {
+		calculate();
 	}
 
-	public void calculate(int iterations, double learningRate, double momentum, String searchPath) {
+	public void calculate() {
 		// Ids used by the API to get the seasons
 		int[] plApiId = { 113, 114, 4, 301, 341, 354, 398, 426, 445 };
 		// int[] plApiId = {398, 426, 445};

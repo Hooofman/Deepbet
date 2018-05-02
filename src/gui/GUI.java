@@ -21,7 +21,9 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultCaret;
 import javax.swing.text.StyledDocument;
 
 public class GUI extends JFrame implements ActionListener {
@@ -102,7 +104,7 @@ public class GUI extends JFrame implements ActionListener {
 		learningRate = new JTextField("0.7");
 		momentum = new JTextField("0.2");
 		txtNeuralNetWorkPath = new JTextField(
-				"C:\\Users\\Sven-\\OneDrive\\Dokument\\GitHub\\DeepBet\\Deepbet\\bias2.nnet");
+				"");
 
 		btnCalc = new JButton("Start calculation");
 
@@ -120,7 +122,7 @@ public class GUI extends JFrame implements ActionListener {
 		createMainPnl();
 		addActionListeners();
 		this.add(pnlMain);
-		this.setPreferredSize(new Dimension(1500, 1000));
+		//this.setPreferredSize(new Dimension(1500, 1000));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
@@ -141,30 +143,33 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void createPnlUpper() {
-		pnlUpper.setPreferredSize(new Dimension(1200, 100));
+		//pnlUpper.setPreferredSize(new Dimension(1200, 100));
 		pnlUpper.add(new JLabel("DeepBet"));
 		pnlUpper.setBackground(Color.RED);
 	}
 
 	public void createBottomPanel() {
-		pnlBottom.setPreferredSize(new Dimension(400, 100));
+		//pnlBottom.setPreferredSize(new Dimension(400, 100));
 		pnlBottom.add(btnCalc);
 		pnlBottom.setBackground(Color.PINK);
 	}
 
 	public void createConsolePanel() {
-		pnlTextArea.setPreferredSize(new Dimension(200, 400));
+		pnlTextArea.setPreferredSize(new Dimension(800, 400));
 		pnlTextArea.setLayout(new BorderLayout());
 		// pnlTextArea.setBackground(Color.LIGHT_GRAY);
 
-		consolText.setPreferredSize(new Dimension(200, 400));
+		consolText.setPreferredSize(new Dimension(800, 400));
 
 		scrollBar = new JScrollPane(consolText);
 		scrollBar.setBorder(BorderFactory.createLineBorder(Color.black));
 		scrollBar.setAutoscrolls(true);
 		scrollBar.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		pnlTextArea.add(scrollBar);
-
+		
+		// Scrolls the text-panel automatically when filled
+		DefaultCaret caret = (DefaultCaret)consolText.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 	}
 
 	public void createMainPnl() {
@@ -181,8 +186,8 @@ public class GUI extends JFrame implements ActionListener {
 
 		pnlDB.setLayout(new GridLayout(5, 2));
 		pnlDB.setBackground(Color.GRAY);
-		pnlDB.setPreferredSize(new Dimension(100, 0));
-
+		//pnlDB.setPreferredSize(new Dimension(100, 0));
+		pnlDB.setBorder(new TitledBorder("Database"));
 		// lblPassword.setPreferredSize(new Dimension(100, 20));
 		// password.setPreferredSize(new Dimension(100, 20));
 		// lblUserName.setPreferredSize(new Dimension(100, 20));
@@ -225,14 +230,15 @@ public class GUI extends JFrame implements ActionListener {
 	public void createAnnPanel() {
 		pnlANN.setLayout(new GridLayout(4, 2));
 		pnlANN.setBackground(Color.GRAY);
-		pnlANN.setPreferredSize(new Dimension(300, 50));
+		//pnlANN.setPreferredSize(new Dimension(300, 50));
+		pnlANN.setBorder(new TitledBorder("Neural network"));
 
-		lblIterations.setPreferredSize(new Dimension(100, 20));
-		iterations.setPreferredSize(new Dimension(100, 20));
-		lblLearningRate.setPreferredSize(new Dimension(100, 20));
-		learningRate.setPreferredSize(new Dimension(100, 20));
-		lblMomentum.setPreferredSize(new Dimension(100, 20));
-		momentum.setPreferredSize(new Dimension(100, 20));
+//		lblIterations.setPreferredSize(new Dimension(100, 20));
+//		iterations.setPreferredSize(new Dimension(100, 20));
+//		lblLearningRate.setPreferredSize(new Dimension(100, 20));
+//		learningRate.setPreferredSize(new Dimension(100, 20));
+//		lblMomentum.setPreferredSize(new Dimension(100, 20));
+//		momentum.setPreferredSize(new Dimension(100, 20));
 
 		pnlANN.add(lblANN);
 		pnlANN.add(new JLabel()); // FULLÖSNING

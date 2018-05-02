@@ -216,7 +216,7 @@ public class GUI extends JFrame implements ActionListener {
 		
 		pnlWest.setLayout(new BoxLayout(pnlWest, BoxLayout.PAGE_AXIS));
 
-		pnlButtons.setLayout(new GridLayout(5, 2));
+		pnlButtons.setLayout(new GridLayout(4, 2));
 
 		pnlButtons.add(btnLoadDBSettings);
 		pnlButtons.add(btnSaveDBSettings);

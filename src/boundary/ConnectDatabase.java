@@ -12,7 +12,9 @@ import java.util.Properties;
 import entity.Match;
 
 /**
- * author Sven Lindqvist Class for connection with database.
+ * Class for connection with database.
+ * 
+ * @author Sven Lindqvist
  */
 public class ConnectDatabase {
 	private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
@@ -172,8 +174,8 @@ public class ConnectDatabase {
 				+ " VALUES ('" + homeTeam + "', '" + awayTeam + "', '" + date + "', '" + time + "', '" + season + "', '"
 				+ leagueName + "', '" + calcHome + "', '" + calcAway + "', '" + calcDraw + "', '"
 				+ match.getRecommendation() + "', '" + match.getStatus()
-				+ "') ON DUPLICATE KEY UPDATE Recommendation = " + match.getRecommendation() + " , CalcHome = "
-				+ calcHome + " , CalcAway = " + calcAway + " , CalcDraw = " + calcDraw;
+				+ "') ON DUPLICATE KEY UPDATE Recommendation = '" + match.getRecommendation() + "' , CalcHome = '"
+				+ calcHome + "' , CalcAway = '" + calcAway + "' , CalcDraw = '" + calcDraw + "'";
 		PreparedStatement statement;
 		try {
 			statement = connection.prepareStatement(sql);

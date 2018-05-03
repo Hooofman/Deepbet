@@ -120,8 +120,8 @@ public class GUI extends JFrame implements ActionListener {
 		learningRate = new JTextField("0.7");
 		momentum = new JTextField("0.2");
 		txtNeuralNetWorkPath = new JTextField("");
-		txtDatasetName = new JTextField("");
-		txtFinalNNName = new JTextField("");
+		txtDatasetName = new JTextField("Måste fixas");
+		txtFinalNNName = new JTextField("Måste fixas, vet ej vad det är");
 
 		lblLeagueName = new JLabel("League name");
 		lblLeagueAPIid = new JLabel("Season-IDs from API");
@@ -251,8 +251,9 @@ public class GUI extends JFrame implements ActionListener {
 		pnlANN.add(lblDatasetName);
 		pnlANN.add(txtDatasetName);
 		
-		pnlANN.add(lblNeuralNetworkPath);
+		
 		pnlANN.add(btnLoadNetwork);
+		pnlANN.add(txtNeuralNetWorkPath);
 		
 		pnlANN.add(lblFinalNNName);
 		pnlANN.add(txtFinalNNName);
@@ -285,7 +286,7 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public String getStringToSaveANN() {
-		String str = iterations.getText() + "," + learningRate.getText() + "," + momentum.getText();
+		String str = iterations.getText() + "," + learningRate.getText() + "," + momentum.getText() +","+txtNeuralNetWorkPath.getText();
 		return str;
 	}
 	
@@ -305,6 +306,7 @@ public class GUI extends JFrame implements ActionListener {
 		iterations.setText(array[0]);
 		learningRate.setText(array[1]);
 		momentum.setText(array[2]);
+		txtNeuralNetWorkPath.setText(array[3]);
 	}
 	
 	public void setLeagueSettings(String[] array) {

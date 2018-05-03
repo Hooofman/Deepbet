@@ -22,12 +22,14 @@ public class LeagueCreator {
 	private String leagueName;
 	private int[] apiId;
 	private PrintListener listener;
+	private String datasetName;
 
-	public LeagueCreator(String leagueName, int[] apiId, PrintListener listener) {
+	public LeagueCreator(String leagueName, int[] apiId, PrintListener listener, String datasetName) {
 		this.leagueName = leagueName;
 		this.apiId = apiId;
 		this.trainingSet = new DataSet(22, 3); // Creates a dataset used for training the network
 		this.listener = listener;
+		this.datasetName = datasetName;
 		this.league = new League(leagueName, listener);
 	}
 
@@ -83,7 +85,7 @@ public class LeagueCreator {
 				e.printStackTrace();
 			}
 		}
-		trainingSet.save("test"); // Save the trainingset
+		trainingSet.save(datasetName); // Save the trainingset
 		trainingSet.saveAsTxt("testSet.txt", ",");
 		listener.updateText("Dataset saved");
 	}

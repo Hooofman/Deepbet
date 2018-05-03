@@ -64,7 +64,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 
 		// Create the leagueCreator and start it
 
-		ligaSkapare = new LeagueCreator(leagueName, leagueAPIId, this);
+		ligaSkapare = new LeagueCreator(leagueName, leagueAPIId, this, datasetName);
 
 		ligaSkapare.createLeague();
 

@@ -86,6 +86,13 @@ public class LoadSettings extends JPanel {
 				controller.addToConsoleText("League settings is loaded from " + lblPathName.getText());
 				frame.dispose();
 
+			}else if (e.getSource() == btnAdd && indicator.equals("LoadAll")) {
+				System.out.println(lblPathName.getText() + "Ska laddas");
+				String str = ReadFromFile.readFromFile(lblPathName.getText());
+				controller.setAllSettings(str);
+				controller.addToConsoleText("All settings is loaded from " + lblPathName.getText());
+				frame.dispose();
+
 			} else if (e.getSource() == btnChoosePath) {
 				JFileChooser fileChooser = new JFileChooser();
 				if (indicator.equals("Network")) {

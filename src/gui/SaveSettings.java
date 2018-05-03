@@ -81,6 +81,10 @@ public class SaveSettings extends JPanel {
 				WriteToFile.write(dataToSave, lblPathName.getText());
 				controller.addToConsoleText("League settings is saved to " + lblPathName.getText());
 				frame.dispose();
+			}else if (e.getSource() == btnAdd && indicator.equals("SaveAll")) {
+				WriteToFile.write(dataToSave, lblPathName.getText());
+				controller.addToConsoleText("All settings is saved to " + lblPathName.getText());
+				frame.dispose();
 			} else if (e.getSource() == btnChoosePath) {
 
 				JFileChooser fileChooser = new JFileChooser();

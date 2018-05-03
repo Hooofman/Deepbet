@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -77,6 +78,9 @@ public class GUI extends JFrame implements ActionListener {
 	private JButton btnSaveLeaguesettings;
 	private JButton btnLoadLeagueSettings;
 	
+	private JButton btnSaveAll;
+	private JButton btnLoadAll;
+	
 	private JButton btnCalc;
 
 	private JPanel pnlBottom;
@@ -120,7 +124,7 @@ public class GUI extends JFrame implements ActionListener {
 		learningRate = new JTextField("0.7");
 		momentum = new JTextField("0.2");
 		txtNeuralNetWorkPath = new JTextField("");
-		txtDatasetName = new JTextField("Måste fixas");
+		txtDatasetName = new JTextField("Fixed");
 		txtFinalNNName = new JTextField("Måste fixas, vet ej vad det är");
 
 		lblLeagueName = new JLabel("League name");
@@ -129,6 +133,9 @@ public class GUI extends JFrame implements ActionListener {
 		txtLeagueAPIid = new JTextField();
 		btnSaveLeaguesettings = new JButton("Save League settings"); 
 		btnLoadLeagueSettings = new JButton("Load League settings"); 
+		
+		btnSaveAll = new JButton("Save All settings"); 
+		btnLoadAll = new JButton("Load All settings"); 
 		
 		btnCalc = new JButton("Start calculation");
 
@@ -168,6 +175,8 @@ public class GUI extends JFrame implements ActionListener {
 		btnCalc.addActionListener(this);
 		btnLoadLeagueSettings.addActionListener(this);
 		btnSaveLeaguesettings.addActionListener(this);
+		btnLoadAll.addActionListener(this);
+		btnSaveAll.addActionListener(this);
 	}
 
 	public void createPnlUpper() {
@@ -276,7 +285,8 @@ public class GUI extends JFrame implements ActionListener {
 	
 	public void createButtonPanel() {
 		pnlButtons.setLayout(new GridLayout(4, 2));
-
+		pnlButtons.add(btnSaveAll);
+		pnlButtons.add(btnLoadAll);
 
 	}
 
@@ -286,7 +296,7 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public String getStringToSaveANN() {
-		String str = iterations.getText() + "," + learningRate.getText() + "," + momentum.getText() +","+txtNeuralNetWorkPath.getText();
+		String str = iterations.getText() + "," + learningRate.getText() + "," + momentum.getText() +","+txtNeuralNetWorkPath.getText() +","+ txtDatasetName.getText() +","+ txtFinalNNName.getText();
 		return str;
 	}
 	
@@ -307,6 +317,8 @@ public class GUI extends JFrame implements ActionListener {
 		learningRate.setText(array[1]);
 		momentum.setText(array[2]);
 		txtNeuralNetWorkPath.setText(array[3]);
+		txtDatasetName.setText(array[4]);
+		txtFinalNNName.setText(array[5]);
 	}
 	
 	public void setLeagueSettings(String[] array) {
@@ -317,6 +329,12 @@ public class GUI extends JFrame implements ActionListener {
 
 	public void setNeuralNetworkPathName(String pathName) {
 		txtNeuralNetWorkPath.setText(pathName);
+	}
+	
+	public void setAllSettings(String[] array) {
+		setDBSettings(Arrays.copyOfRange(array, 0, 4));
+		setANNSettings(Arrays.copyOfRange(array, 4, 11));
+		setLeagueSettings(Arrays.copyOfRange(array, 11, 13));
 	}
 
 	public void addToTextConsole(String str) {
@@ -344,11 +362,15 @@ public class GUI extends JFrame implements ActionListener {
 			controller.loadSettings("LoadLeague");
 		}else if (e.getSource() == btnSaveLeaguesettings) {
 			controller.saveSettings("SaveLeague", getStringToSaveLeague());
+		}else if (e.getSource() == btnSaveAll) {
+			controller.saveSettings("SaveAll", getStringToSaveDB()+","+getStringToSaveANN()+","+getStringToSaveLeague());
+		}else if (e.getSource() == btnLoadAll) {
+			controller.loadSettings("LoadAll");
 		}
 		
 		else if (e.getSource() == btnCalc) {
 			controller.calculate(iterations.getText(), learningRate.getText(), momentum.getText(),
-					txtNeuralNetWorkPath.getText(), txtDatasetName.getText(), txtFinalNNName.getText(), txtLeagueName.getText(), txtLeagueAPIid.getText());
+					txtNeuralNetWorkPath.getText(), txtDatasetName.getText(), txtFinalNNName.getText(), txtLeagueName.getText(), txtLeagueAPIid.getText(), table.getText());
 		}
 	}
 }

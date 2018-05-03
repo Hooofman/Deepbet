@@ -24,10 +24,11 @@ public class CalculationHandler extends Thread implements PrintListener {
 	private String datasetName;
 	private String finalNNName;
 	private String leagueName;
+	private String table;
 	private int[] leagueAPIId;
 
 	
-	public CalculationHandler(Controller controller, int iterations, double learningRate, double momentum, String searchPath, String datasetName, String finalNNName, String leagueName, String[] leagueAPIid) {
+	public CalculationHandler(Controller controller, int iterations, double learningRate, double momentum, String searchPath, String datasetName, String finalNNName, String leagueName, String[] leagueAPIid, String table) {
 		this.controller = controller;
 		this.iterations = iterations;
 		this.learningRate = learningRate;
@@ -36,6 +37,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		this.datasetName = datasetName;
 		this.finalNNName = finalNNName;
 		this.leagueName = leagueName;
+		this.table = table;
 		this.leagueAPIId = convertStringToIntArray(leagueAPIid);
 	}
 	
@@ -104,7 +106,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		////////////////////// Finns inga matcher att testa!
 		for (Match match : matchesToTest) {
 			produceOutput.getOutputForMatch(match, norm);
-			connection.insertIntoTable("games");
+			connection.insertIntoTable(table);
 			connection.createNewMatch(match, seasonToTest.getYear(), league.getName());
 		}
 

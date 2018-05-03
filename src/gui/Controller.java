@@ -33,7 +33,11 @@ public class Controller {
 		String[] inputGUI = str.split(",", 0);
 		gui.setLeagueSettings(inputGUI);
 	}
-
+	
+	public void setAllSettings(String str) {
+		String[] inputGUI = str.split(",", 0);
+		gui.setAllSettings(inputGUI);
+	}
 	public void setNeuralNetworkPath(String pathName) {
 		gui.setNeuralNetworkPathName(pathName);
 	}
@@ -55,11 +59,11 @@ public class Controller {
 	 * @param NNPath
 	 *            The search path to the neural network template.
 	 */
-	public void calculate(String it, String learnRate, String momentu, String NNPath, String datasetName, String finalNNName, String leagueName, String leageuAPIId) {
+	public void calculate(String it, String learnRate, String momentu, String NNPath, String datasetName, String finalNNName, String leagueName, String leageuAPIId, String table) {
 		int iterations = Integer.parseInt(it);
 		double learningRate = Double.parseDouble(learnRate);
 		double momentum = Double.parseDouble(momentu);
-		calcHandler = new CalculationHandler(this, iterations, learningRate, momentum, NNPath, datasetName, finalNNName, leagueName, leageuAPIId.split(", "));
+		calcHandler = new CalculationHandler(this, iterations, learningRate, momentum, NNPath, datasetName, finalNNName, leagueName, leageuAPIId.split(", "), table);
 		calcHandler.start();
 	}
 

@@ -22,6 +22,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.BadLocationException;
@@ -226,9 +228,13 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void createPnlDB() {
-		pnlDB.setLayout(new GridLayout(5, 2));
+		pnlDB.setLayout(new GridLayout(5, 2,5,5));
 		pnlDB.setBorder(new TitledBorder("Database"));
 
+		Border border = pnlDB.getBorder();
+		Border margin = new EmptyBorder(10,10,10,10);
+		pnlDB.setBorder(new CompoundBorder(border, margin));
+		
 		pnlDB.add(lblPassword);
 		pnlDB.add(password);
 
@@ -245,8 +251,12 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void createAnnPanel() {
-		pnlANN.setLayout(new GridLayout(7, 2));
+		pnlANN.setLayout(new GridLayout(7, 2,5,5));
 		pnlANN.setBorder(new TitledBorder("Neural network"));
+		
+		Border border = pnlANN.getBorder();
+		Border margin = new EmptyBorder(10,10,10,10);
+		pnlANN.setBorder(new CompoundBorder(border, margin));
 		
 		pnlANN.add(lblIterations);
 		pnlANN.add(iterations);
@@ -271,8 +281,12 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	public void createLeaguePanel() {
-		pnlLeague.setLayout(new GridLayout(3,2));
+		pnlLeague.setLayout(new GridLayout(3,2,5,5));
 		pnlLeague.setBorder(new TitledBorder("League settings"));
+		
+		Border border = pnlLeague.getBorder();
+		Border margin = new EmptyBorder(10,10,10,10);
+		pnlLeague.setBorder(new CompoundBorder(border, margin));
 		
 		pnlLeague.add(lblLeagueName);
 		pnlLeague.add(txtLeagueName);
@@ -284,7 +298,8 @@ public class GUI extends JFrame implements ActionListener {
 			}
 	
 	public void createButtonPanel() {
-		pnlButtons.setLayout(new GridLayout(4, 2));
+		pnlButtons.setLayout(new GridLayout(4, 2, 5, 5));
+		pnlButtons.setBorder(new EmptyBorder(10,10,10,10));
 		pnlButtons.add(btnSaveAll);
 		pnlButtons.add(btnLoadAll);
 

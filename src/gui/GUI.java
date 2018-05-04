@@ -30,6 +30,12 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.StyledDocument;
 
+/**
+ * Grap
+ * 
+ * @author Sven-
+ *
+ */
 public class GUI extends JFrame implements ActionListener {
 	private Controller controller;
 	private JPanel pnlMain;
@@ -70,7 +76,7 @@ public class GUI extends JFrame implements ActionListener {
 	private JTextField txtNeuralNetWorkPath;
 	private JTextField txtDatasetName;
 	private JTextField txtFinalNNName;
-	
+
 	// League panel
 	private JPanel pnlLeague;
 	private JLabel lblLeagueName;
@@ -79,10 +85,10 @@ public class GUI extends JFrame implements ActionListener {
 	private JTextField txtLeagueAPIid;
 	private JButton btnSaveLeaguesettings;
 	private JButton btnLoadLeagueSettings;
-	
+
 	private JButton btnSaveAll;
 	private JButton btnLoadAll;
-	
+
 	private JButton btnCalc;
 
 	private JPanel pnlBottom;
@@ -102,14 +108,14 @@ public class GUI extends JFrame implements ActionListener {
 		userName = new JTextField("deepbet");
 		dbAddress = new JTextField("jdbc:mysql://deepbet.ddns.net:3306/deepbet");
 		table = new JTextField("games");
-	
+
 		lblPassword = new JLabel("Password");
 		lblUserName = new JLabel("User name");
 		lblDBAddress = new JLabel("Database address");
 		lblTable = new JLabel("Table to save in");
 		btnSaveDBSettings = new JButton("Save database settings");
 		btnLoadDBSettings = new JButton("Load database settings");
-		
+
 		consolText = new JTextPane();
 
 		lblIterations = new JLabel("Number of iterations");
@@ -130,15 +136,15 @@ public class GUI extends JFrame implements ActionListener {
 		txtFinalNNName = new JTextField("Måste fixas, vet ej vad det är");
 
 		lblLeagueName = new JLabel("League name");
-		lblLeagueAPIid = new JLabel("Season-IDs from API");
+		lblLeagueAPIid = new JLabel("Season-IDs from API, separate with ,");
 		txtLeagueName = new JTextField();
 		txtLeagueAPIid = new JTextField();
-		btnSaveLeaguesettings = new JButton("Save League settings"); 
-		btnLoadLeagueSettings = new JButton("Load League settings"); 
-		
-		btnSaveAll = new JButton("Save All settings"); 
-		btnLoadAll = new JButton("Load All settings"); 
-		
+		btnSaveLeaguesettings = new JButton("Save League settings");
+		btnLoadLeagueSettings = new JButton("Load League settings");
+
+		btnSaveAll = new JButton("Save All settings");
+		btnLoadAll = new JButton("Load All settings");
+
 		btnCalc = new JButton("Start calculation");
 
 		pnlBottom = new JPanel(); // Holds calc Button
@@ -187,33 +193,33 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void createBottomPanel() {
-		pnlBottom.setLayout(new GridLayout(1,1));
+		pnlBottom.setLayout(new GridLayout(1, 1));
 		pnlBottom.add(btnCalc);
 		pnlBottom.setBackground(Color.BLACK);
 	}
 
 	public void createWestPanel() {
 		pnlWest.setLayout(new BoxLayout(pnlWest, BoxLayout.PAGE_AXIS));
-		pnlWest.setBorder(new EmptyBorder(5,5,5,5));
+		pnlWest.setBorder(new EmptyBorder(5, 5, 5, 5));
 		pnlWest.add(pnlDB);
 		pnlWest.add(pnlANN);
 		pnlWest.add(pnlLeague);
 		pnlWest.add(pnlButtons);
 	}
-	
+
 	public void createConsolePanel() {
 		pnlTextArea.setPreferredSize(new Dimension(800, 400));
 		pnlTextArea.setLayout(new BorderLayout());
-		pnlTextArea.setBorder(new EmptyBorder(5,5,5,5));
+		pnlTextArea.setBorder(new EmptyBorder(5, 5, 5, 5));
 		consolText.setEditable(false);
 		scrollBar = new JScrollPane(consolText);
 		scrollBar.setBorder(BorderFactory.createLineBorder(Color.black));
 		scrollBar.setAutoscrolls(true);
 		scrollBar.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		pnlTextArea.add(scrollBar);
-		
+
 		// Scrolls the text-panel automatically when filled
-		DefaultCaret caret = (DefaultCaret)consolText.getCaret();
+		DefaultCaret caret = (DefaultCaret) consolText.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 	}
 
@@ -228,13 +234,13 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void createPnlDB() {
-		pnlDB.setLayout(new GridLayout(5, 2,5,5));
+		pnlDB.setLayout(new GridLayout(5, 2, 5, 5));
 		pnlDB.setBorder(new TitledBorder("Database"));
 
 		Border border = pnlDB.getBorder();
-		Border margin = new EmptyBorder(10,10,10,10);
+		Border margin = new EmptyBorder(10, 10, 10, 10);
 		pnlDB.setBorder(new CompoundBorder(border, margin));
-		
+
 		pnlDB.add(lblPassword);
 		pnlDB.add(password);
 
@@ -251,13 +257,13 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void createAnnPanel() {
-		pnlANN.setLayout(new GridLayout(7, 2,5,5));
+		pnlANN.setLayout(new GridLayout(7, 2, 5, 5));
 		pnlANN.setBorder(new TitledBorder("Neural network"));
-		
+
 		Border border = pnlANN.getBorder();
-		Border margin = new EmptyBorder(10,10,10,10);
+		Border margin = new EmptyBorder(10, 10, 10, 10);
 		pnlANN.setBorder(new CompoundBorder(border, margin));
-		
+
 		pnlANN.add(lblIterations);
 		pnlANN.add(iterations);
 
@@ -266,40 +272,39 @@ public class GUI extends JFrame implements ActionListener {
 
 		pnlANN.add(lblMomentum);
 		pnlANN.add(momentum);
-		
+
 		pnlANN.add(lblDatasetName);
 		pnlANN.add(txtDatasetName);
-		
-		
+
 		pnlANN.add(btnLoadNetwork);
 		pnlANN.add(txtNeuralNetWorkPath);
-		
+
 		pnlANN.add(lblFinalNNName);
 		pnlANN.add(txtFinalNNName);
 		pnlANN.add(btnSaveANNsettings);
 		pnlANN.add(btnLoadANNSettings);
 	}
-	
+
 	public void createLeaguePanel() {
-		pnlLeague.setLayout(new GridLayout(3,2,5,5));
+		pnlLeague.setLayout(new GridLayout(3, 2, 5, 5));
 		pnlLeague.setBorder(new TitledBorder("League settings"));
-		
+
 		Border border = pnlLeague.getBorder();
-		Border margin = new EmptyBorder(10,10,10,10);
+		Border margin = new EmptyBorder(10, 10, 10, 10);
 		pnlLeague.setBorder(new CompoundBorder(border, margin));
-		
+
 		pnlLeague.add(lblLeagueName);
 		pnlLeague.add(txtLeagueName);
-		
+
 		pnlLeague.add(lblLeagueAPIid);
 		pnlLeague.add(txtLeagueAPIid);
 		pnlLeague.add(btnLoadLeagueSettings);
 		pnlLeague.add(btnSaveLeaguesettings);
-			}
-	
+	}
+
 	public void createButtonPanel() {
 		pnlButtons.setLayout(new GridLayout(4, 2, 5, 5));
-		pnlButtons.setBorder(new EmptyBorder(10,10,10,10));
+		pnlButtons.setBorder(new EmptyBorder(10, 10, 10, 10));
 		pnlButtons.add(btnSaveAll);
 		pnlButtons.add(btnLoadAll);
 
@@ -311,10 +316,11 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public String getStringToSaveANN() {
-		String str = iterations.getText() + "," + learningRate.getText() + "," + momentum.getText() +","+txtNeuralNetWorkPath.getText() +","+ txtDatasetName.getText() +","+ txtFinalNNName.getText();
+		String str = iterations.getText() + "," + learningRate.getText() + "," + momentum.getText() + ","
+				+ txtDatasetName.getText() + "," + txtNeuralNetWorkPath.getText() + "," + txtFinalNNName.getText();
 		return str;
 	}
-	
+
 	public String getStringToSaveLeague() {
 		String str = txtLeagueName.getText() + "," + txtLeagueAPIid.getText();
 		return str;
@@ -331,25 +337,25 @@ public class GUI extends JFrame implements ActionListener {
 		iterations.setText(array[0]);
 		learningRate.setText(array[1]);
 		momentum.setText(array[2]);
-		txtNeuralNetWorkPath.setText(array[3]);
-		txtDatasetName.setText(array[4]);
+		txtDatasetName.setText(array[3]);
+		txtNeuralNetWorkPath.setText(array[4]);
 		txtFinalNNName.setText(array[5]);
 	}
-	
+
 	public void setLeagueSettings(String[] array) {
 		txtLeagueName.setText(array[0]);
 		txtLeagueAPIid.setText(array[1]);
-		
+
 	}
 
 	public void setNeuralNetworkPathName(String pathName) {
 		txtNeuralNetWorkPath.setText(pathName);
 	}
-	
+
 	public void setAllSettings(String[] array) {
 		setDBSettings(Arrays.copyOfRange(array, 0, 4));
-		setANNSettings(Arrays.copyOfRange(array, 4, 11));
-		setLeagueSettings(Arrays.copyOfRange(array, 11, 13));
+		setANNSettings(Arrays.copyOfRange(array, 4, 10));
+		setLeagueSettings(Arrays.copyOfRange(array, 10, 13));
 	}
 
 	public void addToTextConsole(String str) {
@@ -375,17 +381,19 @@ public class GUI extends JFrame implements ActionListener {
 			controller.loadSettings("Network");
 		} else if (e.getSource() == btnLoadLeagueSettings) {
 			controller.loadSettings("LoadLeague");
-		}else if (e.getSource() == btnSaveLeaguesettings) {
+		} else if (e.getSource() == btnSaveLeaguesettings) {
 			controller.saveSettings("SaveLeague", getStringToSaveLeague());
-		}else if (e.getSource() == btnSaveAll) {
-			controller.saveSettings("SaveAll", getStringToSaveDB()+","+getStringToSaveANN()+","+getStringToSaveLeague());
-		}else if (e.getSource() == btnLoadAll) {
+		} else if (e.getSource() == btnSaveAll) {
+			controller.saveSettings("SaveAll",
+					getStringToSaveDB() + "," + getStringToSaveANN() + "," + getStringToSaveLeague());
+		} else if (e.getSource() == btnLoadAll) {
 			controller.loadSettings("LoadAll");
 		}
-		
+
 		else if (e.getSource() == btnCalc) {
 			controller.calculate(iterations.getText(), learningRate.getText(), momentum.getText(),
-					txtNeuralNetWorkPath.getText(), txtDatasetName.getText(), txtFinalNNName.getText(), txtLeagueName.getText(), txtLeagueAPIid.getText(), table.getText());
+					txtNeuralNetWorkPath.getText(), txtDatasetName.getText(), txtFinalNNName.getText(),
+					txtLeagueName.getText(), txtLeagueAPIid.getText(), table.getText());
 		}
 	}
 }

@@ -69,7 +69,7 @@ public class Controller {
 		double momentum = Double.parseDouble(momentu);
 		calcHandler = new CalculationHandler(this, iterations, learningRate, momentum, NNPath, datasetName, finalNNName,
 				leagueName, leageuAPIId.split(", "), table);
-		calcHandler.start();
+		// calcHandler.start();
 	}
 
 	public static void main(String[] args) {

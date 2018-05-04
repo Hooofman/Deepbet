@@ -29,7 +29,7 @@ public class ReadFromFile {
 			while (temp != null) {
 				data += temp + ",";
 				temp = br.readLine();
-				System.out.println(data);
+				// System.out.println(data);
 			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

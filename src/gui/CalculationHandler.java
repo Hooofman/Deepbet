@@ -26,9 +26,11 @@ public class CalculationHandler extends Thread implements PrintListener {
 	private String leagueName;
 	private String table;
 	private int[] leagueAPIId;
+	private String[] temp; // Temporary holder for leagueAPIid.
 
-	
-	public CalculationHandler(Controller controller, int iterations, double learningRate, double momentum, String searchPath, String datasetName, String finalNNName, String leagueName, String[] leagueAPIid, String table) {
+	public CalculationHandler(Controller controller, int iterations, double learningRate, double momentum,
+			String searchPath, String datasetName, String finalNNName, String leagueName, String[] leagueAPIid,
+			String table) {
 		this.controller = controller;
 		this.iterations = iterations;
 		this.learningRate = learningRate;
@@ -38,18 +40,39 @@ public class CalculationHandler extends Thread implements PrintListener {
 		this.finalNNName = finalNNName;
 		this.leagueName = leagueName;
 		this.table = table;
-		this.leagueAPIId = convertStringToIntArray(leagueAPIid);
+		temp = leagueAPIid;
+		start();
+		// this.leagueAPIId = convertStringToIntArray(leagueAPIid);
 	}
-	
-	public int[] convertStringToIntArray(String[] strArray) {
-		int[] array = new int[strArray.length];
-		for (int i = 0; i<array.length; i++) {
-			array[i] = Integer.parseInt(strArray[i]);
-		}
-		return array;
-	}
-	
+
+	// public int[] convertStringToIntArray(String[] strArray) {
+	// int[] array = new int[strArray.length];
+	// try {
+	// for (int i = 0; i < array.length; i++) {
+	// array[i] = Integer.parseInt(strArray[i]);
+	// }
+	//
+	// } catch (NumberFormatException e) {
+	// controller.addToConsoleText("ERROR! INCORRECT INPUT IN LEAGUE INPUT");
+	// Thread.currentThread().interrupt();
+	// }
+	// return array;
+	// }
+	/**
+	 * Converts the String[] temp to an int-array.
+	 */
 	public void run() {
+		int[] array = new int[temp.length];
+		try {
+			for (int i = 0; i < array.length; i++) {
+				array[i] = Integer.parseInt(temp[i]);
+			}
+			this.leagueAPIId = array;
+
+		} catch (NumberFormatException e) {
+			controller.addToConsoleText(e + "\nERROR! INCORRECT INPUT IN LEAGUE INPUT");
+			this.interrupt();
+		}
 		calculate();
 	}
 

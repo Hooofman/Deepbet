@@ -6,7 +6,7 @@ games
 0.7
 0.2
 test
-C:\git\Deepbet\biasNy.nnet
+C:\git\Deepbet\bias1Mod.nnet
 test.nnet
 PL
 113

@@ -8,16 +8,20 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -42,7 +46,12 @@ public class GUI extends JFrame implements ActionListener {
 	private JTextPane consolText;
 	private JPanel pnlTextArea;
 	private JScrollPane scrollBar;
-
+	private JScrollPane scrollWest;
+	
+	// Upper panel
+	private JLabel lblTitle;
+	private String logoPath = "deepbet_vit.png";
+	
 	// Database input
 	private JPanel pnlWest; // Holds the entire western content
 	private JPanel pnlDB;
@@ -94,7 +103,9 @@ public class GUI extends JFrame implements ActionListener {
 	private JPanel pnlBottom;
 	private JPanel pnlUpper;
 	private JPanel pnlButtons;
-
+ 
+	private JTabbedPane tabbedPane;
+	
 	private StyledDocument doc;
 
 	public GUI() {
@@ -106,7 +117,7 @@ public class GUI extends JFrame implements ActionListener {
 		pnlLeague = new JPanel();
 		password = new JTextField("Deepbet123");
 		userName = new JTextField("deepbet");
-		dbAddress = new JTextField("jdbc:mysql://deepbet.ddns.net:3306/deepbet");
+		dbAddress = new JTextField("");
 		table = new JTextField("games");
 
 		lblPassword = new JLabel("Password");
@@ -153,6 +164,7 @@ public class GUI extends JFrame implements ActionListener {
 
 		doc = consolText.getStyledDocument();
 
+		createWestPanel();
 		createAnnPanel();
 		createPnlDB();
 		createLeaguePanel();
@@ -160,8 +172,7 @@ public class GUI extends JFrame implements ActionListener {
 		createConsolePanel();
 		createButtonPanel();
 		createPnlUpper();
-		createMainPnl();
-		createWestPanel();
+		createMainPnl();	
 		addActionListeners();
 		this.add(pnlMain);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -186,25 +197,32 @@ public class GUI extends JFrame implements ActionListener {
 		btnLoadAll.addActionListener(this);
 		btnSaveAll.addActionListener(this);
 	}
-
+	
 	public void createPnlUpper() {
-		pnlUpper.add(new JLabel("DeepBet"));
-		pnlUpper.setBackground(Color.GRAY);
+		lblTitle = new JLabel();
+		lblTitle.setIcon(new ImageIcon(logoPath));
+		pnlUpper.add(lblTitle);
+		pnlUpper.setBackground(Color.DARK_GRAY);
 	}
 
 	public void createBottomPanel() {
 		pnlBottom.setLayout(new GridLayout(1, 1));
+		btnCalc.setBackground(Color.GREEN);
 		pnlBottom.add(btnCalc);
 		pnlBottom.setBackground(Color.BLACK);
 	}
 
 	public void createWestPanel() {
+		pnlWest.setPreferredSize(new Dimension(600,400));
 		pnlWest.setLayout(new BoxLayout(pnlWest, BoxLayout.PAGE_AXIS));
 		pnlWest.setBorder(new EmptyBorder(5, 5, 5, 5));
 		pnlWest.add(pnlDB);
 		pnlWest.add(pnlANN);
 		pnlWest.add(pnlLeague);
 		pnlWest.add(pnlButtons);
+		scrollWest = new JScrollPane(pnlWest);
+        scrollWest.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollWest.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 	}
 
 	public void createConsolePanel() {
@@ -226,7 +244,7 @@ public class GUI extends JFrame implements ActionListener {
 	public void createMainPnl() {
 		pnlMain.setLayout(new BorderLayout());
 
-		pnlMain.add(pnlWest, BorderLayout.WEST);
+		pnlMain.add(scrollWest, BorderLayout.WEST);
 
 		pnlMain.add(pnlTextArea, BorderLayout.CENTER);
 		pnlMain.add(pnlBottom, BorderLayout.SOUTH);
@@ -234,7 +252,7 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void createPnlDB() {
-		pnlDB.setLayout(new GridLayout(5, 2, 5, 5));
+		pnlDB.setLayout(new GridLayout(3, 4, 5, 5));
 		pnlDB.setBorder(new TitledBorder("Database"));
 
 		Border border = pnlDB.getBorder();
@@ -307,7 +325,7 @@ public class GUI extends JFrame implements ActionListener {
 		pnlButtons.setBorder(new EmptyBorder(10, 10, 10, 10));
 		pnlButtons.add(btnSaveAll);
 		pnlButtons.add(btnLoadAll);
-
+//		pnlButtons.add(btnCalc);
 	}
 
 	public String getStringToSaveDB() {

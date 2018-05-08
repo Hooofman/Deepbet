@@ -184,7 +184,7 @@ public class GUI extends JFrame implements ActionListener {
 		createPnlUpper();
 		createMainPnl();	
 		addActionListeners();
-		loadAutoSaved();
+		
 		this.add(pnlMain);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.pack();
@@ -429,9 +429,7 @@ public class GUI extends JFrame implements ActionListener {
 		}
 	}
 	
-	public void loadAutoSaved() {
-		
-	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -456,7 +454,7 @@ public class GUI extends JFrame implements ActionListener {
 		} else if (e.getSource() == btnLoadAll) {
 			controller.loadSettings("LoadAll");
 		}else if (e.getSource() == comboBoxOpenAll) {
-			controller.loadFromComboBox("SavedFiles/All/"+ (String)comboBoxOpenAll.getSelectedItem(), "all");
+			controller.loadFromComboBox("SavedFiles/All/"+(String)comboBoxOpenAll.getSelectedItem(), "all");
 		}else if (e.getSource() == comboBoxOpenNetwork) {
 			controller.loadFromComboBox("SavedFiles/nnet/"+ (String)comboBoxOpenNetwork.getSelectedItem(), "nnet");
 		}else if (e.getSource() == comboBoxOpenLeague) {

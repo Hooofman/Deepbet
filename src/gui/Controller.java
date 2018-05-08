@@ -48,22 +48,24 @@ public class Controller {
 		gui.addToTextConsole(txt);
 	}
 	
-	public void loadAutoSaved() {
-		String path = System.getProperty("user.dir")+"auto.txt";
-		
+	public void loadAutoSaved(String fileName) {
+		String path = System.getProperty("user.dir")+fileName;
+		String str = ReadFromFile.readFromFile(path);
+		System.out.println(str);
+		setAllSettings(str);
 	}
 
 	public void loadFromComboBox(String fileName, String indicator) {
 		String str = ReadFromFile.readFromFile(fileName);
 		if(indicator.equals("nnet")) {
-			gui.setNeuralNetworkPathName(System.getProperty("user.dir")+fileName);
-			addToConsoleText("Network Path is set to " + System.getProperty("user.dir")+fileName);
+			gui.setNeuralNetworkPathName(System.getProperty("user.dir") +"\\"+ fileName);
+			addToConsoleText("Network Path is set to " + System.getProperty("user.dir")+"\\"+fileName);
 		}else if(indicator.equals("all")) {
 			setAllSettings(str);
-			addToConsoleText("All settings is loaded from " + System.getProperty("user.dir")+fileName);
+			addToConsoleText("All settings is loaded from " + System.getProperty("user.dir")+"\\"+fileName);
 		}else if(indicator.equals("league")) {
 			setLeagueSettings(str);
-			addToConsoleText("League settings is loaded from " + System.getProperty("user.dir")+fileName);
+			addToConsoleText("League settings is loaded from " + System.getProperty("user.dir")+"\\"+fileName);
 		}
 	}
 
@@ -102,6 +104,7 @@ public class Controller {
 							WriteToFile.write(gui.getStringToSaveAll(), System.getProperty("user.dir")+"/SavedFiles/autosave/auto.txt");
 						}        
 					}); 
+				controller.loadAutoSaved("/SavedFiles/Autosave/auto.txt");
 			}
 		});
 

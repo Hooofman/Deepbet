@@ -18,7 +18,7 @@ import entity.Match;
  */
 public class ConnectDatabase {
 	private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DATABASE_URL = "jdbc:mysql://deepbet.ddns.net:3306/deepbet";
+	private static final String DATABASE_URL = "jdbc:mysql://192.168.1.2:3306/deepbet";
 	private static final String USERNAME = "deepbet";
 	private static final String PASSWORD = "Deepbet123";
 	private static final String MAX_POOL = "250";

@@ -1,16 +1,11 @@
 Deepbet123
 deepbet
-asdfasdfasdfasdf
+
 games
 20
 0.7
 0.2
 Fixed
-ffffffffffffffffffffffffffff
-aaaaaaaaaaaaaaaaaa
-PLPLPL
-445
- 4
- 54
- 545
- 41
+C:\Users\Vixen666\Documents\GitHub\HoofmanDeepSavedFiles/nnet/bias1Mod.nnet
+Måste fixas
+ vet ej vad det är

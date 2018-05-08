@@ -137,6 +137,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 
 		// Close the db-conection
 		connection.disconnect();
+		controller.enableButtons();
 	}
 
 	@Override

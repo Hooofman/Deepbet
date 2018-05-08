@@ -58,6 +58,14 @@ public class Controller {
 		System.out.println(str);
 		setAllSettings(str);
 	}
+	
+	public void disableButtons() {
+		gui.disableButtons();
+	}
+	
+	public void enableButtons() {
+		gui.enableButtons();
+	}
 
 	public void loadFromComboBox(String fileName, String indicator) {
 		String str = ReadFromFile.readFromFile(fileName);

@@ -429,7 +429,15 @@ public class GUI extends JFrame implements ActionListener {
 		}
 	}
 	
+	public void disableButtons() {
+		btnCalc.setBackground(Color.RED);
+		btnCalc.setEnabled(false);
+	}
 	
+	public void enableButtons() {
+		btnCalc.setBackground(Color.GREEN);
+		btnCalc.setEnabled(true);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -463,6 +471,7 @@ public class GUI extends JFrame implements ActionListener {
 
 
 		else if (e.getSource() == btnCalc) {
+			controller.disableButtons();
 			controller.setDataBaseSettings(dbAddress.getText(), userName.getText(), password.getText(), "250", table.getText());
 			controller.calculate(iterations.getText(), learningRate.getText(), momentum.getText(),
 					txtNeuralNetWorkPath.getText(), txtDatasetName.getText(), txtFinalNNName.getText(),

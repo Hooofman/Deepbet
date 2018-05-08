@@ -95,6 +95,7 @@ public class LoadSettings extends JPanel {
 
 			} else if (e.getSource() == btnChoosePath) {
 				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")+"/SavedFiles"));
 				if (indicator.equals("Network")) {
 					FileNameExtensionFilter filter = new FileNameExtensionFilter("Only NN-files", "nnet");
 					fileChooser.addChoosableFileFilter(filter);

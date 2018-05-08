@@ -18,16 +18,25 @@ import entity.Match;
  */
 public class ConnectDatabase {
 	private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DATABASE_URL = "jdbc:mysql://192.168.1.2:3306/deepbet";
-	private static final String USERNAME = "deepbet";
-	private static final String PASSWORD = "Deepbet123";
-	private static final String MAX_POOL = "250";
+	private static String DATABASE_URL = "";
+	private static String USERNAME = "";
+	private static String PASSWORD = "";
+	private static String MAX_POOL = "";
+	
 	private Connection connection;
 	private Properties properties;
 	private String table;
 
 	public ConnectDatabase() {
-
+	
+	}
+	
+	public void setDatabaseSettings(String dataBaseURL, String userName, String passWord, String maxPool, String table) {
+		ConnectDatabase.DATABASE_URL = dataBaseURL;
+		ConnectDatabase.USERNAME = userName;
+		ConnectDatabase.PASSWORD = passWord;
+		ConnectDatabase.MAX_POOL = maxPool;
+		this.table = table;
 	}
 
 	/**
@@ -42,6 +51,7 @@ public class ConnectDatabase {
 			properties.setProperty("password", PASSWORD);
 			properties.setProperty("MaxPooledStatements", MAX_POOL);
 		}
+		System.out.println(properties);
 		return properties;
 	}
 
@@ -57,6 +67,12 @@ public class ConnectDatabase {
 				connection = DriverManager.getConnection(DATABASE_URL, getProperties());
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
+				try {
+					Thread.sleep(10000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 		return connection;
@@ -161,6 +177,7 @@ public class ConnectDatabase {
 	 */
 
 	public void createNewMatch(Match match, int season, String leagueName) {
+		System.out.println(table);
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
 		Date date = Date.valueOf(match.getDate());
@@ -170,7 +187,7 @@ public class ConnectDatabase {
 		double calcDraw = calculations[1];
 		double calcAway = calculations[2];
 
-		String sql = "INSERT INTO games (HomeTeam, AwayTeam, DatePlayed, TimePlayed, Season, League, CalcHome, CalcAway, CalcDraw, Recommendation, Status)"
+		String sql = "INSERT INTO " + table + " (HomeTeam, AwayTeam, DatePlayed, TimePlayed, Season, League, CalcHome, CalcAway, CalcDraw, Recommendation, Status)"
 				+ " VALUES ('" + homeTeam + "', '" + awayTeam + "', '" + date + "', '" + time + "', '" + season + "', '"
 				+ leagueName + "', '" + calcHome + "', '" + calcAway + "', '" + calcDraw + "', '"
 				+ match.getRecommendation() + "', '" + match.getStatus()
@@ -193,14 +210,16 @@ public class ConnectDatabase {
 	 *            The match to be updated.
 	 */
 	public void updateCalculatedMatches(Match match) {
+		
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
 		Date date = Date.valueOf(match.getDate());
 
-		String sql = "UPDATE games " + "set GoalsHomeTeam = '" + match.getHomeGoals() + "'" + ", GoalsAwayTeam = '"
+		String sql = "UPDATE " + table + " set GoalsHomeTeam = '" + match.getHomeGoals() + "'" + ", GoalsAwayTeam = '"
 				+ match.getAwayGoals() + "'" + ", Outcome = '" + match.getOutcomeChar() + "'" + ", Status = '"
-				+ match.getStatus() + "'" + "where HomeTeam = '" + homeTeam + "' AND AwayTeam = '" + awayTeam
+				+ match.getStatus() + "'" + " where HomeTeam = '" + homeTeam + "' AND AwayTeam = '" + awayTeam
 				+ "' AND DatePlayed = '" + date + "'";
+		System.out.println(sql);
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.executeUpdate();

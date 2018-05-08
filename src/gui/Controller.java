@@ -2,13 +2,17 @@ package gui;
 
 import javax.swing.SwingUtilities;
 
+import boundary.ConnectDatabase;
+
 public class Controller {
 	private GUI gui;
 	private CalculationHandler calcHandler;
+	private ConnectDatabase connection;
 
 	public Controller(GUI gui) {
 		this.gui = gui;
 		gui.setController(this);
+		connection = new ConnectDatabase();
 	}
 
 	public void saveSettings(String indicator, String data) {
@@ -68,6 +72,10 @@ public class Controller {
 			addToConsoleText("League settings is loaded from " + System.getProperty("user.dir")+"\\"+fileName);
 		}
 	}
+	
+	public void setDataBaseSettings(String dataBaseURL, String userName, String passWord, String maxPool, String table) {
+		connection.setDatabaseSettings(dataBaseURL, userName, passWord, maxPool, table);
+	}
 
 	/**
 	 * Receives settings for the neural network and sends them forward to the
@@ -83,12 +91,14 @@ public class Controller {
 	 *            The search path to the neural network template.
 	 */
 	public void calculate(String it, String learnRate, String momentu, String NNPath, String datasetName,
-			String finalNNName, String leagueName, String leageuAPIId, String table) {
+		String finalNNName, String leagueName, String leageuAPIId, String table) {
+		
+		
 		int iterations = Integer.parseInt(it);
 		double learningRate = Double.parseDouble(learnRate);
 		double momentum = Double.parseDouble(momentu);
 		calcHandler = new CalculationHandler(this, iterations, learningRate, momentum, NNPath, datasetName, finalNNName,
-				leagueName, leageuAPIId.split(", "), table);
+				leagueName, leageuAPIId.split(", "), table, connection);
 		// calcHandler.start();
 	}
 

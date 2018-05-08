@@ -32,8 +32,8 @@ public class AIHand {
 			nnet.setInput(dataRow.getInput());
 			nnet.calculate();
 			double[] networkOutput = nnet.getOutput();
-			System.out.print("Input: " + Arrays.toString(dataRow.getInput()));
-			System.out.println(" Output: " + Arrays.toString(networkOutput));
+			//System.out.print("Input: " + Arrays.toString(dataRow.getInput()));
+			//System.out.println(" Output: " + Arrays.toString(networkOutput));
 		}
 	}
 

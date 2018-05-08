@@ -2,7 +2,7 @@ package entity;
 
 /**
  * Class for Location and points for a single match
- * @author Vixen666
+ * @author Johannes Roos
  *
  */
 public class LocationAndPoint {

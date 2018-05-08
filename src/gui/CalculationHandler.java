@@ -27,10 +27,11 @@ public class CalculationHandler extends Thread implements PrintListener {
 	private String table;
 	private int[] leagueAPIId;
 	private String[] temp; // Temporary holder for leagueAPIid.
+	private ConnectDatabase connection;
 
 	public CalculationHandler(Controller controller, int iterations, double learningRate, double momentum,
 			String searchPath, String datasetName, String finalNNName, String leagueName, String[] leagueAPIid,
-			String table) {
+			String table, ConnectDatabase connection) {
 		this.controller = controller;
 		this.iterations = iterations;
 		this.learningRate = learningRate;
@@ -40,6 +41,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		this.finalNNName = finalNNName;
 		this.leagueName = leagueName;
 		this.table = table;
+		this.connection = connection;
 		temp = leagueAPIid;
 		start();
 		// this.leagueAPIId = convertStringToIntArray(leagueAPIid);
@@ -84,7 +86,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		LeagueCreator ligaSkapare = null;
 
 		// Create db-connection
-		ConnectDatabase connection = new ConnectDatabase();
+		//ConnectDatabase connection = new ConnectDatabase();
 		connection.connect();
 
 		// Create the leagueCreator and start it

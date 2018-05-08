@@ -463,6 +463,7 @@ public class GUI extends JFrame implements ActionListener {
 
 
 		else if (e.getSource() == btnCalc) {
+			controller.setDataBaseSettings(dbAddress.getText(), userName.getText(), password.getText(), "250", table.getText());
 			controller.calculate(iterations.getText(), learningRate.getText(), momentum.getText(),
 					txtNeuralNetWorkPath.getText(), txtDatasetName.getText(), txtFinalNNName.getText(),
 					txtLeagueName.getText(), txtLeagueAPIid.getText(), table.getText());

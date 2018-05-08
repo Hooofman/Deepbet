@@ -48,6 +48,11 @@ public class Controller {
 		gui.addToTextConsole(txt);
 	}
 	
+	public void loadAutoSaved() {
+		String path = System.getProperty("user.dir")+"auto.txt";
+		
+	}
+
 	public void loadFromComboBox(String fileName, String indicator) {
 		String str = ReadFromFile.readFromFile(fileName);
 		if(indicator.equals("nnet")) {
@@ -60,9 +65,6 @@ public class Controller {
 			setLeagueSettings(str);
 			addToConsoleText("League settings is loaded from " + System.getProperty("user.dir")+fileName);
 		}
-		
-		
-		
 	}
 
 	/**
@@ -89,10 +91,17 @@ public class Controller {
 	}
 
 	public static void main(String[] args) {
+
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				GUI gui = new GUI();
-				new Controller(gui);
+				Controller controller = new Controller(gui);
+				Runtime.getRuntime().addShutdownHook(
+					new Thread() { 
+						public void run() {  
+							WriteToFile.write(gui.getStringToSaveAll(), System.getProperty("user.dir")+"/SavedFiles/autosave/auto.txt");
+						}        
+					}); 
 			}
 		});
 

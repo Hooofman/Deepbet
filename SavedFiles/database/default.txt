@@ -1,0 +1,4 @@
+Deepbet123
+deepbet
+jdbc:mysql://deepbet.ddns.net:3306/deepbet
+games

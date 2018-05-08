@@ -184,6 +184,7 @@ public class GUI extends JFrame implements ActionListener {
 		createPnlUpper();
 		createMainPnl();	
 		addActionListeners();
+		loadAutoSaved();
 		this.add(pnlMain);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.pack();
@@ -383,6 +384,10 @@ public class GUI extends JFrame implements ActionListener {
 		String str = txtLeagueName.getText() + "," + txtLeagueAPIid.getText();
 		return str;
 	}
+	
+	public String getStringToSaveAll() {
+		return getStringToSaveDB() +","+getStringToSaveANN()+","+getStringToSaveLeague();
+	}
 
 	public void setDBSettings(String[] array) {
 		password.setText(array[0]);
@@ -422,6 +427,10 @@ public class GUI extends JFrame implements ActionListener {
 		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void loadAutoSaved() {
+		
 	}
 
 	@Override

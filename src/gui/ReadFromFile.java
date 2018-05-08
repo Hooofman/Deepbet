@@ -33,7 +33,6 @@ public class ReadFromFile {
 			}
 			
 			if(data.charAt(data.length()-1) == ',') {
-				System.out.println("hej");
 				data = data.substring(0, data.length()-1);
 			}
 		} catch (UnsupportedEncodingException e) {

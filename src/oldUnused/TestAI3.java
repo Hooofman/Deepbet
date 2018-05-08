@@ -1,4 +1,4 @@
-package test;
+package oldUnused;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,6 @@ import org.neuroph.util.data.norm.Normalizer;
 import entity.League;
 import entity.Match;
 import entity.Season;
-import neurophtrainer.MLPTrainer;
 import control.*;
 import boundary.*;
 

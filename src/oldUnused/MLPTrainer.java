@@ -1,4 +1,4 @@
-package neurophtrainer;
+package oldUnused;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

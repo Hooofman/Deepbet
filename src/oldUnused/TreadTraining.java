@@ -1,4 +1,4 @@
-package neurophtrainer;
+package oldUnused;
 
 import org.neuroph.core.data.DataSet;
 import org.neuroph.nnet.MultiLayerPerceptron;

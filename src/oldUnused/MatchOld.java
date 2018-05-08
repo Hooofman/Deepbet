@@ -1,7 +1,10 @@
-package entity;
+package oldUnused;
 
 import java.util.Date;
 import org.json.JSONException;
+
+import entity.Odds;
+import entity.Team;
 /**
  * Class for creating a Match object
  * @author 

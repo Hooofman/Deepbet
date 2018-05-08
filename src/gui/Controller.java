@@ -31,13 +31,12 @@ public class Controller {
 
 	public void setLeagueSettings(String str) {
 		String[] inputGUI = str.split(",", 2);
+		System.out.println(inputGUI[1]);
 		gui.setLeagueSettings(inputGUI);
 	}
 
 	public void setAllSettings(String str) {
 		String[] inputGUI = str.split(",", 12);
-		inputGUI[inputGUI.length - 1] = inputGUI[inputGUI.length - 1].substring(0,
-				inputGUI[inputGUI.length - 1].length() - 1);
 		gui.setAllSettings(inputGUI);
 	}
 
@@ -47,6 +46,23 @@ public class Controller {
 
 	public void addToConsoleText(String txt) {
 		gui.addToTextConsole(txt);
+	}
+	
+	public void loadFromComboBox(String fileName, String indicator) {
+		String str = ReadFromFile.readFromFile(fileName);
+		if(indicator.equals("nnet")) {
+			gui.setNeuralNetworkPathName(System.getProperty("user.dir")+fileName);
+			addToConsoleText("Network Path is set to " + System.getProperty("user.dir")+fileName);
+		}else if(indicator.equals("all")) {
+			setAllSettings(str);
+			addToConsoleText("All settings is loaded from " + System.getProperty("user.dir")+fileName);
+		}else if(indicator.equals("league")) {
+			setLeagueSettings(str);
+			addToConsoleText("League settings is loaded from " + System.getProperty("user.dir")+fileName);
+		}
+		
+		
+		
 	}
 
 	/**

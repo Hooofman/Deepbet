@@ -9,12 +9,14 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -50,7 +52,7 @@ public class GUI extends JFrame implements ActionListener {
 	
 	// Upper panel
 	private JLabel lblTitle;
-	private String logoPath = "deepbet_vit.png";
+	private String logoPath = "images/deepbet_vit.png";
 	
 	// Database input
 	private JTabbedPane pnlWest; // Holds the entire western content
@@ -99,11 +101,15 @@ public class GUI extends JFrame implements ActionListener {
 	private JButton btnLoadAll;
 
 	private JButton btnCalc;
-
+	
+	private JComboBox comboBoxOpenAll;
+	private JComboBox comboBoxOpenNetwork;
+	private JComboBox comboBoxOpenLeague;
+	
 	private JPanel pnlBottom;
 	private JPanel pnlUpper;
 	private JPanel pnlButtons;
- 
+	
 	private JTabbedPane tabbedPane;
 	
 	private StyledDocument doc;
@@ -158,12 +164,16 @@ public class GUI extends JFrame implements ActionListener {
 
 		btnCalc = new JButton("Start calculation");
 
+		comboBoxOpenAll = new JComboBox();
+		comboBoxOpenNetwork = new JComboBox();
+		comboBoxOpenLeague= new JComboBox();
+		
 		pnlBottom = new JPanel(); // Holds calc Button
 		pnlUpper = new JPanel(); // Upper Panel
 		pnlButtons = new JPanel(); // Holds buttons
 
 		doc = consolText.getStyledDocument();
-
+		fixComboBox();
 		createWestPanel();
 		createAnnPanel();
 		createPnlDB();
@@ -196,6 +206,9 @@ public class GUI extends JFrame implements ActionListener {
 		btnSaveLeaguesettings.addActionListener(this);
 		btnLoadAll.addActionListener(this);
 		btnSaveAll.addActionListener(this);
+		comboBoxOpenAll.addActionListener(this);
+		comboBoxOpenNetwork.addActionListener(this);
+		comboBoxOpenLeague.addActionListener(this);
 	}
 	
 	public void createPnlUpper() {
@@ -292,8 +305,9 @@ public class GUI extends JFrame implements ActionListener {
 
 		pnlANN.add(lblDatasetName);
 		pnlANN.add(txtDatasetName);
-
-		pnlANN.add(btnLoadNetwork);
+		
+		pnlANN.add(comboBoxOpenNetwork);
+	//	pnlANN.add(btnLoadNetwork);
 		pnlANN.add(txtNeuralNetWorkPath);
 
 		pnlANN.add(lblFinalNNName);
@@ -315,7 +329,8 @@ public class GUI extends JFrame implements ActionListener {
 
 		pnlLeague.add(lblLeagueAPIid);
 		pnlLeague.add(txtLeagueAPIid);
-		pnlLeague.add(btnLoadLeagueSettings);
+		pnlLeague.add(comboBoxOpenLeague);
+		//pnlLeague.add(btnLoadLeagueSettings);
 		pnlLeague.add(btnSaveLeaguesettings);
 	}
 
@@ -324,9 +339,35 @@ public class GUI extends JFrame implements ActionListener {
 		pnlButtons.setBorder(new EmptyBorder(10, 10, 10, 10));
 		pnlButtons.add(btnSaveAll);
 		pnlButtons.add(btnLoadAll);
+		pnlButtons.add(comboBoxOpenAll);
 //		pnlButtons.add(btnCalc);
 	}
 
+	public void fixComboBox() {
+		File folder = new File("SavedFiles/All");
+		File[] listOfFiles = folder.listFiles();
+		for (int i = 0; i < listOfFiles.length; i++) {
+		      if (listOfFiles[i].isFile()) {
+		    	  comboBoxOpenAll.addItem(listOfFiles[i].getName());
+		      }
+		}
+		
+		folder = new File("SavedFiles/nnet");
+		listOfFiles = folder.listFiles();
+		for (int i = 0; i < listOfFiles.length; i++) {
+		      if (listOfFiles[i].isFile()) {
+		    	  comboBoxOpenNetwork.addItem(listOfFiles[i].getName());
+		      }
+		}
+		
+		folder = new File("SavedFiles/league");
+		listOfFiles = folder.listFiles();
+		for (int i = 0; i < listOfFiles.length; i++) {
+		      if (listOfFiles[i].isFile()) {
+		    	  comboBoxOpenLeague.addItem(listOfFiles[i].getName());
+		      }
+		}
+	}
 	public String getStringToSaveDB() {
 		String str = password.getText() + "," + userName.getText() + "," + dbAddress.getText() + "," + table.getText();
 		return str;
@@ -405,7 +446,14 @@ public class GUI extends JFrame implements ActionListener {
 					getStringToSaveDB() + "," + getStringToSaveANN() + "," + getStringToSaveLeague());
 		} else if (e.getSource() == btnLoadAll) {
 			controller.loadSettings("LoadAll");
+		}else if (e.getSource() == comboBoxOpenAll) {
+			controller.loadFromComboBox("SavedFiles/All/"+ (String)comboBoxOpenAll.getSelectedItem(), "all");
+		}else if (e.getSource() == comboBoxOpenNetwork) {
+			controller.loadFromComboBox("SavedFiles/nnet/"+ (String)comboBoxOpenNetwork.getSelectedItem(), "nnet");
+		}else if (e.getSource() == comboBoxOpenLeague) {
+			controller.loadFromComboBox("SavedFiles/league/"+ (String)comboBoxOpenLeague.getSelectedItem(), "league");
 		}
+
 
 		else if (e.getSource() == btnCalc) {
 			controller.calculate(iterations.getText(), learningRate.getText(), momentum.getText(),

@@ -72,13 +72,18 @@ public class CalculationHandler extends Thread implements PrintListener {
 			this.leagueAPIId = array;
 
 		} catch (NumberFormatException e) {
-			controller.addToConsoleText(e + "\nERROR! INCORRECT INPUT IN LEAGUE INPUT");
+			updateText(e + "\nERROR! INCORRECT INPUT IN LEAGUE INPUT");
 			this.interrupt();
 		}
 		calculate();
 	}
 
 	public void calculate() {
+		// Disable calc-button
+		controller.toggleCalcButton();
+		
+		updateText("Calculation started");
+		
 		// Ids used by the API to get the seasons
 		// int[] plApiId = { 113, 114, 4, 301, 341, 354, 398, 426, 445 };
 		// int[] plApiId = {398, 426, 445};
@@ -86,57 +91,67 @@ public class CalculationHandler extends Thread implements PrintListener {
 		LeagueCreator ligaSkapare = null;
 
 		// Create db-connection
-		//ConnectDatabase connection = new ConnectDatabase();
 		connection.connect();
+		updateText("Database connection created");
 
 		// Create the leagueCreator and start it
-
 		ligaSkapare = new LeagueCreator(leagueName, leagueAPIId, this, datasetName);
-
 		ligaSkapare.createLeague();
-
-		////////////////////////////////////////////////////////////////// Test
-
+		updateText("Leaguecreator created league: " + leagueName);
+		
 		// Get the created league
 		League league = ligaSkapare.getLeague();
 
 		// Load the trainingset
 		DataSet trainingSet = DataSet.load(datasetName);
-
+		updateText("Dataset loaded: " + datasetName);
+		
 		// Train the AI with the trainingset
+		updateText("Starts network training");
 		new AIHand(this).trainNetwork(trainingSet, norm, iterations, learningRate, momentum, searchPath, finalNNName);
+		updateText("Network training finished");
+		
+		updateText("Get all seasons from league..");
 		ArrayList<Season> seasons = league.getSeasons(); // Get the seasons from league
 		ArrayList<Match> matchesToTest = new ArrayList<Match>(); // Create a list that will contain the upcoming matches
+		
+		updateText("Get the current season from league..");
 		Season seasonToTest = seasons.get(seasons.size() - 1); // The current season of the league
+		
+		updateText("Get all matches from current season..");
 		ArrayList<Match> matchesFromSeason = seasonToTest.getAllMatches(); // List of all the matches in the season
-		//
-		// Get the upcoming matches and add them to the list of matches that will be
-		// tested
-
-		updateText(matchesFromSeason.size() + "");
-		updateText(seasonToTest.toString());
-		updateText(seasons.size() + "");
-		updateText(matchesFromSeason.get(1).getStatus());
+		
+		updateText("Starts getting upcoming matches and update already calculated matches in database..");
+		// Get the upcoming matches and add them to the list of matches that will be tested
 		for (Match match : matchesFromSeason) {
 			if (match.getStatus().equals("TIMED")) {
 				matchesToTest.add(match);
+				updateText(match.toString() + " is upcoming. Will be calculated..");
 			} else if (match.getStatus().equals("FINISHED")) {
 				connection.updateCalculatedMatches(match);
 			}
 		}
+		updateText("All upcoming matches fetched. Finished matches updated");
 
+		updateText("Starts testing of upcoming matches..");
 		ProduceOutput produceOutput = new ProduceOutput(this, finalNNName);
 		// Produce the calculation for each match and save it to the database
 
-		////////////////////// Finns inga matcher att testa!
 		for (Match match : matchesToTest) {
 			produceOutput.getOutputForMatch(match, norm);
 			connection.insertIntoTable(table);
 			connection.createNewMatch(match, seasonToTest.getYear(), league.getName());
 		}
+		updateText("All upcoming matches calculated.");
 
 		// Close the db-conection
 		connection.disconnect();
+		updateText("Database connection closed");
+		
+		updateText("Calculation finished");
+		
+		// Enable calc-button
+		controller.toggleCalcButton();
 	}
 
 	@Override

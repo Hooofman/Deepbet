@@ -238,4 +238,8 @@ public class Match {
 	public int getStrengthRec() {
 		return strengthRec;
 	}
+	
+	public String toString() {
+		return homeTeam.getName() + " - " + awayTeam.getName();
+	}
 }

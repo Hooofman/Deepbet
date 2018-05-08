@@ -73,6 +73,10 @@ public class Controller {
 		}
 	}
 	
+	public void toggleCalcButton() {
+		gui.toggleCalcButton();
+	}
+	
 	public void setDataBaseSettings(String dataBaseURL, String userName, String passWord, String maxPool, String table) {
 		connection.setDatabaseSettings(dataBaseURL, userName, passWord, maxPool, table);
 	}

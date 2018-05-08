@@ -51,20 +51,10 @@ public class ProduceOutput {
 		} else if (pick == output[2]) {
 			match.setRecommendation('2');
 		}
-		//////////////////////
 		String text = ("---" + "\n" + match.getHomeTeam() + " vs " + match.getAwayTeam() + ": " + output[0] + "\t"
 				+ output[1] + "\t" + output[2] + "\n" + Arrays.toString(match.getMatchArray()) + "\n"
-				+ Arrays.toString(inputArray) + "---");
+				+ Arrays.toString(inputArray) + "\n---");
 		listener.updateText(text);
-
-		///////////////////////////////////////////
-		// System.out.println("---");
-		// System.out.println(match.getHomeTeam() + " vs " + match.getAwayTeam() + ": "
-		// + output[0] + "\t" + output[1]
-		// + "\t" + output[2]);
-		// System.out.println(Arrays.toString(match.getMatchArray()));
-		// System.out.println(Arrays.toString(inputArray));
-		// System.out.println("---");
 
 		WriteToFile.appendTxt("---");
 		WriteToFile.appendTxt(match.getHomeTeam() + " vs " + match.getAwayTeam() + ": " + output[0] + "\t" + output[1]

@@ -99,7 +99,8 @@ public class GUI extends JFrame implements ActionListener {
 
 	private JButton btnSaveAll;
 	private JButton btnLoadAll;
-
+	private JButton btnClearConsole;
+	
 	private JButton btnCalc;
 	
 	private JComboBox comboBoxOpenAll;
@@ -158,6 +159,7 @@ public class GUI extends JFrame implements ActionListener {
 		txtLeagueAPIid = new JTextField();
 		btnSaveLeaguesettings = new JButton("Save League settings");
 		btnLoadLeagueSettings = new JButton("Load League settings");
+		btnClearConsole = new JButton("Clear console");
 
 		btnSaveAll = new JButton("Save All settings");
 		btnLoadAll = new JButton("Load All settings");
@@ -210,6 +212,7 @@ public class GUI extends JFrame implements ActionListener {
 		comboBoxOpenAll.addActionListener(this);
 		comboBoxOpenNetwork.addActionListener(this);
 		comboBoxOpenLeague.addActionListener(this);
+		btnClearConsole.addActionListener(this);
 	}
 	
 	public void createPnlUpper() {
@@ -341,6 +344,7 @@ public class GUI extends JFrame implements ActionListener {
 		pnlButtons.add(btnSaveAll);
 		pnlButtons.add(btnLoadAll);
 		pnlButtons.add(comboBoxOpenAll);
+		pnlButtons.add(btnClearConsole);
 //		pnlButtons.add(btnCalc);
 	}
 
@@ -429,7 +433,25 @@ public class GUI extends JFrame implements ActionListener {
 		}
 	}
 	
+	public void toggleCalcButton() {
+		if (btnCalc.isEnabled()) {
+			btnCalc.setEnabled(false);
+			btnCalc.setText("Calculation running..");
+			btnCalc.setBackground(Color.RED);
+		} else {
+			btnCalc.setEnabled(true);
+			btnCalc.setText("Start calculation");
+			btnCalc.setBackground(Color.GREEN);
+		}
+	}
 	
+	public void clearConsole() {
+		try {
+			doc.remove(0, doc.getLength());
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -459,6 +481,8 @@ public class GUI extends JFrame implements ActionListener {
 			controller.loadFromComboBox("SavedFiles/nnet/"+ (String)comboBoxOpenNetwork.getSelectedItem(), "nnet");
 		}else if (e.getSource() == comboBoxOpenLeague) {
 			controller.loadFromComboBox("SavedFiles/league/"+ (String)comboBoxOpenLeague.getSelectedItem(), "league");
+		} else if (e.getSource() == btnClearConsole) {
+			clearConsole();
 		}
 
 

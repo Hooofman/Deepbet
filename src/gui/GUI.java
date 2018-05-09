@@ -32,6 +32,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -119,7 +120,9 @@ public class GUI extends JFrame implements ActionListener {
 	private StyledDocument doc;
 
 	public GUI() {
-
+		UIManager.put("ProgressBar.selectionForeground", Color.black);
+		UIManager.put("ProgressBar.selectionBackground", Color.black);
+		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		PrintStream ps = new PrintStream(baos);
 		// IMPORTANT: Save the old System.out!
@@ -250,16 +253,19 @@ public class GUI extends JFrame implements ActionListener {
 		lblTitle = new JLabel();
 		lblTitle.setIcon(new ImageIcon(logoPath));
 		pnlUpper.add(lblTitle);
-		pnlUpper.add(progressBar);
+		
 		pnlUpper.setBackground(Color.DARK_GRAY);
 	}
 
 	public void createBottomPanel() {
-		pnlBottom.setLayout(new GridLayout(1, 1));
+		pnlBottom.setLayout(new GridLayout(1, 2));
 		btnCalc.setFont(btnCalc.getFont().deriveFont(26.0f));
 		btnCalc.setBackground(Color.GREEN);
+		progressBar.setForeground(Color.GREEN);
+		progressBar.setFont(progressBar.getFont().deriveFont(26.0f));
 		pnlBottom.add(btnCalc);
 		pnlBottom.setBackground(Color.BLACK);
+		pnlBottom.add(progressBar);
 	}
 
 	public void createWestPanel() {

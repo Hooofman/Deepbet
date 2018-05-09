@@ -142,7 +142,7 @@ public class GUI extends JFrame implements ActionListener {
 		dbAddress = new JTextField("");
 		table = new JTextField("games");
 
-		progressBar = new JProgressBar(0, 100);
+		progressBar = new JProgressBar(0, 1000);
 		progressBar.setValue(0);
 		progressBar.setStringPainted(true);
 		
@@ -482,6 +482,7 @@ public class GUI extends JFrame implements ActionListener {
 	
 	public void showProgress(int progress) {
 		progressBar.setValue(progress);
+		progressBar.setString((double)progress/10 +" %");
 	}
 
 	@Override

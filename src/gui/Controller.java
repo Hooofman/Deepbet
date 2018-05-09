@@ -68,7 +68,7 @@ public class Controller {
 	}
 	
 	public void updateProgress(int current, int max) {
-		int progress = 100*current/max;
+		int progress = 1000*current/max;
 		gui.showProgress(progress);
 	}
 

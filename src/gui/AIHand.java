@@ -78,7 +78,28 @@ public class AIHand {
 		learningRule.setLearningRate(learningRate);
 		learningRule.setMomentum(momentum);
 		MLP.setLearningRule(learningRule);
-		MLP.learn(data);
+		new Thread() {
+			public void run() {
+				MLP.learn(data);
+			}
+		}.start();
+		int old = 0;
+		int current = 0;
+
+		System.out.println("Learning started");
+		while(current < iterations) {
+			current = learningRule.getCurrentIteration();
+			listener.updateProgress(current, iterations);
+
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
 
 		listener.updateText("Learning complete");
 		// System.out.println("Inlärning klar");

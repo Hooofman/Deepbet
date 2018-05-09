@@ -5,8 +5,8 @@ games
 20
 0.7
 0.2
-Fixed
-C:\git\Deepbet\SavedFiles/nnet/bias1Mod.nnet
+test
+C:\git\Deepbet\bias1Mod.nnet
 test.nnet
 PL
 113

@@ -22,15 +22,23 @@ public class ConnectDatabase {
 	private static String USERNAME = "";
 	private static String PASSWORD = "";
 	private static String MAX_POOL = "";
-	
+
 	private Connection connection;
 	private Properties properties;
 	private String table;
 
 	public ConnectDatabase() {
-	
+
 	}
-	
+
+	/**
+	 * 
+	 * @param dataBaseURL url to the database
+	 * @param userName	Username for database
+	 * @param passWord	Password for user
+	 * @param maxPool	Max Pool, usually 250
+	 * @param table		Default table to insert into, use insertIntoTable() to change this
+	 */
 	public void setDatabaseSettings(String dataBaseURL, String userName, String passWord, String maxPool, String table) {
 		ConnectDatabase.DATABASE_URL = dataBaseURL;
 		ConnectDatabase.USERNAME = userName;
@@ -67,12 +75,6 @@ public class ConnectDatabase {
 				connection = DriverManager.getConnection(DATABASE_URL, getProperties());
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
-				try {
-					Thread.sleep(10000);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 			}
 		}
 		return connection;
@@ -210,7 +212,7 @@ public class ConnectDatabase {
 	 *            The match to be updated.
 	 */
 	public void updateCalculatedMatches(Match match) {
-		
+
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
 		Date date = Date.valueOf(match.getDate());

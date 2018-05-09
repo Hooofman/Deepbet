@@ -35,7 +35,7 @@ public class FetchApi {
 	 *         year stored in our server.
 	 */
 	public static JSONObject getJsonMatchesFromHome(int year, String id) {
-		object = readJSONfromURL("http://192.168.1.2/API/" + year + "_" + id + ".json");
+		object = readJSONfromURL("http://deepbet.ddns.net/API/" + year + "_" + id + ".json");
 
 		return object;
 	}

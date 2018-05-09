@@ -123,12 +123,7 @@ public class GUI extends JFrame implements ActionListener {
 		UIManager.put("ProgressBar.selectionForeground", Color.black);
 		UIManager.put("ProgressBar.selectionBackground", Color.black);
 		
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		PrintStream ps = new PrintStream(baos);
-		// IMPORTANT: Save the old System.out!
-		PrintStream old = System.out;
-		// Tell Java to use your special stream
-		System.setOut(ps);
+		
 
 
 		pnlANN = new JPanel();
@@ -193,6 +188,7 @@ public class GUI extends JFrame implements ActionListener {
 		pnlButtons = new JPanel(); // Holds buttons
 
 		doc = consolText.getStyledDocument();
+		pointConsoleToDocument();
 		fixComboBox();
 		createWestPanel();
 		createAnnPanel();
@@ -210,6 +206,17 @@ public class GUI extends JFrame implements ActionListener {
 		this.pack();
 		this.setVisible(true);
 		setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		
+	}
+	
+	public void pointConsoleToDocument() {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		PrintStream ps = new PrintStream(baos);
+		// IMPORTANT: Save the old System.out!
+		PrintStream old = System.out;
+		// Tell Java to use your special stream
+		System.setOut(ps);
+		
 		new Thread() { 
 			public void run() {
 				while(true) {

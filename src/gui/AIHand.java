@@ -83,9 +83,8 @@ public class AIHand {
 				MLP.learn(data);
 			}
 		}.start();
-		int old = 0;
+		
 		int current = 0;
-
 		System.out.println("Learning started");
 		while(current < iterations) {
 			current = learningRule.getCurrentIteration();

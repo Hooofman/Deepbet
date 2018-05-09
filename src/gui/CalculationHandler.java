@@ -144,4 +144,8 @@ public class CalculationHandler extends Thread implements PrintListener {
 	public void updateText(String text) {
 		controller.addToConsoleText(text);
 	}
+	
+	public void updateProgress(int current, int max) {
+		controller.updateProgress(current, max);
+	}
 }

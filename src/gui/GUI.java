@@ -9,7 +9,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.Arrays;
 
 import javax.swing.BorderFactory;
@@ -22,6 +25,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -49,11 +53,11 @@ public class GUI extends JFrame implements ActionListener {
 	private JPanel pnlTextArea;
 	private JScrollPane scrollBar;
 	private JScrollPane scrollWest;
-	
+
 	// Upper panel
 	private JLabel lblTitle;
 	private String logoPath = "images/deepbet_vit.png";
-	
+	private JProgressBar progressBar;
 	// Database input
 	private JTabbedPane pnlWest; // Holds the entire western content
 	private JPanel pnlDB;
@@ -101,20 +105,29 @@ public class GUI extends JFrame implements ActionListener {
 	private JButton btnLoadAll;
 
 	private JButton btnCalc;
-	
+
 	private JComboBox comboBoxOpenAll;
 	private JComboBox comboBoxOpenNetwork;
 	private JComboBox comboBoxOpenLeague;
-	
+
 	private JPanel pnlBottom;
 	private JPanel pnlUpper;
 	private JPanel pnlButtons;
-	
+
 	private JTabbedPane tabbedPane;
-	
+
 	private StyledDocument doc;
 
 	public GUI() {
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		PrintStream ps = new PrintStream(baos);
+		// IMPORTANT: Save the old System.out!
+		PrintStream old = System.out;
+		// Tell Java to use your special stream
+		System.setOut(ps);
+
+
 		pnlANN = new JPanel();
 		pnlMain = new JPanel();
 		pnlTextArea = new JPanel();
@@ -126,6 +139,10 @@ public class GUI extends JFrame implements ActionListener {
 		dbAddress = new JTextField("");
 		table = new JTextField("games");
 
+		progressBar = new JProgressBar(0, 100);
+		progressBar.setValue(0);
+		progressBar.setStringPainted(true);
+		
 		lblPassword = new JLabel("Password");
 		lblUserName = new JLabel("User name");
 		lblDBAddress = new JLabel("Database address");
@@ -167,7 +184,7 @@ public class GUI extends JFrame implements ActionListener {
 		comboBoxOpenAll = new JComboBox();
 		comboBoxOpenNetwork = new JComboBox();
 		comboBoxOpenLeague= new JComboBox();
-		
+
 		pnlBottom = new JPanel(); // Holds calc Button
 		pnlUpper = new JPanel(); // Upper Panel
 		pnlButtons = new JPanel(); // Holds buttons
@@ -184,12 +201,29 @@ public class GUI extends JFrame implements ActionListener {
 		createPnlUpper();
 		createMainPnl();	
 		addActionListeners();
-		
+
 		this.add(pnlMain);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
 		setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		new Thread() { 
+			public void run() {
+				while(true) {
+					if(baos.toString().length()>0) {
+						System.out.flush();
+						addToTextConsole(baos.toString());
+						baos.reset();
+					}
+					try {
+						this.sleep(10);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}        
+		}.start();
 	}
 
 	public void setController(Controller controller) {
@@ -211,11 +245,12 @@ public class GUI extends JFrame implements ActionListener {
 		comboBoxOpenNetwork.addActionListener(this);
 		comboBoxOpenLeague.addActionListener(this);
 	}
-	
+
 	public void createPnlUpper() {
 		lblTitle = new JLabel();
 		lblTitle.setIcon(new ImageIcon(logoPath));
 		pnlUpper.add(lblTitle);
+		pnlUpper.add(progressBar);
 		pnlUpper.setBackground(Color.DARK_GRAY);
 	}
 
@@ -306,9 +341,9 @@ public class GUI extends JFrame implements ActionListener {
 
 		pnlANN.add(lblDatasetName);
 		pnlANN.add(txtDatasetName);
-		
+
 		pnlANN.add(comboBoxOpenNetwork);
-	//	pnlANN.add(btnLoadNetwork);
+		//	pnlANN.add(btnLoadNetwork);
 		pnlANN.add(txtNeuralNetWorkPath);
 
 		pnlANN.add(lblFinalNNName);
@@ -341,32 +376,32 @@ public class GUI extends JFrame implements ActionListener {
 		pnlButtons.add(btnSaveAll);
 		pnlButtons.add(btnLoadAll);
 		pnlButtons.add(comboBoxOpenAll);
-//		pnlButtons.add(btnCalc);
+		//		pnlButtons.add(btnCalc);
 	}
 
 	public void fixComboBox() {
 		File folder = new File("SavedFiles/All");
 		File[] listOfFiles = folder.listFiles();
 		for (int i = 0; i < listOfFiles.length; i++) {
-		      if (listOfFiles[i].isFile()) {
-		    	  comboBoxOpenAll.addItem(listOfFiles[i].getName());
-		      }
+			if (listOfFiles[i].isFile()) {
+				comboBoxOpenAll.addItem(listOfFiles[i].getName());
+			}
 		}
-		
+
 		folder = new File("SavedFiles/nnet");
 		listOfFiles = folder.listFiles();
 		for (int i = 0; i < listOfFiles.length; i++) {
-		      if (listOfFiles[i].isFile()) {
-		    	  comboBoxOpenNetwork.addItem(listOfFiles[i].getName());
-		      }
+			if (listOfFiles[i].isFile()) {
+				comboBoxOpenNetwork.addItem(listOfFiles[i].getName());
+			}
 		}
-		
+
 		folder = new File("SavedFiles/league");
 		listOfFiles = folder.listFiles();
 		for (int i = 0; i < listOfFiles.length; i++) {
-		      if (listOfFiles[i].isFile()) {
-		    	  comboBoxOpenLeague.addItem(listOfFiles[i].getName());
-		      }
+			if (listOfFiles[i].isFile()) {
+				comboBoxOpenLeague.addItem(listOfFiles[i].getName());
+			}
 		}
 	}
 	public String getStringToSaveDB() {
@@ -384,7 +419,7 @@ public class GUI extends JFrame implements ActionListener {
 		String str = txtLeagueName.getText() + "," + txtLeagueAPIid.getText();
 		return str;
 	}
-	
+
 	public String getStringToSaveAll() {
 		return getStringToSaveDB() +","+getStringToSaveANN()+","+getStringToSaveLeague();
 	}
@@ -428,15 +463,19 @@ public class GUI extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void disableButtons() {
 		btnCalc.setBackground(Color.RED);
 		btnCalc.setEnabled(false);
 	}
-	
+
 	public void enableButtons() {
 		btnCalc.setBackground(Color.GREEN);
 		btnCalc.setEnabled(true);
+	}
+	
+	public void showProgress(int progress) {
+		progressBar.setValue(progress);
 	}
 
 	@Override
@@ -478,4 +517,6 @@ public class GUI extends JFrame implements ActionListener {
 					txtLeagueName.getText(), txtLeagueAPIid.getText(), table.getText());
 		}
 	}
+
+
 }

@@ -66,6 +66,11 @@ public class Controller {
 	public void enableButtons() {
 		gui.enableButtons();
 	}
+	
+	public void updateProgress(int current, int max) {
+		int progress = 100*current/max;
+		gui.showProgress(progress);
+	}
 
 	public void loadFromComboBox(String fileName, String indicator) {
 		String str = ReadFromFile.readFromFile(fileName);
@@ -79,10 +84,6 @@ public class Controller {
 			setLeagueSettings(str);
 			addToConsoleText("League settings is loaded from " + System.getProperty("user.dir")+"\\"+fileName);
 		}
-	}
-	
-	public void toggleCalcButton() {
-		gui.toggleCalcButton();
 	}
 	
 	public void setDataBaseSettings(String dataBaseURL, String userName, String passWord, String maxPool, String table) {
@@ -120,6 +121,7 @@ public class Controller {
 			public void run() {
 				GUI gui = new GUI();
 				Controller controller = new Controller(gui);
+				
 				Runtime.getRuntime().addShutdownHook(
 					new Thread() { 
 						public void run() {  

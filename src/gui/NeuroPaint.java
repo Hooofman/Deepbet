@@ -133,6 +133,8 @@ public class NeuroPaint implements java.awt.Shape{
 	}
 
 	public void setInputConnections(List<Connection> inputConnections) {
+		weights.clear();
+		connections.clear();
 		Iterator it = inputConnections.iterator();
 		while(it.hasNext()) {
 			Connection conn = (Connection) it.next();

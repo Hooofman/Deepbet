@@ -24,8 +24,8 @@ public class PaintNetwork  extends JFrame implements Runnable{
 	private ArrayList<NeuroPaint> inputLayer = new ArrayList<NeuroPaint>();
 	private ArrayList<NeuroPaint> outputLayer = new ArrayList<NeuroPaint>();
 	MyCanvas canvas;
-	int height = 1000;
-	int width = 1920;
+	int height = 700;
+	int width = 1500;
 	double zoom = 1;
 
 	public PaintNetwork(MultiLayerPerceptron MLP) throws HeadlessException {
@@ -44,7 +44,7 @@ public class PaintNetwork  extends JFrame implements Runnable{
 		int inputNeurons = MLP.getInputNeurons().size();
 		int xplus = width/(inputNeurons+1);
 		for(int j = 0; j< inputNeurons; j++) {
-			inputLayer.add(new NeuroPaint((j+1)*xplus, 100, 25));
+			inputLayer.add(new NeuroPaint((j+1)*xplus, 25, 25));
 		}
 		
 		int outputNeurons = MLP.getOutputNeurons().size();
@@ -63,7 +63,7 @@ public class PaintNetwork  extends JFrame implements Runnable{
 				if(r > 100) {
 					r = 100;
 				}
-				layer.get(i).add(new NeuroPaint((j+1)*xplus, i*200+200,r));
+				layer.get(i).add(new NeuroPaint((j+1)*xplus, i*150+75,r));
 				layer.get(i).get(j).setStrength(netInput);
 				layer.get(i).get(j).setInputConnections(MLP.getLayerAt(i).getNeuronAt(j).getInputConnections());
 
@@ -83,7 +83,9 @@ public class PaintNetwork  extends JFrame implements Runnable{
 
 	class MyCanvas extends Canvas {
 		public void paint(Graphics graphics) {
+			
 			Graphics2D g = (Graphics2D) graphics;
+			g.clearRect(0, 0, width, height);
 			for (int i = 0; i < outputLayer.size(); ++i) {
 				if (outputLayer.get(i) != null) {
 					g.draw(outputLayer.get(i).getShape());
@@ -97,10 +99,11 @@ public class PaintNetwork  extends JFrame implements Runnable{
 			}
 
 			for (int i = 0; i < layer.size(); ++i) {
-				int highest = 0;
-				int lowest = 0;
+				
 				if (layer.get(i) != null) {
 					for (int j = 0; j < layer.get(i).size(); j++) {
+						int highest = 0;
+						int lowest = 0;
 						if (layer.get(i).get(j) != null) {
 							g.setStroke(new BasicStroke(0));
 							g.setColor(layer.get(i).get(j).getColor());
@@ -115,9 +118,9 @@ public class PaintNetwork  extends JFrame implements Runnable{
 								int weight = (int)Math.abs(weights.get(input).doubleValue());
 								highest = Math.max(highest, weight);
 								lowest = Math.min(lowest, weight);
-								if(weight > (highest+lowest)*7/8) {
+								if(weight > (highest+lowest)/2) {
 									g.setColor(new Color(0,0,0,125));
-									g.setStroke(new BasicStroke(weight/10));
+									g.setStroke(new BasicStroke(weight/2));
 									g.drawLine(layer.get(i).get(j).getX(), layer.get(i).get(j).getY(), layer.get(i-1).get(temp.get(input)).getX(), layer.get(i-1).get(temp.get(input)).getY());
 								}
 							}
@@ -126,6 +129,7 @@ public class PaintNetwork  extends JFrame implements Runnable{
 				}
 
 			}
+			
 		}
 	}
 

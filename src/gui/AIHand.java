@@ -1,6 +1,15 @@
 package gui;
 
+import java.awt.Canvas;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
+
+import javax.swing.JFrame;
 
 import org.neuroph.core.NeuralNetwork;
 import org.neuroph.core.data.DataSet;
@@ -11,7 +20,7 @@ import org.neuroph.nnet.learning.MomentumBackpropagation;
 import control.Norm;
 import entity.Match;
 
-public class AIHand {
+public class AIHand{
 	private DataSet trainingSet;
 	private PrintListener listener;
 
@@ -83,13 +92,16 @@ public class AIHand {
 				MLP.learn(data);
 			}
 		}.start();
+		PaintNetwork pn = new PaintNetwork(MLP);
+		new Thread(pn).start();
 		
+
 		int current = 0;
 		System.out.println("Learning started");
 		while(current < iterations) {
 			current = learningRule.getCurrentIteration();
 			listener.updateProgress(current, iterations);
-
+			pn.update(MLP);
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
@@ -109,4 +121,5 @@ public class AIHand {
 		listener.updateText("Network saved");
 		// System.out.println("Nätverk sparat");
 	}
+
 }

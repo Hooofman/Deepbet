@@ -216,6 +216,7 @@ public class GUI extends JFrame implements ActionListener {
 		PrintStream old = System.out;
 		// Tell Java to use your special stream
 		System.setOut(ps);
+		System.setErr(ps);
 		
 		new Thread() { 
 			public void run() {

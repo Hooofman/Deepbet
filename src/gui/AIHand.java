@@ -101,12 +101,12 @@ public class AIHand{
 		System.out.println("Learning started");
 		while(current < iterations) {
 			current = learningRule.getCurrentIteration();
-			if(current > currentOld) {
+			
 				currentOld = current;
 				listener.updateProgress(current, iterations);
 				pn.update(MLP);
 
-			}try {
+			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

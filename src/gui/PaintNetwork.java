@@ -45,14 +45,14 @@ public class PaintNetwork  extends JFrame implements Runnable{
 		int inputNeurons = MLP.getInputNeurons().size();
 		int xplus = width/(inputNeurons+1);
 		for(int j = 0; j< inputNeurons; j++) {
-			inputLayer.add(new NeuroPaint((j+1)*xplus, 25, 25));
+			inputLayer.add(new NeuroPaint((j+1)*xplus, 50, 25));
 		}
 
 		int outputNeurons = MLP.getOutputNeurons().size();
 
 		xplus = width/(outputNeurons+1);
 		for(int j = 0; j< outputNeurons; j++) {
-			outputLayer.add(new NeuroPaint((j+1)*xplus, height-100, 25));
+			outputLayer.add(new NeuroPaint((j+1)*xplus, height-50, 25));
 		}
 
 		for(int i = 0; i < MLP.getLayersCount(); i++) {
@@ -66,7 +66,7 @@ public class PaintNetwork  extends JFrame implements Runnable{
 				if(r > 100) {
 					r = 100;
 				}
-				layer.get(i).add(new NeuroPaint((j+1)*xplus, i*150+75,r));
+				layer.get(i).add(new NeuroPaint((j+1)*xplus, i*150+100,r));
 				layer.get(i).get(j).setStrength(netInput);
 				layer.get(i).get(j).setInputConnections(MLP.getLayerAt(i).getNeuronAt(j).getInputConnections());
 
@@ -83,52 +83,48 @@ public class PaintNetwork  extends JFrame implements Runnable{
 				layer.get(i).get(j).setInputConnections(MLP.getLayerAt(i).getNeuronAt(j).getInputConnections());
 			}
 		}
+		
+		int outputNeurons = MLP.getOutputNeurons().size();
+		for(int j = 0; j< outputNeurons; j++) {
+			outputLayer.get(j).setInputConnections(MLP.getOutputNeurons().get(j).getInputConnections());
+		}
 		paint();
 	}
 
-	
-		public void paint() {
-			Graphics2D g = null;
-			do {
-				try{
-					System.out.println("hej");
-					g = (Graphics2D) bs.getDrawGraphics();
-					drawAll(g);
-				} finally {
-					g.dispose();
-				}
-				bs.show();
-			} while (bs.contentsLost());
-		}
-	
-	
+
+	public void paint() {
+		Graphics2D g = null;
+		do {
+			try{
+				System.out.println("hej");
+				g = (Graphics2D) bs.getDrawGraphics();
+				drawAll(g);
+			} finally {
+				g.dispose();
+			}
+			bs.show();
+		} while (bs.contentsLost());
+	}
+
+
 	public void drawAll(Graphics2D g) {
 		g.clearRect(0, 0, width, height);
-		for (int i = 0; i < outputLayer.size(); ++i) {
-			if (outputLayer.get(i) != null) {
-				g.draw(outputLayer.get(i).getShape());
-			}
-		}
 
-		for (int i = 0; i < inputLayer.size(); ++i) {
-			if (inputLayer.get(i) != null) {
-				g.draw(inputLayer.get(i).getShape());
-			}
-		}
 		ArrayList<Integer> temp;
 		ArrayList<Double> weights;
 		int highest = 5;
 		int lowest = 0;
 		for (int i = 0; i < layer.size(); ++i) {
-			
+
 			if (layer.get(i) != null) {
 				for (int j = 0; j < layer.get(i).size(); j++) {
-					
+
 					if (layer.get(i).get(j) != null) {
 						g.setStroke(new BasicStroke(0));
 						g.setColor(layer.get(i).get(j).getColor());
 						g.fill(layer.get(i).get(j).getShape());
-						//g.draw(layer.get(i).get(j).getShape());
+						g.setColor(Color.BLACK);
+						g.draw(layer.get(i).get(j).getShape());
 
 						temp = layer.get(i).get(j).getInputConnections();
 						weights = layer.get(i).get(j).getWeights();
@@ -148,6 +144,22 @@ public class PaintNetwork  extends JFrame implements Runnable{
 				}
 			}
 		}
+		
+		for (int i = 0; i < outputLayer.size(); ++i) {
+			
+			temp = outputLayer.get(i).getInputConnections();
+			if (outputLayer.get(i) != null) {
+				g.draw(outputLayer.get(i).getShape());
+				g.drawLine(outputLayer.get(i).getX(), outputLayer.get(i).getY(), layer.get(layer.size()-1).get(temp.get(i)).getX(), layer.get(layer.size()-1).get(temp.get(i)).getY());
+			}
+		}
+
+		for (int i = 0; i < inputLayer.size(); ++i) {
+			if (inputLayer.get(i) != null) {
+				g.draw(inputLayer.get(i).getShape());
+			}
+		}
+		
 	}
 
 	@Override

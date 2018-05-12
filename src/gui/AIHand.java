@@ -94,15 +94,19 @@ public class AIHand{
 		}.start();
 		PaintNetwork pn = new PaintNetwork(MLP);
 		new Thread(pn).start();
-		
+		pn.initiate(MLP);
 
 		int current = 0;
+		int currentOld = 0;
 		System.out.println("Learning started");
 		while(current < iterations) {
 			current = learningRule.getCurrentIteration();
-			listener.updateProgress(current, iterations);
-			pn.update(MLP);
-			try {
+			if(current > currentOld) {
+				currentOld = current;
+				listener.updateProgress(current, iterations);
+				pn.update(MLP);
+
+			}try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

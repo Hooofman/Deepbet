@@ -26,7 +26,7 @@ public class PaintNetwork  extends JFrame implements Runnable{
 	MyCanvas canvas;
 	int height = 700;
 	int width = 1500;
-	double zoom = 1;
+	
 
 	public PaintNetwork(MultiLayerPerceptron MLP) throws HeadlessException {
 		canvas = new MyCanvas();
@@ -97,28 +97,26 @@ public class PaintNetwork  extends JFrame implements Runnable{
 					g.draw(inputLayer.get(i).getShape());
 				}
 			}
-
+			int highest = 0;
+			int lowest = 0;
 			for (int i = 0; i < layer.size(); ++i) {
 				
 				if (layer.get(i) != null) {
 					for (int j = 0; j < layer.get(i).size(); j++) {
-						int highest = 0;
-						int lowest = 0;
+						
 						if (layer.get(i).get(j) != null) {
 							g.setStroke(new BasicStroke(0));
 							g.setColor(layer.get(i).get(j).getColor());
 							g.fill(layer.get(i).get(j).getShape());
 							g.draw(layer.get(i).get(j).getShape());
-							//g.setColor(Color.BLACK);
-							//	        			 g.setFont(getFont().deriveFont(20.0f));
-							//	        			 g.drawString(layer.get(i).get(j).getStrength()+"", layer.get(i).get(j).getX()+15, layer.get(i).get(j).getY()-10);
+							
 							ArrayList<Integer> temp = layer.get(i).get(j).getInputConnections();
 							ArrayList<Double> weights = layer.get(i).get(j).getWeights();
 							for(int input = 0; input < temp.size(); input++) {
 								int weight = (int)Math.abs(weights.get(input).doubleValue());
-								highest = Math.max(highest, weight);
-								lowest = Math.min(lowest, weight);
-								if(weight > (highest+lowest)/2) {
+								
+								if(weight >= highest) {
+									highest = weight;
 									g.setColor(new Color(0,0,0,125));
 									g.setStroke(new BasicStroke(weight/2));
 									g.drawLine(layer.get(i).get(j).getX(), layer.get(i).get(j).getY(), layer.get(i-1).get(temp.get(input)).getX(), layer.get(i-1).get(temp.get(input)).getY());

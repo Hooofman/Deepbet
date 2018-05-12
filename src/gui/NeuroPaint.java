@@ -22,14 +22,20 @@ import org.neuroph.core.Weight;
 
 public class NeuroPaint implements java.awt.Shape{
 	private int x;
-
-
 	private int y;
 	private int r;
 	private double strength;
 	ArrayList<Shape> shapes = new ArrayList<Shape>();
 	ArrayList<Integer> connections = new ArrayList<Integer>();
 	ArrayList<Double> weights = new ArrayList<Double>();
+	
+	public NeuroPaint(int x, int y, int r) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.r = r;
+		shapes.add(new Ellipse2D.Double(x-r/2, y-r/2, r, r));
+	}
 	
 	public double getStrength() {
 		return Math.round(10*strength*strength);
@@ -38,10 +44,6 @@ public class NeuroPaint implements java.awt.Shape{
 	public Color getColor() {
 		int test = Math.min(255,  (int)(10*strength*strength));
 		return new Color(255, 0, 0, test);
-	}
-
-	public void setStrength(double strength) {
-		this.strength = strength;
 	}
 	
 	public int getX() {
@@ -60,12 +62,8 @@ public class NeuroPaint implements java.awt.Shape{
 		this.y = y;
 	}
 
-	public NeuroPaint(int x, int y, int r) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.r = r;
-		shapes.add(new Ellipse2D.Double(x-r/2, y-r/2, r, r));
+	public void setStrength(double strength) {
+		this.strength = strength;
 	}
 	
 	public Shape getShape() {

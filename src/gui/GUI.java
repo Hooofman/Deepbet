@@ -122,7 +122,7 @@ public class GUI extends JFrame implements ActionListener {
 	public GUI() {
 		UIManager.put("ProgressBar.selectionForeground", Color.black);
 		UIManager.put("ProgressBar.selectionBackground", Color.black);
-		
+		setTitle("DeepBet");
 		
 
 

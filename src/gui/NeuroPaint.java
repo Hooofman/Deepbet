@@ -24,25 +24,38 @@ public class NeuroPaint implements java.awt.Shape{
 	private int x;
 	private int y;
 	private int r;
-	private double strength;
+
+
+	private ArrayList<Double> strength;
 	ArrayList<Shape> shapes = new ArrayList<Shape>();
-	ArrayList<Integer> connections = new ArrayList<Integer>();
-	ArrayList<Double> weights = new ArrayList<Double>();
+	ArrayList<ArrayList<Integer>> connections = new ArrayList<ArrayList<Integer>>();
+	ArrayList<ArrayList<Double>> weights = new ArrayList<ArrayList<Double>>();
 	
 	public NeuroPaint(int x, int y, int r) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.r = r;
+		this.strength = new ArrayList<Double>();
 		shapes.add(new Ellipse2D.Double(x-r/2, y-r/2, r, r));
 	}
 	
+	public int getR() {
+		return r/2;
+	}
+
+	public void setR(int r) {
+		this.r = r;
+	}
+	
 	public double getStrength() {
-		return Math.round(10*strength*strength);
+		double str = strength.get(strength.size()-1);
+		return Math.round(10*str*str);
 	}
 	
 	public Color getColor() {
-		int test = Math.min(255,  (int)(10*strength*strength));
+		double str = strength.get(strength.size()-1);
+		int test = Math.min(255,  (int)(10*str*str));
 		return new Color(255, 0, 0, test);
 	}
 	
@@ -63,7 +76,7 @@ public class NeuroPaint implements java.awt.Shape{
 	}
 
 	public void setStrength(double strength) {
-		this.strength = strength;
+		this.strength.add(strength);
 	}
 	
 	public Shape getShape() {
@@ -131,25 +144,27 @@ public class NeuroPaint implements java.awt.Shape{
 	}
 
 	public void setInputConnections(List<Connection> inputConnections) {
-		weights.clear();
 		connections.clear();
 		Iterator it = inputConnections.iterator();
+		ArrayList<Double> temp = new ArrayList<Double>();
+		ArrayList<Integer> temp2 = new ArrayList<Integer>();
 		while(it.hasNext()) {
 			Connection conn = (Connection) it.next();
 			double weight = conn.getWeight().value;
 			Neuron neuron = conn.getFromNeuron();
-			connections.add(neuron.getParentLayer().indexOf(neuron));
-			weights.add(weight);
+			temp2.add(neuron.getParentLayer().indexOf(neuron));
+			temp.add(weight);
 		}
-		
+		weights.add(temp);
+		connections.add(temp2);
 	}
 	
 	public ArrayList<Integer> getInputConnections() {
-		return connections;
+		return connections.get(connections.size()-1);
 	}
 
 	public ArrayList<Double> getWeights() {
-		return weights;
+		return weights.get(weights.size()-1);
 	}
 
 	

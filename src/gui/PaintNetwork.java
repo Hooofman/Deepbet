@@ -30,7 +30,7 @@ public class PaintNetwork  extends JFrame implements Runnable{
 
 
 	public PaintNetwork(MultiLayerPerceptron MLP) throws HeadlessException {
-
+		setTitle("Network");
 		setSize(width, height);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
@@ -96,7 +96,6 @@ public class PaintNetwork  extends JFrame implements Runnable{
 		Graphics2D g = null;
 		do {
 			try{
-				System.out.println("hej");
 				g = (Graphics2D) bs.getDrawGraphics();
 				drawAll(g);
 			} finally {
@@ -131,11 +130,11 @@ public class PaintNetwork  extends JFrame implements Runnable{
 						for(int input = 0; input < temp.size(); input++) {
 							int weight = (int)Math.abs(weights.get(input).doubleValue());
 
-							if(weight >= highest*2/3) {
+							if(weight >= highest*5/10) {
 								highest = weight;
 								g.setColor(new Color(0,0,0,125));
 								g.setStroke(new BasicStroke(weight/4));
-								g.drawLine(layer.get(i).get(j).getX(), layer.get(i).get(j).getY(), layer.get(i-1).get(temp.get(input)).getX(), layer.get(i-1).get(temp.get(input)).getY());
+								g.drawLine(layer.get(i).get(j).getX(), layer.get(i).get(j).getY() - layer.get(i).get(j).getR(), layer.get(i-1).get(temp.get(input)).getX(), layer.get(i-1).get(temp.get(input)).getY() + layer.get(i-1).get(temp.get(input)).getR());
 
 							}
 						}
@@ -144,16 +143,18 @@ public class PaintNetwork  extends JFrame implements Runnable{
 				}
 			}
 		}
-		
+		g.setStroke(new BasicStroke(1));
 		for (int i = 0; i < outputLayer.size(); ++i) {
 			
 			temp = outputLayer.get(i).getInputConnections();
 			if (outputLayer.get(i) != null) {
+				g.setStroke(new BasicStroke(1));
 				g.draw(outputLayer.get(i).getShape());
-				g.drawLine(outputLayer.get(i).getX(), outputLayer.get(i).getY(), layer.get(layer.size()-1).get(temp.get(i)).getX(), layer.get(layer.size()-1).get(temp.get(i)).getY());
+				g.setStroke(new BasicStroke(5));
+				g.drawLine(outputLayer.get(i).getX(), outputLayer.get(i).getY() - outputLayer.get(i).getR(), layer.get(layer.size()-1).get(temp.get(i)).getX(), layer.get(layer.size()-1).get(temp.get(i)).getY() + layer.get(layer.size()-1).get(temp.get(i)).getR());
 			}
 		}
-
+		g.setStroke(new BasicStroke(1));
 		for (int i = 0; i < inputLayer.size(); ++i) {
 			if (inputLayer.get(i) != null) {
 				g.draw(inputLayer.get(i).getShape());

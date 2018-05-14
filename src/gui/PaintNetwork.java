@@ -12,6 +12,8 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 
@@ -83,11 +85,15 @@ public class PaintNetwork  extends JFrame implements Runnable{
 				layer.get(i).get(j).setInputConnections(MLP.getLayerAt(i).getNeuronAt(j).getInputConnections());
 			}
 		}
-		
+
 		int outputNeurons = MLP.getOutputNeurons().size();
+		double[] strength = MLP.getOutput(); 
 		for(int j = 0; j< outputNeurons; j++) {
+
+			outputLayer.get(j).setStrength(strength[j]);
 			outputLayer.get(j).setInputConnections(MLP.getOutputNeurons().get(j).getInputConnections());
 		}
+
 		paint();
 	}
 
@@ -114,28 +120,31 @@ public class PaintNetwork  extends JFrame implements Runnable{
 		int highest = 5;
 		int lowest = 0;
 		for (int i = 0; i < layer.size(); ++i) {
-
 			if (layer.get(i) != null) {
 				for (int j = 0; j < layer.get(i).size(); j++) {
-
 					if (layer.get(i).get(j) != null) {
 						g.setStroke(new BasicStroke(0));
 						g.setColor(layer.get(i).get(j).getColor());
 						g.fill(layer.get(i).get(j).getShape());
+						
 						g.setColor(Color.BLACK);
 						g.draw(layer.get(i).get(j).getShape());
 
 						temp = layer.get(i).get(j).getInputConnections();
 						weights = layer.get(i).get(j).getWeights();
-						for(int input = 0; input < temp.size(); input++) {
-							int weight = (int)Math.abs(weights.get(input).doubleValue());
 
-							if(weight >= highest*5/10) {
-								highest = weight;
+						for(int input = 0; input < 10; input++) {
+							//int weight = (int)Math.abs(weights.get(input).doubleValue());
+
+							if(weights.size() > 0) {
+								int indexToRemove = removeMax(weights);
+								int weight = Math.abs(weights.get(indexToRemove).intValue());
 								g.setColor(new Color(0,0,0,125));
 								g.setStroke(new BasicStroke(weight/4));
-								g.drawLine(layer.get(i).get(j).getX(), layer.get(i).get(j).getY() - layer.get(i).get(j).getR(), layer.get(i-1).get(temp.get(input)).getX(), layer.get(i-1).get(temp.get(input)).getY() + layer.get(i-1).get(temp.get(input)).getR());
 
+								g.drawLine(layer.get(i).get(j).getX(), layer.get(i).get(j).getY() - layer.get(i).get(j).getR(), layer.get(i-1).get(temp.get(indexToRemove)).getX(), layer.get(i-1).get(temp.get(indexToRemove)).getY() + layer.get(i-1).get(temp.get(indexToRemove)).getR());
+								weights.remove(indexToRemove);
+								temp.remove(indexToRemove);
 							}
 						}
 					}
@@ -145,11 +154,15 @@ public class PaintNetwork  extends JFrame implements Runnable{
 		}
 		g.setStroke(new BasicStroke(1));
 		for (int i = 0; i < outputLayer.size(); ++i) {
-			
+
 			temp = outputLayer.get(i).getInputConnections();
 			if (outputLayer.get(i) != null) {
+				g.setColor(Color.BLACK);
 				g.setStroke(new BasicStroke(1));
 				g.draw(outputLayer.get(i).getShape());
+				g.setColor(outputLayer.get(i).getColor());
+				g.fill(outputLayer.get(i).getShape());
+				g.setColor(Color.BLACK);
 				g.setStroke(new BasicStroke(5));
 				g.drawLine(outputLayer.get(i).getX(), outputLayer.get(i).getY() - outputLayer.get(i).getR(), layer.get(layer.size()-1).get(temp.get(i)).getX(), layer.get(layer.size()-1).get(temp.get(i)).getY() + layer.get(layer.size()-1).get(temp.get(i)).getR());
 			}
@@ -160,12 +173,27 @@ public class PaintNetwork  extends JFrame implements Runnable{
 				g.draw(inputLayer.get(i).getShape());
 			}
 		}
-		
+
 	}
 
 	@Override
 	public void run() {
 
+	}
+
+	private int removeMax(ArrayList<Double> list) {
+		int index = 0;
+		int currentIndex = 0;
+		double max = -1000;
+		for(double number : list) {
+			if(number>max) {
+				max = number;
+				index = currentIndex;
+				currentIndex++;
+			}
+		}
+
+		return index;
 	}
 
 

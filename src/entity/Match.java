@@ -45,83 +45,152 @@ public class Match {
 		this.drawOutcome = 0;	// 1 for a win, -1 for a loss and 0 for a draw
 		this.calcOutput = new double[2]; // Saves the output for the match in an array
 	}
-	
+	/**
+	 * Sets the time the match is or was played
+	 * @param time Time as a String
+	 */
 	public void setTime(String time) {
 		this.time = time;
 	}
-	
+	/**
+	 * Returns the time the match is or was played
+	 * @return time as a String
+	 */
 	public String getTime() {
 		return time;
 	}
-	
+	/**
+	 * Sets the calculated output for this match 
+	 * @param output Array of calculated outputs
+	 */
 	public void setCalcOutput(double[] output) {
 		this.calcOutput = output;
 	}
-
+	/**
+	 * Returns the calculated output for this match
+	 * @return Array of calculated outputs
+	 */
 	public double[] getCalcOutput() {
 		return calcOutput;
 	}
-
+	/**
+	 * Returns the status for this match
+	 * @return Status, as a String
+	 */
 	public String getStatus() {
 		return status;
 	}
-
+	/**
+	 * Sets the hometeam for this match
+	 * @param team as a Team
+	 */
 	public void setHomeTeam(Team team) {
 		this.homeTeam = team;
 	}
-
+	/**
+	 * Returns the hometeam for this match
+	 * @return homeTeam as a Team
+	 */
 	public Team getHomeTeam() {
 		return homeTeam;
 	}
-
+	/**
+	 * Sets the awayteam for this match
+	 * @param awayteam as a Team
+	 */
 	public void setAwayTeam(Team team) {
 		this.awayTeam = team;
 	}
-
+	/**
+	 * Returns the awayteam for this match
+	 * @return awayteam as a Team
+	 */
 	public Team getAwayTeam() {
 		return awayTeam;
 	}
-
+	/**
+	 * Sets numbers of goals scored by hometeam
+	 * @param goals number of goals
+	 */
 	public void setHomeGoals(int goals) {
 		this.homeGoals = goals;
 	}
-
+	/**
+	 * Returns numbers of goals scored by hometeam
+	 * @return goals number of goals
+	 */
 	public int getHomeGoals() {
 		return homeGoals;
 	}
-
+	/**
+	 * Sets numbers of goals scored by awayteam
+	 * @param goals number of goals
+	 */
 	public void setAwayGoals(int goals) {
 		this.awayGoals = goals;
 	}
-
+	/**
+	 * Returns numbers of goals scored by awayteam
+	 * @return goals number of goals
+	 */
 	public int getAwayGoals() {
 		return awayGoals;
 	}
-
+	/**
+	 * Sets which round this match was played in
+	 * @param round roundnumber
+	 */
 	public void setRound(int round) {
 		this.round = round;
 	}
-
+	/**
+	 * Returns which round this match was played in
+	 * @return roundNumber
+	 */
 	public int getRound() {
 		return round;
 	}
-
+	/**
+	 * Sets the outcome of this Match
+	 * 1 = hometeam won
+	 * 0 = draw
+	 * -1 = awayteam won
+	 * @param outcome outcome
+	 */
 	public void setOutcome(int outcome) {
 		this.outcome = outcome;
 	}
-
+	/**
+	 * Returns the outcome of this Match
+	 * 1 = hometeam won
+	 * 0 = draw
+	 * -1 = awayteam won
+	 * @return outcome
+	 */
 	public int getOutcome() {
 		return outcome;
 	}
-
+	/**
+	 * Sets the date this Match was played
+	 * @param date, date as String
+	 */
 	public void setDate(String date) {
 		this.date = date;
 	}
-
+	/**
+	  * Returns the date this Match was played 
+	 * @return date as a String
+	 */
 	public String getDate() {
 		return date;
 	}
-	
+	/**
+	 * Returns a char instead of and int which represent the outcome of the Match
+	 * 1 = hometeam won
+	 * X = draw
+	 * 2 = Awayteam won
+	 * @return
+	 */
 	public char getOutcomeChar() {
 		return outcomeChar;
 	}
@@ -180,6 +249,10 @@ public class Match {
 		}
 	}
 	
+	/**
+	 * Produces a inputArray to the AI by combining two inputarrays from the home and away team
+	 * @param number of games it checks when calculating average in Team-object
+	 */
 	public void produceInputArray(int number) {
 		double[] array= new double[22];
 		
@@ -203,7 +276,9 @@ public class Match {
 		return inputArray;
 	}
 
-	
+	/**
+	 * Produces an outputarray based on the outcome, used in the AI when training
+	 */
 	public void produceOutputArray() {
 		this.outputArray = new double[] { this.homeOutcome, this.drawOutcome, this.awayOutcome };
 	}

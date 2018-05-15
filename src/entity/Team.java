@@ -141,6 +141,10 @@ public class Team implements Comparable<Team>{
 		this.name = name;
 	}
 	
+	public LinkedList<Double> getTotalPointsThisSeason() {
+		return this.totalPointsThisSeason;
+	}
+	
 	/**
 	 * Calculates the total sum of all values in a specific list 
 	 * @param list a LinkedList with doubles 

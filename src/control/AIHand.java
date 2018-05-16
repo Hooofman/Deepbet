@@ -143,6 +143,11 @@ public class AIHand {
 		System.out.println("Network saved");
 	}
 	
+	/**
+	 * Synchronized so only one can draw at the same time.
+	 * Otherwise network and progressbar interferes with each other
+	 * @param who
+	 */
 	public synchronized void synchedPainting(int who) {
 		try {
 			Thread.sleep(10);

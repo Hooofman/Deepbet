@@ -26,7 +26,6 @@ public class WriteToFile {
 			for (String s : array) {
 				bos.write(s);
 				bos.newLine();
-				System.out.println(s);
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("Filepath not found");

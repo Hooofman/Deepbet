@@ -119,6 +119,14 @@ public class Season {
 	public ArrayList<Match> getAllMatches(){
 		return matches;
 	}
+	
+	/**
+	 * Returns the leaguename that the season belongs to
+	 * @return
+	 */
+	public String getLeageName() {
+		return league.getName();
+	}
 
 	/**
 	 * Returns an ArrayList with all matches that has a specific status

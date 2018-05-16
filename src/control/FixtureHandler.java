@@ -1,8 +1,5 @@
 package control;
 
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,8 +11,7 @@ import entity.Season;
 import entity.Team;
 
 /**
- * Creates match-objects for an entire season and adds matches to dataset used
- * by the ANN
+ * Creates match-objects for an entire season and adds matches to dataset used by the ANN
  * 
  * @author Oscar Malmqvist
  *
@@ -23,36 +19,33 @@ import entity.Team;
 public class FixtureHandler {
 	private static JSONObject jsonMatches;
 	private static JSONArray fixtures;
-	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 	/**
 	 * Fetch fixtures and create match-objects for an entire season
 	 * 
-	 * @param season
-	 *            the season to look for
-	 * @throws JSONException
-	 *             if JSONObject och JSONArray cant be read or fetched
+	 * @param season the season to look for
+	 * @throws JSONException if JSONObject och JSONArray cant be read or fetched
 	 */
-
 	public static void createFixtures(Season season, DataSet dataSet) throws JSONException {
 		/**
 		 * Get all fixtures from JSON
 		 */
-		if (season.getYear() == 2017) { // TODO: Remove this part later. Get everything from external API when we are
-										// done, not from home.
+		System.out.println("Starts creating matches for season: " + season. + season.getYear());
+		
+		if (season.getYear() == 2017) { // TODO: Remove this part later. Get everything from external API when we are done, not from home.
 			jsonMatches = FetchApi.getJsonMatches(season.getId());
 		} else {
 			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getYear(), "matches");
 		}
 		fixtures = jsonMatches.getJSONArray("fixtures");
 
+		// Loop through all fixtures
 		for (int i = 0; i < fixtures.length(); i++) {
 
 			// Check if the match is finished
 			String status = fixtures.getJSONObject(i).optString("status");
 
-			// Get the teamnames from API and compare with the seasons team-objects to get
-			// the right team
+			// Get the teamnames from API and compare with the seasons team-objects to get the right team
 			Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
 			Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
 			int matchDay = fixtures.getJSONObject(i).getInt("matchday");
@@ -88,7 +81,6 @@ public class FixtureHandler {
 
 				// Add the match to the dataset used for training the AI
 				AIHand.addMatchToDataSet(match, dataSet);
-				System.out.println(Arrays.toString(match.get1X2Outcome()));
 			}
 
 			// If the match isnt played, just add it to the season

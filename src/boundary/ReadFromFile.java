@@ -17,8 +17,7 @@ public class ReadFromFile {
 	/**
 	 * Reads lines of text from a text file. Each word is separated with a ','.
 	 * 
-	 * @param filePath
-	 *            Which file to be read.
+	 * @param filePath Which file to be read.
 	 * @return A String containing the data from the text file.
 	 */
 	public static String readFromFile(String filePath) {
@@ -29,11 +28,10 @@ public class ReadFromFile {
 			while (temp != null) {
 				data += temp + ",";
 				temp = br.readLine();
-				// System.out.println(data);
 			}
-			
-			if(data.charAt(data.length()-1) == ',') {
-				data = data.substring(0, data.length()-1);
+
+			if (data.charAt(data.length() - 1) == ',') {
+				data = data.substring(0, data.length() - 1);
 			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

@@ -18,8 +18,7 @@ import boundary.ReadFromFile;
 import control.Controller;
 
 /**
- * Graphical user interface that handles the event of a user who wants to load
- * specific settings to the main GUI.
+ * Graphical user interface that handles the event of a user who wants to load specific settings to the main GUI.
  * 
  * @author Sven Lindqvist
  *
@@ -36,11 +35,10 @@ public class LoadSettings extends JPanel {
 	/**
 	 * Creates the panel and sets the indicator.
 	 * 
-	 * @param cont
-	 *            The controller.
-	 * @param indicator
-	 *            Indicates if it's database, AI or league settings the user wants
-	 *            to load.
+	 * @param cont The controller.
+	 * @param indicator Indicates if it's database, AI or league settings the user wants to load.
+	 * 
+	 * 
 	 */
 	public LoadSettings(Controller cont, String indicator) {
 		this.controller = cont;

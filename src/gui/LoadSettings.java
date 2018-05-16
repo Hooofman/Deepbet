@@ -24,7 +24,6 @@ import control.Controller;
  *
  */
 public class LoadSettings extends JPanel {
-	private GUI gui;
 	private String indicator;
 	private JFrame frame;
 	private JButton btnAdd;
@@ -95,27 +94,27 @@ public class LoadSettings extends JPanel {
 			if (e.getSource() == btnAdd && indicator.equals("Database")) { // Database
 				String str = ReadFromFile.readFromFile(lblPathName.getText());
 				controller.setDBSettings(str);
-				controller.addToConsoleText("Database settings is loaded from " + lblPathName.getText());
+				System.out.println("Database settings is loaded from " + lblPathName.getText());
 				frame.dispose();
 			} else if (e.getSource() == btnAdd && indicator.equals("ANN")) {
 				System.out.println(lblPathName.getText() + "Ska laddas");
 				String str = ReadFromFile.readFromFile(lblPathName.getText());
 				controller.setANNSettings(str);
-				controller.addToConsoleText("Neural network settings is loaded from " + lblPathName.getText());
+				System.out.println("Neural network settings is loaded from " + lblPathName.getText());
 				frame.dispose();
 
 			} else if (e.getSource() == btnAdd && indicator.equals("LoadLeague")) {
 				System.out.println(lblPathName.getText() + "Ska laddas");
 				String str = ReadFromFile.readFromFile(lblPathName.getText());
 				controller.setLeagueSettings(str);
-				controller.addToConsoleText("League settings is loaded from " + lblPathName.getText());
+				System.out.println("League settings is loaded from " + lblPathName.getText());
 				frame.dispose();
 
 			} else if (e.getSource() == btnAdd && indicator.equals("LoadAll")) {
 				System.out.println(lblPathName.getText() + "Ska laddas");
 				String str = ReadFromFile.readFromFile(lblPathName.getText());
 				controller.setAllSettings(str);
-				controller.addToConsoleText("All settings is loaded from " + lblPathName.getText());
+				System.out.println("All settings is loaded from " + lblPathName.getText());
 				frame.dispose();
 
 			} else if (e.getSource() == btnChoosePath) {
@@ -133,7 +132,7 @@ public class LoadSettings extends JPanel {
 				}
 			} else if (e.getSource() == btnAdd && indicator.equals("Network")) {
 				controller.setNeuralNetworkPath(lblPathName.getText());
-				controller.addToConsoleText("Neural network template is loaded from " + lblPathName.getText());
+				System.out.println("Neural network template is loaded from " + lblPathName.getText());
 				frame.dispose();
 			}
 

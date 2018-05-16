@@ -92,6 +92,8 @@ public class Norm implements Normalizer {
     
     /**
      * Used for normalizing the inputarray. Uses min and max values gathered from when the dataset was normalized
+     * @author Oscar
+     * 
      * @param array the matcharray
      * @return the normalized array
      */

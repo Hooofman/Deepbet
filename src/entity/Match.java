@@ -4,7 +4,8 @@ import java.util.Date;
 import org.json.JSONException;
 /**
  * Class for creating a Match object
- * @author Johannes Roos
+ * @author Sven Lindqvist, Oscar Malmqvist, Johannes Roos och Oskar Engström
+ *         Magnusson.
  *
  */
 public class Match {

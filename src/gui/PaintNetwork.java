@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import org.neuroph.nnet.MultiLayerPerceptron;
 

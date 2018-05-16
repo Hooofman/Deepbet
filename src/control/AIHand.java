@@ -100,6 +100,7 @@ public class AIHand {
 
 		// Update of progressbar in GUI
 		while (currentIteration < iterations) {
+			
 			currentIteration = learningRule.getCurrentIteration();
 			controller.updateProgress(currentIteration, iterations);
 			pn.update(MLP);

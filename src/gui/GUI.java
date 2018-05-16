@@ -67,7 +67,7 @@ public class GUI extends JFrame implements ActionListener {
 	private JTabbedPane pnlWest; // Holds the entire western content
 	private JTabbedPane pnlCenter;
 	private PaintNetwork paintNetwork;
-	
+
 	// Database input
 	private JPanel pnlDB;
 	private JTextField password;
@@ -124,11 +124,11 @@ public class GUI extends JFrame implements ActionListener {
 	private JPanel pnlButtons;
 
 	private StyledDocument doc;
-
 	/**
 	 * Constructs the GUI.
 	 */
 	public GUI() {
+
 		UIManager.put("ProgressBar.selectionForeground", Color.black);
 		UIManager.put("ProgressBar.selectionBackground", Color.black);
 		setTitle("DeepBet");
@@ -265,16 +265,23 @@ public class GUI extends JFrame implements ActionListener {
 		pnlWest.addTab("Options", pnlButtons);
 		pnlWest.setVisible(true);
 	}
-	
+
 	public void createCenterPanel() {
 		pnlCenter.setBorder(new EmptyBorder(5, 5, 5, 5));
 		pnlCenter.addTab("Console", pnlTextArea);
 		pnlCenter.setVisible(true);
 	}
-	
+
 	public void addNetworkFrame(PaintNetwork paintNetwork) {
 		this.paintNetwork = paintNetwork;
-		pnlCenter.add(paintNetwork.getContentPane());
+		JPanel panel = new JPanel();
+		panel.add(paintNetwork.getContentPane());
+		panel.repaint();
+		panel.setVisible(true);
+		panel.revalidate();
+		pnlCenter.add("Network", panel);
+
+		paintNetwork.setVisible(true);
 	}
 
 	public void createConsolePanel() {

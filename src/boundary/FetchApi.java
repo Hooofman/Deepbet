@@ -1,9 +1,6 @@
 package boundary;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.text.SimpleDateFormat;
-import org.json.JSONArray;
+
 import org.json.JSONObject;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -16,11 +13,9 @@ import com.mashape.unirest.http.Unirest;
  *
  */
 public class FetchApi {
-	private static String token = "WrBZ2f7IrkoF5ZZXd3ILImXnyGMEhdTYfblOtuaOrwM5He6BUPsUSCzTJDjx";
+	private static String token = "WrBZ2f7IrkoF5ZZXd3ILImXnyGMEhdTYfblOtuaOrwM5He6BUPsUSCzTJDjx"; // Token for API-access
 	private static JSONObject object = null;
 
-	public FetchApi() {
-	}
 
 	/**
 	 * Fetches matches stored in the server.
@@ -42,13 +37,12 @@ public class FetchApi {
 	 *            http://api.football-data.org/v1/competitions/
 	 * @return JsonObject with all teams
 	 */
-
 	public static JSONObject getJsonTeams(int id) {
 		try {
 			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id + "/teams");
 		} catch (Exception e) {
+			System.out.println("Error when fetching teams from API");
 		}
-		System.out.println(object);
 		return object;
 	}
 
@@ -63,8 +57,8 @@ public class FetchApi {
 		try {
 			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id);
 		} catch (Exception e) {
+			System.out.println("Error when fetching season from API");
 		}
-		System.out.println(object);
 		return object;
 	}
 
@@ -79,8 +73,8 @@ public class FetchApi {
 		try {
 			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id + "/fixtures");
 		} catch (Exception e) {
+			System.out.println("Error when fetching fixtures from API");
 		}
-		System.out.println(object);
 		return object;
 	}
 

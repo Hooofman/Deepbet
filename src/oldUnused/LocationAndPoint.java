@@ -1,4 +1,4 @@
-package entity;
+package oldUnused;
 
 /**
  * Class for Location and points for a single match

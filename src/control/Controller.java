@@ -6,10 +6,10 @@ import java.io.PrintStream;
 import javax.swing.SwingUtilities;
 
 import boundary.ConnectDatabase;
-import boundary.LoadSettings;
 import boundary.ReadFromFile;
-import boundary.SaveSettings;
 import gui.GUI;
+import gui.LoadSettings;
+import gui.SaveSettings;
 
 public class Controller {
 	private GUI gui;

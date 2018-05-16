@@ -1,4 +1,4 @@
-package boundary;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import control.Controller;
-import gui.GUI;
 
 public class SaveSettings extends JPanel {
 	private GUI gui;

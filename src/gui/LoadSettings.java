@@ -1,4 +1,4 @@
-package boundary;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -14,8 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import boundary.ReadFromFile;
 import control.Controller;
-import gui.GUI;
 
 public class LoadSettings extends JPanel {
 	private GUI gui;

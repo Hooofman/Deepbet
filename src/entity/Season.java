@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Class for creating Season objects
- * @author Sven Lindqvist 
+ * @author Sven Lindqvist, Johannes Roos
  *
  */
 public class Season {

@@ -63,8 +63,12 @@ public class GUI extends JFrame implements ActionListener {
 	private JLabel lblTitle;
 	private String logoPath = "images/deepbet_vit.png";
 	private JProgressBar progressBar;
-	// Database input
+
 	private JTabbedPane pnlWest; // Holds the entire western content
+	private JTabbedPane pnlCenter;
+	private PaintNetwork paintNetwork;
+	
+	// Database input
 	private JPanel pnlDB;
 	private JTextField password;
 	private JTextField userName;
@@ -133,6 +137,7 @@ public class GUI extends JFrame implements ActionListener {
 		pnlMain = new JPanel();
 		pnlTextArea = new JPanel();
 		pnlWest = new JTabbedPane();
+		pnlCenter = new JTabbedPane();
 		pnlDB = new JPanel();
 		pnlLeague = new JPanel();
 		password = new JTextField("Deepbet123");
@@ -200,6 +205,7 @@ public class GUI extends JFrame implements ActionListener {
 		createConsolePanel();
 		createButtonPanel();
 		createPnlUpper();
+		createCenterPanel();
 		createMainPnl();
 		addActionListeners();
 
@@ -259,6 +265,17 @@ public class GUI extends JFrame implements ActionListener {
 		pnlWest.addTab("Options", pnlButtons);
 		pnlWest.setVisible(true);
 	}
+	
+	public void createCenterPanel() {
+		pnlCenter.setBorder(new EmptyBorder(5, 5, 5, 5));
+		pnlCenter.addTab("Console", pnlTextArea);
+		pnlCenter.setVisible(true);
+	}
+	
+	public void addNetworkFrame(PaintNetwork paintNetwork) {
+		this.paintNetwork = paintNetwork;
+		pnlCenter.add(paintNetwork);
+	}
 
 	public void createConsolePanel() {
 		pnlTextArea.setPreferredSize(new Dimension(800, 400));
@@ -281,7 +298,7 @@ public class GUI extends JFrame implements ActionListener {
 
 		pnlMain.add(pnlWest, BorderLayout.WEST);
 
-		pnlMain.add(pnlTextArea, BorderLayout.CENTER);
+		pnlMain.add(pnlCenter, BorderLayout.CENTER);
 		pnlMain.add(pnlBottom, BorderLayout.SOUTH);
 		pnlMain.add(pnlUpper, BorderLayout.NORTH);
 	}

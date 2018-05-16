@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 /**
  * Class for creating Team objects
- * @author Oscar Malmqvist
+ * @author Oscar Malmqvist, Johannes Roos
  *
  */
 public class Team implements Comparable<Team>{
@@ -21,7 +21,7 @@ public class Team implements Comparable<Team>{
 	private LinkedList<Double> totalPointsHomeThisSeason;
 	private LinkedList<Double> totalPointsAwayThisSeason;
 	private LinkedList<Double> totalPoints;
-	
+
 	private String name;
 
 	/** 
@@ -50,15 +50,24 @@ public class Team implements Comparable<Team>{
 	public void addPlayedMatch() {
 		this.matchesPlayed++;
 	}
-
+	/**
+	 * Returns number of matches played for this team
+	 * @return 	number of matches played
+	 */
 	public int getMatchesPlayed() {
 		return matchesPlayed;
 	}
-
+	/**
+	 * Retuns a list of all table positions 
+	 * @return	list of table positions
+	 */
 	public LinkedList<Double> getTablePositions() {
 		return tablePosition;
 	}
-	
+	/**
+	 * Adds the outcome of one Match to the list of outcomes 
+	 * @param outcome 	the outcome of one Match
+	 */
 	public void setOutcome(double outcome) {
 		this.outcome.add(outcome);
 	}
@@ -83,7 +92,11 @@ public class Team implements Comparable<Team>{
 		this.goalsFor.add(value);
 		this.goalsForThisSeason.add(value);
 	}
-
+	/**
+	 * Returns number of goals scored in a particulary match
+	 * @param index	the match
+	 * @return	number of goals
+	 */
 	public double getGoalsFor(int index) {
 		return goalsFor.get(index);
 	}
@@ -96,15 +109,25 @@ public class Team implements Comparable<Team>{
 		this.goalsAgainst.add(value);
 		this.goalsAgainstThisSeason.add(value);
 	}
-
+	/**
+	 * Returns a list of all goals scored 
+	 * @return 	the list of goals
+	 */
 	public LinkedList<Double> getGoalsFor() {
 		return goalsFor;
 	}
-
+	/**
+	 * Returns a list o all goals conceded
+	 * @return	List of all goals conceded
+	 */
 	public LinkedList<Double> getGoalsAgainst() {
 		return goalsAgainst;
 	}
-
+	/**
+	 * Returns number of goals conceded in a particularly match
+	 * @param index the match
+	 * @return number of goals
+	 */
 	public double getGoalsAgainst(int index) {
 		return goalsAgainst.get(index);
 	}
@@ -124,11 +147,18 @@ public class Team implements Comparable<Team>{
 		this.totalPointsThisSeason.add(points);
 		this.totalPoints.add(points);
 	}
-
+	/**
+	 * add the current tableposition to the list of table positions
+	 * @param value	current tableposition
+	 */
 	public void setTablePosition(double value) {
 		this.tablePosition.add(value);
 	}
-
+	/**
+	 * Returns the tableposition at a particularly round
+	 * @param index	the round
+	 * @return		tableposition
+	 */
 	public double getTablePosition(int index) {
 		return tablePosition.get(index);
 	}
@@ -140,11 +170,11 @@ public class Team implements Comparable<Team>{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public LinkedList<Double> getTotalPointsThisSeason() {
 		return this.totalPointsThisSeason;
 	}
-	
+
 	/**
 	 * Calculates the total sum of all values in a specific list 
 	 * @param list a LinkedList with doubles 
@@ -157,7 +187,7 @@ public class Team implements Comparable<Team>{
 		}
 		return sum;
 	}
-	
+
 	/**
 	 * Calculates the average in a list from the last N games
 	 * @param list a LinkedList with doubles 
@@ -174,7 +204,7 @@ public class Team implements Comparable<Team>{
 		}
 		return sum / (Math.max(avgNumber,1));
 	}
-	
+
 	/**
 	 * Returns the last value in a list
 	 * @param list a LinkedList with doubles

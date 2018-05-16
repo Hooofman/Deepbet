@@ -107,8 +107,7 @@ public class League {
 			// Puts the 3 last placed teams in a list
 			if (team.getLastFromList(team.getTablePositions()) > 17) {
 				list.add(team);
-				listener.updateText(team.getName() + " will be removed");
-				// System.out.println(team.getName() + " kommer raderas");
+				System.out.println(team.getName() + " will be removed");
 			}
 		}
 		// Removes the list with the relegated teams

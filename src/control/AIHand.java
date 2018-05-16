@@ -10,19 +10,20 @@ import boundary.PrintListener;
 import entity.Match;
 import gui.PaintNetwork;
 
-
 /**
  * Class runs the training and testing of the neural network
+ * 
  * @author Oscar, Johannes, Sven
  *
  */
-public class AIHand{
+public class AIHand {
 	private DataSet trainingSet;
 	private PrintListener listener;
 	private int currentIteration;
 
 	/**
 	 * Constructor
+	 * 
 	 * @param listener listener-interface used for updates sent to GUI
 	 */
 	public AIHand(PrintListener listener) {
@@ -33,10 +34,8 @@ public class AIHand{
 	/**
 	 * Tests a neural network with a dataset and prints out the input and output.
 	 * 
-	 * @param nnet
-	 *            The neural network
-	 * @param testSet
-	 *            the dataset to be tested.
+	 * @param nnet The neural network
+	 * @param testSet the dataset to be tested.
 	 */
 	public static void testNeuralNetwork(NeuralNetwork nnet, DataSet testSet) {
 		for (DataSetRow dataRow : testSet.getRows()) {
@@ -49,10 +48,8 @@ public class AIHand{
 	/**
 	 * Adds a match to a dataset.
 	 * 
-	 * @param match
-	 *            the match that is to be added to the dataset.
-	 * @param dataset
-	 *            to which the match is to added to.
+	 * @param match the match that is to be added to the dataset.
+	 * @param dataset to which the match is to added to.
 	 */
 	public static void addMatchToDataSet(Match match, DataSet dataset) {
 		double[] inArr = match.getMatchArray();
@@ -62,6 +59,7 @@ public class AIHand{
 
 	/**
 	 * Loads an existing neural network and sets the rules for it. Then it's trained on the dataset.
+	 * 
 	 * @param data the dataset to use
 	 * @param norm normalization-class to use for data-normalization
 	 * @param iterations how many iterations that will be done during training
@@ -70,10 +68,13 @@ public class AIHand{
 	 * @param searchPath search path for the nn-network
 	 * @param finalNNName what to save the trained network as
 	 */
-	public void trainNetwork(DataSet data, Norm norm, int iterations, double learningRate, double momentum, String searchPath, String finalNNName) {
+	public void trainNetwork(DataSet data, Norm norm, int iterations, double learningRate, double momentum,
+			String searchPath, String finalNNName) {
 		norm.normalize(data); // Normalize the data in the dataset
 
-		MultiLayerPerceptron MLP = (MultiLayerPerceptron) MultiLayerPerceptron.createFromFile(searchPath); // Load the network template
+		MultiLayerPerceptron MLP = (MultiLayerPerceptron) MultiLayerPerceptron.createFromFile(searchPath); // Load the
+																											// network
+																											// template
 		System.out.println("Network loaded");
 
 		// Set the rules for training of the network
@@ -97,7 +98,7 @@ public class AIHand{
 		pn.initiate(MLP);
 
 		// Update of progressbar in GUI
-		while(currentIteration < iterations) {
+		while (currentIteration < iterations) {
 			currentIteration = learningRule.getCurrentIteration();
 			listener.updateProgress(currentIteration, iterations);
 			pn.update(MLP);

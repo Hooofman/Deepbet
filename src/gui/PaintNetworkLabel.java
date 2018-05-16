@@ -34,8 +34,11 @@ public class PaintNetworkLabel extends JPanel implements Runnable{
 
 	public void initiate(MultiLayerPerceptron MLP) {
 		int xplus = 0;
+		int yplus = 0;
+		
 
 		for (int i = 0; i < MLP.getLayersCount(); i++) {
+			yplus = height/(MLP.getLayersCount());
 			layer.get(i).clear();
 			int neuronsAtThisLayer = MLP.getLayerAt(i).getNeuronsCount();
 			xplus = width / (neuronsAtThisLayer + 1);
@@ -46,7 +49,7 @@ public class PaintNetworkLabel extends JPanel implements Runnable{
 				if (r > 100) {
 					r = 100;
 				}
-				layer.get(i).add(new NeuroPaint((j + 1) * xplus, i * 195 + 50, r));
+				layer.get(i).add(new NeuroPaint((j + 1) * xplus, i * yplus+50, r));
 				layer.get(i).get(j).setStrength(netInput);
 				layer.get(i).get(j).setInputConnections(MLP.getLayerAt(i).getNeuronAt(j).getInputConnections());
 

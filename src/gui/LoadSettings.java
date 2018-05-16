@@ -17,6 +17,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import boundary.ReadFromFile;
 import control.Controller;
 
+/**
+ * Graphical user interface that handles the event of a user who wants to load
+ * specific settings to the main GUI.
+ * 
+ * @author Sven Lindqvist
+ *
+ */
 public class LoadSettings extends JPanel {
 	private GUI gui;
 	private String indicator;
@@ -26,6 +33,15 @@ public class LoadSettings extends JPanel {
 	private JLabel lblPathName;
 	private Controller controller;
 
+	/**
+	 * Creates the panel and sets the indicator.
+	 * 
+	 * @param cont
+	 *            The controller.
+	 * @param indicator
+	 *            Indicates if it's database, AI or league settings the user wants
+	 *            to load.
+	 */
 	public LoadSettings(Controller cont, String indicator) {
 		this.controller = cont;
 		this.indicator = indicator;
@@ -66,8 +82,16 @@ public class LoadSettings extends JPanel {
 		btnChoosePath.addActionListener(l);
 	}
 
+	/**
+	 * Inner class that handles the input from the user.
+	 * 
+	 * @author Sven Lindqvist
+	 *
+	 */
 	private class Listener implements ActionListener {
-
+		/**
+		 * Depending on the indicator the correct information is loaded.
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnAdd && indicator.equals("Database")) { // Database
@@ -102,9 +126,7 @@ public class LoadSettings extends JPanel {
 				if (indicator.equals("Network")) {
 					FileNameExtensionFilter filter = new FileNameExtensionFilter("Only NN-files", "nnet");
 					fileChooser.addChoosableFileFilter(filter);
-					// fileChooser.setFileFilter(filter);
 				}
-				// fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				int returnVal = fileChooser.showOpenDialog(LoadSettings.this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					File file = fileChooser.getSelectedFile();

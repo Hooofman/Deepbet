@@ -10,11 +10,21 @@ import boundary.PrintListener;
 import entity.Match;
 import gui.PaintNetwork;
 
+
+/**
+ * Class runs the training and testing of the neural network
+ * @author Oscar, Johannes, Sven
+ *
+ */
 public class AIHand{
 	private DataSet trainingSet;
 	private PrintListener listener;
 	private int currentIteration;
-	
+
+	/**
+	 * Constructor
+	 * @param listener listener-interface used for updates sent to GUI
+	 */
 	public AIHand(PrintListener listener) {
 		this.listener = listener;
 		currentIteration = 0;
@@ -80,12 +90,12 @@ public class AIHand{
 			}
 		}.start();
 		System.out.println("Learning started");
-		
+
 		// Create instance that will visualize network and start the thread
 		PaintNetwork pn = new PaintNetwork(MLP);
 		new Thread(pn).start();
 		pn.initiate(MLP);
-		
+
 		// Update of progressbar in GUI
 		while(currentIteration < iterations) {
 			currentIteration = learningRule.getCurrentIteration();
@@ -96,14 +106,14 @@ public class AIHand{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
-		
+
 		System.out.println("Learning complete. Starts testing of netork..");
-		
+
 		testNeuralNetwork(MLP, data); // Test the network with input from dataset
 		System.out.println("Testing complete");
-		
+
 		MLP.save(finalNNName); // Save the trained network
 		System.out.println("Network saved");
 	}

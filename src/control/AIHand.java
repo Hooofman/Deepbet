@@ -1,16 +1,5 @@
 package control;
 
-import java.awt.Canvas;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-import java.util.Arrays;
-
-import javax.swing.JFrame;
-
 import org.neuroph.core.NeuralNetwork;
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
@@ -21,12 +10,24 @@ import boundary.PrintListener;
 import entity.Match;
 import gui.PaintNetwork;
 
+
+/**
+ * Class runs the training and testing of the neural network
+ * @author Oscar, Johannes, Sven
+ *
+ */
 public class AIHand{
 	private DataSet trainingSet;
 	private PrintListener listener;
+	private int currentIteration;
 
+	/**
+	 * Constructor
+	 * @param listener listener-interface used for updates sent to GUI
+	 */
 	public AIHand(PrintListener listener) {
 		this.listener = listener;
+		currentIteration = 0;
 	}
 
 	/**
@@ -42,8 +43,6 @@ public class AIHand{
 			nnet.setInput(dataRow.getInput());
 			nnet.calculate();
 			double[] networkOutput = nnet.getOutput();
-			//System.out.print("Input: " + Arrays.toString(dataRow.getInput()));
-			//System.out.println(" Output: " + Arrays.toString(networkOutput));
 		}
 	}
 
@@ -62,69 +61,60 @@ public class AIHand{
 	}
 
 	/**
-	 * Creates or loads an existing neural network and sets the rules for it. Then
-	 * it's trained on the dataset.
-	 * 
-	 * @param data
-	 *            the dataset the network is to train on.
+	 * Loads an existing neural network and sets the rules for it. Then it's trained on the dataset.
+	 * @param data the dataset to use
+	 * @param norm normalization-class to use for data-normalization
+	 * @param iterations how many iterations that will be done during training
+	 * @param learningRate the learning rate of the network
+	 * @param momentum momentum used during training
+	 * @param searchPath search path for the nn-network
+	 * @param finalNNName what to save the trained network as
 	 */
-	public void trainNetwork(DataSet data, Norm norm, int iterations, double learningRate, double momentum,
-			String searchPath, String finalNNName) {
-		// Normalizer norm = new MaxMinNormalizer();
-		norm.normalize(data);
+	public void trainNetwork(DataSet data, Norm norm, int iterations, double learningRate, double momentum, String searchPath, String finalNNName) {
+		norm.normalize(data); // Normalize the data in the dataset
 
-		// MultiLayerPerceptron MLP = new
-		// MultiLayerPerceptron(TransferFunctionType.SIGMOID, 22, 15, 7, 5, 3);
-		// MultiLayerPerceptron MLP = (MultiLayerPerceptron)
-		// MultiLayerPerceptron.createFromFile("biasNy.nnet");
-		MultiLayerPerceptron MLP = (MultiLayerPerceptron) MultiLayerPerceptron.createFromFile(searchPath);
-		listener.updateText("Network created");
-		// System.out.println("Nätverk skapat");
+		MultiLayerPerceptron MLP = (MultiLayerPerceptron) MultiLayerPerceptron.createFromFile(searchPath); // Load the network template
+		System.out.println("Network loaded");
 
-		// MLP.randomizeWeights();
+		// Set the rules for training of the network
 		MomentumBackpropagation learningRule = new MomentumBackpropagation();
-		// SupervisedLearning learningRule = (SupervisedLearning)MLP.getLearningRule();
-		learningRule.setMaxIterations(iterations); // make sure we can end.
+		learningRule.setMaxIterations(iterations);
 		learningRule.setLearningRate(learningRate);
 		learningRule.setMomentum(momentum);
 		MLP.setLearningRule(learningRule);
+
+		// Start the training of the network
 		new Thread() {
 			public void run() {
 				MLP.learn(data);
 			}
 		}.start();
+		System.out.println("Learning started");
+
+		// Create instance that will visualize network and start the thread
 		PaintNetwork pn = new PaintNetwork(MLP);
 		new Thread(pn).start();
 		pn.initiate(MLP);
 
-		int current = 0;
-		int currentOld = 0;
-		System.out.println("Learning started");
-		while(current < iterations) {
-			current = learningRule.getCurrentIteration();
-			
-				currentOld = current;
-				listener.updateProgress(current, iterations);
-				pn.update(MLP);
-
+		// Update of progressbar in GUI
+		while(currentIteration < iterations) {
+			currentIteration = learningRule.getCurrentIteration();
+			listener.updateProgress(currentIteration, iterations);
+			pn.update(MLP);
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 		}
 
+		System.out.println("Learning complete. Starts testing of netork..");
 
-		listener.updateText("Learning complete");
-		// System.out.println("Inlärning klar");
-		testNeuralNetwork(MLP, data);
-		listener.updateText("Testing complete");
-		// System.out.println("Testning klar");
-		MLP.save(finalNNName);
-		listener.updateText("Network saved");
-		// System.out.println("Nätverk sparat");
+		testNeuralNetwork(MLP, data); // Test the network with input from dataset
+		System.out.println("Testing complete");
+
+		MLP.save(finalNNName); // Save the trained network
+		System.out.println("Network saved");
 	}
-
 }

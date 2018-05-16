@@ -5,7 +5,8 @@ import java.util.Collections;
 
 /**
  * Class for creating the league table 
- * @author Sven Lindqvist
+ * @author Sven Lindqvist, Oscar Malmqvist, Johannes Roos och Oskar Engström
+ *         Magnusson.
  *
  */
 public class LeagueTable {

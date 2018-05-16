@@ -45,7 +45,9 @@ import control.Controller;
 
 /**
  * Graphical user interface for an administer to set settings for the AI, and
- * search paths for documents generated during the training of the network.
+ * search paths for documents generated during the training of the network. It
+ * also displays the results of the calculations, the progress of the training
+ * and error messages.
  * 
  * @author Sven Lidqvist, Johannes Roos, Oscar Malmqvist.
  *

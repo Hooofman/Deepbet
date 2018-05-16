@@ -83,7 +83,7 @@ public class LoadSettings extends JPanel {
 	}
 
 	/**
-	 * Inner class that handles the input from the user.
+	 * Inner class that handles the input from the user during a loading session.
 	 * 
 	 * @author Sven Lindqvist
 	 *

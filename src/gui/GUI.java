@@ -274,7 +274,7 @@ public class GUI extends JFrame implements ActionListener {
 	
 	public void addNetworkFrame(PaintNetwork paintNetwork) {
 		this.paintNetwork = paintNetwork;
-		pnlCenter.add(paintNetwork);
+		pnlCenter.add(paintNetwork.getContentPane());
 	}
 
 	public void createConsolePanel() {

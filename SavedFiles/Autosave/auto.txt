@@ -6,15 +6,7 @@ games
 0.7
 0.2
 Fixed
-C:\Users\Sven-\OneDrive\Dokument\GitHub\DeepBet\Deepbet\SavedFiles/nnet/bias1Mod.nnet
+C:\git\Deepbet\SavedFiles/nnet/bias1Mod.nnet
 nura
 PL
-113
- 114
- 4
- 301
- 341
- 354
- 398
- 426
- 445
+445

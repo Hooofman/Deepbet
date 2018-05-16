@@ -44,7 +44,7 @@ public class PaintNetwork extends JFrame implements Runnable {
 	public PaintNetwork(MultiLayerPerceptron MLP) throws HeadlessException {
 		setTitle("Network");
 		setSize(width, height);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		setVisible(true);
 		for (int i = 0; i < MLP.getLayersCount(); i++) {
 			layer.add(new ArrayList<NeuroPaint>());

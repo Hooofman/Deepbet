@@ -28,6 +28,5 @@ public class StartGUI {
 				controller.loadAutoSaved("/SavedFiles/Autosave/auto.txt");
 			}
 		});
-
 	}
 }

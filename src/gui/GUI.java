@@ -58,7 +58,6 @@ public class GUI extends JFrame implements ActionListener {
 	private JTextPane consolText;
 	private JPanel pnlTextArea;
 	private JScrollPane scrollBar;
-	private JScrollPane scrollWest;
 
 	// Upper panel
 	private JLabel lblTitle;

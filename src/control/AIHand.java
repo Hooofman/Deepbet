@@ -20,7 +20,8 @@ public class AIHand {
 	private DataSet trainingSet;
 	private Controller controller;
 	private int currentIteration;
-
+	private int iterations;
+	private PaintNetworkLabel pn;
 	/**
 	 * Constructor
 	 * 
@@ -71,7 +72,7 @@ public class AIHand {
 	public void trainNetwork(DataSet data, Norm norm, int iterations, double learningRate, double momentum,
 			String searchPath, String finalNNName) {
 		norm.normalize(data); // Normalize the data in the dataset
-
+		this.iterations = iterations;
 		MultiLayerPerceptron MLP = (MultiLayerPerceptron) MultiLayerPerceptron.createFromFile(searchPath); // Load the
 		// network
 		// template
@@ -93,39 +94,40 @@ public class AIHand {
 		System.out.println("Learning started");
 
 		// Create instance that will visualize network and start the thread
-		PaintNetworkLabel pn = new PaintNetworkLabel(MLP);
+		pn = new PaintNetworkLabel(MLP);
 		new Thread(pn).start();
 		controller.sendNetworkFrame(pn);
 		pn.initiate(MLP);
 		
 		int oldIteration = 0;
-		new Thread() {
+		Thread t1 = new Thread() {
 			public void run() {
 				while (currentIteration < iterations) {
 					currentIteration = learningRule.getCurrentIteration();
-					controller.updateProgress(currentIteration, iterations);
-//					try {
-//						Thread.sleep(10);
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
+					synchedPainting(1);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 				this.interrupt();
 			}
-		}.start();
+		};
+		t1.start();
 
 		// Update of progressbar in GUI
 		while (currentIteration < iterations) {
 			currentIteration = learningRule.getCurrentIteration();
 			if(oldIteration < currentIteration) {
 				if(controller.shouldIDraw()) {
-					pn.paint(pn.getGraphics());
+					synchedPainting(2);
 				}
 				pn.updateInputConnections(MLP);
 				oldIteration = currentIteration;
 			}
 			try {
-				Thread.sleep(500);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -139,5 +141,21 @@ public class AIHand {
 
 		MLP.save(finalNNName); // Save the trained network
 		System.out.println("Network saved");
+	}
+	
+	public synchronized void synchedPainting(int who) {
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		if(who == 1) {
+			controller.updateProgress(currentIteration, iterations);
+		}else if(who == 2) {
+			pn.paint(pn.getGraphics());
+		}
+			
+		
 	}
 }

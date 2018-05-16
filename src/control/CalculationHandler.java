@@ -90,8 +90,11 @@ public class CalculationHandler extends Thread implements PrintListener {
 	 */
 	public void calculate() {
 		LeagueCreator ligaSkapare = null;
+	
 		connection.connect();
-
+		System.out.println("Database connected");
+		
+		System.out.println("Starts leaguecreator..");
 		ligaSkapare = new LeagueCreator(leagueName, leagueAPIId, datasetName);
 		ligaSkapare.createLeague();
 
@@ -100,18 +103,18 @@ public class CalculationHandler extends Thread implements PrintListener {
 
 		// Load the trainingset
 		DataSet trainingSet = DataSet.load(datasetName);
+		System.out.println("Dataset loaded..");
 
 		// Train the AI with the trainingset
+		System.out.println("Starts ai-handler..");
 		new AIHand(this).trainNetwork(trainingSet, norm, iterations, learningRate, momentum, searchPath, finalNNName);
 		ArrayList<Season> seasons = league.getSeasons(); // Get the seasons from league
 		ArrayList<Match> matchesToTest = new ArrayList<Match>(); // Create a list that will contain the upcoming matches
 		Season seasonToTest = seasons.get(seasons.size() - 1); // The current season of the league
 		ArrayList<Match> matchesFromSeason = seasonToTest.getAllMatches(); // List of all the matches in the season
 
-		// Get the upcoming matches and add them to the list of matches that will be
-		// tested
-		System.out.print(matchesFromSeason.size() + " " + seasonToTest.toString() + " " + seasons.size() + " "
-				+ matchesFromSeason.get(1).getStatus());
+		// Get the upcoming matches and add them to the list of matches that will be tested
+		System.out.println("Starts updating old matches and produce output for unplayed matches..");
 		for (Match match : matchesFromSeason) {
 			if (match.getStatus().equals("TIMED")) {
 				matchesToTest.add(match);
@@ -119,11 +122,11 @@ public class CalculationHandler extends Thread implements PrintListener {
 				connection.updateCalculatedMatches(match);
 			}
 		}
-
-		ProduceOutput produceOutput = new ProduceOutput(finalNNName);
+		
 		// Produce the calculation for each match and save it to the database.
-
-		// Finns inga matcher att testa!
+		System.out.println("Starts ProduceOutput");
+		ProduceOutput produceOutput = new ProduceOutput(finalNNName);
+		
 		for (Match match : matchesToTest) {
 			produceOutput.getOutputForMatch(match, norm);
 			connection.insertIntoTable(table);
@@ -132,7 +135,9 @@ public class CalculationHandler extends Thread implements PrintListener {
 
 		// Close the db-conection
 		connection.disconnect();
+		System.out.println("Db-connection closed");
 		controller.enableButtons();
+		System.out.println("Completed!");
 	}
 
 	@Override

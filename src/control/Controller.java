@@ -3,10 +3,13 @@ package control;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import javax.swing.JFrame;
+
 import boundary.ConnectDatabase;
 import boundary.ReadFromFile;
 import gui.GUI;
 import gui.LoadSettings;
+import gui.PaintNetwork;
 import gui.SaveSettings;
 
 /**
@@ -128,6 +131,10 @@ public class Controller {
 	public void updateProgress(int currentIteration, int maxIteration) {
 		int progress = 1000 * currentIteration / maxIteration;
 		gui.showProgress(progress);
+	}
+
+	public void sendNetworkFrame(PaintNetwork frame) {
+		gui.addNetworkFrame(frame);
 	}
 
 	/**

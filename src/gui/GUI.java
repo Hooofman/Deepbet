@@ -44,9 +44,12 @@ import javax.swing.text.StyledDocument;
 import control.Controller;
 
 /**
- * Grap
+ * Graphical user interface for an administer to set settings for the AI, and
+ * search paths for documents generated during the training of the network. It
+ * also displays the results of the calculations, the progress of the training
+ * and error messages.
  * 
- * @author Sven-
+ * @author Sven Lidqvist, Johannes Roos, Oscar Malmqvist.
  *
  */
 public class GUI extends JFrame implements ActionListener {
@@ -117,16 +120,15 @@ public class GUI extends JFrame implements ActionListener {
 	private JPanel pnlUpper;
 	private JPanel pnlButtons;
 
-	private JTabbedPane tabbedPane;
-
 	private StyledDocument doc;
 
+	/**
+	 * Constructs the GUI.
+	 */
 	public GUI() {
 		UIManager.put("ProgressBar.selectionForeground", Color.black);
 		UIManager.put("ProgressBar.selectionBackground", Color.black);
 		setTitle("DeepBet");
-		
-
 
 		pnlANN = new JPanel();
 		pnlMain = new JPanel();
@@ -142,7 +144,7 @@ public class GUI extends JFrame implements ActionListener {
 		progressBar = new JProgressBar(0, 1000);
 		progressBar.setValue(0);
 		progressBar.setStringPainted(true);
-		
+
 		lblPassword = new JLabel("Password");
 		lblUserName = new JLabel("User name");
 		lblDBAddress = new JLabel("Database address");
@@ -167,7 +169,7 @@ public class GUI extends JFrame implements ActionListener {
 		momentum = new JTextField("0.2");
 		txtNeuralNetWorkPath = new JTextField("");
 		txtDatasetName = new JTextField("Fixed");
-		txtFinalNNName = new JTextField("Måste fixas, vet ej vad det är");
+		txtFinalNNName = new JTextField("");
 
 		lblLeagueName = new JLabel("League name");
 		lblLeagueAPIid = new JLabel("Season-IDs from API, separate with ,");
@@ -183,7 +185,7 @@ public class GUI extends JFrame implements ActionListener {
 
 		comboBoxOpenAll = new JComboBox();
 		comboBoxOpenNetwork = new JComboBox();
-		comboBoxOpenLeague= new JComboBox();
+		comboBoxOpenLeague = new JComboBox();
 
 		pnlBottom = new JPanel(); // Holds calc Button
 		pnlUpper = new JPanel(); // Upper Panel
@@ -199,7 +201,7 @@ public class GUI extends JFrame implements ActionListener {
 		createConsolePanel();
 		createButtonPanel();
 		createPnlUpper();
-		createMainPnl();	
+		createMainPnl();
 		addActionListeners();
 
 		this.add(pnlMain);
@@ -207,10 +209,8 @@ public class GUI extends JFrame implements ActionListener {
 		this.pack();
 		this.setVisible(true);
 		setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-		
-	}
-	
 
+	}
 
 	public void setController(Controller controller) {
 		this.controller = controller;
@@ -236,7 +236,7 @@ public class GUI extends JFrame implements ActionListener {
 		lblTitle = new JLabel();
 		lblTitle.setIcon(new ImageIcon(logoPath));
 		pnlUpper.add(lblTitle);
-		
+
 		pnlUpper.setBackground(Color.DARK_GRAY);
 	}
 
@@ -252,8 +252,7 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void createWestPanel() {
-		pnlWest.setPreferredSize(new Dimension(400,400));
-		//pnlWest.setLayout(new BoxLayout(pnlWest, BoxLayout.PAGE_AXIS));
+		pnlWest.setPreferredSize(new Dimension(400, 400));
 		pnlWest.setBorder(new EmptyBorder(5, 5, 5, 5));
 		pnlWest.addTab("Database", pnlDB);
 		pnlWest.addTab("Network", pnlANN);
@@ -288,6 +287,9 @@ public class GUI extends JFrame implements ActionListener {
 		pnlMain.add(pnlUpper, BorderLayout.NORTH);
 	}
 
+	/**
+	 * Creates the panel holding the information concerning the database.
+	 */
 	public void createPnlDB() {
 		pnlDB.setLayout(new GridLayout(5, 2, 5, 5));
 		pnlDB.setBorder(new TitledBorder("Database"));
@@ -311,6 +313,9 @@ public class GUI extends JFrame implements ActionListener {
 		pnlDB.add(btnSaveDBSettings);
 	}
 
+	/**
+	 * Creates the panel holding information concerning the artificial network.
+	 */
 	public void createAnnPanel() {
 		pnlANN.setLayout(new GridLayout(7, 2, 5, 5));
 		pnlANN.setBorder(new TitledBorder("Neural network"));
@@ -332,7 +337,6 @@ public class GUI extends JFrame implements ActionListener {
 		pnlANN.add(txtDatasetName);
 
 		pnlANN.add(comboBoxOpenNetwork);
-		//	pnlANN.add(btnLoadNetwork);
 		pnlANN.add(txtNeuralNetWorkPath);
 
 		pnlANN.add(lblFinalNNName);
@@ -355,7 +359,6 @@ public class GUI extends JFrame implements ActionListener {
 		pnlLeague.add(lblLeagueAPIid);
 		pnlLeague.add(txtLeagueAPIid);
 		pnlLeague.add(comboBoxOpenLeague);
-		//pnlLeague.add(btnLoadLeagueSettings);
 		pnlLeague.add(btnSaveLeaguesettings);
 	}
 
@@ -365,9 +368,11 @@ public class GUI extends JFrame implements ActionListener {
 		pnlButtons.add(btnSaveAll);
 		pnlButtons.add(btnLoadAll);
 		pnlButtons.add(comboBoxOpenAll);
-		//		pnlButtons.add(btnCalc);
 	}
 
+	/**
+	 * Lists the files in a folder and displays them in combo boxes.
+	 */
 	public void fixComboBox() {
 		File folder = new File("SavedFiles/All");
 		File[] listOfFiles = folder.listFiles();
@@ -393,24 +398,51 @@ public class GUI extends JFrame implements ActionListener {
 			}
 		}
 	}
+
+	/**
+	 * Creates a string with the information that is to be saved concerning the
+	 * database.
+	 * 
+	 * @return String The string containing the information that is to be saved.
+	 */
 	public String getStringToSaveDB() {
 		String str = password.getText() + "," + userName.getText() + "," + dbAddress.getText() + "," + table.getText();
 		return str;
 	}
 
+	/**
+	 * Creates a string with the information that is to be saved concerning the
+	 * artificial network.
+	 * 
+	 * @return String The string containing the information that is to be saved.
+	 */
 	public String getStringToSaveANN() {
 		String str = iterations.getText() + "," + learningRate.getText() + "," + momentum.getText() + ","
 				+ txtDatasetName.getText() + "," + txtNeuralNetWorkPath.getText() + "," + txtFinalNNName.getText();
 		return str;
 	}
 
+	/**
+	 * Creates a string with the information that is to be saved concerning the
+	 * league.
+	 * 
+	 * @return String The string containing the information that is to be saved.
+	 * 
+	 */
 	public String getStringToSaveLeague() {
 		String str = txtLeagueName.getText() + "," + txtLeagueAPIid.getText();
 		return str;
 	}
 
+	/**
+	 * Creates a string with the information that is to be saved concerning all the
+	 * information in the GUI.
+	 * 
+	 * @return String The string containing the information that is to be saved.
+	 * 
+	 */
 	public String getStringToSaveAll() {
-		return getStringToSaveDB() +","+getStringToSaveANN()+","+getStringToSaveLeague();
+		return getStringToSaveDB() + "," + getStringToSaveANN() + "," + getStringToSaveLeague();
 	}
 
 	public void setDBSettings(String[] array) {
@@ -445,6 +477,12 @@ public class GUI extends JFrame implements ActionListener {
 		setLeagueSettings(Arrays.copyOfRange(array, 10, 13));
 	}
 
+	/**
+	 * Adds text in the console in the GUI.
+	 * 
+	 * @param str
+	 *            The text that is to be added to the console in the GUI.
+	 */
 	public void addToTextConsole(String str) {
 		try {
 			doc.insertString(doc.getLength(), "\n" + str, null);
@@ -462,12 +500,15 @@ public class GUI extends JFrame implements ActionListener {
 		btnCalc.setBackground(Color.GREEN);
 		btnCalc.setEnabled(true);
 	}
-	
+
 	public void showProgress(int progress) {
 		progressBar.setValue(progress);
-		progressBar.setString((double)progress/10 +" %");
+		progressBar.setString((double) progress / 10 + " %");
 	}
 
+	/**
+	 * Handles the input from the user when a button is pushed.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnSaveDBSettings) {
@@ -490,23 +531,22 @@ public class GUI extends JFrame implements ActionListener {
 					getStringToSaveDB() + "," + getStringToSaveANN() + "," + getStringToSaveLeague());
 		} else if (e.getSource() == btnLoadAll) {
 			controller.loadSettings("LoadAll");
-		}else if (e.getSource() == comboBoxOpenAll) {
-			controller.loadFromComboBox("SavedFiles/All/"+(String)comboBoxOpenAll.getSelectedItem(), "all");
-		}else if (e.getSource() == comboBoxOpenNetwork) {
-			controller.loadFromComboBox("SavedFiles/nnet/"+ (String)comboBoxOpenNetwork.getSelectedItem(), "nnet");
-		}else if (e.getSource() == comboBoxOpenLeague) {
-			controller.loadFromComboBox("SavedFiles/league/"+ (String)comboBoxOpenLeague.getSelectedItem(), "league");
+		} else if (e.getSource() == comboBoxOpenAll) {
+			controller.loadFromComboBox("SavedFiles/All/" + (String) comboBoxOpenAll.getSelectedItem(), "all");
+		} else if (e.getSource() == comboBoxOpenNetwork) {
+			controller.loadFromComboBox("SavedFiles/nnet/" + (String) comboBoxOpenNetwork.getSelectedItem(), "nnet");
+		} else if (e.getSource() == comboBoxOpenLeague) {
+			controller.loadFromComboBox("SavedFiles/league/" + (String) comboBoxOpenLeague.getSelectedItem(), "league");
 		}
-
 
 		else if (e.getSource() == btnCalc) {
 			controller.disableButtons();
-			controller.setDataBaseSettings(dbAddress.getText(), userName.getText(), password.getText(), "250", table.getText());
+			controller.setDataBaseSettings(dbAddress.getText(), userName.getText(), password.getText(), "250",
+					table.getText());
 			controller.calculate(iterations.getText(), learningRate.getText(), momentum.getText(),
 					txtNeuralNetWorkPath.getText(), txtDatasetName.getText(), txtFinalNNName.getText(),
 					txtLeagueName.getText(), txtLeagueAPIid.getText(), table.getText());
 		}
 	}
-
 
 }

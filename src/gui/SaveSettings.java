@@ -13,8 +13,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import boundary.WriteToFile;
 import control.Controller;
 
+/**
+ * Graphical user interface that handles the event of a user who wants to save
+ * specific settings from the main GUI.
+ * 
+ * @author Sven Lindqvist
+ *
+ */
 public class SaveSettings extends JPanel {
 	private GUI gui;
 	private String indicator;
@@ -25,6 +33,17 @@ public class SaveSettings extends JPanel {
 	private String dataToSave;
 	private Controller controller;
 
+	/**
+	 * Creates the user interface.
+	 * 
+	 * @param controller
+	 *            The controller
+	 * @param indicator
+	 *            Indicates if it's database, AI or league information that is to be
+	 *            saved.
+	 * @param dataToSave
+	 *            The information that is to be saved.
+	 */
 	public SaveSettings(Controller controller, String indicator, String dataToSave) {
 		this.controller = controller;
 		this.indicator = indicator;
@@ -66,8 +85,18 @@ public class SaveSettings extends JPanel {
 		btnChoosePath.addActionListener(l);
 	}
 
+	/**
+	 * Inner class that handles the input from the user during a saving session.
+	 * 
+	 * @author Sven Lindqvist
+	 *
+	 */
 	private class Listener implements ActionListener {
-
+		/**
+		 * Depending on the indicator the information is saved with an indicator that
+		 * insures that when the information is read, the information is displayed in
+		 * the correct location.
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnAdd && indicator.equals("SaveDB")) {
@@ -90,7 +119,6 @@ public class SaveSettings extends JPanel {
 			} else if (e.getSource() == btnChoosePath) {
 
 				JFileChooser fileChooser = new JFileChooser();
-				// fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				int returnVal = fileChooser.showOpenDialog(SaveSettings.this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					File file = fileChooser.getSelectedFile();

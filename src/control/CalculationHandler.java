@@ -6,14 +6,24 @@ import org.neuroph.core.data.DataSet;
 
 import boundary.ConnectDatabase;
 import boundary.PrintListener;
+import control.LeagueCreator;
+import control.Norm;
+import control.ProduceOutput;
 import entity.League;
 import entity.Match;
 import entity.Season;
 
+/**
+ * Handles the calculation of the network. 
+ * Decides what matches to test and what to not test. 
+ * Connects to the database and updates this aswell
+ * @author Sven Lindqvist, Oscar Malmqvist, Johannes Roos och Oskar Engström
+ *         Magnusson.
+ *
+ */
 public class CalculationHandler extends Thread implements PrintListener {
 	private static Norm norm = new Norm();
 	private Controller controller;
-	private String text;
 	private int iterations;
 	private double learningRate;
 	private double momentum;
@@ -26,6 +36,20 @@ public class CalculationHandler extends Thread implements PrintListener {
 	private String[] temp; // Temporary holder for leagueAPIid.
 	private ConnectDatabase connection;
 
+	/**
+	 * Constructor that sets all the parameters 
+	 * @param controller 	the controller connected to this class
+	 * @param iterations	Number of interations
+	 * @param learningRate	Learningrate
+	 * @param momentum		Momentum
+	 * @param searchPath	Path to the .nnet file to use in calculation
+	 * @param datasetName	Name of the dataset to use	
+	 * @param finalNNName	Path to where the .nnet will be saved after calculations
+	 * @param leagueName	Leaguename
+	 * @param leagueAPIid	Array of API-IDs to get data from
+	 * @param table			Table to save the data in in the database
+	 * @param connection	The connections to use to connecct to the database
+	 */
 	public CalculationHandler(Controller controller, int iterations, double learningRate, double momentum,
 			String searchPath, String datasetName, String finalNNName, String leagueName, String[] leagueAPIid,
 			String table, ConnectDatabase connection) {
@@ -41,22 +65,8 @@ public class CalculationHandler extends Thread implements PrintListener {
 		this.connection = connection;
 		temp = leagueAPIid;
 		start();
-		// this.leagueAPIId = convertStringToIntArray(leagueAPIid);
 	}
 
-	// public int[] convertStringToIntArray(String[] strArray) {
-	// int[] array = new int[strArray.length];
-	// try {
-	// for (int i = 0; i < array.length; i++) {
-	// array[i] = Integer.parseInt(strArray[i]);
-	// }
-	//
-	// } catch (NumberFormatException e) {
-	// controller.addToConsoleText("ERROR! INCORRECT INPUT IN LEAGUE INPUT");
-	// Thread.currentThread().interrupt();
-	// }
-	// return array;
-	// }
 	/**
 	 * Converts the String[] temp to an int-array.
 	 */
@@ -69,30 +79,21 @@ public class CalculationHandler extends Thread implements PrintListener {
 			this.leagueAPIId = array;
 
 		} catch (NumberFormatException e) {
-			controller.addToConsoleText(e + "\nERROR! INCORRECT INPUT IN LEAGUE INPUT");
+			System.out.println(e + "\nERROR! INCORRECT INPUT IN LEAGUE INPUT");
 			this.interrupt();
 		}
 		calculate();
 	}
 
+	/**
+	 * Calculates the outcome of the upcoming matches and puts them into the database
+	 */
 	public void calculate() {
-		// Ids used by the API to get the seasons
-		// int[] plApiId = { 113, 114, 4, 301, 341, 354, 398, 426, 445 };
-		// int[] plApiId = {398, 426, 445};
-		// int[] plApiId = {445};
 		LeagueCreator ligaSkapare = null;
-
-		// Create db-connection
-		// ConnectDatabase connection = new ConnectDatabase();
 		connection.connect();
 
-		// Create the leagueCreator and start it
-
 		ligaSkapare = new LeagueCreator(leagueName, leagueAPIId, this, datasetName);
-
 		ligaSkapare.createLeague();
-
-		////////////////////////////////////////////////////////////////// Test
 
 		// Get the created league
 		League league = ligaSkapare.getLeague();
@@ -106,14 +107,10 @@ public class CalculationHandler extends Thread implements PrintListener {
 		ArrayList<Match> matchesToTest = new ArrayList<Match>(); // Create a list that will contain the upcoming matches
 		Season seasonToTest = seasons.get(seasons.size() - 1); // The current season of the league
 		ArrayList<Match> matchesFromSeason = seasonToTest.getAllMatches(); // List of all the matches in the season
-		//
+
 		// Get the upcoming matches and add them to the list of matches that will be
 		// tested
-
-		updateText(matchesFromSeason.size() + "");
-		updateText(seasonToTest.toString());
-		updateText(seasons.size() + "");
-		updateText(matchesFromSeason.get(1).getStatus());
+		System.out.print(matchesFromSeason.size() + " " + seasonToTest.toString() + " " +seasons.size() + " " + matchesFromSeason.get(1).getStatus());
 		for (Match match : matchesFromSeason) {
 			if (match.getStatus().equals("TIMED")) {
 				matchesToTest.add(match);
@@ -125,7 +122,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		ProduceOutput produceOutput = new ProduceOutput(finalNNName);
 		// Produce the calculation for each match and save it to the database
 
-		////////////////////// Finns inga matcher att testa!
+		//Finns inga matcher att testa!
 		for (Match match : matchesToTest) {
 			produceOutput.getOutputForMatch(match, norm);
 			connection.insertIntoTable(table);
@@ -141,7 +138,9 @@ public class CalculationHandler extends Thread implements PrintListener {
 	public void updateText(String text) {
 		controller.addToConsoleText(text);
 	}
-
+	/**
+	 * Updates the progressbar in the GUI
+	 */
 	public void updateProgress(int current, int max) {
 		controller.updateProgress(current, max);
 	}

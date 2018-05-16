@@ -14,11 +14,10 @@ import entity.Match;
 import entity.Season;
 
 /**
- * Handles the calculation of the network. 
- * Decides what matches to test and what to not test. 
- * Connects to the database and updates this aswell
- * @author Sven Lindqvist, Oscar Malmqvist, Johannes Roos och Oskar Engström
- *         Magnusson.
+ * Handles the calculation of the network. Decides what matches to test and what to not test. Connects to the database
+ * and updates this aswell
+ * 
+ * @author Sven Lindqvist, Oscar Malmqvist, Johannes Roos och Oskar Engström Magnusson.
  *
  */
 public class CalculationHandler extends Thread implements PrintListener {
@@ -37,18 +36,19 @@ public class CalculationHandler extends Thread implements PrintListener {
 	private ConnectDatabase connection;
 
 	/**
-	 * Constructor that sets all the parameters 
-	 * @param controller 	the controller connected to this class
-	 * @param iterations	Number of interations
-	 * @param learningRate	Learningrate
-	 * @param momentum		Momentum
-	 * @param searchPath	Path to the .nnet file to use in calculation
-	 * @param datasetName	Name of the dataset to use	
-	 * @param finalNNName	Path to where the .nnet will be saved after calculations
-	 * @param leagueName	Leaguename
-	 * @param leagueAPIid	Array of API-IDs to get data from
-	 * @param table			Table to save the data in in the database
-	 * @param connection	The connections to use to connecct to the database
+	 * Constructor that sets all the parameters
+	 * 
+	 * @param controller the controller connected to this class
+	 * @param iterations Number of interations
+	 * @param learningRate Learningrate
+	 * @param momentum Momentum
+	 * @param searchPath Path to the .nnet file to use in calculation
+	 * @param datasetName Name of the dataset to use
+	 * @param finalNNName Path to where the .nnet will be saved after calculations
+	 * @param leagueName Leaguename
+	 * @param leagueAPIid Array of API-IDs to get data from
+	 * @param table Table to save the data in in the database
+	 * @param connection The connections to use to connecct to the database
 	 */
 	public CalculationHandler(Controller controller, int iterations, double learningRate, double momentum,
 			String searchPath, String datasetName, String finalNNName, String leagueName, String[] leagueAPIid,
@@ -110,7 +110,8 @@ public class CalculationHandler extends Thread implements PrintListener {
 
 		// Get the upcoming matches and add them to the list of matches that will be
 		// tested
-		System.out.print(matchesFromSeason.size() + " " + seasonToTest.toString() + " " +seasons.size() + " " + matchesFromSeason.get(1).getStatus());
+		System.out.print(matchesFromSeason.size() + " " + seasonToTest.toString() + " " + seasons.size() + " "
+				+ matchesFromSeason.get(1).getStatus());
 		for (Match match : matchesFromSeason) {
 			if (match.getStatus().equals("TIMED")) {
 				matchesToTest.add(match);
@@ -120,9 +121,9 @@ public class CalculationHandler extends Thread implements PrintListener {
 		}
 
 		ProduceOutput produceOutput = new ProduceOutput(finalNNName);
-		// Produce the calculation for each match and save it to the database
+		// Produce the calculation for each match and save it to the database.
 
-		//Finns inga matcher att testa!
+		// Finns inga matcher att testa!
 		for (Match match : matchesToTest) {
 			produceOutput.getOutputForMatch(match, norm);
 			connection.insertIntoTable(table);
@@ -138,6 +139,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 	public void updateText(String text) {
 		controller.addToConsoleText(text);
 	}
+
 	/**
 	 * Updates the progressbar in the GUI
 	 */

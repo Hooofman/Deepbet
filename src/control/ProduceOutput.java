@@ -23,7 +23,7 @@ public class ProduceOutput {
 	}
 
 	/**
-	 * Tests a match against the network to get an output of how the match will end
+	 * Tests a match against the network to get an output of how the match will end.
 	 * 
 	 * @param match the match to test
 	 * @param norm the normalized values

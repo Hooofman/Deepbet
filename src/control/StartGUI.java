@@ -5,6 +5,12 @@ import javax.swing.SwingUtilities;
 import boundary.WriteToFile;
 import gui.GUI;
 
+/**
+ * Starts the GUI, loads the autosaved files.
+ * On exit autosaves to "/SavedFiles/autosave/auto.txt"
+ * @author Johannes Roos
+ *
+ */
 public class StartGUI {
 	public static void main(String[] args) {
 

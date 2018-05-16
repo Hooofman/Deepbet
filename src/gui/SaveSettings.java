@@ -38,8 +38,7 @@ public class SaveSettings extends JPanel {
 	 * @param indicator Indicates if it's database, AI or league information that is to be saved.
 	 * @param dataToSave The information that is to be saved.
 	 */
-	public SaveSettings(Controller controller, String indicator, String dataToSave) {
-		this.controller = controller;
+	public SaveSettings(String indicator, String dataToSave) {
 		this.indicator = indicator;
 		this.dataToSave = dataToSave;
 

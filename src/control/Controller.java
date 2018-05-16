@@ -11,6 +11,7 @@ import gui.SaveSettings;
 
 /**
  * The main-controller class
+ * 
  * @author Oscar, Sven, Johannes
  *
  */
@@ -21,6 +22,7 @@ public class Controller {
 
 	/**
 	 * Constructor. Creates new DB-connection, points console-prints to GUI.
+	 * 
 	 * @param gui the GUI-instance to use
 	 */
 	public Controller(GUI gui) {
@@ -31,8 +33,8 @@ public class Controller {
 	}
 
 	/**
-	 * Redirects the System.out.print to the documents instead of console A new
-	 * thread listens to this new outputstream and prits in to the gui
+	 * Redirects the System.out.print to the documents instead of console A new thread listens to this new outputstream
+	 * and prits in to the gui
 	 */
 	public void pointConsoleToDocument() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -63,7 +65,7 @@ public class Controller {
 	}
 
 	public void saveSettings(String indicator, String data) {
-		new SaveSettings(this, indicator, data);
+		new SaveSettings(indicator, data);
 	}
 
 	public void loadSettings(String indicator) {
@@ -101,6 +103,7 @@ public class Controller {
 
 	/**
 	 * Loads autosaved settings
+	 * 
 	 * @param fileName what file to load settings from
 	 */
 	public void loadAutoSaved(String fileName) {
@@ -120,6 +123,7 @@ public class Controller {
 
 	/**
 	 * Update progress in gui
+	 * 
 	 * @param currentIteration current iteration
 	 * @param maxIteration the amount of iterations that will be done
 	 */
@@ -130,6 +134,7 @@ public class Controller {
 
 	/**
 	 * Loads settings from GUI
+	 * 
 	 * @param fileName the file to load settings from
 	 * @param indicator defines what to load settings for
 	 */
@@ -153,8 +158,7 @@ public class Controller {
 	}
 
 	/**
-	 * Receives settings for the neural network and sends them forward to the
-	 * classes that handles the AI.
+	 * Receives settings for the neural network and sends them forward to the classes that handles the AI.
 	 * 
 	 * @param it Number of iterations.
 	 * @param learnRate The learning rate that is to be used.

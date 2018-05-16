@@ -1,13 +1,13 @@
 Deepbet123
 deepbet
-jdbc:mysql://192.168.1.2:3306/deepbet
+jdbc:mysql://deepbet.ddns.net:3306/deepbet
 games
-1000
+20
 0.7
 0.2
 Fixed
-C:\Users\Vixen666\Documents\GitHub\HoofmanDeep\SavedFiles/nnet/bias2.nnet
-test.nnet
+C:\Users\Sven-\OneDrive\Dokument\GitHub\DeepBet\Deepbet\SavedFiles/nnet/bias2.nnet
+nura
 PL
 113
  114
@@ -17,3 +17,4 @@ PL
  354
  398
  426
+ 445

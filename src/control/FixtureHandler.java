@@ -12,7 +12,6 @@ import boundary.FetchApi;
 import entity.Match;
 import entity.Season;
 import entity.Team;
-import gui.AIHand;
 
 /**
  * Creates match-objects for an entire season and adds matches to dataset used

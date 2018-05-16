@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 import org.neuroph.core.NeuralNetwork;
 
+import boundary.PrintListener;
 import boundary.WriteToFile;
 import entity.Match;
-import gui.PrintListener;
 
 /**
  * Class that produces the output for a match. Uses a match-object and tests it

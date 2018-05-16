@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import boundary.PrintListener;
 import entity.League;
 import entity.Match;
 import entity.Season;
 import entity.Team;
-import gui.PrintListener;
 
 class TestLeague {
 	PrintListener pl = new PrintListener() {

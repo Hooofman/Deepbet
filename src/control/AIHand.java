@@ -1,4 +1,4 @@
-package gui;
+package control;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
@@ -17,8 +17,9 @@ import org.neuroph.core.data.DataSetRow;
 import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.nnet.learning.MomentumBackpropagation;
 
-import control.Norm;
+import boundary.PrintListener;
 import entity.Match;
+import gui.PaintNetwork;
 
 public class AIHand{
 	private DataSet trainingSet;

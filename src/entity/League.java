@@ -2,7 +2,7 @@ package entity;
 
 import java.util.ArrayList;
 
-import gui.PrintListener;
+import boundary.PrintListener;
 
 /**
  * Class for creating a League object.

@@ -1,14 +1,11 @@
-package gui;
+package control;
 
 import java.util.ArrayList;
 
 import org.neuroph.core.data.DataSet;
 
 import boundary.ConnectDatabase;
-import control.AIHandler;
-import control.LeagueCreator;
-import control.Norm;
-import control.ProduceOutput;
+import boundary.PrintListener;
 import entity.League;
 import entity.Match;
 import entity.Season;
@@ -86,7 +83,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		LeagueCreator ligaSkapare = null;
 
 		// Create db-connection
-		//ConnectDatabase connection = new ConnectDatabase();
+		// ConnectDatabase connection = new ConnectDatabase();
 		connection.connect();
 
 		// Create the leagueCreator and start it
@@ -144,7 +141,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 	public void updateText(String text) {
 		controller.addToConsoleText(text);
 	}
-	
+
 	public void updateProgress(int current, int max) {
 		controller.updateProgress(current, max);
 	}

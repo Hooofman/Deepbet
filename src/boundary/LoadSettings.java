@@ -1,4 +1,4 @@
-package gui;
+package boundary;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -13,6 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import control.Controller;
+import gui.GUI;
 
 public class LoadSettings extends JPanel {
 	private GUI gui;
@@ -95,7 +98,7 @@ public class LoadSettings extends JPanel {
 
 			} else if (e.getSource() == btnChoosePath) {
 				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")+"/SavedFiles"));
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "/SavedFiles"));
 				if (indicator.equals("Network")) {
 					FileNameExtensionFilter filter = new FileNameExtensionFilter("Only NN-files", "nnet");
 					fileChooser.addChoosableFileFilter(filter);

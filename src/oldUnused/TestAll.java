@@ -1,8 +1,8 @@
 package oldUnused;
 
 import boundary.ConnectDatabase;
+import boundary.PrintListener;
 import control.LeagueCreator;
-import gui.PrintListener;
 
 public class TestAll extends Thread implements PrintListener{
 

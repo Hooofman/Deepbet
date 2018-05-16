@@ -1,4 +1,4 @@
-package gui;
+package boundary;
 
 public interface PrintListener {
 	public void updateText(String text);

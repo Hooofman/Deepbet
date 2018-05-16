@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import boundary.PrintListener;
 import entity.League;
 import entity.LeagueTable;
 import entity.Match;
 import entity.Season;
 import entity.Team;
-import gui.PrintListener;
 
 class TestSeasonAndLeagueTable {
 	ArrayList<Team> teams = new ArrayList<Team>();

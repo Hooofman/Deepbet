@@ -1,4 +1,4 @@
-package gui;
+package control;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -6,6 +6,10 @@ import java.io.PrintStream;
 import javax.swing.SwingUtilities;
 
 import boundary.ConnectDatabase;
+import boundary.LoadSettings;
+import boundary.ReadFromFile;
+import boundary.SaveSettings;
+import gui.GUI;
 
 public class Controller {
 	private GUI gui;
@@ -18,10 +22,10 @@ public class Controller {
 		connection = new ConnectDatabase();
 		pointConsoleToDocument();
 	}
-	
+
 	/**
-	 * Redirects the System.out.print to the documents instead of console
-	 * A new thread listens to this new outputstream and prits in to the gui
+	 * Redirects the System.out.print to the documents instead of console A new
+	 * thread listens to this new outputstream and prits in to the gui
 	 */
 	public void pointConsoleToDocument() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -31,11 +35,11 @@ public class Controller {
 		// Tell Java to use your special stream
 		System.setOut(ps);
 		System.setErr(ps);
-		
-		new Thread() { 
+
+		new Thread() {
 			public void run() {
-				while(true) {
-					if(baos.toString().length()>0) {
+				while (true) {
+					if (baos.toString().length() > 0) {
 						System.out.flush();
 						gui.addToTextConsole(baos.toString());
 						baos.reset();
@@ -47,7 +51,7 @@ public class Controller {
 						e.printStackTrace();
 					}
 				}
-			}        
+			}
 		}.start();
 	}
 
@@ -87,42 +91,43 @@ public class Controller {
 	public void addToConsoleText(String txt) {
 		gui.addToTextConsole(txt);
 	}
-	
+
 	public void loadAutoSaved(String fileName) {
-		String path = System.getProperty("user.dir")+fileName;
+		String path = System.getProperty("user.dir") + fileName;
 		String str = ReadFromFile.readFromFile(path);
 		System.out.println(str);
 		setAllSettings(str);
 	}
-	
+
 	public void disableButtons() {
 		gui.disableButtons();
 	}
-	
+
 	public void enableButtons() {
 		gui.enableButtons();
 	}
-	
+
 	public void updateProgress(int current, int max) {
-		int progress = 1000*current/max;
+		int progress = 1000 * current / max;
 		gui.showProgress(progress);
 	}
 
 	public void loadFromComboBox(String fileName, String indicator) {
 		String str = ReadFromFile.readFromFile(fileName);
-		if(indicator.equals("nnet")) {
-			gui.setNeuralNetworkPathName(System.getProperty("user.dir") +"\\"+ fileName);
-			addToConsoleText("Network Path is set to " + System.getProperty("user.dir")+"\\"+fileName);
-		}else if(indicator.equals("all")) {
+		if (indicator.equals("nnet")) {
+			gui.setNeuralNetworkPathName(System.getProperty("user.dir") + "\\" + fileName);
+			addToConsoleText("Network Path is set to " + System.getProperty("user.dir") + "\\" + fileName);
+		} else if (indicator.equals("all")) {
 			setAllSettings(str);
-			addToConsoleText("All settings is loaded from " + System.getProperty("user.dir")+"\\"+fileName);
-		}else if(indicator.equals("league")) {
+			addToConsoleText("All settings is loaded from " + System.getProperty("user.dir") + "\\" + fileName);
+		} else if (indicator.equals("league")) {
 			setLeagueSettings(str);
-			addToConsoleText("League settings is loaded from " + System.getProperty("user.dir")+"\\"+fileName);
+			addToConsoleText("League settings is loaded from " + System.getProperty("user.dir") + "\\" + fileName);
 		}
 	}
-	
-	public void setDataBaseSettings(String dataBaseURL, String userName, String passWord, String maxPool, String table) {
+
+	public void setDataBaseSettings(String dataBaseURL, String userName, String passWord, String maxPool,
+			String table) {
 		connection.setDatabaseSettings(dataBaseURL, userName, passWord, maxPool, table);
 	}
 
@@ -140,9 +145,8 @@ public class Controller {
 	 *            The search path to the neural network template.
 	 */
 	public void calculate(String it, String learnRate, String momentu, String NNPath, String datasetName,
-		String finalNNName, String leagueName, String leageuAPIId, String table) {
-		
-		
+			String finalNNName, String leagueName, String leageuAPIId, String table) {
+
 		int iterations = Integer.parseInt(it);
 		double learningRate = Double.parseDouble(learnRate);
 		double momentum = Double.parseDouble(momentu);
@@ -150,6 +154,5 @@ public class Controller {
 				leagueName, leageuAPIId.split(", "), table, connection);
 		// calcHandler.start();
 	}
-
 
 }

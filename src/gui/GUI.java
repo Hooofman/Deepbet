@@ -41,6 +41,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.StyledDocument;
 
+import control.Controller;
+
 /**
  * Grap
  * 

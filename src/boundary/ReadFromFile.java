@@ -1,4 +1,4 @@
-package gui;
+package boundary;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

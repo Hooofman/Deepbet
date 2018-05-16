@@ -1,6 +1,9 @@
-package gui;
+package control;
 
 import javax.swing.SwingUtilities;
+
+import boundary.WriteToFile;
+import gui.GUI;
 
 public class StartGUI {
 	public static void main(String[] args) {

@@ -5,9 +5,9 @@ import org.json.JSONObject;
 import org.neuroph.core.data.DataSet;
 
 import boundary.FetchApi;
+import boundary.PrintListener;
 import entity.League;
 import entity.Season;
-import gui.PrintListener;
 
 /**
  * Creates a league-object

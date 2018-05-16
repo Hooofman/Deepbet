@@ -1,4 +1,4 @@
-package gui;
+package boundary;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -12,6 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import control.Controller;
+import gui.GUI;
 
 public class SaveSettings extends JPanel {
 	private GUI gui;
@@ -77,11 +80,11 @@ public class SaveSettings extends JPanel {
 				WriteToFile.write(dataToSave, lblPathName.getText());
 				controller.addToConsoleText("Neural network settings is saved to " + lblPathName.getText());
 				frame.dispose();
-			}else if (e.getSource() == btnAdd && indicator.equals("SaveLeague")) {
+			} else if (e.getSource() == btnAdd && indicator.equals("SaveLeague")) {
 				WriteToFile.write(dataToSave, lblPathName.getText());
 				controller.addToConsoleText("League settings is saved to " + lblPathName.getText());
 				frame.dispose();
-			}else if (e.getSource() == btnAdd && indicator.equals("SaveAll")) {
+			} else if (e.getSource() == btnAdd && indicator.equals("SaveAll")) {
 				WriteToFile.write(dataToSave, lblPathName.getText());
 				controller.addToConsoleText("All settings is saved to " + lblPathName.getText());
 				frame.dispose();

@@ -14,21 +14,7 @@ import entity.Season;
 import entity.Team;
 
 class TestLeague {
-	PrintListener pl = new PrintListener() {
-
-		@Override
-		public void updateText(String text) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void updateProgress(int current, int max) {
-			// TODO Auto-generated method stub
-
-		}
-	};
-	League league = new League("PL", pl);
+	League league = new League("PL");
 	Season season = new Season(league, 2018, 1, 4, 0);
 	ArrayList<Team> teams = new ArrayList<Team>();
 	

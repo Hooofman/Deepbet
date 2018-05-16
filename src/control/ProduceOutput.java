@@ -9,28 +9,24 @@ import boundary.WriteToFile;
 import entity.Match;
 
 /**
- * Class that produces the output for a match. Uses a match-object and tests it
- * parameters against the trained the network
+ * Class that produces the output for a match. Uses a match-object and tests it parameters against the trained the
+ * network
  * 
  * @author Oscar Malmqvist
  *
  */
 public class ProduceOutput {
-	private PrintListener listener;
 	private String nnPath;
 
-	public ProduceOutput(PrintListener listener, String nnPath) {
-		this.listener = listener;
+	public ProduceOutput(String nnPath) {
 		this.nnPath = nnPath;
 	}
 
 	/**
 	 * Tests a match against the network to get an output of how the match will end
 	 * 
-	 * @param match
-	 *            the match to test
-	 * @param norm
-	 *            the normalized values
+	 * @param match the match to test
+	 * @param norm the normalized values
 	 */
 	public void getOutputForMatch(Match match, Norm norm) {
 		NeuralNetwork test = NeuralNetwork.createFromFile(nnPath); // Load the trained network
@@ -54,7 +50,7 @@ public class ProduceOutput {
 		String text = ("---" + "\n" + match.getHomeTeam() + " vs " + match.getAwayTeam() + ": " + output[0] + "\t"
 				+ output[1] + "\t" + output[2] + "\n" + Arrays.toString(match.getMatchArray()) + "\n"
 				+ Arrays.toString(inputArray) + "\n---");
-		listener.updateText(text);
+		System.out.println(text);
 
 		WriteToFile.appendTxt("---");
 		WriteToFile.appendTxt(match.getHomeTeam() + " vs " + match.getAwayTeam() + ": " + output[0] + "\t" + output[1]

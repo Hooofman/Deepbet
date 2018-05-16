@@ -122,7 +122,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 			}
 		}
 
-		ProduceOutput produceOutput = new ProduceOutput(this, finalNNName);
+		ProduceOutput produceOutput = new ProduceOutput(finalNNName);
 		// Produce the calculation for each match and save it to the database
 
 		////////////////////// Finns inga matcher att testa!

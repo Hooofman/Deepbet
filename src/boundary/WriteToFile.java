@@ -41,7 +41,7 @@ public class WriteToFile {
 	 * @param txt the text to write
 	 */
 	public static void appendTxt(String txt) {
-		try (FileWriter fw = new FileWriter("/SavedFiles/testMatcher.txt", true);
+		try (FileWriter fw = new FileWriter("SavedFiles/testMatcher.txt", true);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter out = new PrintWriter(bw)) {
 			out.println(txt);

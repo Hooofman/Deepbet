@@ -156,7 +156,6 @@ public class ConnectDatabase {
 				+ match.getAwayGoals() + "'" + ", Outcome = '" + match.getOutcomeChar() + "'" + ", Status = '"
 				+ match.getStatus() + "'" + " where HomeTeam = '" + homeTeam + "' AND AwayTeam = '" + awayTeam
 				+ "' AND DatePlayed = '" + date + "'";
-		System.out.println(sql);
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.executeUpdate();

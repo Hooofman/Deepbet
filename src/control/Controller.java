@@ -84,7 +84,6 @@ public class Controller {
 
 	public void setLeagueSettings(String str) {
 		String[] inputGUI = str.split(",", 2);
-		System.out.println(inputGUI[1]);
 		gui.setLeagueSettings(inputGUI);
 	}
 
@@ -109,7 +108,6 @@ public class Controller {
 	public void loadAutoSaved(String fileName) {
 		String path = System.getProperty("user.dir") + fileName;
 		String str = ReadFromFile.readFromFile(path);
-		System.out.println(str);
 		setAllSettings(str);
 	}
 

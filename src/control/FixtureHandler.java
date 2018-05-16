@@ -30,7 +30,7 @@ public class FixtureHandler {
 		/**
 		 * Get all fixtures from JSON
 		 */
-		System.out.println("Starts creating matches for season: " + season. + season.getYear());
+		System.out.println("Starts creating matches: " + season.getLeageName() + " / " + season.getYear());
 		
 		if (season.getYear() == 2017) { // TODO: Remove this part later. Get everything from external API when we are done, not from home.
 			jsonMatches = FetchApi.getJsonMatches(season.getId());
@@ -38,6 +38,7 @@ public class FixtureHandler {
 			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getYear(), "matches");
 		}
 		fixtures = jsonMatches.getJSONArray("fixtures");
+		System.out.println("Fixtures fetched from API");
 
 		// Loop through all fixtures
 		for (int i = 0; i < fixtures.length(); i++) {
@@ -57,7 +58,8 @@ public class FixtureHandler {
 			match.setDate(dateString.substring(0, 10));
 			match.setTime(dateString.substring(11, 19));
 			match.setIsFinished(status);
-			match.produceInputArray(5);
+			
+			match.produceInputArray(5); // Produce the input array for the match used in the dataset
 
 			// What to do if the match is already played
 			if (!status.equals("TIMED") && !status.equals("SCHEDULED") && !status.equals("POSTPONED")) {
@@ -75,6 +77,7 @@ public class FixtureHandler {
 				awayTeam.setGoalsAgainst(homeGoals);
 				match.setOutcome();
 				match.produceOutputArray();
+				
 				// Add match to the season and update the table for the season
 				season.addMatch(match);
 				season.updateTable();
@@ -88,5 +91,8 @@ public class FixtureHandler {
 				season.addMatch(match);
 			}
 		}
+		
+		System.out.println("Fixtures created for season: " + season.getLeageName() + " / " + season.getYear());
+		
 	}
 }

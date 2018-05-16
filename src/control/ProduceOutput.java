@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import org.neuroph.core.NeuralNetwork;
 
-import boundary.PrintListener;
 import boundary.WriteToFile;
 import entity.Match;
 
@@ -16,30 +15,30 @@ import entity.Match;
  *
  */
 public class ProduceOutput {
-	private PrintListener listener;
 	private String nnPath;
-
-	public ProduceOutput(PrintListener listener, String nnPath) {
-		this.listener = listener;
+	
+	/**
+	 * Constructor. Sets the path for the neural network
+	 * @param nnPath path to the neural network
+	 */
+	public ProduceOutput(String nnPath) {
 		this.nnPath = nnPath;
 	}
 
 	/**
 	 * Tests a match against the network to get an output of how the match will end
 	 * 
-	 * @param match
-	 *            the match to test
-	 * @param norm
-	 *            the normalized values
+	 * @param match the match to test
+	 * @param norm the normalized values
 	 */
 	public void getOutputForMatch(Match match, Norm norm) {
-		NeuralNetwork test = NeuralNetwork.createFromFile(nnPath); // Load the trained network
+		NeuralNetwork network = NeuralNetwork.createFromFile(nnPath); // Load the trained network
 		double[] inputArray = norm.normalizeInput(match.getMatchArray());
-		test.setInput(inputArray); // Get the array from the match
-		test.calculate(); // Test the match against the network
+		network.setInput(inputArray); // Get the array from the match
+		network.calculate(); // Test the match against the network
 
 		// Get the output and save it
-		double[] output = test.getOutput();
+		double[] output = network.getOutput();
 		match.setCalcOutput(output);
 
 		// Get the pick in char-form and save it to the match-object
@@ -51,11 +50,14 @@ public class ProduceOutput {
 		} else if (pick == output[2]) {
 			match.setRecommendation('2');
 		}
-		String text = ("---" + "\n" + match.getHomeTeam() + " vs " + match.getAwayTeam() + ": " + output[0] + "\t"
+		
+		// Print the output to console
+		String text = ("\n" + match.getHomeTeam() + " vs " + match.getAwayTeam() + ": " + output[0] + "\t"
 				+ output[1] + "\t" + output[2] + "\n" + Arrays.toString(match.getMatchArray()) + "\n"
-				+ Arrays.toString(inputArray) + "\n---");
-		listener.updateText(text);
+				+ Arrays.toString(inputArray) + "\nRecomendation: " + match.getRecommendation() + "\n");
+		System.out.println(text);
 
+		// Print the output to text-file
 		WriteToFile.appendTxt("---");
 		WriteToFile.appendTxt(match.getHomeTeam() + " vs " + match.getAwayTeam() + ": " + output[0] + "\t" + output[1]
 				+ "\t" + output[2]);

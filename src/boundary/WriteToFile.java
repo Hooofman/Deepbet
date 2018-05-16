@@ -11,16 +11,14 @@ import java.io.PrintWriter;
 /**
  * Class to write settings to a text file.
  * 
- * @author Sven Lindqvist
+ * @author Sven Lindqvist, Oscar Malmqvist
  *
  */
 public class WriteToFile {
 	/**
 	 * 
-	 * @param str
-	 *            The data to be saved in a text file.
-	 * @param filePath
-	 *            The directory to where the data is to be saved.
+	 * @param str The data to be saved in a text file.
+	 * @param filePath The directory to where the data is to be saved.
 	 */
 	public static void write(String str, String filePath) {
 		String[] array = str.split(",", 0);
@@ -41,8 +39,7 @@ public class WriteToFile {
 	/**
 	 * Writes text to a txt-file
 	 * 
-	 * @param txt
-	 *            the text to write
+	 * @param txt the text to write
 	 */
 	public static void appendTxt(String txt) {
 		try (FileWriter fw = new FileWriter("testMatcher.txt", true);

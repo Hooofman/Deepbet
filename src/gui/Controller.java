@@ -1,5 +1,8 @@
 package gui;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import javax.swing.SwingUtilities;
 
 import boundary.ConnectDatabase;
@@ -13,6 +16,39 @@ public class Controller {
 		this.gui = gui;
 		gui.setController(this);
 		connection = new ConnectDatabase();
+		pointConsoleToDocument();
+	}
+	
+	/**
+	 * Redirects the System.out.print to the documents instead of console
+	 * A new thread listens to this new outputstream and prits in to the gui
+	 */
+	public void pointConsoleToDocument() {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		PrintStream ps = new PrintStream(baos);
+		// Save the old System.out!
+		PrintStream old = System.out;
+		// Tell Java to use your special stream
+		System.setOut(ps);
+		System.setErr(ps);
+		
+		new Thread() { 
+			public void run() {
+				while(true) {
+					if(baos.toString().length()>0) {
+						System.out.flush();
+						gui.addToTextConsole(baos.toString());
+						baos.reset();
+					}
+					try {
+						this.sleep(10);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}        
+		}.start();
 	}
 
 	public void saveSettings(String indicator, String data) {

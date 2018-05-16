@@ -188,7 +188,6 @@ public class GUI extends JFrame implements ActionListener {
 		pnlButtons = new JPanel(); // Holds buttons
 
 		doc = consolText.getStyledDocument();
-		pointConsoleToDocument();
 		fixComboBox();
 		createWestPanel();
 		createAnnPanel();
@@ -209,33 +208,7 @@ public class GUI extends JFrame implements ActionListener {
 		
 	}
 	
-	public void pointConsoleToDocument() {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		PrintStream ps = new PrintStream(baos);
-		// IMPORTANT: Save the old System.out!
-		PrintStream old = System.out;
-		// Tell Java to use your special stream
-		System.setOut(ps);
-		System.setErr(ps);
-		
-		new Thread() { 
-			public void run() {
-				while(true) {
-					if(baos.toString().length()>0) {
-						System.out.flush();
-						addToTextConsole(baos.toString());
-						baos.reset();
-					}
-					try {
-						this.sleep(10);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}        
-		}.start();
-	}
+
 
 	public void setController(Controller controller) {
 		this.controller = controller;

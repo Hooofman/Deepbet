@@ -18,7 +18,7 @@ import gui.PaintNetwork;
  */
 public class AIHand {
 	private DataSet trainingSet;
-	private PrintListener listener;
+	private Controller controller;
 	private int currentIteration;
 
 	/**
@@ -26,8 +26,8 @@ public class AIHand {
 	 * 
 	 * @param listener listener-interface used for updates sent to GUI
 	 */
-	public AIHand(PrintListener listener) {
-		this.listener = listener;
+	public AIHand(Controller controller) {
+		this.controller = controller;
 		currentIteration = 0;
 	}
 
@@ -96,11 +96,12 @@ public class AIHand {
 		PaintNetwork pn = new PaintNetwork(MLP);
 		new Thread(pn).start();
 		pn.initiate(MLP);
+		controller.sendNetworkFrame(pn);
 
 		// Update of progressbar in GUI
 		while (currentIteration < iterations) {
 			currentIteration = learningRule.getCurrentIteration();
-			listener.updateProgress(currentIteration, iterations);
+			controller.updateProgress(currentIteration, iterations);
 			pn.update(MLP);
 			try {
 				Thread.sleep(10);

@@ -107,7 +107,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 
 		// Train the AI with the trainingset
 		System.out.println("Starts ai-handler..");
-		new AIHand(this).trainNetwork(trainingSet, norm, iterations, learningRate, momentum, searchPath, finalNNName);
+		new AIHand(controller).trainNetwork(trainingSet, norm, iterations, learningRate, momentum, searchPath, finalNNName);
 		ArrayList<Season> seasons = league.getSeasons(); // Get the seasons from league
 		ArrayList<Match> matchesToTest = new ArrayList<Match>(); // Create a list that will contain the upcoming matches
 		Season seasonToTest = seasons.get(seasons.size() - 1); // The current season of the league

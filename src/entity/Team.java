@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 /**
  * Class for creating Team objects
- * @author Oscar Malmqvist
+ * @author Oscar Malmqvist, Johannes Roos
  *
  */
 public class Team implements Comparable<Team>{

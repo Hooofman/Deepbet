@@ -92,7 +92,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		LeagueCreator ligaSkapare = null;
 		connection.connect();
 
-		ligaSkapare = new LeagueCreator(leagueName, leagueAPIId, this, datasetName);
+		ligaSkapare = new LeagueCreator(leagueName, leagueAPIId, datasetName);
 		ligaSkapare.createLeague();
 
 		// Get the created league

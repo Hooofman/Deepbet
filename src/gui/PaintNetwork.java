@@ -60,18 +60,7 @@ public class PaintNetwork extends JFrame implements Runnable {
 	 * @param MLP The MultiLayered Network
 	 */
 	public void initiate(MultiLayerPerceptron MLP) {
-		int inputNeurons = MLP.getInputNeurons().size();
-		int xplus = width / (inputNeurons + 1);
-		for (int j = 0; j < inputNeurons; j++) {
-			inputLayer.add(new NeuroPaint((j + 1) * xplus, 50, 25));
-		}
-
-		int outputNeurons = MLP.getOutputNeurons().size();
-
-		xplus = width / (outputNeurons + 1);
-		for (int j = 0; j < outputNeurons; j++) {
-			outputLayer.add(new NeuroPaint((j + 1) * xplus, height - 50, 25));
-		}
+		int xplus = 0;
 
 		for (int i = 0; i < MLP.getLayersCount(); i++) {
 			layer.get(i).clear();
@@ -84,7 +73,7 @@ public class PaintNetwork extends JFrame implements Runnable {
 				if (r > 100) {
 					r = 100;
 				}
-				layer.get(i).add(new NeuroPaint((j + 1) * xplus, i * 150 + 100, r));
+				layer.get(i).add(new NeuroPaint((j + 1) * xplus, i * 195 + 50, r));
 				layer.get(i).get(j).setStrength(netInput);
 				layer.get(i).get(j).setInputConnections(MLP.getLayerAt(i).getNeuronAt(j).getInputConnections());
 
@@ -104,14 +93,6 @@ public class PaintNetwork extends JFrame implements Runnable {
 				layer.get(i).get(j).setStrength(netInput * 2);
 				layer.get(i).get(j).setInputConnections(MLP.getLayerAt(i).getNeuronAt(j).getInputConnections());
 			}
-		}
-
-		int outputNeurons = MLP.getOutputNeurons().size();
-		double[] strength = MLP.getOutput();
-		for (int j = 0; j < outputNeurons; j++) {
-
-			outputLayer.get(j).setStrength(strength[j]);
-			outputLayer.get(j).setInputConnections(MLP.getOutputNeurons().get(j).getInputConnections());
 		}
 
 		paint();
@@ -183,29 +164,7 @@ public class PaintNetwork extends JFrame implements Runnable {
 				}
 			}
 		}
-		g.setStroke(new BasicStroke(1));
-		for (int i = 0; i < outputLayer.size(); ++i) {
-
-			temp = outputLayer.get(i).getInputConnections();
-			if (outputLayer.get(i) != null) {
-				g.setColor(Color.BLACK);
-				g.setStroke(new BasicStroke(1));
-				g.draw(outputLayer.get(i).getShape());
-				g.setColor(outputLayer.get(i).getColor());
-				g.fill(outputLayer.get(i).getShape());
-				g.setColor(Color.BLACK);
-				g.setStroke(new BasicStroke(5));
-				// g.drawLine(outputLayer.get(i).getX(), outputLayer.get(i).getY() - outputLayer.get(i).getR(),
-				// layer.get(layer.size()-1).get(temp.get(i)).getX(), layer.get(layer.size()-1).get(temp.get(i)).getY()
-				// + layer.get(layer.size()-1).get(temp.get(i)).getR());
-			}
-		}
-		g.setStroke(new BasicStroke(1));
-		for (int i = 0; i < inputLayer.size(); ++i) {
-			if (inputLayer.get(i) != null) {
-				g.draw(inputLayer.get(i).getShape());
-			}
-		}
+	
 
 	}
 

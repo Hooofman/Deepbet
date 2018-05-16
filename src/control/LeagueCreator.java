@@ -19,27 +19,27 @@ import entity.Season;
 public class LeagueCreator {
 	private League league;
 	private DataSet trainingSet;
-	private String leagueName;
 	private int[] apiId;
-	private PrintListener listener;
 	private String datasetName;
 
-	public LeagueCreator(String leagueName, int[] apiId, PrintListener listener, String datasetName) {
-		this.leagueName = leagueName;
+	/**
+	 * Constructor
+	 * @param leagueName the name of the league
+	 * @param apiId array containing ids to use for the API
+	 * @param datasetName the dataset to use
+	 */
+	public LeagueCreator(String leagueName, int[] apiId, String datasetName) {
 		this.apiId = apiId;
 		this.trainingSet = new DataSet(22, 3); // Creates a dataset used for training the network
-		this.listener = listener;
 		this.datasetName = datasetName;
-		this.league = new League(leagueName, listener);
+		this.league = new League(leagueName);
 	}
 
 	/**
 	 * Starts the thread that creates a league and fills it with data
 	 * 
-	 * @param leagueName
-	 *            the name of the league
-	 * @param apiId
-	 *            id of the league used for connection with the API
+	 * @param leagueName the name of the league
+	 * @param apiId id of the league used for connection with the API
 	 */
 	public void createLeague() {
 		// Create new season

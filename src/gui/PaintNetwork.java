@@ -21,7 +21,13 @@ import org.neuroph.nnet.MultiLayerPerceptron;
 
 
 
-
+/**
+ * Class that paints the entire network
+ * Color on the neuron are based on the netInput (all inputs - all outputs)
+ * Size of the lines are based on the weight of the connection between the neurons
+ * @author johannes.roos
+ *
+ */
 public class PaintNetwork  extends JFrame implements Runnable{
 	private ArrayList<ArrayList<NeuroPaint>> layer = new ArrayList<ArrayList<NeuroPaint>>();
 	private ArrayList<NeuroPaint> inputLayer = new ArrayList<NeuroPaint>();
@@ -30,7 +36,12 @@ public class PaintNetwork  extends JFrame implements Runnable{
 	int height = 700;
 	int width = 1500;
 
-
+	/**
+	 * Sets up the JFrame and creates the array containing all the layers
+	 * Creates a BufferedStrategy for faster drawing in the JFrame
+	 * @param MLP The MultiLayered Network
+	 * @throws HeadlessException exception
+	 */
 	public PaintNetwork(MultiLayerPerceptron MLP) throws HeadlessException {
 		setTitle("Network");
 		setSize(width, height);
@@ -42,7 +53,12 @@ public class PaintNetwork  extends JFrame implements Runnable{
 		createBufferStrategy(2);
 		bs = this.getBufferStrategy();
 	}
-
+	/**
+	 * Fills the Lists with new neurons, input- and outputlayers
+	 * x Position are calulated using the Frame-width and number of neurons at the layer
+	 * y Position for each layer are fixed (Will create problem with more than 4 layers)
+	 * @param MLP The MultiLayered Network
+	 */
 	public void initiate(MultiLayerPerceptron MLP) {
 		int inputNeurons = MLP.getInputNeurons().size();
 		int xplus = width/(inputNeurons+1);
@@ -76,7 +92,11 @@ public class PaintNetwork  extends JFrame implements Runnable{
 			}
 		}
 	}
-
+	/**
+	 * Updates the Strengths, input connections and Weigths for each Neuron
+	 * Calls paint() after the update
+	 * @param MLP The MultiLayered Network
+	 */
 	public void update(MultiLayerPerceptron MLP) {
 		for(int i = 0; i < layer.size(); i++) {
 			for(int j = 0; j < layer.get(i).size(); j++) {
@@ -97,7 +117,9 @@ public class PaintNetwork  extends JFrame implements Runnable{
 		paint();
 	}
 
-
+	/**
+	 * Paints the updated network
+	 */
 	public void paint() {
 		Graphics2D g = null;
 		do {
@@ -111,7 +133,12 @@ public class PaintNetwork  extends JFrame implements Runnable{
 		} while (bs.contentsLost());
 	}
 
-
+	/**
+	 * Draws the entire network i the Graphics g
+	 * Starts from the left in the first layer, drawing first the neuron then the connections.
+	 *  Only draws the 3 highest connections from each neuron
+	 * @param g the graphics in which to draw the network
+	 */
 	public void drawAll(Graphics2D g) {
 		g.clearRect(0, 0, width, height);
 
@@ -133,7 +160,7 @@ public class PaintNetwork  extends JFrame implements Runnable{
 						temp = layer.get(i).get(j).getInputConnections();
 						weights = layer.get(i).get(j).getWeights();
 
-						for(int input = 0; input < 10; input++) {
+						for(int input = 0; input < 3; input++) {
 							//int weight = (int)Math.abs(weights.get(input).doubleValue());
 
 							if(weights.size() > 0) {
@@ -180,7 +207,12 @@ public class PaintNetwork  extends JFrame implements Runnable{
 	public void run() {
 
 	}
-
+	/**
+	 * returns the index of the highest number in a list, used to remove the highest weight after painting it
+	 * 
+	 * @param list List of doubles
+	 * @return the index of the highest number
+	 */
 	private int removeMax(ArrayList<Double> list) {
 		int index = 0;
 		int currentIndex = 0;

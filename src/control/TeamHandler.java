@@ -13,7 +13,7 @@ import entity.Team;
 /**
  * Creates team-objects
  * 
- * @author Sven Lindqvist, Johannes Roos, Oskar Malmqvist
+ * @author Sven Lindqvist, Johannes Roos, Oscar Malmqvist
  *
  */
 public class TeamHandler {

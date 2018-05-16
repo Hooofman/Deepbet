@@ -17,7 +17,6 @@ public class League {
 	private int currentYear;
 	private ArrayList<Season> seasons;
 	private ArrayList<Team> teams;
-	private PrintListener listener;
 
 	/**
 	 * Constructs a League object and creates arraylists for seasons and teams.
@@ -25,11 +24,10 @@ public class League {
 	 * @param name
 	 *            Name of league
 	 */
-	public League(String name, PrintListener listener) {
+	public League(String name) {
 		this.name = name;
 		this.seasons = new ArrayList<Season>();
 		this.teams = new ArrayList<Team>();
-		this.listener = listener;
 	}
 
 	/**

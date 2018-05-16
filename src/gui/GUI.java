@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -67,7 +67,8 @@ public class GUI extends JFrame implements ActionListener {
 	private JTabbedPane pnlWest; // Holds the entire western content
 	private JTabbedPane pnlCenter;
 	private PaintNetwork paintNetwork;
-
+	private JPanel networkPanel;
+	
 	// Database input
 	private JPanel pnlDB;
 	private JTextField password;
@@ -268,8 +269,15 @@ public class GUI extends JFrame implements ActionListener {
 
 	public void createCenterPanel() {
 		pnlCenter.setBorder(new EmptyBorder(5, 5, 5, 5));
+		networkPanel = new JPanel();
+		pnlCenter.addTab("Network", networkPanel);
 		pnlCenter.addTab("Console", pnlTextArea);
 		pnlCenter.setVisible(true);
+		
+	}
+	
+	public Graphics getNetworkPanelGraphics() {
+		return networkPanel.getGraphics();
 	}
 
 	public void addNetworkFrame(PaintNetwork paintNetwork) {

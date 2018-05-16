@@ -2,7 +2,7 @@ Deepbet123
 deepbet
 jdbc:mysql://deepbet.ddns.net:3306/deepbet
 games
-10000
+1000
 0.7
 0.2
 Fixed

@@ -1,5 +1,6 @@
 package control;
 
+import java.awt.Graphics;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -155,6 +156,10 @@ public class Controller {
 			setLeagueSettings(str);
 			addToConsoleText("League settings is loaded from " + System.getProperty("user.dir") + "\\" + fileName);
 		}
+	}
+	
+	public Graphics getGraphicsFromGui() {
+		return gui.getNetworkPanelGraphics();
 	}
 
 	public void setDataBaseSettings(String dataBaseURL, String userName, String passWord, String maxPool,

@@ -18,8 +18,6 @@ import com.mashape.unirest.http.Unirest;
 public class FetchApi {
 	private static String token = "WrBZ2f7IrkoF5ZZXd3ILImXnyGMEhdTYfblOtuaOrwM5He6BUPsUSCzTJDjx";
 	private static JSONObject object = null;
-	private JSONArray array = null;
-	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	public FetchApi() {
 	}
@@ -27,12 +25,9 @@ public class FetchApi {
 	/**
 	 * Fetches matches stored in the server.
 	 * 
-	 * @param year
-	 *            The year the matches to be fetched was played.
-	 * @param id
-	 *            defines what file on server the data to be fetched is located.
-	 * @return JSONObject A JSONObject containing all the matches from a specific
-	 *         year stored in our server.
+	 * @param year The year the matches to be fetched was played.
+	 * @param id defines what file on server the data to be fetched is located.
+	 * @return JSONObject A JSONObject containing all the matches from a specific year stored in our server.
 	 */
 	public static JSONObject getJsonMatchesFromHome(int year, String id) {
 		object = readJSONfromURL("http://deepbet.ddns.net/API/" + year + "_" + id + ".json");
@@ -43,8 +38,7 @@ public class FetchApi {
 	/**
 	 * Gets all teams for a specific league
 	 * 
-	 * @param id
-	 *            what league to look for. Id = 445 is Premier league. Look at
+	 * @param id what league to look for. Id = 445 is Premier league. Look at
 	 *            http://api.football-data.org/v1/competitions/
 	 * @return JsonObject with all teams
 	 */
@@ -59,11 +53,9 @@ public class FetchApi {
 	}
 
 	/**
-	 * Gets all information for a league. This includes number of rounds, league
-	 * name, current year and so on.
+	 * Gets all information for a league. This includes number of rounds, league name, current year and so on.
 	 * 
-	 * @param id
-	 *            what league to look for. Id = 445 is Premier league. Look at
+	 * @param id what league to look for. Id = 445 is Premier league. Look at
 	 *            http://api.football-data.org/v1/competitions/
 	 * @return JsonObject with season-information
 	 */
@@ -79,8 +71,7 @@ public class FetchApi {
 	/**
 	 * Gets all matches for a specific league.
 	 * 
-	 * @param id
-	 *            what league to look for. Id = 445 is Premier league. Look at
+	 * @param id what league to look for. Id = 445 is Premier league. Look at
 	 *            http://api.football-data.org/v1/competitions/
 	 * @return JsonObject with all matches in a specific league
 	 */
@@ -96,10 +87,8 @@ public class FetchApi {
 	/**
 	 * Fetches the table positions for a specific matchday.
 	 * 
-	 * @param id
-	 *            the identifier for which league and season to be fetched.
-	 * @param matchDay
-	 *            the round for the table positions that is to be fetched.
+	 * @param id the identifier for which league and season to be fetched.
+	 * @param matchDay the round for the table positions that is to be fetched.
 	 * @return JSONObject containing the table positions for the specified matchday.
 	 */
 	public static JSONObject getJsonTablePosition(int id, int matchDay) {
@@ -115,8 +104,7 @@ public class FetchApi {
 	/**
 	 * Creates a connection to the the API and fetches the data.
 	 * 
-	 * @param url
-	 *            the address to the API.
+	 * @param url the address to the API.
 	 * @return JSONObject containing all the data in that API.
 	 */
 	public static JSONObject readJSONfromURL(String url) {

@@ -3,19 +3,26 @@ package control;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import javax.swing.SwingUtilities;
-
 import boundary.ConnectDatabase;
 import boundary.ReadFromFile;
 import gui.GUI;
 import gui.LoadSettings;
 import gui.SaveSettings;
 
+/**
+ * The main-controller class
+ * @author Oscar, Sven, Johannes
+ *
+ */
 public class Controller {
 	private GUI gui;
 	private CalculationHandler calcHandler;
 	private ConnectDatabase connection;
 
+	/**
+	 * Constructor. Creates new DB-connection, points console-prints to GUI.
+	 * @param gui the GUI-instance to use
+	 */
 	public Controller(GUI gui) {
 		this.gui = gui;
 		gui.setController(this);
@@ -92,6 +99,10 @@ public class Controller {
 		gui.addToTextConsole(txt);
 	}
 
+	/**
+	 * Loads autosaved settings
+	 * @param fileName what file to load settings from
+	 */
 	public void loadAutoSaved(String fileName) {
 		String path = System.getProperty("user.dir") + fileName;
 		String str = ReadFromFile.readFromFile(path);
@@ -107,11 +118,21 @@ public class Controller {
 		gui.enableButtons();
 	}
 
-	public void updateProgress(int current, int max) {
-		int progress = 1000 * current / max;
+	/**
+	 * Update progress in gui
+	 * @param currentIteration current iteration
+	 * @param maxIteration the amount of iterations that will be done
+	 */
+	public void updateProgress(int currentIteration, int maxIteration) {
+		int progress = 1000 * currentIteration / maxIteration;
 		gui.showProgress(progress);
 	}
 
+	/**
+	 * Loads settings from GUI
+	 * @param fileName the file to load settings from
+	 * @param indicator defines what to load settings for
+	 */
 	public void loadFromComboBox(String fileName, String indicator) {
 		String str = ReadFromFile.readFromFile(fileName);
 		if (indicator.equals("nnet")) {
@@ -135,14 +156,10 @@ public class Controller {
 	 * Receives settings for the neural network and sends them forward to the
 	 * classes that handles the AI.
 	 * 
-	 * @param it
-	 *            Number of iterations.
-	 * @param learnRate
-	 *            The learning rate that is to be used.
-	 * @param momentu
-	 *            The Momentum that is to be used.
-	 * @param NNPath
-	 *            The search path to the neural network template.
+	 * @param it Number of iterations.
+	 * @param learnRate The learning rate that is to be used.
+	 * @param momentu The Momentum that is to be used.
+	 * @param NNPath The search path to the neural network template.
 	 */
 	public void calculate(String it, String learnRate, String momentu, String NNPath, String datasetName,
 			String finalNNName, String leagueName, String leageuAPIId, String table) {
@@ -152,7 +169,6 @@ public class Controller {
 		double momentum = Double.parseDouble(momentu);
 		calcHandler = new CalculationHandler(this, iterations, learningRate, momentum, NNPath, datasetName, finalNNName,
 				leagueName, leageuAPIId.split(", "), table, connection);
-		// calcHandler.start();
 	}
 
 }

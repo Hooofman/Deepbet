@@ -14,7 +14,7 @@ import entity.Match;
 /**
  * Class for connection with database.
  * 
- * @author Sven Lindqvist, Oskar Malmqvist
+ * @author Sven Lindqvist, Oscar Malmqvist
  */
 public class ConnectDatabase {
 	private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";

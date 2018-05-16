@@ -15,7 +15,7 @@ import entity.Season;
 
 /**
  * Handles the calculation of the network. Decides what matches to test and what to not test. Connects to the database
- * and updates this aswell
+ * and updates this aswell.
  * 
  * @author Sven Lindqvist, Oscar Malmqvist, Johannes Roos och Oskar Engström Magnusson.
  *

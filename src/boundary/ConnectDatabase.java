@@ -60,7 +60,6 @@ public class ConnectDatabase {
 			properties.setProperty("password", PASSWORD);
 			properties.setProperty("MaxPooledStatements", MAX_POOL);
 		}
-		System.out.println(properties);
 		return properties;
 	}
 
@@ -115,7 +114,6 @@ public class ConnectDatabase {
 	 */
 
 	public void createNewMatch(Match match, int season, String leagueName) {
-		System.out.println(table);
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
 		Date date = Date.valueOf(match.getDate());

@@ -1,8 +1,9 @@
-package gui;
+package oldUnused;
 
 import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
@@ -27,7 +28,7 @@ import org.neuroph.nnet.MultiLayerPerceptron;
  * @author johannes.roos
  *
  */
-public class PaintNetwork extends JFrame implements Runnable {
+public class PaintNetwork extends JPanel implements Runnable {
 	private ArrayList<ArrayList<NeuroPaint>> layer = new ArrayList<ArrayList<NeuroPaint>>();
 	private ArrayList<NeuroPaint> inputLayer = new ArrayList<NeuroPaint>();
 	private ArrayList<NeuroPaint> outputLayer = new ArrayList<NeuroPaint>();
@@ -43,15 +44,21 @@ public class PaintNetwork extends JFrame implements Runnable {
 	 * @throws HeadlessException exception
 	 */
 	public PaintNetwork(MultiLayerPerceptron MLP) throws HeadlessException {
-		setTitle("Network");
+//		setTitle("Network");
 		setSize(width, height);
-
+//		createBufferStrategy(2);
+//		bs = this.getBufferStrategy();
+		
 		setVisible(true);
 		for (int i = 0; i < MLP.getLayersCount(); i++) {
 			layer.add(new ArrayList<NeuroPaint>());
 		}
-		createBufferStrategy(2);
-		bs = this.getBufferStrategy();
+		
+	}
+	
+	public void setSizeForLabel(int height, int width) {
+		this.height = height;
+		this.width = width;
 	}
 
 	/**
@@ -87,7 +94,7 @@ public class PaintNetwork extends JFrame implements Runnable {
 	 * 
 	 * @param MLP The MultiLayered Network
 	 */
-	public void update(MultiLayerPerceptron MLP) {
+	public void update2(MultiLayerPerceptron MLP) {
 		for (int i = 0; i < layer.size(); i++) {
 			for (int j = 0; j < layer.get(i).size(); j++) {
 				double netInput = MLP.getLayerAt(i).getNeuronAt(j).getNetInput();
@@ -95,24 +102,24 @@ public class PaintNetwork extends JFrame implements Runnable {
 				layer.get(i).get(j).setInputConnections(MLP.getLayerAt(i).getNeuronAt(j).getInputConnections());
 			}
 		}
-
-		paint();
+		
+		paintComponent();
 	}
 
 	/**
 	 * Paints the updated network
 	 */
-	public void paint() {
+	public void paintComponent() {
 		Graphics2D g = null;
-		do {
+//		do {
 			try {
-				g = (Graphics2D) bs.getDrawGraphics();
+				g = (Graphics2D) this.getGraphics();
 				drawAll(g);
 			} finally {
 				g.dispose();
 			}
-			bs.show();
-		} while (bs.contentsLost());
+//			bs.show();
+//		} while (bs.contentsLost());
 	}
 
 	/**
@@ -122,12 +129,10 @@ public class PaintNetwork extends JFrame implements Runnable {
 	 * @param g the graphics in which to draw the network
 	 */
 	public void drawAll(Graphics2D g) {
-		g.clearRect(0, 0, width, height);
+		//g.clearRect(0, 0, width, height);
 
 		ArrayList<Integer> temp;
 		ArrayList<Double> weights;
-		int highest = 5;
-		int lowest = 0;
 		for (int i = 0; i < layer.size(); ++i) {
 			if (layer.get(i) != null) {
 				for (int j = 0; j < layer.get(i).size(); j++) {

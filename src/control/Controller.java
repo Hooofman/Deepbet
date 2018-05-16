@@ -10,7 +10,7 @@ import boundary.ConnectDatabase;
 import boundary.ReadFromFile;
 import gui.GUI;
 import gui.LoadSettings;
-import gui.PaintNetwork;
+import gui.PaintNetworkLabel;
 import gui.SaveSettings;
 
 /**
@@ -23,6 +23,7 @@ public class Controller {
 	private GUI gui;
 	private CalculationHandler calcHandler;
 	private ConnectDatabase connection;
+	private boolean shouldIDraw = false;
 
 	/**
 	 * Constructor. Creates new DB-connection, points console-prints to GUI.
@@ -134,7 +135,7 @@ public class Controller {
 		gui.showProgress(progress);
 	}
 
-	public void sendNetworkFrame(PaintNetwork frame) {
+	public void sendNetworkFrame(PaintNetworkLabel frame) {
 		gui.addNetworkFrame(frame);
 	}
 
@@ -183,6 +184,14 @@ public class Controller {
 		double momentum = Double.parseDouble(momentu);
 		calcHandler = new CalculationHandler(this, iterations, learningRate, momentum, NNPath, datasetName, finalNNName,
 				leagueName, leageuAPIId.split(", "), table, connection);
+	}
+	
+	public boolean shouldIDraw() {
+		return shouldIDraw;
+	}
+	
+	public void decideIfToDraw(boolean bool) {
+		this.shouldIDraw = bool;
 	}
 
 }

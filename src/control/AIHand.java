@@ -8,7 +8,7 @@ import org.neuroph.nnet.learning.MomentumBackpropagation;
 
 import boundary.PrintListener;
 import entity.Match;
-import gui.PaintNetwork;
+import gui.PaintNetworkLabel;
 
 /**
  * Class runs the training and testing of the neural network
@@ -28,7 +28,7 @@ public class AIHand {
 	 */
 	public AIHand(Controller controller) {
 		this.controller = controller;
-		currentIteration = 0;
+		currentIteration = 1;
 	}
 
 	/**
@@ -73,8 +73,8 @@ public class AIHand {
 		norm.normalize(data); // Normalize the data in the dataset
 
 		MultiLayerPerceptron MLP = (MultiLayerPerceptron) MultiLayerPerceptron.createFromFile(searchPath); // Load the
-																											// network
-																											// template
+		// network
+		// template
 		System.out.println("Network loaded");
 
 		// Set the rules for training of the network
@@ -93,19 +93,39 @@ public class AIHand {
 		System.out.println("Learning started");
 
 		// Create instance that will visualize network and start the thread
-		PaintNetwork pn = new PaintNetwork(MLP);
+		PaintNetworkLabel pn = new PaintNetworkLabel(MLP);
 		new Thread(pn).start();
-		pn.initiate(MLP);
 		controller.sendNetworkFrame(pn);
+		pn.initiate(MLP);
+		
+		int oldIteration = 0;
+		new Thread() {
+			public void run() {
+				while (currentIteration < iterations) {
+					currentIteration = learningRule.getCurrentIteration();
+					controller.updateProgress(currentIteration, iterations);
+//					try {
+//						Thread.sleep(10);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
+				}
+				this.interrupt();
+			}
+		}.start();
 
 		// Update of progressbar in GUI
 		while (currentIteration < iterations) {
-			
 			currentIteration = learningRule.getCurrentIteration();
-			controller.updateProgress(currentIteration, iterations);
-			pn.update(MLP);
+			if(oldIteration < currentIteration) {
+				if(controller.shouldIDraw()) {
+					pn.paint(pn.getGraphics());
+				}
+				pn.updateInputConnections(MLP);
+				oldIteration = currentIteration;
+			}
 			try {
-				Thread.sleep(10);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

@@ -37,6 +37,8 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.StyledDocument;
@@ -66,7 +68,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	private JTabbedPane pnlWest; // Holds the entire western content
 	private JTabbedPane pnlCenter;
-	private PaintNetwork paintNetwork;
+	private PaintNetworkLabel paintNetwork;
 	private JPanel networkPanel;
 	
 	// Database input
@@ -236,6 +238,17 @@ public class GUI extends JFrame implements ActionListener {
 		comboBoxOpenAll.addActionListener(this);
 		comboBoxOpenNetwork.addActionListener(this);
 		comboBoxOpenLeague.addActionListener(this);
+		pnlCenter.addChangeListener(new ChangeListener() {
+			
+			public void stateChanged(ChangeEvent e) {
+				if(pnlCenter.getSelectedIndex() == 0) {
+					controller.decideIfToDraw(false);
+				}else {
+					controller.decideIfToDraw(true);
+				}
+				
+			}
+		});
 	}
 
 	public void createPnlUpper() {
@@ -269,8 +282,6 @@ public class GUI extends JFrame implements ActionListener {
 
 	public void createCenterPanel() {
 		pnlCenter.setBorder(new EmptyBorder(5, 5, 5, 5));
-		networkPanel = new JPanel();
-		pnlCenter.addTab("Network", networkPanel);
 		pnlCenter.addTab("Console", pnlTextArea);
 		pnlCenter.setVisible(true);
 		
@@ -280,16 +291,14 @@ public class GUI extends JFrame implements ActionListener {
 		return networkPanel.getGraphics();
 	}
 
-	public void addNetworkFrame(PaintNetwork paintNetwork) {
-		this.paintNetwork = paintNetwork;
-		JPanel panel = new JPanel();
-		panel.add(paintNetwork.getContentPane());
-		panel.repaint();
-		panel.setVisible(true);
-		panel.revalidate();
-		pnlCenter.add("Network", panel);
-
-		paintNetwork.setVisible(true);
+	public void addNetworkFrame(PaintNetworkLabel paintNetwork) {
+		
+		pnlCenter.setDoubleBuffered(true);
+		paintNetwork.setSizeForLabel(pnlCenter.getHeight(), pnlTextArea.getWidth());
+		paintNetwork.setOpaque(false);
+		paintNetwork.setVisible(false);
+		pnlCenter.add("Network", paintNetwork);
+		
 	}
 
 	public void createConsolePanel() {
@@ -568,7 +577,7 @@ public class GUI extends JFrame implements ActionListener {
 			controller.loadFromComboBox("SavedFiles/nnet/" + (String) comboBoxOpenNetwork.getSelectedItem(), "nnet");
 		} else if (e.getSource() == comboBoxOpenLeague) {
 			controller.loadFromComboBox("SavedFiles/league/" + (String) comboBoxOpenLeague.getSelectedItem(), "league");
-		}
+		} 
 
 		else if (e.getSource() == btnCalc) {
 			controller.disableButtons();

@@ -102,7 +102,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		connection.connect();
 		System.out.println("Database connected");
 		
-		System.out.println("Starts leaguecreator..");
+		System.out.println("Starts leaguecreator..\n\n");
 		ligaSkapare = new LeagueCreator(leagueName, leagueAPIId, datasetName, matchDay);
 		ligaSkapare.createLeague();
 
@@ -114,7 +114,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		System.out.println("Dataset loaded..");
 
 		// Train the AI with the trainingset
-		System.out.println("Starts ai-handler..");
+		System.out.println("Starts ai-handler using dataset with " +trainingSet.getRows().size() + " rows");
 		new AIHand(controller).trainNetwork(trainingSet, norm, iterations, learningRate, momentum, searchPath, finalNNName);
 		ArrayList<Season> seasons = league.getSeasons(); // Get the seasons from league
 		ArrayList<Match> matchesToTest = new ArrayList<Match>(); // Create a list that will contain the upcoming matches
@@ -132,7 +132,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		}
 		
 		// Produce the calculation for each match and save it to the database.
-		System.out.println("Starts ProduceOutput");
+		System.out.print("Starts ProduceOutput");
 		ProduceOutput produceOutput = new ProduceOutput(finalNNName);
 		
 		for (Match match : matchesToTest) {

@@ -10,9 +10,11 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
+import boundary.FetchApi;
+
 public class JSONFileProducer {
 
-	public static void writeToFile(String league, int year, String id, JSONObject jsonObj) throws FileNotFoundException {
+	public static void writeToFile(String id, String sort, JSONObject jsonObj) throws FileNotFoundException {
 		 Gson gson = new Gson();
 		  
 		  // convert java object to JSON format,
@@ -21,7 +23,7 @@ public class JSONFileProducer {
 		  
 		  try {
 		   //write converted json data to a file named "CountryGSON.json"
-		   FileWriter writer = new FileWriter("JSON/"+league+"/"+year+"_"+id+".json");
+		   FileWriter writer = new FileWriter("JSON/"+id+"_"+sort+".json");
 		   writer.write(json);
 		   writer.close();
 		  
@@ -51,5 +53,21 @@ public class JSONFileProducer {
 		  }
 		  
 return json;
+	}
+	public static void main(String[] args) {
+		try {
+			String[] pl = {"113", "114", "4", "301", "341", "354", "398", "426", "445"};
+			for(int i = 0; i < pl.length; i++) {
+				JSONFileProducer.writeToFile(pl[i], "competition", FetchApi.getJsonSeason(Integer.parseInt(pl[i])));
+				
+				JSONFileProducer.writeToFile(pl[i], "matches", FetchApi.getJsonMatches(Integer.parseInt(pl[i])));
+				
+				JSONFileProducer.writeToFile(pl[i], "teams", FetchApi.getJsonTeams(Integer.parseInt(pl[i])));
+			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

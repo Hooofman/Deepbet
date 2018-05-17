@@ -55,7 +55,7 @@ public class LeagueCreator {
 				System.out.println("Teams reset for comming season");
 			}
 
-			JSONObject jsonSeason = FetchApi.getJsonSeason(apiId[i]);
+			JSONObject jsonSeason = FetchApi.getJsonSeasonFromHome(apiId[i]);
 			System.out.println("Season-object fetched from API");
 			
 			try {

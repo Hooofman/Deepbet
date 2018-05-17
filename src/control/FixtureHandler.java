@@ -32,10 +32,10 @@ public class FixtureHandler {
 		 */
 		System.out.println("Starts creating matches: " + season.getLeageName() + " / " + season.getYear());
 		
-		if (season.getYear() == 2017) { // TODO: Remove this part later. Get everything from external API when we are done, not from home.
+		if (season.getYear() == 2018) { // TODO: Remove this part later. Get everything from external API when we are done, not from home.
 			jsonMatches = FetchApi.getJsonMatches(season.getId());
 		} else {
-			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getYear(), "matches");
+			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getId());
 		}
 		fixtures = jsonMatches.getJSONArray("fixtures");
 		System.out.println("Fixtures fetched from API");

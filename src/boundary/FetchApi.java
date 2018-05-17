@@ -15,21 +15,7 @@ import com.mashape.unirest.http.Unirest;
 public class FetchApi {
 	private static String token = "WrBZ2f7IrkoF5ZZXd3ILImXnyGMEhdTYfblOtuaOrwM5He6BUPsUSCzTJDjx"; // Token for API-access
 	private static JSONObject object = null;
-
-
-	/**
-	 * Fetches matches stored in the server.
-	 * 
-	 * @param year The year the matches to be fetched was played.
-	 * @param id defines what file on server the data to be fetched is located.
-	 * @return JSONObject A JSONObject containing all the matches from a specific year stored in our server.
-	 */
-	public static JSONObject getJsonMatchesFromHome(int year, String id) {
-		object = readJSONfromURL("http://deepbet.ddns.net/API/" + year + "_" + id + ".json");
-
-		return object;
-	}
-
+	
 	/**
 	 * Gets all teams for a specific league
 	 * 
@@ -42,6 +28,16 @@ public class FetchApi {
 			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id + "/teams");
 		} catch (Exception e) {
 			System.out.println("Error when fetching teams from API");
+		}
+		return object;
+	}
+	
+	public static JSONObject getJsonTeamsFromHome(int id) {
+		try {
+			object = readJSONfromURL("http://192.168.1.2/API/" + id + "_teams.json");
+		} catch (Exception e) {
+			System.out.println("Error when fetching teams from Home, trying from API");
+			object = getJsonTeams(id);
 		}
 		return object;
 	}
@@ -61,6 +57,16 @@ public class FetchApi {
 		}
 		return object;
 	}
+	
+	public static JSONObject getJsonSeasonFromHome(int id) {
+		try {
+			object = readJSONfromURL("http://192.168.1.2/API/" + id + "_.json");
+		} catch (Exception e) {
+			System.out.println("Error when fetching season from Home, trying from API");
+			object = getJsonSeason(id);
+		}
+		return object;
+	}
 
 	/**
 	 * Gets all matches for a specific league.
@@ -74,6 +80,23 @@ public class FetchApi {
 			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id + "/fixtures");
 		} catch (Exception e) {
 			System.out.println("Error when fetching fixtures from API");
+		}
+		return object;
+	}
+	
+	/**
+	 * Fetches matches stored in the server.
+	 * 
+	 * @param year The year the matches to be fetched was played.
+	 * @param id defines what file on server the data to be fetched is located.
+	 * @return JSONObject A JSONObject containing all the matches from a specific year stored in our server.
+	 */
+	public static JSONObject getJsonMatchesFromHome(int id) {
+		try {
+			object = readJSONfromURL("http://192.168.1.2/API/" + id + "_fixtures.json");
+		} catch (Exception e) {
+			System.out.println("Error when fetching fixtures from Home, trying API");
+			object = getJsonMatches(id);
 		}
 		return object;
 	}

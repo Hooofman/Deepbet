@@ -53,12 +53,13 @@ public class LeagueCreator {
 			// Removes the last three teams for each season and resets the variables for the teams that will play in the next season of the league
 			if (i != 0) {
 				league.removeLast3Teams();
-				System.out.println("Last three teams  of the season is removed");
+				
+				System.out.println("\n\n\nLast three teams  of the season is removed");
 				league.resetTeamsForNewSeason();
 				System.out.println("Teams reset for comming season");
 			}
 
-			JSONObject jsonSeason = FetchApi.getJsonSeason(apiId[i]);
+			JSONObject jsonSeason = FetchApi.getJsonSeasonFromHome(apiId[i]);
 			System.out.println("Season-object fetched from API");
 			
 			try {
@@ -91,8 +92,9 @@ public class LeagueCreator {
 				e.printStackTrace();
 			}
 		}
+		
 		trainingSet.save(datasetName); // Save the trainingset
-		System.out.println("Dataset saved");
+		System.out.println(trainingSet.getRows().size() +" rows in Dataset saved");
 	}
 
 	public League getLeague() {

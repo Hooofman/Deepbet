@@ -36,17 +36,22 @@ public class FixtureHandler {
 		if (season.getYear() == 2017) { // TODO: Remove this part later. Get everything from external API when we are done, not from home.
 			jsonMatches = FetchApi.getJsonMatches(season.getId());
 		} else {
-			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getYear(), "matches");
+			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getId());
 		}
 		fixtures = jsonMatches.getJSONArray("fixtures");
 		System.out.println("Fixtures fetched from API");
 
+		
 		// Loop through all fixtures
+		int numberOfMatchesAdded = 0;
 		for (int i = 0; i < fixtures.length(); i++) {
-			String status = "TIMED";
+			String status ="FINISHED";
 			// Check if the match is finished
-			status = fixtures.getJSONObject(i).optString("status");
+	//status = fixtures.getJSONObject(i).optString("status");
 
+			if(status == null || status.length() <1) {
+				status = "FINISHED";
+			}
 			// Get the teamnames from API and compare with the seasons team-objects to get the right team
 			Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
 			Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
@@ -85,6 +90,7 @@ public class FixtureHandler {
 
 				// Add the match to the dataset used for training the AI
 				AIHand.addMatchToDataSet(match, dataSet);
+				numberOfMatchesAdded++;
 			}
 
 			// If the match isnt played, just add it to the season
@@ -97,6 +103,7 @@ public class FixtureHandler {
 		}
 		
 		System.out.println("Fixtures created for season: " + season.getLeageName() + " / " + season.getYear());
+		System.out.println(numberOfMatchesAdded +" matches added to DataSet");
 		
 	}
 }

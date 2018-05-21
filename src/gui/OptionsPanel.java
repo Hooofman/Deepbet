@@ -28,9 +28,9 @@ public class OptionsPanel extends JPanel {
 		btnSaveAll = new JButton("Save All settings");
 		btnLoadAll = new JButton("Load All settings");
 		comboBoxOpenAll = new JComboBox();
+		add(comboBoxOpenAll);
 		add(btnSaveAll);
 		add(btnLoadAll);
-		add(comboBoxOpenAll);
 		File folder = new File("SavedFiles/All");
 		File[] listOfFiles = folder.listFiles();
 		for (int i = 0; i < listOfFiles.length; i++) {

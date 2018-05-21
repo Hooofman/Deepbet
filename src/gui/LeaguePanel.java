@@ -39,12 +39,15 @@ public class LeaguePanel extends JPanel {
 		comboBoxOpenLeague = new JComboBox();
 		
 		add(lblLeagueName);
-		add(lblLeagueAPIid);
 		add(txtLeagueName);
+		
+		add(lblLeagueAPIid);
 		add(txtLeagueAPIid);
+		
+		add(comboBoxOpenLeague);
+		
 		add(btnSaveLeagueSettings);
 		add(btnLoadLeagueSettings);
-		add(comboBoxOpenLeague);
 		
 		File folder = new File("SavedFiles/league");
 		File[] listOfFiles = folder.listFiles();

@@ -53,9 +53,10 @@ public class DbPanel extends JPanel {
 		
 		add(lblUserName);
 		add(userName);
-		
-		add(password);
+
 		add(lblPassword);
+		add(password);
+
 
 		add(btnSaveDBSettings);
 		add(btnLoadDBSettings);

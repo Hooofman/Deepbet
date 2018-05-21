@@ -177,7 +177,8 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void setNeuralNetworkPath(String pathName) {
-		pnlAnn.setNeuralNetworkPathName(pathName);
+		pnlAnn.txtNeuralNetWorkPath.setText(pathName);
+		
 	}
 
 	/**

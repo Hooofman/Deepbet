@@ -55,7 +55,7 @@ public class AnnPanel extends JPanel {
 		learningRate = new JTextField("0.7");
 		momentum = new JTextField("0.2");
 		txtNeuralNetWorkPath = new JTextField("");
-		txtDatasetName = new JTextField("Fixed");
+		txtDatasetName = new JTextField("");
 		txtFinalNNName = new JTextField("");
 		
 		comboBoxOpenNetwork = new JComboBox();
@@ -76,6 +76,8 @@ public class AnnPanel extends JPanel {
 		add(txtDatasetName);
 		add(txtFinalNNName);
 		add(comboBoxOpenNetwork);
+		add(txtNeuralNetWorkPath);
+		
 		
 		File folder = new File("SavedFiles/nnet/template");
 		File[] listOfFiles = folder.listFiles();
@@ -107,9 +109,6 @@ public class AnnPanel extends JPanel {
 		txtFinalNNName.setText(array[5]);
 	}
 	
-	public void setNeuralNetworkPathName(String pathName) {
-		txtNeuralNetWorkPath.setText(pathName);
-	}
 	
 	
 }

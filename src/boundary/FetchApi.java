@@ -34,7 +34,7 @@ public class FetchApi {
 	
 	public static JSONObject getJsonTeamsFromHome(int id) {
 		try {
-			object = readJSONfromURL("http://192.168.1.2/API/" + id + "_teams.json");
+			object = readJSONfromURL("http://deepbet.ddns.net/API/" + id + "_teams.json");
 		} catch (Exception e) {
 			System.out.println("Error when fetching teams from Home, trying from API");
 			object = getJsonTeams(id);
@@ -60,7 +60,7 @@ public class FetchApi {
 	
 	public static JSONObject getJsonSeasonFromHome(int id) {
 		try {
-			object = readJSONfromURL("http://192.168.1.2/API/" + id + "_.json");
+			object = readJSONfromURL("http://deepbet.ddns.net/API/" + id + "_.json");
 		} catch (Exception e) {
 			System.out.println("Error when fetching season from Home, trying from API");
 			object = getJsonSeason(id);
@@ -93,7 +93,7 @@ public class FetchApi {
 	 */
 	public static JSONObject getJsonMatchesFromHome(int id) {
 		try {
-			object = readJSONfromURL("http://192.168.1.2/API/" + id + "_fixtures.json");
+			object = readJSONfromURL("http://deepbet.ddns.net/API/" + id + "_fixtures.json");
 		} catch (Exception e) {
 			System.out.println("Error when fetching fixtures from Home, trying API");
 			object = getJsonMatches(id);

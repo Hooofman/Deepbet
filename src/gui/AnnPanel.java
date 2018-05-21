@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -75,6 +76,14 @@ public class AnnPanel extends JPanel {
 		add(txtDatasetName);
 		add(txtFinalNNName);
 		add(comboBoxOpenNetwork);
+		
+		File folder = new File("SavedFiles/nnet/template");
+		File[] listOfFiles = folder.listFiles();
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile()) {
+				comboBoxOpenNetwork.addItem(listOfFiles[i].getName());
+			}
+		}
 	}
 	
 	/**
@@ -101,4 +110,6 @@ public class AnnPanel extends JPanel {
 	public void setNeuralNetworkPathName(String pathName) {
 		txtNeuralNetWorkPath.setText(pathName);
 	}
+	
+	
 }

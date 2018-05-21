@@ -31,55 +31,56 @@ import control.Controller;
 public class GUI extends JFrame implements ActionListener {
 
 	private Controller controller;
-	
+
 	// Main-panel
 	private JPanel pnlMain;
-	
+
 	// Center-panel
 	private JPanel pnlCenter;
 	private JTextPane consolText;
 	private JScrollPane scrollBar;
 	private StyledDocument doc;
-	
+
 	// Upper Panel
 	private JPanel pnlUpper;
 	private JLabel lblTitle;
 	private static final String LOGOPATH = "images/deepbet_vit.png";
-	
+
 	// West Panel
 	private JTabbedPane pnlWest;
 	private DbPanel pnlDb;
 	private AnnPanel pnlAnn;
 	private LeaguePanel pnlLeague;
 	private OptionsPanel pnlOptions;
-	
+
 	// Bottom Panel
 	private JPanel pnlBottom;
 	private JButton btnCalc;
 	private JProgressBar progressBar;
-	
+
 	public GUI() {
 		init();
 	}
-	
+
 	public void setController(Controller controller) {
 		this.controller = controller;
 	}
-	
+
 	public void init() {
+
 		initCenterPanel();
 		initWestPanel();
 		initUpperPanel();
 		initBottomPanel();
 		initMainPanel();
 		add(pnlMain);
-		fixComboBox();
+		//fixComboBox();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
 		this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 	}
-	
+
 	public void initMainPanel() {
 		pnlMain = new JPanel();
 		pnlMain.setLayout(new BorderLayout());
@@ -89,31 +90,31 @@ public class GUI extends JFrame implements ActionListener {
 		pnlMain.add(pnlUpper, BorderLayout.NORTH);
 		pnlMain.setVisible(true);
 	}
-	
+
 	public void initCenterPanel() {
 		pnlCenter = new JPanel();
 		consolText = new JTextPane();
 		scrollBar = new JScrollPane(consolText);
-		
+
 		pnlCenter.setLayout(new BorderLayout());
 		pnlCenter.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
+
 		consolText.setEditable(false);
-		
+
 		scrollBar.setBorder(BorderFactory.createLineBorder(Color.black));
 		scrollBar.setAutoscrolls(true);
 		scrollBar.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		
+
 		pnlCenter.add(scrollBar);
 		pnlCenter.setVisible(true);
-		
+
 		doc = consolText.getStyledDocument();
-		
+
 		// Scrolls the text-panel automatically when filled
 		DefaultCaret caret = (DefaultCaret) consolText.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 	}
-	
+
 	public void initUpperPanel() {
 		pnlUpper = new JPanel();
 		lblTitle = new JLabel();
@@ -121,7 +122,7 @@ public class GUI extends JFrame implements ActionListener {
 		pnlUpper.add(lblTitle);
 		pnlUpper.setBackground(Color.DARK_GRAY);
 	}
-	
+
 	public void initWestPanel() {
 		pnlDb = new DbPanel(this);
 		pnlAnn = new AnnPanel(this);
@@ -136,7 +137,7 @@ public class GUI extends JFrame implements ActionListener {
 		pnlWest.addTab("Options", pnlOptions);
 		pnlWest.setVisible(true);
 	}
-	
+
 	public void initBottomPanel() {
 		pnlBottom = new JPanel();
 		progressBar = new JProgressBar(0, 1000);
@@ -153,29 +154,29 @@ public class GUI extends JFrame implements ActionListener {
 		progressBar.setStringPainted(true);
 		pnlBottom.add(progressBar);
 	}
-	
-	
-	
+
+
+
 	// GUI-LOGIC //
-	
+
 	public void setDbSettings(String[] arr) {
 		pnlDb.setDBSettings(arr);
 	}
-	
+
 	public void setAnnSettings(String[] arr) {
 		pnlAnn.setANNSettings(arr);
 	}
-	
+
 	public void setLeagueSettings(String[] arr) {
 		pnlLeague.setLeagueSettings(arr);
 	}
-	
+
 	public void setAllSettings(String[] arr) {
 		setDbSettings(Arrays.copyOfRange(arr, 0, 4));
 		setAnnSettings(Arrays.copyOfRange(arr, 4, 10));
 		setLeagueSettings(Arrays.copyOfRange(arr, 10, 13));
 	}
-	
+
 	public void setNeuralNetworkPath(String pathName) {
 		pnlAnn.setNeuralNetworkPathName(pathName);
 	}
@@ -207,7 +208,7 @@ public class GUI extends JFrame implements ActionListener {
 			}
 		}
 	}
-	
+
 	/**
 	 * Creates a string with the information that is to be saved concerning all the
 	 * information in the GUI.
@@ -218,7 +219,7 @@ public class GUI extends JFrame implements ActionListener {
 	public String getStringToSaveAll() {
 		return pnlDb.getStringToSaveDB() + "," + pnlAnn.getStringToSaveANN() + "," + pnlLeague.getStringToSaveLeague();
 	}
-	
+
 	/**
 	 * Adds text in the console in the GUI.
 	 * 
@@ -232,17 +233,17 @@ public class GUI extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void disableButtons() {
 		btnCalc.setBackground(Color.RED);
 		btnCalc.setEnabled(false);
 	}
-	
+
 	public void enableButtons() {
 		btnCalc.setBackground(Color.GREEN);
 		btnCalc.setEnabled(true);
 	}
-	
+
 	public void showProgress(int progress) {
 		progressBar.setValue(progress);
 		progressBar.setString((double) progress / 10 + " %");
@@ -291,5 +292,5 @@ public class GUI extends JFrame implements ActionListener {
 		}
 	}
 
-	
+
 }

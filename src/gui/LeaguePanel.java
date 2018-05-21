@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -40,6 +41,14 @@ public class LeaguePanel extends JPanel {
 		add(btnSaveLeagueSettings);
 		add(btnLoadLeagueSettings);
 		add(comboBoxOpenLeague);
+		
+		File folder = new File("SavedFiles/league");
+		File[] listOfFiles = folder.listFiles();
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile()) {
+				comboBoxOpenLeague.addItem(listOfFiles[i].getName());
+			}
+		}
 	}
 	
 	/**

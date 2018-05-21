@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,5 +27,12 @@ public class OptionsPanel extends JPanel {
 		add(btnSaveAll);
 		add(btnLoadAll);
 		add(comboBoxOpenAll);
+		File folder = new File("SavedFiles/All");
+		File[] listOfFiles = folder.listFiles();
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile()) {
+				comboBoxOpenAll.addItem(listOfFiles[i].getName());
+			}
+		}
 	}
 }

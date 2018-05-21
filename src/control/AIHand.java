@@ -8,6 +8,7 @@ import org.neuroph.nnet.learning.MomentumBackpropagation;
 
 import boundary.PrintListener;
 import entity.Match;
+import gui.PaintNetwork;
 import gui.PaintNetworkLabel;
 
 /**
@@ -21,7 +22,7 @@ public class AIHand {
 	private Controller controller;
 	private int currentIteration;
 	private int iterations;
-	private PaintNetworkLabel pn;
+
 	/**
 	 * Constructor
 	 * 
@@ -94,9 +95,8 @@ public class AIHand {
 		System.out.println("Learning started");
 
 		// Create instance that will visualize network and start the thread
-		pn = new PaintNetworkLabel(MLP);
+		PaintNetwork pn = new PaintNetwork(MLP);
 		new Thread(pn).start();
-		controller.sendNetworkFrame(pn);
 		pn.initiate(MLP);
 		
 		int oldIteration = 0;
@@ -120,14 +120,12 @@ public class AIHand {
 		while (currentIteration < iterations) {
 			currentIteration = learningRule.getCurrentIteration();
 			if(oldIteration < currentIteration) {
-				if(controller.shouldIDraw()) {
-					synchedPainting(2);
-				}
-				pn.updateInputConnections(MLP);
-				oldIteration = currentIteration;
+				pn.update(MLP);
+				controller.updateProgress(currentIteration, iterations);
+				oldIteration = currentIteration;				
 			}
 			try {
-				Thread.sleep(1);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -158,7 +156,7 @@ public class AIHand {
 		if(who == 1) {
 			controller.updateProgress(currentIteration, iterations);
 		}else if(who == 2) {
-			pn.paint(pn.getGraphics());
+			//pn.paint(pn.getGraphics());
 		}
 			
 		

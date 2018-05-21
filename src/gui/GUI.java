@@ -21,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
@@ -59,6 +61,16 @@ public class GUI extends JFrame implements ActionListener {
 	private JProgressBar progressBar;
 
 	public GUI() {
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) {
+		}
+		
 		init();
 	}
 
@@ -67,7 +79,6 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void init() {
-
 		initCenterPanel();
 		initWestPanel();
 		initUpperPanel();

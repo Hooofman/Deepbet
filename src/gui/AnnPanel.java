@@ -42,16 +42,16 @@ public class AnnPanel extends JPanel {
 	}
 	
 	public void init() {
-		setLayout(new GridLayout(15,0,5,5));
+		setLayout(new GridLayout(16,0,5,5));
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		lblIterations = new JLabel("Number of iterations");
 		lblLearningRate = new JLabel("Learing rate");
 		lblMomentum = new JLabel("Momentum");
-		lblNeuralNetworkPath = new JLabel("NN-template");
+		lblNeuralNetworkPath = new JLabel("Network template");
 		lblFinalNNName = new JLabel("Trained NN name");
 		lblDatasetName = new JLabel("Dataset name");
 		
-		btnLoadNetwork = new JButton("Load network template");
+		btnLoadNetwork = new JButton("Load network template from external path");
 		btnSaveANNsettings = new JButton("Save network settings");
 		btnLoadANNSettings = new JButton("Load network settings");
 
@@ -64,25 +64,31 @@ public class AnnPanel extends JPanel {
 		
 		comboBoxOpenNetwork = new JComboBox();
 		
-		add(lblIterations);
-		add(lblLearningRate);
-		add(lblMomentum);
 		add(lblNeuralNetworkPath);
-		add(lblFinalNNName);
-		add(txtDatasetName);
+		add(comboBoxOpenNetwork);
+		
+		add(txtNeuralNetWorkPath);
 		add(btnLoadNetwork);
+		
+		add(lblIterations);
+		add(iterations);
+		
+		add(lblLearningRate);
+		add(learningRate);
+		
+		add(lblMomentum);
+		add(momentum);
+		
+		add(lblFinalNNName);
+		add(txtFinalNNName);
+		
+		add(lblDatasetName);
+		add(txtDatasetName);
+		
+		
 		add(btnLoadANNSettings);
 		add(btnSaveANNsettings);
-		add(iterations);
-		add(learningRate);
-		add(momentum);
-		add(lblNeuralNetworkPath);
-		add(txtDatasetName);
-		add(txtFinalNNName);
-		add(comboBoxOpenNetwork);
-		add(txtNeuralNetWorkPath);
-		
-		
+
 		File folder = new File("SavedFiles/nnet/template");
 		File[] listOfFiles = folder.listFiles();
 		for (int i = 0; i < listOfFiles.length; i++) {

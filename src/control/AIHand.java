@@ -137,7 +137,7 @@ public class AIHand {
 		testNeuralNetwork(MLP, data); // Test the network with input from dataset
 		System.out.println("Testing complete");
 
-		MLP.save(finalNNName); // Save the trained network
+		MLP.save("SavedFiles/nnet/trained/" +finalNNName+".nnet"); // Save the trained network
 		System.out.println("Network saved");
 	}
 	

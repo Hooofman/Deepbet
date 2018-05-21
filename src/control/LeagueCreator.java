@@ -88,7 +88,7 @@ public class LeagueCreator {
 				e.printStackTrace();
 			}
 		}
-		trainingSet.save(datasetName); // Save the trainingset
+		trainingSet.save("SavedFiles/datasets/"+ datasetName); // Save the trainingset
 		System.out.println("Dataset saved");
 	}
 

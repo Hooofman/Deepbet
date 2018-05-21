@@ -125,7 +125,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		
 		// Produce the calculation for each match and save it to the database.
 		System.out.println("Starts ProduceOutput");
-		ProduceOutput produceOutput = new ProduceOutput(finalNNName);
+		ProduceOutput produceOutput = new ProduceOutput("SavedFiles/nnet/trained/" +finalNNName);
 		
 		for (Match match : matchesToTest) {
 			produceOutput.getOutputForMatch(match, norm);

@@ -97,6 +97,8 @@ public class CalculationHandler extends Thread implements PrintListener {
 	 * Calculates the outcome of the upcoming matches and puts them into the database
 	 */
 	public void calculate(int matchDay) {
+		controller.disableButtons();
+		
 		LeagueCreator ligaSkapare = null;
 	
 		connection.connect();

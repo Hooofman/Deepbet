@@ -107,6 +107,8 @@ public class GUI extends JFrame implements ActionListener {
 		pnlCenter.add(scrollBar);
 		pnlCenter.setVisible(true);
 		
+		doc = consolText.getStyledDocument();
+		
 		// Scrolls the text-panel automatically when filled
 		DefaultCaret caret = (DefaultCaret) consolText.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
@@ -155,6 +157,28 @@ public class GUI extends JFrame implements ActionListener {
 	
 	
 	// GUI-LOGIC //
+	
+	public void setDbSettings(String[] arr) {
+		pnlDb.setDBSettings(arr);
+	}
+	
+	public void setAnnSettings(String[] arr) {
+		pnlAnn.setANNSettings(arr);
+	}
+	
+	public void setLeagueSettings(String[] arr) {
+		pnlLeague.setLeagueSettings(arr);
+	}
+	
+	public void setAllSettings(String[] arr) {
+		setDbSettings(Arrays.copyOfRange(arr, 0, 4));
+		setAnnSettings(Arrays.copyOfRange(arr, 4, 10));
+		setLeagueSettings(Arrays.copyOfRange(arr, 10, 13));
+	}
+	
+	public void setNeuralNetworkPath(String pathName) {
+		pnlAnn.setNeuralNetworkPathName(pathName);
+	}
 	/**
 	 * Lists the files in a folder and displays them in combo boxes.
 	 */
@@ -193,12 +217,6 @@ public class GUI extends JFrame implements ActionListener {
 	 */
 	public String getStringToSaveAll() {
 		return pnlDb.getStringToSaveDB() + "," + pnlAnn.getStringToSaveANN() + "," + pnlLeague.getStringToSaveLeague();
-	}
-	
-	public void setAllSettings(String[] array) {
-		pnlDb.setDBSettings(Arrays.copyOfRange(array, 0, 4));
-		pnlAnn.setANNSettings(Arrays.copyOfRange(array, 4, 10));
-		pnlLeague.setLeagueSettings(Arrays.copyOfRange(array, 10, 13));
 	}
 	
 	/**

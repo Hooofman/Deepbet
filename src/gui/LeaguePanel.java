@@ -19,6 +19,7 @@ public class LeaguePanel extends JPanel {
 	
 	public LeaguePanel(ActionListener listener) {
 		init();
+		comboBoxOpenLeague.addActionListener(listener);
 		btnSaveLeagueSettings.addActionListener(listener);
 		btnLoadLeagueSettings.addActionListener(listener);
 	}

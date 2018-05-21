@@ -79,12 +79,12 @@ public class Controller {
 
 	public void setDBSettings(String str) {
 		String[] inputGUI = str.split(",", 0);
-		gui.setDBSettings(inputGUI);
+		gui.setDbSettings(inputGUI);
 	}
 
 	public void setANNSettings(String str) {
 		String[] inputGUI = str.split(",", 0);
-		gui.setANNSettings(inputGUI);
+		gui.setAnnSettings(inputGUI);
 	}
 
 	public void setLeagueSettings(String str) {
@@ -98,7 +98,7 @@ public class Controller {
 	}
 
 	public void setNeuralNetworkPath(String pathName) {
-		gui.setNeuralNetworkPathName(pathName);
+		gui.setNeuralNetworkPath(pathName);
 	}
 
 	public void addToConsoleText(String txt) {
@@ -135,10 +135,6 @@ public class Controller {
 		gui.showProgress(progress);
 	}
 
-	public void sendNetworkFrame(PaintNetworkLabel frame) {
-		gui.addNetworkFrame(frame);
-	}
-
 	/**
 	 * Loads settings from GUI
 	 * 
@@ -148,7 +144,7 @@ public class Controller {
 	public void loadFromComboBox(String fileName, String indicator) {
 		String str = ReadFromFile.readFromFile(fileName);
 		if (indicator.equals("nnet")) {
-			gui.setNeuralNetworkPathName(System.getProperty("user.dir") + "\\" + fileName);
+			gui.setNeuralNetworkPath(System.getProperty("user.dir") + "\\" + fileName);
 			addToConsoleText("Network Path is set to " + System.getProperty("user.dir") + "\\" + fileName);
 		} else if (indicator.equals("all")) {
 			setAllSettings(str);
@@ -157,10 +153,6 @@ public class Controller {
 			setLeagueSettings(str);
 			addToConsoleText("League settings is loaded from " + System.getProperty("user.dir") + "\\" + fileName);
 		}
-	}
-	
-	public Graphics getGraphicsFromGui() {
-		return gui.getNetworkPanelGraphics();
 	}
 
 	public void setDataBaseSettings(String dataBaseURL, String userName, String passWord, String maxPool,

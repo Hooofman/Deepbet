@@ -32,6 +32,7 @@ public class AnnPanel extends JPanel {
 	
 	public AnnPanel(ActionListener listener) {
 		init();
+		comboBoxOpenNetwork.addActionListener(listener);
 		btnLoadNetwork.addActionListener(listener);
 		btnSaveANNsettings.addActionListener(listener);
 		btnLoadANNSettings.addActionListener(listener);

@@ -14,6 +14,9 @@ public class OptionsPanel extends JPanel {
 	
 	public OptionsPanel(ActionListener listener) {
 		init();
+		comboBoxOpenAll.addActionListener(listener);
+		btnSaveAll.addActionListener(listener);
+		btnLoadAll.addActionListener(listener);
 	}
 	
 	public void init() {

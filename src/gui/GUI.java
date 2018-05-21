@@ -74,7 +74,6 @@ public class GUI extends JFrame implements ActionListener {
 		initBottomPanel();
 		initMainPanel();
 		add(pnlMain);
-		//fixComboBox();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
@@ -180,34 +179,6 @@ public class GUI extends JFrame implements ActionListener {
 	public void setNeuralNetworkPath(String pathName) {
 		pnlAnn.setNeuralNetworkPathName(pathName);
 	}
-	/**
-	 * Lists the files in a folder and displays them in combo boxes.
-	 */
-	public void fixComboBox() {
-		File folder = new File("SavedFiles/All");
-		File[] listOfFiles = folder.listFiles();
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile()) {
-				pnlOptions.comboBoxOpenAll.addItem(listOfFiles[i].getName());
-			}
-		}
-
-		folder = new File("SavedFiles/nnet/template");
-		listOfFiles = folder.listFiles();
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile()) {
-				pnlAnn.comboBoxOpenNetwork.addItem(listOfFiles[i].getName());
-			}
-		}
-
-		folder = new File("SavedFiles/league");
-		listOfFiles = folder.listFiles();
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile()) {
-				pnlLeague.comboBoxOpenLeague.addItem(listOfFiles[i].getName());
-			}
-		}
-	}
 
 	/**
 	 * Creates a string with the information that is to be saved concerning all the
@@ -256,7 +227,6 @@ public class GUI extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == pnlDb.btnSaveDBSettings) {
 			controller.saveSettings("SaveDB", pnlDb.getStringToSaveDB());
-
 		} else if (e.getSource() == pnlDb.btnLoadDBSettings) { // Load Database settings
 			controller.loadSettings("Database");
 		} else if (e.getSource() == pnlAnn.btnSaveANNsettings) {

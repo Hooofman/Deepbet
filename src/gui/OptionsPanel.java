@@ -6,6 +6,7 @@ import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -13,6 +14,7 @@ public class OptionsPanel extends JPanel {
 
 	protected JButton btnSaveAll;
 	protected JButton btnLoadAll;
+	protected JLabel lblLoadFromCombo;
 	protected JComboBox comboBoxOpenAll;
 	
 	public OptionsPanel(ActionListener listener) {
@@ -28,6 +30,8 @@ public class OptionsPanel extends JPanel {
 		btnSaveAll = new JButton("Save All settings");
 		btnLoadAll = new JButton("Load All settings");
 		comboBoxOpenAll = new JComboBox();
+		lblLoadFromCombo = new JLabel("Choose saved presets");
+		add(lblLoadFromCombo);
 		add(comboBoxOpenAll);
 		add(btnSaveAll);
 		add(btnLoadAll);

@@ -102,7 +102,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		League league = ligaSkapare.getLeague();
 
 		// Load the trainingset
-		DataSet trainingSet = DataSet.load(datasetName);
+		DataSet trainingSet = DataSet.load(System.getProperty("user.dir")+"/SavedFiles/datasets/"+datasetName);
 		System.out.println("Dataset loaded..");
 
 		// Train the AI with the trainingset

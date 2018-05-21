@@ -19,6 +19,7 @@ public class LeaguePanel extends JPanel {
 	protected JButton btnSaveLeagueSettings;
 	protected JButton btnLoadLeagueSettings;
 	protected JComboBox comboBoxOpenLeague;
+	protected JLabel lblLoadFromCombo;
 	
 	public LeaguePanel(ActionListener listener) {
 		init();
@@ -37,6 +38,7 @@ public class LeaguePanel extends JPanel {
 		btnSaveLeagueSettings = new JButton("Save League settings");
 		btnLoadLeagueSettings = new JButton("Load League settings");
 		comboBoxOpenLeague = new JComboBox();
+		lblLoadFromCombo = new JLabel("Choose saved presets");
 		
 		add(lblLeagueName);
 		add(txtLeagueName);
@@ -44,6 +46,7 @@ public class LeaguePanel extends JPanel {
 		add(lblLeagueAPIid);
 		add(txtLeagueAPIid);
 		
+		add(lblLoadFromCombo);
 		add(comboBoxOpenLeague);
 		
 		add(btnSaveLeagueSettings);

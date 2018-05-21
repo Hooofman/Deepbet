@@ -1,11 +1,13 @@
 package gui;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class DbPanel extends JPanel {
 
@@ -28,6 +30,8 @@ public class DbPanel extends JPanel {
 	}
 	
 	public void init() {
+		setLayout(new GridLayout(15,0,5,5));
+		setBorder(new EmptyBorder(10, 10, 10, 10));
 		password = new JTextField("Deepbet123");
 		userName = new JTextField("deepbet");
 		dbAddress = new JTextField("");
@@ -41,14 +45,18 @@ public class DbPanel extends JPanel {
 		btnSaveDBSettings = new JButton("Save database settings");
 		btnLoadDBSettings = new JButton("Load database settings");
 		
-		add(password);
-		add(userName);
-		add(dbAddress);
-		add(table);
-		add(lblPassword);
-		add(lblUserName);
 		add(lblDBAddress);
+		add(dbAddress);
+		
 		add(lblTable);
+		add(table);
+		
+		add(lblUserName);
+		add(userName);
+		
+		add(password);
+		add(lblPassword);
+
 		add(btnSaveDBSettings);
 		add(btnLoadDBSettings);
 	}

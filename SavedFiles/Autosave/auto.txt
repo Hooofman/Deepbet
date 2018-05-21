@@ -6,7 +6,7 @@ games5
 0.7
 0.2
 51hidden1layerSet
-C:\Users\johannes.roos\Documents\GitHub\Deepbet\SavedFiles/nnet/template/withBias
+C:\git\Deepbet\SavedFiles/nnet/template/withBias1_2notGoingTo1
 51hidden1layerTrained
 PL
 113

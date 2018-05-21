@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.io.File;
 
@@ -8,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class AnnPanel extends JPanel {
 	
@@ -40,6 +42,8 @@ public class AnnPanel extends JPanel {
 	}
 	
 	public void init() {
+		setLayout(new GridLayout(15,0,5,5));
+		setBorder(new EmptyBorder(10, 10, 10, 10));
 		lblIterations = new JLabel("Number of iterations");
 		lblLearningRate = new JLabel("Learing rate");
 		lblMomentum = new JLabel("Momentum");

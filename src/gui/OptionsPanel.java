@@ -1,11 +1,13 @@
 package gui;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class OptionsPanel extends JPanel {
 
@@ -21,6 +23,8 @@ public class OptionsPanel extends JPanel {
 	}
 	
 	public void init() {
+		setLayout(new GridLayout(15,0,5,5));
+		setBorder(new EmptyBorder(10, 10, 10, 10));
 		btnSaveAll = new JButton("Save All settings");
 		btnLoadAll = new JButton("Load All settings");
 		comboBoxOpenAll = new JComboBox();

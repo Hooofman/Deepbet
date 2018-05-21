@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.io.File;
 
@@ -8,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class LeaguePanel extends JPanel {
 	protected JLabel lblLeagueName;
@@ -26,6 +28,8 @@ public class LeaguePanel extends JPanel {
 	}
 	
 	public void init() {
+		setLayout(new GridLayout(15,0,5,5));
+		setBorder(new EmptyBorder(10, 10, 10, 10));
 		lblLeagueName = new JLabel("League name");
 		lblLeagueAPIid = new JLabel("Season-IDs from API, separate with ,");
 		txtLeagueName = new JTextField();

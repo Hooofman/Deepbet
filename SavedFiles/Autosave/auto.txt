@@ -1,14 +1,14 @@
 Deepbet123
 deepbet
 jdbc:mysql://deepbet.ddns.net:3306/deepbet
-games2
+games6
 2000
 0.8
 0.4
-withBias108042000set
-C:\git\Deepbet\SavedFiles/nnet/withBias1
-withBias108042000trained
-PL
+withBias108042000set2017
+C:\git\Deepbet\SavedFiles/nnet/template/withBias1
+withBias108042000trained2017
+La 
 113
  114
  4
@@ -17,3 +17,4 @@ PL
  354
  398
  426
+ 445

@@ -63,7 +63,7 @@ public class GUI extends JFrame implements ActionListener {
 	public GUI() {
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-		        if ("Nimbus".equals(info.getName())) {
+		        if ("Windows".equals(info.getName())) {
 		            UIManager.setLookAndFeel(info.getClassName());
 		            break;
 		        }
@@ -151,15 +151,15 @@ public class GUI extends JFrame implements ActionListener {
 	public void initBottomPanel() {
 		pnlBottom = new JPanel();
 		progressBar = new JProgressBar(0, 1000);
-		pnlBottom.setLayout(new GridLayout(1, 2));
+		pnlBottom.setLayout(new GridLayout(1, 2, 10, 10));
+		pnlBottom.setBorder(new EmptyBorder(5, 5, 5, 5));
 		btnCalc = new JButton("Start calculation");
 		btnCalc.setFont(btnCalc.getFont().deriveFont(26.0f));
-		btnCalc.setBackground(Color.GREEN);
+		//btnCalc.setBackground(Color.GREEN);
 		btnCalc.addActionListener(this);
 		progressBar.setForeground(Color.GREEN);
 		progressBar.setFont(progressBar.getFont().deriveFont(26.0f));
 		pnlBottom.add(btnCalc);
-		pnlBottom.setBackground(Color.BLACK);
 		progressBar.setValue(0);
 		progressBar.setStringPainted(true);
 		pnlBottom.add(progressBar);
@@ -218,12 +218,12 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void disableButtons() {
-		btnCalc.setBackground(Color.RED);
+		//btnCalc.setBackground(Color.RED);
 		btnCalc.setEnabled(false);
 	}
 
 	public void enableButtons() {
-		btnCalc.setBackground(Color.GREEN);
+		//btnCalc.setBackground(Color.GREEN);
 		btnCalc.setEnabled(true);
 	}
 

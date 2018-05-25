@@ -94,11 +94,6 @@ public class AIHand {
 		}.start();
 		System.out.println("Learning started");
 
-		// Create instance that will visualize network and start the thread
-		//pn = new PaintNetworkLabel(MLP);
-		//new Thread(pn).start();
-		//controller.sendNetworkFrame(pn);
-		//pn.initiate(MLP);
 		while (currentIteration < iterations) {
 			currentIteration = learningRule.getCurrentIteration();
 			synchedPainting(1);
@@ -108,33 +103,6 @@ public class AIHand {
 				e.printStackTrace();
 			}
 		}
-//		int oldIteration = 0;
-//		Thread t1 = new Thread() {
-//			public void run() {
-//				
-//				this.interrupt();
-//			}
-//		};
-//		t1.start();
-
-		// Update of progressbar in GUI
-//		while (currentIteration < iterations) {
-//			currentIteration = learningRule.getCurrentIteration();
-//			if(oldIteration < currentIteration) {
-//				if(controller.shouldIDraw()) {
-//					synchedPainting(2);
-//				}
-//				pn.updateInputConnections(MLP);
-//				oldIteration = currentIteration;
-//			}
-//			try {
-//				Thread.sleep(1);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//
-//		}
-
 		System.out.println("Learning complete. Starts testing of netork..");
 
 		testNeuralNetwork(MLP, data); // Test the network with input from dataset

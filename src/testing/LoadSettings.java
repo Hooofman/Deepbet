@@ -43,7 +43,7 @@ public class LoadSettings extends JPanel {
 		this.controller = cont;
 		this.indicator = indicator;
 
-		btnAdd = new JButton("Välj");
+		btnAdd = new JButton("Välj ");
 		btnChoosePath = new JButton("...");
 		lblPathName = new JLabel("---");
 		btnChoosePath.setPreferredSize(new Dimension(40, 20));

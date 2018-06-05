@@ -54,6 +54,7 @@ public class GUI extends JFrame implements ActionListener {
 	private AnnPanel pnlAnn;
 	private LeaguePanel pnlLeague;
 	private OptionsPanel pnlOptions;
+	private MultiTestingPanel pnlMulti;
 
 	// Bottom Panel
 	private JPanel pnlBottom;
@@ -138,6 +139,7 @@ public class GUI extends JFrame implements ActionListener {
 		pnlAnn = new AnnPanel(this);
 		pnlLeague = new LeaguePanel(this);
 		pnlOptions = new OptionsPanel(this);
+		pnlMulti = new MultiTestingPanel(this);
 		pnlWest = new JTabbedPane();
 		pnlWest.setPreferredSize(new Dimension(400, 400));
 		pnlWest.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -145,6 +147,7 @@ public class GUI extends JFrame implements ActionListener {
 		pnlWest.addTab("Network", pnlAnn);
 		pnlWest.addTab("League", pnlLeague);
 		pnlWest.addTab("Options", pnlOptions);
+		pnlWest.addTab("Multi", pnlMulti);
 		pnlWest.setVisible(true);
 	}
 
@@ -262,11 +265,14 @@ public class GUI extends JFrame implements ActionListener {
 			controller.loadFromComboBox("SavedFiles/nnet/template/" + (String) pnlAnn.comboBoxOpenNetwork.getSelectedItem(), "nnet");
 		} else if (e.getSource() == pnlLeague.comboBoxOpenLeague) {
 			controller.loadFromComboBox("SavedFiles/league/" + (String) pnlLeague.comboBoxOpenLeague.getSelectedItem(), "league");
+		} else if (e.getSource() == pnlMulti.calculateCalculations) {
+			pnlMulti.updateCalculations();
 		} 
-
+		
 		else if (e.getSource() == btnCalc) {
 			controller.setDataBaseSettings(pnlDb.dbAddress.getText(), pnlDb.userName.getText(), pnlDb.password.getText(), "250",
 					pnlDb.table.getText());
+			controller.setMultiSettings(pnlMulti.txtstartIt.getText(), pnlMulti.txtendIt.getText(), pnlMulti.txtincIt.getText(), pnlMulti.txtstartLearningRate.getText(), pnlMulti.txtendLearningRate.getText(), pnlMulti.txtincLearningRate.getText(), pnlMulti.txtstartMomentum.getText(), pnlMulti.txtendMomentum.getText(), pnlMulti.txtincMomentum.getText(), pnlMulti.txtNbrOfThreads.getText());
 			controller.calculate(pnlAnn.iterations.getText(), pnlAnn.learningRate.getText(), pnlAnn.momentum.getText(),
 					pnlAnn.txtNeuralNetWorkPath.getText(), pnlAnn.txtDatasetName.getText(), pnlAnn.txtFinalNNName.getText(),
 					pnlLeague.txtLeagueName.getText(), pnlLeague.txtLeagueAPIid.getText(), pnlDb.table.getText());

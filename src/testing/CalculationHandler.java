@@ -38,6 +38,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 	private ConnectDatabase connection;
 	private int testMatchesFrom;
 	private int testMatchesTo;
+	private String settings;
 
 	/**
 	 * Constructor that sets all the parameters
@@ -56,7 +57,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 	 */
 	public CalculationHandler(Controller controller, int iterations, double learningRate, double momentum,
 			String searchPath, String datasetName, String finalNNName, String leagueName, String[] leagueAPIid,
-			String table, ConnectDatabase connection) {
+			String table, String settings,  ConnectDatabase connection) {
 		this.controller = controller;
 		this.iterations = iterations;
 		this.learningRate = learningRate;
@@ -67,10 +68,11 @@ public class CalculationHandler extends Thread implements PrintListener {
 		this.leagueName = leagueName;
 		this.table = table;
 		this.connection = connection;
+		this.settings = settings;
 		temp = leagueAPIid;
 		this.testMatchesFrom = 1;
-		this.testMatchesTo = 37;
-		start();
+		this.testMatchesTo = 39;
+
 	}
 
 	/**
@@ -97,57 +99,66 @@ public class CalculationHandler extends Thread implements PrintListener {
 	 * Calculates the outcome of the upcoming matches and puts them into the database
 	 */
 	public void calculate(int matchDay) {
-		controller.disableButtons();
-		
-		LeagueCreator ligaSkapare = null;
-	
-		connection.connect();
-		System.out.println("Database connected");
-		
-		System.out.println("Starts leaguecreator..\n\n");
-		ligaSkapare = new LeagueCreator(leagueName, leagueAPIId, datasetName, matchDay);
-		ligaSkapare.createLeague();
 
-		// Get the created league
-		League league = ligaSkapare.getLeague();
+		synchronized (this) {
+			League league;
+			DataSet trainingSet;
+			ArrayList<Match> matchesToTest;
+			Season seasonToTest;
+			controller.disableButtons();
 
-		// Load the trainingset
-		DataSet trainingSet = DataSet.load(datasetName);
-		System.out.println("Dataset loaded..");
+			LeagueCreator ligaSkapare = null;
 
-		// Train the AI with the trainingset
-		System.out.println("Starts ai-handler using dataset with " +trainingSet.getRows().size() + " rows");
-		new AIHand(controller).trainNetwork(trainingSet, norm, iterations, learningRate, momentum, searchPath, finalNNName);
-		ArrayList<Season> seasons = league.getSeasons(); // Get the seasons from league
-		ArrayList<Match> matchesToTest = new ArrayList<Match>(); // Create a list that will contain the upcoming matches
-		Season seasonToTest = seasons.get(seasons.size() - 1); // The current season of the league
-		ArrayList<Match> matchesFromSeason = seasonToTest.getAllMatches(); // List of all the matches in the season
+			connection.connect();
+			System.out.println("Database connected");
 
-		// Get the upcoming matches and add them to the list of matches that will be tested
-		System.out.println("Starts updating old matches and produce output for unplayed matches..");
-		for (Match match : matchesFromSeason) {
-			if (match.getStatus().equals("TIMED")) {
-				matchesToTest.add(match);
-			} else if (match.getStatus().equals("FINISHED")) {
-				connection.updateCalculatedMatches(match);
+			System.out.println("Starts leaguecreator..\n\n");
+			ligaSkapare = new LeagueCreator(leagueName, leagueAPIId, datasetName, matchDay);
+			ligaSkapare.createLeague();
+
+			// Get the created league
+			league = ligaSkapare.getLeague();
+
+			// Load the trainingset
+			trainingSet = DataSet.load(datasetName);
+			System.out.println("Dataset loaded..");
+
+			// Train the AI with the trainingset
+			System.out.println("Starts ai-handler using dataset with " +trainingSet.getRows().size() + " rows");
+
+			new AIHand(controller).trainNetwork(trainingSet, norm, iterations, learningRate, momentum, searchPath, finalNNName);
+			ArrayList<Season> seasons = league.getSeasons(); // Get the seasons from league
+			matchesToTest = new ArrayList<Match>(); // Create a list that will contain the upcoming matches
+			seasonToTest = seasons.get(seasons.size() - 1); // The current season of the league
+			ArrayList<Match> matchesFromSeason = seasonToTest.getAllMatches(); // List of all the matches in the season
+
+			// Get the upcoming matches and add them to the list of matches that will be tested
+			System.out.println("Starts updating old matches and produce output for unplayed matches..");
+			for (Match match : matchesFromSeason) {
+				if (match.getStatus().equals("TIMED")) {
+					matchesToTest.add(match);
+				} else if (match.getStatus().equals("FINISHED")) {
+					connection.updateCalculatedMatches(match);
+				}
 			}
-		}
-		
-		// Produce the calculation for each match and save it to the database.
-		System.out.print("Starts ProduceOutput");
-		ProduceOutput produceOutput = new ProduceOutput(finalNNName);
-		
-		for (Match match : matchesToTest) {
-			produceOutput.getOutputForMatch(match, norm);
-			connection.insertIntoTable(table);
-			connection.createNewMatch(match, seasonToTest.getYear(), league.getName());
-		}
 
-		// Close the db-conection
-		connection.disconnect();
-		System.out.println("Db-connection closed");
-		controller.enableButtons();
-		System.out.println("Completed!");
+			// Produce the calculation for each match and save it to the database.
+			System.out.print("Starts ProduceOutput");
+
+			ProduceOutput produceOutput = new ProduceOutput(finalNNName);
+
+			for (Match match : matchesToTest) {
+				produceOutput.getOutputForMatch(match, norm);
+				connection.insertIntoTable(table);
+				connection.createNewMatch(match, seasonToTest.getYear(), league.getName(), settings);
+			}
+
+			// Close the db-conection
+			connection.disconnect();
+			System.out.println("Db-connection closed");
+			controller.enableButtons();
+			System.out.println("Completed!");
+		}
 	}
 
 	@Override

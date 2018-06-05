@@ -113,7 +113,7 @@ public class ConnectDatabase {
 	 * @param leagueName The name of the league.
 	 */
 
-	public void createNewMatch(Match match, int season, String leagueName) {
+	public synchronized void createNewMatch(Match match, int season, String leagueName, String settings) {
 		String homeTeam = match.getHomeTeam().getName();
 		String awayTeam = match.getAwayTeam().getName();
 		Date date = Date.valueOf(match.getDate());
@@ -124,10 +124,10 @@ public class ConnectDatabase {
 		double calcAway = calculations[2];
 
 		String sql = "INSERT INTO " + table
-				+ " (HomeTeam, AwayTeam, DatePlayed, TimePlayed, Season, League, CalcHome, CalcAway, CalcDraw, Recommendation, Status)"
+				+ " (HomeTeam, AwayTeam, DatePlayed, TimePlayed, Season, League, CalcHome, CalcAway, CalcDraw, Recommendation, Status, Settings)"
 				+ " VALUES ('" + homeTeam + "', '" + awayTeam + "', '" + date + "', '" + time + "', '" + season + "', '"
 				+ leagueName + "', '" + calcHome + "', '" + calcAway + "', '" + calcDraw + "', '"
-				+ match.getRecommendation() + "', '" + match.getStatus()
+				+ match.getRecommendation() + "', '" + match.getStatus()+ "', '" + settings
 				+ "') ON DUPLICATE KEY UPDATE Recommendation = '" + match.getRecommendation() + "' , CalcHome = '"
 				+ calcHome + "' , CalcAway = '" + calcAway + "' , CalcDraw = '" + calcDraw + "'";
 		PreparedStatement statement;

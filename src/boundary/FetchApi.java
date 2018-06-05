@@ -23,7 +23,7 @@ public class FetchApi {
 	 *            http://api.football-data.org/v1/competitions/
 	 * @return JsonObject with all teams
 	 */
-	public static JSONObject getJsonTeams(int id) {
+	public static synchronized JSONObject getJsonTeams(int id) {
 		try {
 			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id + "/teams");
 		} catch (Exception e) {
@@ -32,7 +32,7 @@ public class FetchApi {
 		return object;
 	}
 	
-	public static JSONObject getJsonTeamsFromHome(int id) {
+	public static synchronized JSONObject getJsonTeamsFromHome(int id) {
 		try {
 			object = readJSONfromURL("http://deepbet.ddns.net/API/" + id + "_teams.json");
 		} catch (Exception e) {
@@ -49,7 +49,7 @@ public class FetchApi {
 	 *            http://api.football-data.org/v1/competitions/
 	 * @return JsonObject with season-information
 	 */
-	public static JSONObject getJsonSeason(int id) {
+	public static synchronized JSONObject getJsonSeason(int id) {
 		try {
 			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id);
 		} catch (Exception e) {
@@ -58,7 +58,7 @@ public class FetchApi {
 		return object;
 	}
 	
-	public static JSONObject getJsonSeasonFromHome(int id) {
+	public static synchronized JSONObject getJsonSeasonFromHome(int id) {
 		try {
 			object = readJSONfromURL("http://deepbet.ddns.net/API/" + id + "_.json");
 		} catch (Exception e) {
@@ -75,7 +75,7 @@ public class FetchApi {
 	 *            http://api.football-data.org/v1/competitions/
 	 * @return JsonObject with all matches in a specific league
 	 */
-	public static JSONObject getJsonMatches(int id) {
+	public static synchronized JSONObject getJsonMatches(int id) {
 		try {
 			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id + "/fixtures");
 		} catch (Exception e) {
@@ -91,7 +91,7 @@ public class FetchApi {
 	 * @param id defines what file on server the data to be fetched is located.
 	 * @return JSONObject A JSONObject containing all the matches from a specific year stored in our server.
 	 */
-	public static JSONObject getJsonMatchesFromHome(int id) {
+	public static synchronized JSONObject getJsonMatchesFromHome(int id) {
 		try {
 			object = readJSONfromURL("http://deepbet.ddns.net/API/" + id + "_fixtures.json");
 		} catch (Exception e) {
@@ -108,7 +108,7 @@ public class FetchApi {
 	 * @param matchDay the round for the table positions that is to be fetched.
 	 * @return JSONObject containing the table positions for the specified matchday.
 	 */
-	public static JSONObject getJsonTablePosition(int id, int matchDay) {
+	public static synchronized JSONObject getJsonTablePosition(int id, int matchDay) {
 		try {
 			object = readJSONfromURL(
 					"http://api.football-data.org/v1/competitions/" + id + "/leagueTable/?matchday=" + matchDay);
@@ -124,7 +124,7 @@ public class FetchApi {
 	 * @param url the address to the API.
 	 * @return JSONObject containing all the data in that API.
 	 */
-	public static JSONObject readJSONfromURL(String url) {
+	public static synchronized JSONObject readJSONfromURL(String url) {
 		// These code snippets use an open-source library. http://unirest.io/java
 		HttpResponse<JsonNode> response = null;
 		try {

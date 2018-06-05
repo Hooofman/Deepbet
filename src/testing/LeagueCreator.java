@@ -45,7 +45,7 @@ public class LeagueCreator {
 	 * @param leagueName the name of the league
 	 * @param apiId id of the league used for connection with the API
 	 */
-	public void createLeague() {
+	public synchronized void createLeague() {
 		// Create new season
 		System.out.println("Starts creating league: " + leagueName);
 		
@@ -58,7 +58,7 @@ public class LeagueCreator {
 				league.resetTeamsForNewSeason();
 				System.out.println("Teams reset for comming season");
 			}
-
+			System.out.println("Starts fetching Season from API");
 			JSONObject jsonSeason = FetchApi.getJsonSeasonFromHome(apiId[i]);
 			System.out.println("Season-object fetched from API");
 			

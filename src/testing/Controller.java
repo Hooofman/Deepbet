@@ -3,8 +3,12 @@ package testing;
 import java.awt.Graphics;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import boundary.ConnectDatabase;
 import boundary.ReadFromFile;
@@ -24,6 +28,16 @@ public class Controller {
 	private CalculationHandler calcHandler;
 	private ConnectDatabase connection;
 	private boolean shouldIDraw = false;
+	private int startIt;
+	private int endIt;
+	private int incIt;
+	private double startLR;
+	private double endLR;
+	private double incLR;
+	private double startMomentum;
+	private double endMomentum;
+	private double incMomentum;
+	private int nbrOfThreads;
 
 	/**
 	 * Constructor. Creates new DB-connection, points console-prints to GUI.
@@ -174,8 +188,25 @@ public class Controller {
 		int iterations = Integer.parseInt(it);
 		double learningRate = Double.parseDouble(learnRate);
 		double momentum = Double.parseDouble(momentu);
-		calcHandler = new CalculationHandler(this, iterations, learningRate, momentum, NNPath, datasetName, finalNNName,
-				leagueName, leageuAPIId.split(", "), table, connection);
+		
+		
+		int number = 1;
+		ExecutorService pool  = Executors.newFixedThreadPool(nbrOfThreads);
+		for(int currentIt = this.startIt; currentIt < this.endIt; currentIt+=this.incIt) {
+			for(double currentLR = this.startLR; currentLR < this.endLR; currentLR += this.incLR) {
+				for(double currentMomentum = this.startMomentum; currentMomentum < this.endMomentum; currentMomentum += this.incMomentum) {
+					String settings = "_"+currentIt+"_"+currentLR+"_"+currentMomentum;
+					connection = new ConnectDatabase();
+					pool.execute(new CalculationHandler(this, currentIt, currentLR, currentMomentum, NNPath, datasetName+"_"+number, finalNNName+"_"+number,
+							leagueName, leageuAPIId.split(", "), table, settings, connection));
+					number++;
+				}
+				
+			}
+			
+			
+		}
+		pool.shutdown();    
 	}
 	
 	public boolean shouldIDraw() {
@@ -185,5 +216,24 @@ public class Controller {
 	public void decideIfToDraw(boolean bool) {
 		this.shouldIDraw = bool;
 	}
+
+	public void setMultiSettings(String startIt, String endIt, String incIt, String startLR, String endLR, String incLR,
+			String startMomentum, String endMomentum, String incMomentum, String threads) {
+		this.startIt = Integer.parseInt(startIt);
+		this.endIt = Integer.parseInt(endIt);
+		this.incIt = Integer.parseInt(incIt);
+		
+		this.startLR = Double.parseDouble(startLR);
+		this.endLR = Double.parseDouble(endLR);
+		this.incLR = Double.parseDouble(incLR);
+		
+		this.startMomentum = Double.parseDouble(startMomentum);
+		this.endMomentum = Double.parseDouble(endMomentum);
+		this.incMomentum = Double.parseDouble(incMomentum);
+		this.nbrOfThreads = Integer.parseInt(threads);
+		
+	}
+
+
 
 }

@@ -31,42 +31,49 @@ public class FixtureHandler {
 		/**
 		 * Get all fixtures from JSON
 		 */
+		System.out.println(Thread.currentThread() +" kör nu");
 		System.out.println("Starts creating matches: " + season.getLeageName() + " / " + season.getYear());
-		
-		if (season.getYear() == 2017) { // TODO: Remove this part later. Get everything from external API when we are done, not from home.
-			jsonMatches = FetchApi.getJsonMatches(season.getId());
-		} else {
-			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getId());
-		}
+
+
+		jsonMatches = FetchApi.getJsonMatchesFromHome(season.getId());
+
 		fixtures = jsonMatches.getJSONArray("fixtures");
 		System.out.println("Fixtures fetched from API");
 
-		
+
 		// Loop through all fixtures
 		int numberOfMatchesAdded = 0;
 		for (int i = 0; i < fixtures.length(); i++) {
 			String status ="FINISHED";
 			// Check if the match is finished
-	//status = fixtures.getJSONObject(i).optString("status");
+			//status = fixtures.getJSONObject(i).optString("status");
 
 			if(status == null || status.length() <1) {
 				status = "FINISHED";
 			}
 			// Get the teamnames from API and compare with the seasons team-objects to get the right team
-			Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
-			Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
-			int matchDay = fixtures.getJSONObject(i).getInt("matchday");
-			String dateString = fixtures.getJSONObject(i).getString("date");
+			int matchDay = 0;
+			Match match;
+			Team homeTeam;
+			Team awayTeam;
+			synchronized(FixtureHandler.class){
+				
 
-			// Create the match-object
-			Match match = new Match(homeTeam, awayTeam, matchDay);
+				homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
+				awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
+				matchDay = fixtures.getJSONObject(i).getInt("matchday");
+				String dateString = fixtures.getJSONObject(i).getString("date");
 
-			match.setDate(dateString.substring(0, 10));
-			match.setTime(dateString.substring(11, 19));
-			match.setIsFinished(status);
-			
-			match.produceInputArray(5); // Produce the input array for the match used in the dataset
+				// Create the match-object
+				 match = new Match(homeTeam, awayTeam, matchDay);
 
+				match.setDate(dateString.substring(0, 10));
+				match.setTime(dateString.substring(11, 19));
+				match.setIsFinished(status);
+
+				match.produceInputArray(5); // Produce the input array for the match used in the dataset
+				
+			}
 			// What to do if the match is already played
 			if (season.getYear() < 2017 || (season.getYear() == 2017 && matchDay < currentMatchday)) {
 
@@ -83,7 +90,7 @@ public class FixtureHandler {
 				awayTeam.setGoalsAgainst(homeGoals);
 				match.setOutcome();
 				match.produceOutputArray();
-				
+
 				// Add match to the season and update the table for the season
 				season.addMatch(match);
 				season.updateTable();
@@ -100,10 +107,17 @@ public class FixtureHandler {
 				}
 				season.addMatch(match);
 			}
+			
 		}
-		
+		System.out.println(Thread.currentThread() +" avslutar nu");
 		System.out.println("Fixtures created for season: " + season.getLeageName() + " / " + season.getYear());
 		System.out.println(numberOfMatchesAdded +" matches added to DataSet");
-		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }

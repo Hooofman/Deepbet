@@ -23,21 +23,21 @@ public class FetchApi {
 	 *            http://api.football-data.org/v1/competitions/
 	 * @return JsonObject with all teams
 	 */
-	public static JSONObject getJsonTeams(int id) {
+	public static JSONObject getJsonTeams(int id, int id2) {
 		try {
-			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id + "/teams");
+			object = readJSONfromURL("http://api.football-data.org/v2/competitions/" + id + "/teams?season="+id2);
 		} catch (Exception e) {
 			System.out.println("Error when fetching teams from API");
 		}
 		return object;
 	}
 	
-	public static JSONObject getJsonTeamsFromHome(int id) {
+	public static JSONObject getJsonTeamsFromHome(int leagueId, int seasonId) {
 		try {
-			object = readJSONfromURL("http://deepbet.ddns.net/API/" + id + "_teams.json");
+			object = readJSONfromURL("http://deepbet.ddns.net/API/" + leagueId + "_teams.json");
 		} catch (Exception e) {
 			System.out.println("Error when fetching teams from Home, trying from API");
-			object = getJsonTeams(id);
+			object = getJsonTeams(leagueId, seasonId);
 		}
 		return object;
 	}
@@ -49,21 +49,40 @@ public class FetchApi {
 	 *            http://api.football-data.org/v1/competitions/
 	 * @return JsonObject with season-information
 	 */
-	public static JSONObject getJsonSeason(int id) {
+	public static JSONObject getJsonSeason(int leagueId, int seasonId) {
 		try {
-			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id);
+			object = readJSONfromURL("http://api.football-data.org/v2/competitions/" + leagueId+"/matches?seasons="+seasonId);
 		} catch (Exception e) {
 			System.out.println("Error when fetching season from API");
 		}
 		return object;
 	}
 	
-	public static JSONObject getJsonSeasonFromHome(int id) {
+	public static JSONObject getJsonSeasonFromHome(int id, int id2) {
 		try {
 			object = readJSONfromURL("http://deepbet.ddns.net/API/" + id + "_.json");
 		} catch (Exception e) {
 			System.out.println("Error when fetching season from Home, trying from API");
-			object = getJsonSeason(id);
+			object = getJsonSeason(id, id2);
+		}
+		return object;
+	}
+	
+	public static JSONObject getJsonLeague(int id) {
+		try {
+			object = readJSONfromURL("http://api.football-data.org/v2/competitions/" + id);
+		} catch (Exception e) {
+			System.out.println("Error when fetching season from API");
+		}
+		return object;
+	}
+	
+	public static JSONObject getJsonLeagueFromHome(int id) {
+		try {
+			object = readJSONfromURL("http://deepbet.ddns.net/API/" + id + "_.json");
+		} catch (Exception e) {
+			System.out.println("Error when fetching season from Home, trying from API");
+			object = getJsonLeague(id);
 		}
 		return object;
 	}
@@ -75,9 +94,9 @@ public class FetchApi {
 	 *            http://api.football-data.org/v1/competitions/
 	 * @return JsonObject with all matches in a specific league
 	 */
-	public static JSONObject getJsonMatches(int id) {
+	public static JSONObject getJsonMatches(int leagueId, int seasonId) {
 		try {
-			object = readJSONfromURL("http://api.football-data.org/v1/competitions/" + id + "/fixtures");
+			object = readJSONfromURL("http://api.football-data.org/v2/competitions/" + leagueId + "/matches?seasons="+seasonId);
 		} catch (Exception e) {
 			System.out.println("Error when fetching fixtures from API");
 		}
@@ -91,12 +110,12 @@ public class FetchApi {
 	 * @param id defines what file on server the data to be fetched is located.
 	 * @return JSONObject A JSONObject containing all the matches from a specific year stored in our server.
 	 */
-	public static JSONObject getJsonMatchesFromHome(int id) {
+	public static JSONObject getJsonMatchesFromHome(int id, int id2) {
 		try {
 			object = readJSONfromURL("http://deepbet.ddns.net/API/" + id + "_fixtures.json");
 		} catch (Exception e) {
 			System.out.println("Error when fetching fixtures from Home, trying API");
-			object = getJsonMatches(id);
+			object = getJsonMatches(id, id2);
 		}
 		return object;
 	}

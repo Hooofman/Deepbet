@@ -270,7 +270,7 @@ public class GUI extends JFrame implements ActionListener {
 					pnlDb.table.getText());
 			controller.calculate(pnlAnn.iterations.getText(), pnlAnn.learningRate.getText(), pnlAnn.momentum.getText(),
 					pnlAnn.txtNeuralNetWorkPath.getText(), pnlAnn.txtDatasetName.getText(), pnlAnn.txtFinalNNName.getText(),
-					pnlLeague.txtLeagueName.getText(), pnlLeague.txtLeagueAPIid.getText(), pnlDb.table.getText());
+					pnlLeague.txtLeagueName.getText(), pnlLeague.txtLeagueAPIid.getText(),pnlLeague.txtNumberOfSeasons.getText(), pnlDb.table.getText());
 		}
 	}
 

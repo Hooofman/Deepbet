@@ -31,8 +31,8 @@ public class CalculationHandler extends Thread implements PrintListener {
 	private String finalNNName;
 	private String leagueName;
 	private String table;
-	private int[] leagueAPIId;
-	private String[] temp; // Temporary holder for leagueAPIid.
+	private int leagueAPIId;
+	private int numberOfSeasons;
 	private ConnectDatabase connection;
 
 	/**
@@ -51,7 +51,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 	 * @param connection The connections to use to connecct to the database
 	 */
 	public CalculationHandler(Controller controller, int iterations, double learningRate, double momentum,
-			String searchPath, String datasetName, String finalNNName, String leagueName, String[] leagueAPIid,
+			String searchPath, String datasetName, String finalNNName, String leagueName, int leagueAPIid, int numberOfSeasons,
 			String table, ConnectDatabase connection) {
 		this.controller = controller;
 		this.iterations = iterations;
@@ -63,7 +63,8 @@ public class CalculationHandler extends Thread implements PrintListener {
 		this.leagueName = leagueName;
 		this.table = table;
 		this.connection = connection;
-		temp = leagueAPIid;
+		this.numberOfSeasons = numberOfSeasons;
+		this.leagueAPIId = leagueAPIid;
 		start();
 	}
 
@@ -71,17 +72,6 @@ public class CalculationHandler extends Thread implements PrintListener {
 	 * Converts the String[] temp to an int-array.
 	 */
 	public void run() {
-		int[] array = new int[temp.length];
-		try {
-			for (int i = 0; i < array.length; i++) {
-				array[i] = Integer.parseInt(temp[i]);
-			}
-			this.leagueAPIId = array;
-
-		} catch (NumberFormatException e) {
-			System.out.println(e + "\nERROR! INCORRECT INPUT IN LEAGUE INPUT");
-			this.interrupt();
-		}
 		calculate();
 	}
 
@@ -95,7 +85,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		System.out.println("Database connected");
 		
 		System.out.println("Starts leaguecreator..");
-		ligaSkapare = new LeagueCreator(leagueName, leagueAPIId, datasetName);
+		ligaSkapare = new LeagueCreator(leagueName, leagueAPIId, numberOfSeasons, datasetName);
 		ligaSkapare.createLeague();
 
 		// Get the created league
@@ -116,7 +106,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		// Get the upcoming matches and add them to the list of matches that will be tested
 		System.out.println("Starts updating old matches and produce output for unplayed matches..");
 		for (Match match : matchesFromSeason) {
-			if (match.getStatus().equals("TIMED")) {
+			if (!match.getStatus().equals("FNISHED") && match.getRound() <seasonToTest.getCurrentRound() + 2) {
 				matchesToTest.add(match);
 			} else if (match.getStatus().equals("FINISHED")) {
 				connection.updateCalculatedMatches(match);
@@ -125,7 +115,7 @@ public class CalculationHandler extends Thread implements PrintListener {
 		
 		// Produce the calculation for each match and save it to the database.
 		System.out.println("Starts ProduceOutput");
-		ProduceOutput produceOutput = new ProduceOutput("SavedFiles/nnet/trained/" +finalNNName);
+		ProduceOutput produceOutput = new ProduceOutput(System.getProperty("user.dir")+"/SavedFiles/nnet/trained/" +finalNNName);
 		
 		for (Match match : matchesToTest) {
 			produceOutput.getOutputForMatch(match, norm);

@@ -28,7 +28,7 @@ public class ProduceOutput {
 	 * @param norm the normalized values
 	 */
 	public void getOutputForMatch(Match match, Norm norm) {
-		NeuralNetwork network = NeuralNetwork.createFromFile(nnPath); // Load the trained network
+		NeuralNetwork network = NeuralNetwork.createFromFile(nnPath+".nnet"); // Load the trained network
 		double[] inputArray = norm.normalizeInput(match.getMatchArray());
 		network.setInput(inputArray); // Get the array from the match
 		network.calculate(); // Test the match against the network

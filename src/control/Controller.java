@@ -169,13 +169,15 @@ public class Controller {
 	 * @param NNPath The search path to the neural network template.
 	 */
 	public void calculate(String it, String learnRate, String momentu, String NNPath, String datasetName,
-			String finalNNName, String leagueName, String leageuAPIId, String table) {
+			String finalNNName, String leagueName, String leageuAPIId, String numberOfSeasons, String table) {
 
 		int iterations = Integer.parseInt(it);
 		double learningRate = Double.parseDouble(learnRate);
 		double momentum = Double.parseDouble(momentu);
+		int numberOfSeason = Integer.parseInt(numberOfSeasons);
+		int leagueId = Integer.parseInt(leageuAPIId);
 		calcHandler = new CalculationHandler(this, iterations, learningRate, momentum, NNPath, datasetName, finalNNName,
-				leagueName, leageuAPIId.split(", "), table, connection);
+				leagueName, leagueId, numberOfSeason, table, connection);
 	}
 	
 	public boolean shouldIDraw() {

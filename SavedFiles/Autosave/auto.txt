@@ -1,6 +1,7 @@
 Deepbet123
 deepbet
 jdbc:mysql://deepbet.ddns.net:3306/deepbet
+<<<<<<< HEAD
 games3
 2000
 0.8
@@ -8,6 +9,15 @@ games3
 set123
 C:\Users\johannes.roos\Documents\GitHub\Deepbet\SavedFiles/nnet/template/withBias1
 traind123
+=======
+games2
+2000
+0.8
+0.4
+withBias108042000set
+C:\git\Deepbet\SavedFiles/nnet/withBias1
+withBias108042000trained
+>>>>>>> parent of 61927a8... settingsfil
 PL
 113
  114
@@ -17,4 +27,3 @@ PL
  354
  398
  426
- 445

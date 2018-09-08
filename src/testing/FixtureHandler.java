@@ -68,7 +68,7 @@ public class FixtureHandler {
 			match.produceInputArray(5); // Produce the input array for the match used in the dataset
 
 			// What to do if the match is already played
-			if (season.getYear() < 2017 || (season.getYear() == 2017 && matchDay < currentMatchday)) {
+			if (season.getYear() < 2016 || (season.getYear() == 2016 && matchDay < currentMatchday)) {
 
 				// Get data for the match
 				int homeGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsHomeTeam");

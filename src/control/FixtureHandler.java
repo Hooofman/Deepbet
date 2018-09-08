@@ -33,47 +33,40 @@ public class FixtureHandler {
 		System.out.println("Starts creating matches: " + season.getLeageName() + " / " + season.getYear());
 		
 		if (season.getYear() == 2018) { // TODO: Remove this part later. Get everything from external API when we are done, not from home.
-			jsonMatches = FetchApi.getJsonMatches(season.getLeague().getId(), season.getId());
+			jsonMatches = FetchApi.getJsonMatches(season.getId());
 		} else {
-			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getLeague().getId(), season.getId());
+			jsonMatches = FetchApi.getJsonMatchesFromHome(season.getId());
 		}
-		fixtures = jsonMatches.getJSONArray("matches");
+		fixtures = jsonMatches.getJSONArray("fixtures");
 		System.out.println("Fixtures fetched from API");
 
 		// Loop through all fixtures
 		for (int i = 0; i < fixtures.length(); i++) {
 
 			// Check if the match is finished
-			String status = "FINISHED";
-			status = fixtures.getJSONObject(i).optString("status");
+			String status = fixtures.getJSONObject(i).optString("status");
 
 			// Get the teamnames from API and compare with the seasons team-objects to get the right team
-			Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getJSONObject("homeTeam").getString("name"));
-			Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getJSONObject("awayTeam").getString("name"));
-			int matchDay = fixtures.getJSONObject(i).getInt("matchday");			
-			//String dateString = fixtures.getJSONObject(i).getString("utcDate");
-			
-			System.out.println(matchDay);
-			//System.out.println(dateString);
-			
-			
+			Team homeTeam = season.getTeam(fixtures.getJSONObject(i).getString("homeTeamName"));
+			Team awayTeam = season.getTeam(fixtures.getJSONObject(i).getString("awayTeamName"));
+			int matchDay = fixtures.getJSONObject(i).getInt("matchday");
+			String dateString = fixtures.getJSONObject(i).getString("date");
+
 			// Create the match-object
 			Match match = new Match(homeTeam, awayTeam, matchDay);
 
-//			match.setDate(dateString.substring(0, 10));
-//			match.setTime(dateString.substring(11, 19));
-			match.setDate("");
-			match.setTime("");
+			match.setDate(dateString.substring(0, 10));
+			match.setTime(dateString.substring(11, 19));
 			match.setIsFinished(status);
 			
 			match.produceInputArray(5); // Produce the input array for the match used in the dataset
 
 			// What to do if the match is already played
-			if (status.equals("FINISHED")) {
+			if (!status.equals("TIMED") && !status.equals("SCHEDULED") && !status.equals("POSTPONED")) {
 
 				// Get data for the match
-				int homeGoals = fixtures.getJSONObject(i).getJSONObject("score").getJSONObject("fullTime").optInt("homeTeam"); 
-				int awayGoals = fixtures.getJSONObject(i).getJSONObject("score").getJSONObject("fullTime").optInt("awayTeam");
+				int homeGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsHomeTeam");
+				int awayGoals = fixtures.getJSONObject(i).getJSONObject("result").optInt("goalsAwayTeam");
 
 				// Set variables needed
 				match.setHomeGoals(homeGoals);

@@ -143,8 +143,4 @@ public class Season {
 		}
 		return matchesToReturn;
 	}
-	
-	public League getLeague() {
-		return this.league;
-	}
 }

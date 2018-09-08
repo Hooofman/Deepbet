@@ -4,8 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.neuroph.core.data.DataSet;
 
-import com.google.gson.JsonObject;
-
 import boundary.FetchApi;
 import entity.League;
 import entity.Season;
@@ -20,10 +18,9 @@ import entity.Season;
 public class LeagueCreator {
 	private League league;
 	private DataSet trainingSet;
-	private int apiId;
+	private int[] apiId;
 	private String datasetName;
 	private String leagueName;
-	private int numberOfSeaons;
 
 	/**
 	 * Constructor
@@ -31,14 +28,12 @@ public class LeagueCreator {
 	 * @param apiId array containing ids to use for the API
 	 * @param datasetName the name of the dataset to create
 	 */
-	public LeagueCreator(String leagueName, int apiId, int numberOfSeaons, String datasetName) {
+	public LeagueCreator(String leagueName, int[] apiId, String datasetName) {
 		this.apiId = apiId;
-		this.numberOfSeaons = numberOfSeaons;
 		this.trainingSet = new DataSet(22, 3); // Creates a dataset used for training the network
 		this.datasetName = datasetName;
 		this.leagueName = leagueName;
 		this.league = new League(leagueName);
-		this.league.setId(apiId);
 	}
 
 	/**
@@ -48,20 +43,10 @@ public class LeagueCreator {
 	 * @param apiId id of the league used for connection with the API
 	 */
 	public void createLeague() {
-		System.out.println(apiId);
 		// Create new season
 		System.out.println("Starts creating league: " + leagueName);
-		int[] seasonIds = new int[this.numberOfSeaons];
-		JSONObject jsonLeague = FetchApi.getJsonLeague(apiId);
-		for(int i = 0; i < this.numberOfSeaons; i++) {
-			try {
-				seasonIds[i] = jsonLeague.getJSONArray("seasons").getJSONObject((this.numberOfSeaons-1-i)).getInt("id");
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
 		
-		for (int i = 0; i < this.numberOfSeaons; i++) {
+		for (int i = 0; i < apiId.length; i++) {
 			// Removes the last three teams for each season and resets the variables for the teams that will play in the next season of the league
 			if (i != 0) {
 				league.removeLast3Teams();
@@ -70,24 +55,17 @@ public class LeagueCreator {
 				System.out.println("Teams reset for comming season");
 			}
 
-			JSONObject jsonSeason = FetchApi.getJsonSeason(apiId, seasonIds[i]);
+			JSONObject jsonSeason = FetchApi.getJsonSeasonFromHome(apiId[i]);
 			System.out.println("Season-object fetched from API");
 			
 			try {
 				// Set variables needed
-//				int year = jsonSeason.getInt("year");
-//				int numberOfRounds = jsonSeason.getInt("numberOfMatchdays");
-//				int numberOfTeams = jsonSeason.getInt("numberOfTeams");
-//				int numberOfGames = jsonSeason.getInt("numberOfGames");
-//				int LeagueId = jsonSeason.getInt("id");
-
-				int year = 2014+i;
-				int numberOfRounds = 38;
-				int numberOfTeams = 20;
-				int numberOfGames = 380;
-				int LeagueId = seasonIds[i];
-				
-				int currentRound = jsonSeason.getJSONArray("matches").getJSONObject(0).getJSONObject("season").getInt("id");
+				int year = jsonSeason.getInt("year");
+				int numberOfRounds = jsonSeason.getInt("numberOfMatchdays");
+				int numberOfTeams = jsonSeason.getInt("numberOfTeams");
+				int numberOfGames = jsonSeason.getInt("numberOfGames");
+				int LeagueId = jsonSeason.getInt("id");
+				int currentRound = jsonSeason.getInt("currentMatchday");
 
 				// Create the season-object
 				Season season = new Season(league, year, LeagueId, numberOfRounds, currentRound);

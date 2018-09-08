@@ -21,9 +21,6 @@ public class LeaguePanel extends JPanel {
 	protected JComboBox comboBoxOpenLeague;
 	protected JLabel lblLoadFromCombo;
 	
-	protected JTextField txtNumberOfSeasons;
-	protected JLabel lblNumberOfSeasons;
-	
 	public LeaguePanel(ActionListener listener) {
 		init();
 		comboBoxOpenLeague.addActionListener(listener);
@@ -38,10 +35,6 @@ public class LeaguePanel extends JPanel {
 		lblLeagueAPIid = new JLabel("Season-IDs from API, separate with ,");
 		txtLeagueName = new JTextField();
 		txtLeagueAPIid = new JTextField();
-		
-		lblNumberOfSeasons = new JLabel("Number Of Seasons");
-		txtNumberOfSeasons = new JTextField();
-		
 		btnSaveLeagueSettings = new JButton("Save League settings");
 		btnLoadLeagueSettings = new JButton("Load League settings");
 		comboBoxOpenLeague = new JComboBox();
@@ -52,9 +45,6 @@ public class LeaguePanel extends JPanel {
 		
 		add(lblLeagueAPIid);
 		add(txtLeagueAPIid);
-		
-		add(lblNumberOfSeasons);
-		add(txtNumberOfSeasons);
 		
 		add(lblLoadFromCombo);
 		add(comboBoxOpenLeague);

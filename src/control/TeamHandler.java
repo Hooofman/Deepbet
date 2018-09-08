@@ -41,7 +41,7 @@ public class TeamHandler {
 
 		try {
 			// Get the teams playing in a season from JSON
-			jsonTeams = FetchApi.getJsonTeams(season.getLeague().getId(), season.getId());
+			jsonTeams = FetchApi.getJsonTeamsFromHome(season.getId());
 			teams = jsonTeams.getJSONArray("teams");
 
 			for (int i = 0; i < teams.length(); i++) {

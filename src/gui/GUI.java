@@ -63,7 +63,7 @@ public class GUI extends JFrame implements ActionListener {
 	public GUI() {
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-		        if ("Windows".equals(info.getName())) {
+		        if ("Nimbus".equals(info.getName())) {
 		            UIManager.setLookAndFeel(info.getClassName());
 		            break;
 		        }
